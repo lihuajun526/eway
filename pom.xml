@@ -5,7 +5,12 @@
   <groupId>com.qheeshow.eway</groupId>
   <artifactId>eway</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <modules>
+    <module>qheeshow-web</module>
+    <module>qheeshow-wechart</module>
+    <module>qheeshow-backstage</module>
+  </modules>
+  <packaging>pom</packaging>
 
   <name>eway</name>
   <url>http://maven.apache.org</url>
