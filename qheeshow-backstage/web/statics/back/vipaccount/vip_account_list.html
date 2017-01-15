@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table id="datagrid"></table>
+<div id="w" class="easyui-window" title="vip账号详情" data-options="modal:true,closed:true,iconCls:'icon-save'"
+     style="width:600px;height:550px;padding:10px;">
+    <div class="easyui-panel" style="width:500px;height:450px;padding:10px 30px;"
+         buttons="#dlg-buttons">
+        <form id="vipAccountForm" method="post">
+            <input type="hidden" id="id" name="id" value="0"/>
+            <table>
+                <tr>
+                    <td align="right">账号</td>
+                    <td><input id="account" name="account" type="input"/></td>
+                </tr>
+                <tr>
+                    <td align="right">密码</td>
+                    <td><input id="password" name="password" type="input"/></td>
+                </tr>
+                <tr>
+                    <td align="right">会员类型</td>
+                    <td>
+                        <select id="typeName" name="typeName">
+                            <option value="1_爱奇艺">爱奇艺</option>
+                            <option value="2_优酷">优酷</option>
+                            <option value="3_腾讯视频">腾讯视频</option>
+                            <option value="4_乐视">乐视</option>
+                            <option value="5_搜狐视频">搜狐视频</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>有效期</td>
+                    <td>
+                        <input id="effectiveTime" name="effectiveTime" class="easyui-datetimebox"
+                               data-options="required:true,showSeconds:false,showSeconds:false" style="width:150px">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right">
+                        <button type="button" onclick="fix();">确定</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script>
+    function dateFormatter(date) {
+        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-'
+                + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
+    }
+    var list = $('#datagrid').datagrid({
+        border: false,
+        fitColumns: true,
+        singleSelect: true,
+        pagination: true,
+        url: '/sys/account/list',
+        columns: [[
+            {
+                field: 'account', title: '账号', width: 20
+            },
+            {
+                field: 'typeName', title: '类型', width: 20
+            },
+            {
+                field: 'effectiveTime', title: '有效期', width: 20,
+                formatter: function (value, rec) {
+                    return dateFormatter(new Date(rec.effectiveTime));
+                }
+            },
+            {
+                field: 'count', title: '数量', width: 20
+            },
+            {
+                field: 'opt', title: '操作', width: 20, align: 'center',
+                formatter: function (value, rec) {
+                    var btn = '<a class="editcls" onclick="openUpdate(\'' + rec.id + '\')" href="javascript:void(0)">修改</a>&nbsp&nbsp';
+                    btn += '<a class="editcls" onclick="del(' + rec.id + ')" href="javascript:void(0)">删除</a>';
+                    return btn;
+                }
+            }
+        ]]
+    });
+    var pager = list.datagrid('getPager');
+    pager.pagination({
+        buttons: [{
+            iconCls: 'icon-add',
+            handler: function () {
+                $("#id").val("0");
+                $("#vipAccountForm")[0].reset();
+                $('#w').window('open');
+            }
+        },
+            {
+                text: '重置数量',
+                handler: function () {
+                    $.messager.confirm('提示框', '你确定重置会员及商品数量吗?', function (r) {
+                        if (r) {
+                            $.ajax({
+                                url: '/sys/account/count/reset',
+                                type: 'get',
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result.code == 0) {
+                                        $('#datagrid').datagrid('reload');
+                                    } else {
+                                        $.messager.alert('Info', "失败", 'info');
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        ]
+    });
+    //确定
+    function fix() {
+        $.ajax({
+            url: '/sys/account/fix',
+            type: 'post',
+            data: {
+                "id": $("#id").val(),
+                "account": $("#account").val(),
+                "password": $("#password").val(),
+                "typeName": $("#typeName").val(),
+                "count": $("#count").val(),
+                "sEffectiveTime": $('#effectiveTime').datetimebox('getValue')
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code != 1) {
+                    $.messager.alert('Info', "保存失败", 'info');
+                } else {
+                    $('#w').window('close');
+                    $('#datagrid').datagrid('reload');
+                }
+            }
+        });
+    }
+
+    function openUpdate(id) {
+        $.ajax({
+            url: '/sys/account/get?id=' + id,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    var data = result.data;
+                    $("#id").val(data.id);
+                    $("#account").val(data.account);
+                    $("#password").val(data.password);
+                    $("#typeName").val(data.type + "_" + data.typeName);
+                    $("#count").val(data.count);
+                    $('#effectiveTime').datebox("setValue", dateFormatter(new Date(data.effectiveTime)));
+                    $('#w').window('open');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+
+    function del(id) {
+        $.ajax({
+            url: '/sys/account/del?id=' + id,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#datagrid').datagrid('reload');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

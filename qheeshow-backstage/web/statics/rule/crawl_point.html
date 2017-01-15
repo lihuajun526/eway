@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div id="tt" class="easyui-tabs" style="width:850px;height:450px;">
+    <div title="HTML" style="padding:20px;display:none;">
+        <form id="crawlPointForm" method="post">
+            <input id="nodeid" name="nodeid" value="0" type="hidden"/>
+            <input id="id" name="id" value="0" type="hidden"/>
+            <table cellpadding="5">
+                <tr>
+                    <td>URL</td>
+                    <td><input style="width: 500px;" id="url" name="url" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>URL生成器路径</td>
+                    <td><input style="width: 500px;" id="urlCrClasspath" name="urlCrClasspath" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>最大采集页数</td>
+                    <td><input style="width: 500px;" id="maxPage" name="maxPage" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>分类</td>
+                    <td><input id="category" name="category" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>所属源</td>
+                    <td>
+                        <select id="belong" name="belong">
+                            <option value="aqy">爱奇艺</option>
+                            <option value="youku">优酷</option>
+                            <option value="txxw">腾讯新闻</option>
+                            <option value="douban">豆瓣</option>
+                            <option value="zhihu">知乎</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>是否爬取详细页</td>
+                    <td>
+                        <input name="isCrawlDetail" type="radio" value="1"/>是
+                        <input name="isCrawlDetail" type="radio" value="0" checked/>否
+                    </td>
+                </tr>
+                <tr>
+                    <td>JSON解析器路径</td>
+                    <td>
+                        <input style="width: 500px;" id="jsonAnalyzePath" name="jsonAnalyzePath" type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>开关</td>
+                    <td>
+                        <input name="status" type="radio" value="1" checked/>启用
+                        <input name="status" type="radio" value="0"/>停用
+                    </td>
+                </tr>
+                <tr>
+                    <td>请求间隔时间</td>
+                    <td><input style="width: 100px;" id="sleepTime" name="sleepTime" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>请求方式/参数</td>
+                    <td>
+                        <input name="method" type="radio" value="GET" checked onclick="showText(0);"/>GET
+                        <input name="method" type="radio" value="POST" onclick="showText(1);"/>POST
+                        <div id="post_param" style="display: none;">
+                            <textarea id="postParam" name="postParam" cols="60" rows="5"></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>请求头</td>
+                    <td>
+                        <textarea id="header" name="header" cols="68" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cookies</td>
+                    <td>
+                        <textarea id="cookies" name="cookies" cols="68" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>referer</td>
+                    <td>
+                        <input style="width: 500px;" id="referer" name="referer" type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>返回结果编码</td>
+                    <td>
+                        <input name="responseEncode" type="radio" value="utf-8" checked/>UTF8
+                        <input name="responseEncode" type="radio" value="gbk"/>GBK
+                    </td>
+                </tr>
+                <tr>
+                    <td>返回类型</td>
+                    <td>
+                        <select id="responseType" name="responseType">
+                            <option value="HTML">HTML</option>
+                            <option value="JSON">JSON</option>
+                            <option value="XML">XML</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Response处理类</td>
+                    <td><input style="width: 500px;" id="responseHandler" name="responseHandler" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>列表记录规则</td>
+                    <td><input style="width: 500px;" id="listRecordRule" name="listRecordRule" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>列表属性json</td>
+                    <td><input style="width: 500px;" id="listAttrRule" name="listAttrRule" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>链接规则</td>
+                    <td><input style="width: 500px;" id="linkRule" name="linkRule" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>自定义链接规则</td>
+                    <td><input style="width: 500px;" id="linkSelfRule" name="linkSelfRule" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>分页规则</td>
+                    <td><input style="width: 500px;" id="pageIndexRule" name="pageIndexRule" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>分页解析器</td>
+                    <td><input style="width: 500px;" id="pageIndexClasspath" name="pageIndexClasspath" type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>详细页规则</td>
+                    <td><textarea id="pageRule" name="pageRule" cols="68" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input onclick="saveOrUpdate();" value="确定" type="button"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div title="详细页" style="padding:20px;display:none;" onclick="_refresh();">
+        <div id="pp" class="easyui-panel" title="层列表" style="width:700px;height:450px;padding:10px;" data-options="
+            tools:[{iconCls:'icon-reload',handler:function(){$('#pp').panel('refresh','statics/rule/detail_list.html')}}]
+        "></div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(document).ready(function () {
+            if (curNode == null) {
+                return;
+            }
+            $("#nodeid").val(curNode.id);
+            $.get("/crawl/point/get?nodeid=" + curNode.id, function (data) {
+                $("#id").val(data.data.id);
+                $("#url").val(data.data.url);
+                $("#urlCrClasspath").val(data.data.urlCrClasspath);
+                $("#maxPage").val(data.data.maxPage);
+                $("#category").val(data.data.category);
+                $("#jsonAnalyzePath").val(data.data.jsonAnalyzePath);
+                $("#referer").val(data.data.referer);
+                $("#listRecordRule").val(data.data.listRecordRule);
+                $("#listAttrRule").val(data.data.listAttrRule);
+                $("#linkRule").val(data.data.linkRule);
+                $("#linkSelfRule").val(data.data.linkSelfRule);
+                $("#pageIndexRule").val(data.data.pageIndexRule);
+                $("#pageIndexClasspath").val(data.data.pageIndexClasspath);
+                $("#pageRule").val(data.data.pageRule);
+                $("#belong").val(data.data.belong);
+                $("#postParam").val(data.data.postParam);
+                $("#cookies").val(data.data.cookies);
+                $("#sleepTime").val(data.data.sleepTime);
+                $("#header").val(data.data.header);
+                $("#responseHandler").val(data.data.responseHandler);
+                $("#responseType").val(data.data.responseType);
+                $("input[name='isCrawlDetail'][value='" + data.data.isCrawlDetail + "']").attr("checked", true);
+                $("input[name='status'][value='" + data.data.status + "']").attr("checked", true);
+                $("input[name='method'][value='" + data.data.method + "']").attr("checked", true);
+                if (data.data.method == "POST")
+                    $("#post_param").show();
+                $("input[name='responseEncode'][value='" + data.data.responseEncode + "']").attr("checked", true);
+            }, "json");
+        });
+    });
+
+    //保存采集点
+    function saveOrUpdate() {
+
+        var url;
+        var id = $("#id").val();
+        if (id > 0) {
+            url = "crawl/point/update";
+        } else {
+            url = "crawl/point/save";
+        }
+        $('#crawlPointForm').form('submit', {
+            url: url,
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function (data) {
+                var result = eval("(" + data + ")");// 将JSON字符串转换成对象
+                $("#id").val(result.data.id);
+                $.messager.alert('Info', result.message, 'info');
+            }
+        });
+    }
+
+    function showText(flag) {
+        if (flag == 1)
+            $("#post_param").show();
+        else if (flag == 0)
+            $("#post_param").hide();
+    }
+</script>
+</body>
+</html>

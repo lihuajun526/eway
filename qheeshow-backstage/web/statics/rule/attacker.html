@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div class="easyui-tabs" style="width:700px;height:auto">
+    <div title="攻击者参数" style="padding:20px;display:none;">
+        <form id="attackParamForm" method="post">
+            <input id="nodeid" name="nodeid" value="0" type="hidden"/>
+            <input id="id" name="id" value="0" type="hidden"/>
+            <input id="account" name="account" value="" type="hidden"/>
+            <table cellpadding="5">
+                <tr>
+                    <td>所属源</td>
+                    <td>
+                        <select id="belong" name="belong">
+                            <option value="aqy">爱奇艺</option>
+                            <option value="youku">优酷</option>
+                            <option value="txxw">腾讯新闻</option>
+                            <option value="qzone">qq空间</option>
+                            <option value="zhihu">知乎</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>开关</td>
+                    <td>
+                        <input name="status" type="radio" value="1" checked/>启用
+                        <input name="status" type="radio" value="0"/>停用
+                    </td>
+                </tr>
+                <tr>
+                    <td>请求方式</td>
+                    <td>
+                        <input name="method" type="radio" value="GET" checked/>GET
+                        <input name="method" type="radio" value="POST"/>POST
+                    </td>
+                </tr>
+                <tr>
+                    <td>编码</td>
+                    <td>
+                        <input name="charset" type="radio" value="utf-8" checked/>UTF8
+                        <input name="charset" type="radio" value="gbk"/>GBK
+                    </td>
+                </tr>
+                <tr>
+                    <td>数据</td>
+                    <td>
+                        <textarea id="data" name="data" cols="60" rows="6"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>header</td>
+                    <td>
+                        <textarea id="header" name="header" cols="60" rows="6"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cookies</td>
+                    <td>
+                        <textarea id="cookies" name="cookies" cols="60" rows="6"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>行为</td>
+                    <td>
+                        <textarea id="action" name="action" cols="60" rows="6"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>属性</td>
+                    <td>
+                        <textarea id="attr" name="attr" cols="60" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input onclick="saveOrUpdate();" value="确定" type="button"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(document).ready(function () {
+            if (curNode == null) {
+                return;
+            }
+            $("#account").val(curNode.text);
+            $("#nodeid").val(curNode.id);
+            $.get("attack/param/get?nodeid=" + curNode.id, function (data) {
+                $("#id").val(data.data.id);
+                $("#data").val(data.data.data);
+                $("#cookies").val(data.data.cookies);
+                $("#action").val(data.data.action);
+                $("#header").val(data.data.header);
+                $("#attr").val(data.data.attr);
+                $("#belong").val(data.data.belong);
+                $("input[name='status'][value='" + data.data.status + "']").attr("checked", true);
+                $("input[name='method'][value='" + data.data.method + "']").attr("checked", true);
+                $("input[name='charset'][value='" + data.data.charset + "']").attr("checked", true);
+            }, "json");
+        });
+    });
+
+    //保存采集点
+    function saveOrUpdate() {
+        var url;
+        var id = $("#id").val();
+        if (id > 0) {
+            url = "attack/param/update";
+        } else {
+            url = "attack/param/save";
+        }
+        $('#attackParamForm').form('submit', {
+            url: url,
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function (data) {
+                var result = eval("(" + data + ")");// 将JSON字符串转换成对象
+                $("#id").val(result.data.id);
+                $.messager.alert('Info', result.message, 'info');
+            }
+        });
+    }
+</script>
+</body>
+</html>

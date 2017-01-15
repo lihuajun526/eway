@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div id="tt" class="easyui-tabs" style="width:850px;height:450px;">
+    <div title="添加节点" style="padding:20px;display:none;">
+        <form id="treeNodeForm" method="post">
+            <input id="pid" name="pid" type="hidden" value="0"/>
+            <input id="id" name="id" type="hidden" value="0"/>
+            <table cellpadding="5">
+                <tr>
+                    <td>节点名称</td>
+                    <td><input type="text" id="text" name="text"/></td>
+                </tr>
+                <tr>
+                    <td>节点属性</td>
+                    <td><input type="text" id="attributes" name="attributes"/></td>
+                </tr>
+                <!--<tr>
+                    <td>节点状态</td>
+                    <td>
+                        <input type="radio" name="state" checked value="closed"/>关闭
+                        <input type="radio" name="state" value="open"/>打开
+                    </td>
+                </tr>-->
+                <tr>
+                    <td colspan="2">
+                        <input type="button" class="easyui-linkbutton" onclick="saveOrEditTreeNode()" value="确定"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script>
+    //保存节点
+    function saveOrEditTreeNode() {
+
+        var url;
+        var id = $("#id").val();
+        if (id > 0) {
+            url = "tree/modify";
+        } else {
+            url = "tree/add";
+        }
+        $('#treeNodeForm').form('submit', {
+            url: url,
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function (data) {
+                var result = eval("(" + data + ")");// 将JSON字符串转换成对象
+                $.messager.alert('Info', result.message, 'info');
+            }
+        });
+    }
+
+    if (curNode != null) {
+        $("#pid").val(curNode.pid);
+        $.ajax({
+            url: '/tree/get?id=' + curNode.id,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (0 == result.code) {
+                    $('#id').val(result.data.id);
+                    $('#pid').val(result.data.pid);
+                    $('#attributes').val(result.data.attributes);
+                    $('#text').val(result.data.text);
+                }
+            }
+        });
+    } else if (pNode != null) {
+        $("#pid").val(pNode.id);
+    }else{
+        $("#pid").val(0);
+    }
+
+</script>
+</body>
+</html>

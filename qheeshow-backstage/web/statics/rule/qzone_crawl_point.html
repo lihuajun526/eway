@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div id="tt" class="easyui-tabs" style="width:850px;height:450px;">
+    <div title="HTML" style="padding:20px;display:none;">
+        <form id="crawlPointForm" method="post">
+            <input id="nodeid" name="nodeid" value="0" type="hidden"/>
+            <input id="id" name="id" value="0" type="hidden"/>
+            <input id="belong" name="belong" value="qzone" type="hidden"/>
+            <input id="attr" name="attr" type="hidden"/>
+            <table cellpadding="5">
+                <tr>
+                    <td>爬取任务的路径</td>
+                    <td><input style="width: 500px;" id="taskClasspath" name="taskClasspath" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>最大采集页数</td>
+                    <td><input style="width: 500px;" id="maxPage" name="maxPage" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>起始点</td>
+                    <td><input style="width: 500px;" id="current" name="current" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>边界值</td>
+                    <td><input style="width: 500px;" id="boundary" name="boundary" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>攻击者</td>
+                    <td><input style="width: 500px;" id="account" name="account" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>g_tk参数</td>
+                    <td><input style="width: 500px;" id="gtk" name="gtk" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>开关</td>
+                    <td>
+                        <input name="status" type="radio" value="1" checked/>启用
+                        <input name="status" type="radio" value="0"/>停用
+                    </td>
+                </tr>
+                <tr>
+                    <td>请求方式</td>
+                    <td>
+                        <input name="method" type="radio" value="GET" checked/>GET
+                        <input name="method" type="radio" value="POST"/>POST
+                    </td>
+                </tr>
+                <tr>
+                    <td>返回结果编码</td>
+                    <td>
+                        <input name="responseEncode" type="radio" value="utf-8" checked/>UTF8
+                        <input name="responseEncode" type="radio" value="gbk"/>GBK
+                    </td>
+                </tr>
+                <tr>
+                    <td>referer</td>
+                    <td>
+                        <input style="width: 500px;" id="referer" name="referer" type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cookies</td>
+                    <td>
+                        <textarea id="cookies" name="cookies" cols="60" rows="6"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input onclick="saveOrUpdate();" value="确定" type="button"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(document).ready(function () {
+            if (curNode == null) {
+                return;
+            }
+            $("#nodeid").val(curNode.id);
+            $.get("/crawl/point/get?nodeid=" + curNode.id, function (data) {
+                $("#id").val(data.data.id);
+                $("#taskClasspath").val(data.data.taskClasspath);
+                $("#maxPage").val(data.data.maxPage);
+                $("#referer").val(data.data.referer);
+                $("#responseType").val(data.data.responseType);
+                $("#cookies").val(data.data.cookies);
+                $("input[name='status'][value='" + data.data.status + "']").attr("checked", true);
+                $("input[name='method'][value='" + data.data.method + "']").attr("checked", true);
+                $("input[name='responseEncode'][value='" + data.data.responseEncode + "']").attr("checked", true);
+                var attr = eval("(" + data.data.attr + ")");
+                $("#current").val(attr.current);
+                $("#boundary").val(attr.boundary);
+                $("#account").val(attr.account);
+                $("#gtk").val(attr.gtk);
+            }, "json");
+        });
+    });
+
+    //保存采集点
+    function saveOrUpdate() {
+        var current = $("#current").val();
+        var boundary = $("#boundary").val();
+        var account = $("#account").val();
+        var gtk = $("#gtk").val();
+        var attr = "{'current':"+current+",'boundary':"+boundary+",'account':'"+account+"','gtk':'"+gtk+"'}";
+        $("#attr").val(attr);
+        var url;
+        var id = $("#id").val();
+        if (id > 0) {
+            url = "crawl/point/update";
+        } else {
+            url = "crawl/point/save";
+        }
+        $('#crawlPointForm').form('submit', {
+            url: url,
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function (data) {
+                var result = eval("(" + data + ")");// 将JSON字符串转换成对象
+                $("#id").val(result.data.id);
+                $.messager.alert('Info', result.message, 'info');
+            }
+        });
+    }
+</script>
+</body>
+</html>
