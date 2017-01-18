@@ -5,7 +5,10 @@ package com.qheeshow.eway.service.model;
  */
 public class Project extends BaseModel{
 
-    private String title;
-    private Integer userid;
+    private String title;//项目标题
+    private String desc;//项目描述
+    private String content;//项目内容
+    private Integer userid;//项目负责人
+    private Integer status;//项目状态:1新项目,2审核通过,3审核未通过
 
 }

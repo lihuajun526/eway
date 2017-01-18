@@ -11,5 +11,23 @@
 
     <artifactId>qheeshow-backstage</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.qheeshow.eway</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.qheeshow.eway</groupId>
+            <artifactId>service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
 
 </project>

@@ -10,6 +10,7 @@
         <module>qheeshow-wechart</module>
         <module>qheeshow-backstage</module>
         <module>service</module>
+        <module>common</module>
     </modules>
     <packaging>pom</packaging>
 
