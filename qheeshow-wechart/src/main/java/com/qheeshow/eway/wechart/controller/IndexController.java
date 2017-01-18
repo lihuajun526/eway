@@ -1,10 +1,11 @@
 package com.qheeshow.eway.wechart.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.vip.integral.base.BaseController;
-import com.vip.integral.util.AppConfig;
-import com.vip.integral.util.XHttpClient;
-import com.vip.integral.exception.RequestException;
+
+import com.qheeshow.eway.wechart.base.BaseController;
+import com.qheeshow.eway.wechart.exception.RequestException;
+import com.qheeshow.eway.wechart.util.AppConfig;
+import com.qheeshow.eway.wechart.util.XHttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,7 +1,7 @@
 package com.qheeshow.eway.wechart.util.wechat;
 
 
-import com.operational.platform.dbservice.model.WechatMsg;
+import com.qheeshow.eway.service.model.WechatMsg;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -53,7 +53,7 @@ public class WechatProcess {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("将xml转为WechatMsg对象时出�?:", e);
+            LOGGER.error("将xml转为WechatMsg对象时出�?:", e);
         }
         return wechatMsg;
     }

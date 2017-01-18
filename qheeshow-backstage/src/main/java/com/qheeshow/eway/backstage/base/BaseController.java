@@ -1,7 +1,7 @@
 package com.qheeshow.eway.backstage.base;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qheeshow.eway.wechart.exception.BaseException;
+import com.qheeshow.eway.backstage.exception.BaseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;

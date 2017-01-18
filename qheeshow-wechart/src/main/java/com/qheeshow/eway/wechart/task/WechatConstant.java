@@ -1,10 +1,10 @@
 package com.qheeshow.eway.wechart.task;
 
 import com.alibaba.fastjson.JSONObject;
-import com.vip.integral.constant.Constant;
-import com.vip.integral.util.AppConfig;
-import com.vip.integral.util.XHttpClient;
-import com.vip.integral.exception.RequestException;
+import com.qheeshow.eway.wechart.constant.Constant;
+import com.qheeshow.eway.wechart.exception.RequestException;
+import com.qheeshow.eway.wechart.util.AppConfig;
+import com.qheeshow.eway.wechart.util.XHttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
