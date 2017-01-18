@@ -10,29 +10,29 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!-- 数据库链接URL、用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.66.231:3306/dspider"
-                        userId="root" password="hzqbtest.com">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/eway"
+                        userId="root" password="root">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!-- 生成模型的包名和位置 -->
-        <javaModelGenerator targetPackage="com.unionpay.spiderframework.service.model" targetProject="src">
+        <javaModelGenerator targetPackage="com.qheeshow.eway.service.model" targetProject="src">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- 生成的映射文件包名和位置 -->
-        <sqlMapGenerator targetPackage="com.unionpay.spiderframework.service.mapping" targetProject="src">
+        <sqlMapGenerator targetPackage="com.qheeshow.eway.service.mapping" targetProject="src">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.unionpay.spiderframework.service.dao"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.qheeshow.eway.service.dao"
                              targetProject="src">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
-        <table tableName="t_error_detail" domainObjectName="ErrorDetail" enableCountByExample="false"
-               enableUpdateByExample="true" enableDeleteByExample="false" enableSelectByExample="true"
+        <table tableName="t_tree_node" domainObjectName="TreeNode" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"/>
 
     </context>
