@@ -1,4 +1,4 @@
-package com.qheeshow.eway.backstage.util;
+package com.qheeshow.eway.common.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +14,7 @@ public class Config {
     static {
         prop = new Properties();
         try {
-            InputStream is = Config.class.getClass().getResourceAsStream("/properties/config.properties");
+            InputStream is = Config.class.getClass().getResourceAsStream("/properties/http.properties");
             prop.load(is);
             is.close();
         } catch (IOException e) {

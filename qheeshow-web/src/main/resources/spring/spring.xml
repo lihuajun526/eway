@@ -38,7 +38,8 @@
     </mvc:annotation-driven>
 
     <!-- scan package -->
-    <context:component-scan base-package="com"/>
+    <context:component-scan base-package="com.qheeshow.eway.web.controller"/>
+    <context:component-scan base-package="com.qheeshow.eway.service"/>
     <context:annotation-config/>
 
     <import resource="classpath*:spring/app-config.xml"/>

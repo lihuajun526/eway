@@ -1,4 +1,4 @@
-package com.qheeshow.eway.backstage.util;
+package com.qheeshow.eway.common.util;
 
 import java.security.DigestException;
 import java.security.MessageDigest;

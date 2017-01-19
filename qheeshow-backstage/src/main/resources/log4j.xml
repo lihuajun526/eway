@@ -15,7 +15,7 @@
     </appender>
 
     <appender name="DEFAULT_FILE" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="vipservice-log/Logger-out.log"/>
+        <param name="File" value="backstage-log/Logger-out.log"/>
         <param name="Append" value="true"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -24,7 +24,7 @@
         </layout>
     </appender>
     <appender name="VIPSERVICE_FILE" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="vipservice-log/vipservice.log"/>
+        <param name="File" value="backstage-log/backstage.log"/>
         <param name="Append" value="true"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
