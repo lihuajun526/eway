@@ -114,4 +114,10 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="listByParent" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_tree_node
+    where pid = #{parentid,jdbcType=INTEGER}
+  </select>
 </mapper>

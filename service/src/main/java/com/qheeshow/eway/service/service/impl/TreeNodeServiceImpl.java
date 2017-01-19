@@ -19,7 +19,7 @@ public class TreeNodeServiceImpl implements TreeNodeService {
     private TreeNodeMapper treeNodeMapper;
 
     @Override public int save(TreeNode treeNode) {
-        return 0;
+        return treeNodeMapper.insert(treeNode);
     }
 
     @Override public int update(TreeNode treeNode) {
@@ -31,6 +31,6 @@ public class TreeNodeServiceImpl implements TreeNodeService {
     }
 
     @Override public List<TreeNode> listByParent(Integer parentid) {
-        return null;
+        return treeNodeMapper.listByParent(parentid);
     }
 }

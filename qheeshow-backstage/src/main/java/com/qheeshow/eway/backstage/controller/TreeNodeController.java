@@ -72,7 +72,7 @@ public class TreeNodeController extends BaseController {
         List<TreeNode> list = treeNodeService.listByParent(id);
 
         if (list == null)
-            return "[]";
+            return "[{\"id\": 0,\"text\": \"根\"}]";
 
         List<EasyTreeNode> easyTreeNodes = new ArrayList<>();
 
@@ -88,7 +88,6 @@ public class TreeNodeController extends BaseController {
                 easyTreeNode.setState("closed");
             easyTreeNodes.add(easyTreeNode);
         }
-
         return JSONArray.toJSONString(easyTreeNodes);
     }
 

@@ -5,15 +5,15 @@
 
     <mvc:resources mapping="/statics/**" location="/statics/"/>
 
-    <mvc:interceptors>
+    <!--<mvc:interceptors>
         <mvc:interceptor>
-            <!-- 需拦截的地址 -->
+            &lt;!&ndash; 需拦截的地址 &ndash;&gt;
             <mvc:mapping path="/*"/>
-            <!-- 需排除拦截的地址 -->
+            &lt;!&ndash; 需排除拦截的地址 &ndash;&gt;
             <mvc:exclude-mapping path="login"/>
             <bean class="com.qheeshow.eway.backstage.interceptor.SecurityInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
