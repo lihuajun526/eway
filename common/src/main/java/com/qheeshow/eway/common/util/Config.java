@@ -2,6 +2,7 @@ package com.qheeshow.eway.common.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
@@ -14,8 +15,8 @@ public class Config {
     static {
         prop = new Properties();
         try {
-            InputStream is = Config.class.getClass().getResourceAsStream("/properties/http.properties");
-            prop.load(is);
+            InputStream is = Config.class.getClass().getResourceAsStream("/properties/config.properties");
+            prop.load(new InputStreamReader(is, "utf-8"));
             is.close();
         } catch (IOException e) {
             e.printStackTrace();
