@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * Created by lihuajun on 17-1-19.
  */
-public class SMSSender {
+public class SmsSender {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SMSSender.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SmsSender.class);
 
     public static void send(String phone) throws SendSMSException {
 
@@ -25,7 +25,7 @@ public class SMSSender {
         String password = Config.get("cl.password");
         String url = Config.get("cl.url");
         String sign = Config.get("cl.sign");
-        String vcode = SMSNumbeUtil.createRandom(true, 6);
+        String vcode = SmsNumbeUtil.createRandom(true, 6);
 
         HttpPost httpPost = new HttpPost(url);
         List<NameValuePair> params = new ArrayList<>();

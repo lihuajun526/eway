@@ -2,7 +2,7 @@ package com.qheeshow.eway.web.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.qheeshow.eway.common.exception.SendSMSException;
-import com.qheeshow.eway.common.util.SMSSender;
+import com.qheeshow.eway.common.util.SmsSender;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class SmsController extends BaseController {
         Result<Boolean> result = new Result<>();
         result.setData(true);
         try {
-            SMSSender.send(phone);
+            SmsSender.send(phone);
         } catch (SendSMSException e) {
 
             result.setData(false);

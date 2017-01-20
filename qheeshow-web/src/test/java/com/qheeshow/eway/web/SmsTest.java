@@ -1,7 +1,7 @@
 package com.qheeshow.eway.web;
 
 import com.qheeshow.eway.common.exception.SendSMSException;
-import com.qheeshow.eway.common.util.SMSSender;
+import com.qheeshow.eway.common.util.SmsSender;
 import org.junit.Test;
 
 /**
@@ -12,7 +12,7 @@ public class SmsTest {
     @Test
     public void test1() {
         try {
-            SMSSender.send("18857107097");
+            SmsSender.send("18857107097");
         } catch (SendSMSException e) {
             e.printStackTrace();
         }

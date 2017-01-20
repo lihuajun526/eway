@@ -1,6 +1,6 @@
 package com.qheeshow.eway.common.util;
 
-public class SMSNumbeUtil {
+public class SmsNumbeUtil {
 
     /**
      * 创建指定数量的随机字符串

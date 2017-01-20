@@ -15,7 +15,7 @@ public class Config {
     static {
         prop = new Properties();
         try {
-            InputStream is = Config.class.getClass().getResourceAsStream("/properties/config.properties");
+            InputStream is = Config.class.getClassLoader().getResourceAsStream("/properties/config.properties");
             prop.load(new InputStreamReader(is, "utf-8"));
             is.close();
         } catch (IOException e) {
