@@ -14,7 +14,10 @@ public class UserServiceImpl implements UserService {
 
     @Override public void regist(User user) throws UserExistException {
 
+        // TODO: 17-1-22 验证用户是否已注册 
+        // TODO: 17-1-22 密码加密
         //throw new UserExistException();
+
 
     }
 }

@@ -12,16 +12,23 @@
     <table>
         <tr>
             <td>手机号</td>
-            <td><input id="mobile" name="mobile"/></td>
+            <td><input id="mobile" name="mobile" data-tip="请输入您的手机号码" class="required" data-valid="isNonEmpty||isMobile"
+                       data-error="手机号码不能为空||手机号码不正确"/></td>
         </tr>
         <tr>
-            <td>邮箱</td>
+            <td>真实姓名</td>
+            <td><input name="name" data-tip="请输入您的真实姓名" class="required" data-valid="isNonEmpty"
+                       data-error="真实姓名不能为空"/></td>
+        </tr>
+        <tr>
+            <td>Email</td>
             <td><input name="email" data-tip="请输入您的邮箱" class="required" data-valid="isNonEmpty||isEmail"
                        data-error="email不能为空||邮箱格式不正确"/></td>
         </tr>
         <tr>
             <td>手机验证码</td>
-            <td><input name="smsCode"/>
+            <td><input name="smsCode" class="required" data-valid="isNonEmpty"
+                       data-error="验证码不能为空"/>
                 <button type="button" onclick="getSmsCode()">获取短信验证码</button>
             </td>
         </tr>
@@ -34,11 +41,8 @@
         </tr>
         <tr>
             <td>密码</td>
-            <td><input name="password" type="password"/></td>
-        </tr>
-        <tr>
-            <td>再次输入密码</td>
-            <td><input name="rePassword" type="password"/></td>
+            <td><input type="password" name="password" class="required" data-valid="isNonEmpty||minLength:8"
+                       data-error="密码不能为空||密码至少8个字符"/></td>
         </tr>
         <tr>
             <td colspan="2">

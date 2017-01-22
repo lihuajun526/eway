@@ -51,6 +51,10 @@ public class UserController extends BaseController {
             result.set("身份不能为空", false);
             return result.toString();
         }
+        if (StringUtils.isEmpty(user.getPassword())) {
+            result.set("密码不能为空", false);
+            return result.toString();
+        }
         HttpSession httpSession = request.getSession();
         if (httpSession.getAttribute(httpSession.getId() + "_" + user.getMobile()) == null) {
             result.set("短信验证码错误", false);
@@ -61,7 +65,6 @@ public class UserController extends BaseController {
             result.set("短信验证码错误", false);
             return result.toString();
         }
-
         try {
             userService.regist(user);
         } catch (UserExistException e) {
