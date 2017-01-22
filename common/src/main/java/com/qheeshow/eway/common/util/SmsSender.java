@@ -19,7 +19,7 @@ public class SmsSender {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SmsSender.class);
 
-    public static void send(String phone) throws SendSMSException {
+    public static String send(String phone) throws SendSMSException {
 
         String account = Config.get("cl.account");
         String password = Config.get("cl.password");
@@ -49,5 +49,6 @@ public class SmsSender {
             LOGGER.error("发送短信验证码到{}失败,返回{}", phone, response, e);
             throw new SendSMSException();
         }
+        return vcode;
     }
 }

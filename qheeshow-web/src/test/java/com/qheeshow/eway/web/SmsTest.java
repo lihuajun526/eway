@@ -16,7 +16,19 @@ public class SmsTest {
         } catch (SendSMSException e) {
             e.printStackTrace();
         }
-
     }
 
+    @Test
+    public void test2() {
+
+        long a = System.currentTimeMillis();
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        long b = System.currentTimeMillis();
+        System.out.println(b - a);
+
+    }
 }

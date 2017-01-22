@@ -12,7 +12,7 @@
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
-<div>内容</div>
+<div>创建项目</div>
 <jsp:include page="../pub/foot.jsp" flush="true"/>
 </body>
 </html>

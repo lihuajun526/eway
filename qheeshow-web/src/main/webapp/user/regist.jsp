@@ -1,20 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lihuajun
-  Date: 17-1-19
-  Time: 上午10:49
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>用户注册</title>
-    <script type="text/javascript" src="/statics/jquery/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/statics/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="/statics/jquery/jquery-validate.js"></script>
     <script type="text/javascript" src="/statics/js/util.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
-<form method="post" action="">
+<form id="registForm">
     <table>
         <tr>
             <td>手机号</td>
@@ -22,12 +16,20 @@
         </tr>
         <tr>
             <td>邮箱</td>
-            <td><input name="email"/></td>
+            <td><input name="email" data-tip="请输入您的邮箱" class="required" data-valid="isNonEmpty||isEmail"
+                       data-error="email不能为空||邮箱格式不正确"/></td>
         </tr>
         <tr>
             <td>手机验证码</td>
             <td><input name="smsCode"/>
                 <button type="button" onclick="getSmsCode()">获取短信验证码</button>
+            </td>
+        </tr>
+        <tr>
+            <td>身份</td>
+            <td>
+                <input type="radio" name="roleid" value="3" checked>创业者
+                <input type="radio" name="roleid" value="4">投资人
             </td>
         </tr>
         <tr>
@@ -40,7 +42,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <button type="submit">注册</button>
+                <button type="button" onclick="regist()">注册</button>
             </td>
         </tr>
     </table>
@@ -48,17 +50,34 @@
 <jsp:include page="../pub/foot.jsp" flush="true"/>
 </body>
 <script>
+    //获取短信验证码
     function getSmsCode() {
         var mobile = $("#mobile").val();
-        alert(mobile);
         if (isEmpty(mobile)) {
             alert("请填写手机号");
             return;
         }
         $.get("/sms/get/" + mobile, function (result) {
-            alert(result.data);
+            alert(result.message);
         }, "json");
     }
-
+    //提交表单
+    function regist() {
+        if (!$('#registForm').validate('submitValidate'))
+            return;
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/user/regist',
+            data: $('#registForm').serialize(),
+            success: function (result) {
+                if (!result.data) {
+                    alert(result.message);
+                    return;
+                }
+                window.location.href = "../project/project_create.jsp";
+            }
+        });
+    }
 </script>
 </html>
