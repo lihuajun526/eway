@@ -18,8 +18,8 @@
     </div>
     <br/>
 
-    <div class="easyui-panel" style="padding:5px" title="后台管理">
-        <ul id="tt" class="easyui-tree"></ul>
+    <div class="easyui-panel" style="padding:5px" title="系统管理">
+        <ul id="sysTree" class="easyui-tree"></ul>
     </div>
 
 </div>
@@ -97,19 +97,19 @@
         }
     });
 
-    $('#tt').tree({
+    $('#sysTree').tree({
         onClick: function (node) {
             if (node.id == 1)
-                loadPage('back/goods/goods_list.html');
+                loadPage('sys/classinfo/goods_list.html');
             else if (node.id == 2)
-                loadPage('back/vipaccount/vip_account_list.html');
+                loadPage('sys/classinfo/vip_account_list.html');
         }
     });
 
     $(function () {
         $(document).ready(function () {
-            $.get("/statics/data/back_tree_data.json", function (data) {
-                $("#tt").tree({
+            $.get("/statics/data/sys_tree_data.json", function (data) {
+                $("#sysTree").tree({
                     data: data
                 });
             }, "json");

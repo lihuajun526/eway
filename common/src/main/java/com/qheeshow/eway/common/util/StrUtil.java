@@ -1,9 +1,14 @@
 package com.qheeshow.eway.common.util;
 
+import org.apache.http.Header;
+
+import java.io.File;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by lihuajun on 2016/9/12.
@@ -40,13 +45,25 @@ public class StrUtil {
         }
     }
 
-    public static void main(String[]args){
+    public static String[] getFilePath(String fileType) {
+        String[] strs = new String[2];
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Date date = new Date();
+        StringBuffer sb1 = new StringBuffer(Config.get("filter." + fileType + ".storage.path"));
+        StringBuffer sb2 = new StringBuffer(Config.get("filter." + fileType + ".web.path"));
+        strs[0] = sb1.append(File.separator).append(sdf.format(date)).toString();
+        strs[1] = sb2.append(File.separator).append(sdf.format(date)).toString();
+        return strs;
+    }
+
+    public static void main(String[] args) {
         try {
             Timestamp d = new Timestamp(System.currentTimeMillis());
             long time1 = d.getTime();
             System.out.println(time1);
             System.out.println(Long.toString(time1 / 1000));
-            System.out.println(StrUtil.sha1("jsapi_ticket=bxLdikRXVbTPdHSM05e5u_H6X4LRoooANL2XioWz9Sq8gBvv3VdEtQNgqq73zbEeO6M0JagHQBPNA04vuRKssw&noncestr=Wm3WZYTPz0wzccnW&timestamp=1474190054&url=http://lihuajun526.xicp.net/integral/earn"));
+            System.out.println(StrUtil.sha1(
+                    "jsapi_ticket=bxLdikRXVbTPdHSM05e5u_H6X4LRoooANL2XioWz9Sq8gBvv3VdEtQNgqq73zbEeO6M0JagHQBPNA04vuRKssw&noncestr=Wm3WZYTPz0wzccnW&timestamp=1474190054&url=http://lihuajun526.xicp.net/integral/earn"));
         } catch (DigestException e) {
             e.printStackTrace();
         }

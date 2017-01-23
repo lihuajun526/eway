@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lihuajun
-  Date: 17-1-19
-  Time: 上午10:34
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,18 +13,23 @@
 <div>
     <div>基本信息</div>
     <div>
+        <form>
         <table>
             <tr>
                 <td>LOGO</td>
-                <td><input type="file" id="logo" name="logo"/><input type="button" value="上传"/></td>
+                <td>
+                    <img id="logoImg" src="https://www.vchello.com/NewHome/src/images/upload-logo.png" title="点击添加图片"
+                         width="180" height="180" style="position: relative; z-index: 1;" onclick="selectLogo();">
+                    <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
+                    <input type="button" value="上传" onclick="uploadPic('logoFile','logoImg')"/></td>
             </tr>
             <tr>
                 <td>项目名</td>
-                <td></td>
+                <td><input name="title"/></td>
             </tr>
             <tr>
                 <td>一句话介绍</td>
-                <td></td>
+                <td><textarea name="summary"></textarea></td>
             </tr>
             <tr>
                 <td>项目领域</td>
@@ -62,6 +60,7 @@
                 <td></td>
             </tr>
         </table>
+        </form>
     </div>
 </div>
 <div>
@@ -169,19 +168,34 @@
         //填充数据，对弹出模态框数据样式初始化或修改
     }
 
+    function selectLogo() {
+        $('#logoFile').click();
+    }
+
     function uploadPic(fileid, imgid) {
-        $.ajaxFileUpload(
-                {
-                    url: '/upload.aspx', //用于文件上传的服务器端请求地址
+        var file = $('#' + fileid);
+        if (!file || !file.val())
+            return;
+        var patn = /\.jpg$|\.jpeg$|\.png$|\.gif$/i;
+        if (!patn.test(file.val())) {
+            alert("请选择图片文件");
+            return;
+        }
+        $.ajaxFileUpload({
+                    url: '/image/upload', //用于文件上传的服务器端请求地址
+                    type: 'post',
                     secureuri: false, //是否需要安全协议，一般设置为false
                     fileElementId: fileid, //文件上传域的ID
                     dataType: 'json', //返回值类型 一般设置为json
                     success: function (result) {  //服务器成功响应处理函数
+                        if (result.code == -1) {
+                            alert(result.message);
+                            return;
+                        }
                         $('#' + imgid).attr("src", result.data);
                     }
                 }
         );
-        return false;
     }
 </script>
 </html>
