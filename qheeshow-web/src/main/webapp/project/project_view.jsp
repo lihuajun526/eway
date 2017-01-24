@@ -7,7 +7,6 @@
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="../statics/jquery/ajaxfileupload.js"></script>
-    <script src="../statics/js/config.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
@@ -15,54 +14,52 @@
     <div>基本信息</div>
     <div>
         <form>
-            <table>
-                <tr>
-                    <td>LOGO</td>
-                    <td>
-                        <img id="logoImg" src="https://www.vchello.com/NewHome/src/images/upload-logo.png" title="点击添加图片"
-                             width="180" height="180" style="position: relative; z-index: 1;" onclick="selectLogo();">
-                        <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
-                        <input type="button" value="上传" onclick="uploadPic('logoFile','logoImg')"/></td>
-                </tr>
-                <tr>
-                    <td>项目名</td>
-                    <td><input name="title"/></td>
-                </tr>
-                <tr>
-                    <td>一句话介绍</td>
-                    <td><textarea name="summary"></textarea></td>
-                </tr>
-                <tr>
-                    <td>所属行业</td>
-                    <td>
-                        <div id="industrys" onclick="listIndustry();"></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>所在城市</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>所处阶段</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>融资额度</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>推荐人姓名</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>商业计划书</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>LOGO</td>
-                    <td></td>
-                </tr>
-            </table>
+        <table>
+            <tr>
+                <td>LOGO</td>
+                <td>
+                    <img id="logoImg" src="https://www.vchello.com/NewHome/src/images/upload-logo.png" title="点击添加图片"
+                         width="180" height="180" style="position: relative; z-index: 1;" onclick="selectLogo();">
+                    <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
+                    <input type="button" value="上传" onclick="uploadPic('logoFile','logoImg')"/></td>
+            </tr>
+            <tr>
+                <td>项目名</td>
+                <td><input name="title"/></td>
+            </tr>
+            <tr>
+                <td>一句话介绍</td>
+                <td><textarea name="summary"></textarea></td>
+            </tr>
+            <tr>
+                <td>所属行业</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>所在城市</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>所处阶段</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>融资额度</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>推荐人姓名</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>商业计划书</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>LOGO</td>
+                <td></td>
+            </tr>
+        </table>
         </form>
     </div>
 </div>
@@ -199,18 +196,6 @@
                     }
                 }
         );
-    }
-    //获得行业信息
-    function listIndustry() {
-        $.get("/list/root/" + classinfo.rootid.industry, function (result) {
-            if (result.code < 0)
-                return;
-            var industrys = $('#industrys');
-            industrys.innerHTML = "";
-            for (i = 0; i < result.data.length; i++) {
-                industrys.append("<span style='color:red;'>" + result.data[i].name + "</span>");
-            }
-        }, "json");
     }
 </script>
 </html>

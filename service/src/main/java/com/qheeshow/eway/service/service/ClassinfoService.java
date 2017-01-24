@@ -11,4 +11,6 @@ public interface ClassinfoService {
 
     List<Classinfo> listByParent(Integer pid);
 
+    List<Classinfo> listByRoot(Integer rootid);
+
 }
