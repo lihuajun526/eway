@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -24,6 +23,11 @@ public class ClassinfoController extends BaseController {
     @Autowired
     private ClassinfoService classinfoService;
 
+    /**
+     * 通过rootid获得所有分类法
+     * @param rootid
+     * @return
+     */
     @RequestMapping(value = "/list/root/{rootid}", method = RequestMethod.GET)
     @ResponseBody
     public String listByRoot(@PathVariable Integer rootid) {
@@ -34,6 +38,25 @@ public class ClassinfoController extends BaseController {
 
         List<Classinfo> list = classinfoService.listByRoot(rootid);
         result.setData(list);
+
+        return result.toString();
+    }
+
+    /**
+     * 通过id获得分类法
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/list/get/id", method = RequestMethod.GET)
+    @ResponseBody
+    public String get(@PathVariable Integer id) {
+
+        LOGGER.debug("classinfoid=" + id);
+
+        Result<Classinfo> result = new Result<>();
+
+        Classinfo classinfo = classinfoService.get(id);
+        result.setData(classinfo);
 
         return result.toString();
     }

@@ -1,4 +1,11 @@
+<%@ page import="com.qheeshow.eway.service.model.Project" %>
+<%@ page import="org.springframework.util.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Object object = request.getAttribute("project");
+    Project project = object == null ? null : (Project) object;
+    boolean isNull = project == null;
+%>
 <html>
 <head>
     <title>Title</title>
@@ -11,70 +18,156 @@
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
-<div>
+<div id="baseDiv">
     <div>基本信息</div>
     <div>
-        <form>
+        <form id="baseForm">
+            <input type="hidden" id="id" name="id" value="0"/>
             <table>
                 <tr>
                     <td>LOGO</td>
                     <td>
-                        <img id="logoImg" src="https://www.vchello.com/NewHome/src/images/upload-logo.png" title="点击添加图片"
+                        <img id="logoImg"
+                             src="<%=(isNull|| StringUtils.isEmpty(project.getLogo()))?"https://www.vchello.com/NewHome/src/images/upload-logo.png":project.getLogo() %>"
+                             title="点击添加图片"
                              width="180" height="180" style="position: relative; z-index: 1;" onclick="selectLogo();">
                         <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
                         <input type="button" value="上传" onclick="uploadPic('logoFile','logoImg')"/></td>
                 </tr>
                 <tr>
                     <td>项目名</td>
-                    <td><input name="title"/></td>
+                    <td><input name="title"
+                               value="<%=(isNull || StringUtils.isEmpty(project.getTitle()))?"":project.getTitle()%>"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>一句话介绍</td>
-                    <td><textarea name="summary"></textarea></td>
+                    <td><textarea name="summary"><%=(isNull || StringUtils.isEmpty(project.getSummary())) ?
+                            "" :
+                            project.getSummary()%></textarea></td>
                 </tr>
                 <tr>
                     <td>所属行业</td>
                     <td>
                         <div id="industrys" onclick="listIndustry();"></div>
+                        <script>
+                            <%
+                                if(!isNull && project.getIndustry()!=null){
+                                %>
+                            $.get("/classinfo/get/<%=project.getIndustry() %>", function (result) {
+                                if (result.code < 0)
+                                    return;
+                                var industrys = $('#industrys');
+                                if (result.data != null)
+                                    industrys.html("<span>" + result.data.name + "</span>");
+                            }, "json");
+                            <%
+                            }else{
+                            %>
+                            $("#industrys").html("选择行业");
+                            <%
+                            }
+                        %>
+                        </script>
                     </td>
                 </tr>
                 <tr>
                     <td>所在城市</td>
-                    <td></td>
+                    <td>
+                        <select id="areas"></select>
+                        <script>
+                            <%
+                                if(!isNull && project.getIndustry()!=null){
+                                %>
+                            $.get("/classinfo/get/<%=project.getArea() %>", function (result) {
+                                if (result.code < 0)
+                                    return;
+                                $("#areas").val(result.data.area);
+                            }, "json");
+                            <%
+                            }
+                            %>
+                        </script>
+                    </td>
                 </tr>
                 <tr>
-                    <td>所处阶段</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>融资额度</td>
-                    <td></td>
+                    <td>融资规模</td>
+                    <td>
+                        <select id="financingLimit"></select>
+                        <script>
+                            <%
+                                if(!isNull && project.getFinancingLimit()!=null){
+                                %>
+                            $.get("/classinfo/get/<%=project.getFinancingLimit() %>", function (result) {
+                                if (result.code < 0)
+                                    return;
+                                $("#financingLimit").val(result.data.financingLimit);
+                            }, "json");
+                            <%
+                            }
+                            %>
+                        </script>
+                        出让比例<input name="percent"
+                                   value="<%=(isNull || project.getPercent()==null)?"":String.valueOf(project.getPercent())%>"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>推荐人姓名</td>
-                    <td></td>
+                    <td><input name="referee"
+                               value="<%=(isNull || StringUtils.isEmpty(project.getReferee()))?"":project.getReferee()%>"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>商业计划书</td>
-                    <td></td>
+                    <td><input type="file" name="bp"/></td>
                 </tr>
                 <tr>
-                    <td>LOGO</td>
-                    <td></td>
+                    <td colspan="2">
+                        <button type="button" onclick="saveBase();">保存</button>
+                    </td>
                 </tr>
             </table>
         </form>
     </div>
 </div>
-<div>
+<div id="projectDiv" style="display: none;">
     <div>项目信息</div>
-    <div></div>
+    <div>
+        <form id="projectForm">
+        <table>
+            <tr>
+                <td>项目介绍</td>
+                <td><textarea name="desc"><%=(isNull || StringUtils.isEmpty(project.getDesc())) ?
+                        "" :
+                        project.getDesc() %></textarea></td>
+            </tr>
+            <tr>
+                <td>宣传视频</td>
+                <td><input name="videoLink" <%=(isNull || StringUtils.isEmpty(project.getVideoLink())) ?
+                        "" :
+                        project.getVideoLink()%>/></td>
+            </tr>
+            <tr>
+                <td>产品网址</td>
+                <td><input name="proLink"<%=(isNull || StringUtils.isEmpty(project.getProLink())) ?
+                        "" :
+                        project.getProLink()%>/></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="button">保存</button>
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
 </div>
-<div>
+<div id="memberDiv" style="display: none;">
     <div>团队信息</div>
     <div></div>
+    <a href="#">添加核心成员</a>
 </div>
-<div>
+<div id="videoDiv" style="display: none;">
     <div>媒体报道</div>
     <div></div>
 </div>
@@ -202,15 +295,54 @@
     }
     //获得行业信息
     function listIndustry() {
-        $.get("/list/root/" + classinfo.rootid.industry, function (result) {
+        $.get("/classinfo/list/root/" + classinfo_rootid_industry, function (result) {
             if (result.code < 0)
                 return;
             var industrys = $('#industrys');
-            industrys.innerHTML = "";
+            industrys.html("");
             for (i = 0; i < result.data.length; i++) {
-                industrys.append("<span style='color:red;'>" + result.data[i].name + "</span>");
+                industrys.append("<span>" + result.data[i].name + "</span>");
             }
         }, "json");
     }
+    //获得地域信息
+    $.get("/classinfo/list/root/" + classinfo_rootid_area, function (result) {
+        if (result.code < 0)
+            return;
+        var areas = $('#areas');
+        industrys.html("<option id='0'>请选择</option>");
+        for (i = 0; i < result.data.length; i++) {
+            industrys.append("<span>" + result.data[i].name + "</span>");
+        }
+    }, "json");
+    //获得融资额度信息
+    $.get("/classinfo/list/root/" + classinfo_rootid_financing_limit, function (result) {
+        if (result.code < 0)
+            return;
+        var financingLimit = $('#financingLimit');
+        financingLimit.html("<option id='0'>请选择</option>");
+        for (i = 0; i < result.data.length; i++) {
+            financingLimit.append("<span>" + result.data[i].name + "</span>");
+        }
+    }, "json");
+    //保存基本信息
+    function saveBase() {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/project/base/save',
+            data: $('#baseForm').serialize(),
+            success: function (result) {
+                if (result.code < 0) {
+                    alert(result.message);
+                    return;
+                }
+                $("#id").val(result.data);
+                $("#baseDiv").hide();
+                $("#projectDiv").show();
+            }
+        });
+    }
+
 </script>
 </html>

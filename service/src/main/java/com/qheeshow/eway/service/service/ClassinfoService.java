@@ -13,4 +13,6 @@ public interface ClassinfoService {
 
     List<Classinfo> listByRoot(Integer rootid);
 
+    Classinfo get(Integer id);
+
 }

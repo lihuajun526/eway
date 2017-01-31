@@ -151,4 +151,5 @@ public class Project extends BaseModel{
     public void setReferee(String referee) {
         this.referee = referee;
     }
+
 }

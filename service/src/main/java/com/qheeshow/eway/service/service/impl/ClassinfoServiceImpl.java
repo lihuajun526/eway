@@ -26,6 +26,17 @@ public class ClassinfoServiceImpl implements ClassinfoService {
         classinfo2.setName("abc");
         Classinfo classinfo3 = new Classinfo();
         classinfo3.setName("456");
-        return null;
+
+        list.add(classinfo1);
+        list.add(classinfo2);
+        list.add(classinfo3);
+
+        return list;
+    }
+
+    @Override public Classinfo get(Integer id) {
+        Classinfo classinfo1 = new Classinfo();
+        classinfo1.setName("互联网");
+        return classinfo1;
     }
 }
