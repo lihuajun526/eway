@@ -21,14 +21,16 @@ import java.util.List;
  * Created by lihuajun on 16-6-14.
  */
 @Controller
-@RequestMapping("/image")
-public class ImageController extends BaseController {
+@RequestMapping("/file")
+public class FileController extends BaseController {
 
     @RequestMapping("/upload")
     @ResponseBody
     public String upload(HttpServletRequest request) throws UnsupportedEncodingException {
         Result<String> result = new Result<>();
         result.setCode(-1);
+
+
         request.setCharacterEncoding("UTF-8");
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
@@ -41,7 +43,7 @@ public class ImageController extends BaseController {
                             result.setMessage("上传的图片类型错误");
                             return result.toString();
                         }
-                        if (fileItem.getSize() > 1024 * Config.getInt("image.max.size") * 1024) {
+                        if (fileItem.getSize() > 1024 * Config.getInt("image.max.size")) {
                             result.setMessage("最大可上传" + Config.getInt("image.max.size") + "k的图片");
                             return result.toString();
                         }

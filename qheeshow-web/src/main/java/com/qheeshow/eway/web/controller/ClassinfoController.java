@@ -47,7 +47,7 @@ public class ClassinfoController extends BaseController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/list/get/id", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String get(@PathVariable Integer id) {
 

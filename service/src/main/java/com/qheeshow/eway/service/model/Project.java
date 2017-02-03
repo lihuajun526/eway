@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Created by lihuajun on 17-1-11.
  */
-public class Project extends BaseModel{
+public class Project extends BaseModel {
 
     private String title;//项目标题
     private String summary;//项目简介
@@ -20,7 +20,7 @@ public class Project extends BaseModel{
     private String logo;//项目logo
     private String tags;//项目标签
     private String bp;//商业计划书
-    private BigDecimal financingLimit;//融资额度
+    private Integer financingLimit;//融资额度
     private Integer percent;//出让股份百分比
     private String referee;//推荐人姓名
 
@@ -128,11 +128,11 @@ public class Project extends BaseModel{
         this.bp = bp;
     }
 
-    public BigDecimal getFinancingLimit() {
+    public Integer getFinancingLimit() {
         return financingLimit;
     }
 
-    public void setFinancingLimit(BigDecimal financingLimit) {
+    public void setFinancingLimit(Integer financingLimit) {
         this.financingLimit = financingLimit;
     }
 

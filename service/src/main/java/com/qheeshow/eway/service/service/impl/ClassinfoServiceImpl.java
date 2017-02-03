@@ -22,10 +22,15 @@ public class ClassinfoServiceImpl implements ClassinfoService {
         List<Classinfo> list = new ArrayList<>();
         Classinfo classinfo1 = new Classinfo();
         classinfo1.setName("123");
+        classinfo1.setId(1);
+
         Classinfo classinfo2 = new Classinfo();
         classinfo2.setName("abc");
+        classinfo2.setId(2);
+
         Classinfo classinfo3 = new Classinfo();
         classinfo3.setName("456");
+        classinfo3.setId(3);
 
         list.add(classinfo1);
         list.add(classinfo2);

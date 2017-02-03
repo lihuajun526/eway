@@ -14,6 +14,7 @@
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="../statics/jquery/ajaxfileupload.js"></script>
+    <script src="../statics/jquery/jquery-form.js"></script>
     <script src="../statics/js/config.js"></script>
 </head>
 <body>
@@ -21,8 +22,11 @@
 <div id="baseDiv">
     <div>基本信息</div>
     <div>
-        <form id="baseForm">
+        <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
+        <form id="baseForm" method="post" action="/project/base/save" enctype="multipart/form-data">
             <input type="hidden" id="id" name="id" value="0"/>
+            <input type="hidden" id="logo" name="logo"/>
+            <input type="hidden" id="industry" name="industry" value="0"/>
             <table>
                 <tr>
                     <td>LOGO</td>
@@ -31,7 +35,6 @@
                              src="<%=(isNull|| StringUtils.isEmpty(project.getLogo()))?"https://www.vchello.com/NewHome/src/images/upload-logo.png":project.getLogo() %>"
                              title="点击添加图片"
                              width="180" height="180" style="position: relative; z-index: 1;" onclick="selectLogo();">
-                        <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
                         <input type="button" value="上传" onclick="uploadPic('logoFile','logoImg')"/></td>
                 </tr>
                 <tr>
@@ -59,7 +62,7 @@
                                     return;
                                 var industrys = $('#industrys');
                                 if (result.data != null)
-                                    industrys.html("<span>" + result.data.name + "</span>");
+                                    industrys.html("<span onclick='fixIndustry(" + result.data.id + ")'>" + result.data.name + "</span>&nbsp;&nbsp;");
                             }, "json");
                             <%
                             }else{
@@ -74,7 +77,7 @@
                 <tr>
                     <td>所在城市</td>
                     <td>
-                        <select id="areas"></select>
+                        <select id="area" name="area"></select>
                         <script>
                             <%
                                 if(!isNull && project.getIndustry()!=null){
@@ -82,7 +85,7 @@
                             $.get("/classinfo/get/<%=project.getArea() %>", function (result) {
                                 if (result.code < 0)
                                     return;
-                                $("#areas").val(result.data.area);
+                                $("#area").val(result.data.area);
                             }, "json");
                             <%
                             }
@@ -93,7 +96,7 @@
                 <tr>
                     <td>融资规模</td>
                     <td>
-                        <select id="financingLimit"></select>
+                        <select id="financingLimit" name="financingLimit"></select>
                         <script>
                             <%
                                 if(!isNull && project.getFinancingLimit()!=null){
@@ -134,31 +137,31 @@
     <div>项目信息</div>
     <div>
         <form id="projectForm">
-        <table>
-            <tr>
-                <td>项目介绍</td>
-                <td><textarea name="desc"><%=(isNull || StringUtils.isEmpty(project.getDesc())) ?
-                        "" :
-                        project.getDesc() %></textarea></td>
-            </tr>
-            <tr>
-                <td>宣传视频</td>
-                <td><input name="videoLink" <%=(isNull || StringUtils.isEmpty(project.getVideoLink())) ?
-                        "" :
-                        project.getVideoLink()%>/></td>
-            </tr>
-            <tr>
-                <td>产品网址</td>
-                <td><input name="proLink"<%=(isNull || StringUtils.isEmpty(project.getProLink())) ?
-                        "" :
-                        project.getProLink()%>/></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <button type="button">保存</button>
-                </td>
-            </tr>
-        </table>
+            <table>
+                <tr>
+                    <td>项目介绍</td>
+                    <td><textarea name="desc"><%=(isNull || StringUtils.isEmpty(project.getDesc())) ?
+                            "" :
+                            project.getDesc() %></textarea></td>
+                </tr>
+                <tr>
+                    <td>宣传视频</td>
+                    <td><input name="videoLink" <%=(isNull || StringUtils.isEmpty(project.getVideoLink())) ?
+                            "" :
+                            project.getVideoLink()%>/></td>
+                </tr>
+                <tr>
+                    <td>产品网址</td>
+                    <td><input name="proLink"<%=(isNull || StringUtils.isEmpty(project.getProLink())) ?
+                            "" :
+                            project.getProLink()%>/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="button">保存</button>
+                    </td>
+                </tr>
+            </table>
         </form>
     </div>
 </div>
@@ -289,6 +292,7 @@
                             return;
                         }
                         $('#' + imgid).attr("src", result.data);
+                        $('#logo').val(result.data);
                     }
                 }
         );
@@ -301,7 +305,7 @@
             var industrys = $('#industrys');
             industrys.html("");
             for (i = 0; i < result.data.length; i++) {
-                industrys.append("<span>" + result.data[i].name + "</span>");
+                industrys.append("<span onclick='fixIndustry(" + result.data[i].id + ")'>" + result.data[i].name + "</span>&nbsp;&nbsp;");
             }
         }, "json");
     }
@@ -309,10 +313,10 @@
     $.get("/classinfo/list/root/" + classinfo_rootid_area, function (result) {
         if (result.code < 0)
             return;
-        var areas = $('#areas');
-        industrys.html("<option id='0'>请选择</option>");
+        var area = $('#area');
+        area.html("<option value='0'>请选择</option>");
         for (i = 0; i < result.data.length; i++) {
-            industrys.append("<span>" + result.data[i].name + "</span>");
+            area.append("<option value='" + result.data[i].id + "'>" + result.data[i].name + "</option>");
         }
     }, "json");
     //获得融资额度信息
@@ -320,18 +324,18 @@
         if (result.code < 0)
             return;
         var financingLimit = $('#financingLimit');
-        financingLimit.html("<option id='0'>请选择</option>");
+        financingLimit.html("<option value='0'>请选择</option>");
         for (i = 0; i < result.data.length; i++) {
-            financingLimit.append("<span>" + result.data[i].name + "</span>");
+            financingLimit.append("<option value='" + result.data[i].id + "'>" + result.data[i].name + "</option>");
         }
     }, "json");
     //保存基本信息
     function saveBase() {
-        $.ajax({
+        /*$("#baseForm").ajaxSubmit({
             type: 'POST',
             dataType: 'json',
             url: '/project/base/save',
-            data: $('#baseForm').serialize(),
+            contentType: 'application/x-www-form-urlencoded',
             success: function (result) {
                 if (result.code < 0) {
                     alert(result.message);
@@ -341,8 +345,31 @@
                 $("#baseDiv").hide();
                 $("#projectDiv").show();
             }
-        });
+        });*/
+        /*var form = new FormData(document.getElementById("baseForm"));
+        $.ajax({
+            type: 'POST',
+            url: '/project/base/save',
+            cache: false,
+            processData: false,
+            contentType: 'application/x-www-form-urlencoded',
+            //data: $('#baseForm').serialize(),
+            data: form/!*,
+            success: function (result) {
+                if (result.code < 0) {
+                    alert(result.message);
+                    return;
+                }
+                $("#id").val(result.data);
+                $("#baseDiv").hide();
+                $("#projectDiv").show();
+            }*!/
+        });*/
+        $("#baseForm").ajaxSubmit();
     }
-
+    //选择所属行业
+    function fixIndustry(id) {
+        $("#industry").val(id);
+    }
 </script>
 </html>
