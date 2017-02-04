@@ -11,5 +11,12 @@ import org.springframework.stereotype.Service;
 public class ProjectServiceImpl implements ProjectService {
     @Override public void save(Project project) {
 
+        if (project.getId() == null) {
+            project.setStatus(0);
+            //save
+        } else {
+            //update
+        }
+
     }
 }

@@ -19,13 +19,16 @@
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
-<div id="baseDiv">
+<div id="baseDiv" style="display: none;">
     <div>基本信息</div>
     <div>
         <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
-        <form id="baseForm" method="post" action="/project/base/save" enctype="multipart/form-data">
+        <input type="file" id="bpFile" name="bpFile" style="display: none;"/>
+        <form id="baseForm">
             <input type="hidden" id="id" name="id" value="0"/>
             <input type="hidden" id="logo" name="logo"/>
+            <input type="hidden" id="bp" name="bp"/>
+            <input type="hidden" id="bpName" name="bpName"/>
             <input type="hidden" id="industry" name="industry" value="0"/>
             <table>
                 <tr>
@@ -34,8 +37,8 @@
                         <img id="logoImg"
                              src="<%=(isNull|| StringUtils.isEmpty(project.getLogo()))?"https://www.vchello.com/NewHome/src/images/upload-logo.png":project.getLogo() %>"
                              title="点击添加图片"
-                             width="180" height="180" style="position: relative; z-index: 1;" onclick="selectLogo();">
-                        <input type="button" value="上传" onclick="uploadPic('logoFile','logoImg')"/></td>
+                             width="180" height="180" style="position: relative; z-index: 1;" onclick="selectFile('logoFile');">
+                        <input type="button" value="上传" onclick="uploadImage('logoFile','logoImg','logo')"/></td>
                 </tr>
                 <tr>
                     <td>项目名</td>
@@ -122,7 +125,19 @@
                 </tr>
                 <tr>
                     <td>商业计划书</td>
-                    <td><input type="file" name="bp"/></td>
+                    <td>
+                        <%
+                            if (isNull || StringUtils.isEmpty(project.getBp())) {
+                        %><span id="bpSelect" onclick="selectFile('bpFile')">选择BP</span><input type="button" value="上传"
+                                                                                               onclick="uploadFile('bpFile','bpSelect')"/><%
+                    } else {
+                    %><%=project.getBpName() %>&nbsp;<span id="bpSelect" onclick="selectFile('bpFile')">选择BP</span><input
+                            type="button" value="上传"
+                            onclick="uploadFile('bpFile','bpSelect')"/>
+                        <%
+                            }
+                        %>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -158,44 +173,72 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <button type="button">保存</button>
+                        <button type="button" onclick="saveInfo();">保存</button>
                     </td>
                 </tr>
             </table>
         </form>
     </div>
 </div>
-<div id="memberDiv" style="display: none;">
+<div id="memberDiv">
     <div>团队信息</div>
-    <div></div>
-    <a href="#">添加核心成员</a>
+    <div id="members"></div>
+    <a href="#" onclick="modalShow('#bigModal', '', modalDataInit(0));">添加核心成员</a>
+    <a href="#" onclick="">保存</a>
 </div>
 <div id="videoDiv" style="display: none;">
     <div>媒体报道</div>
     <div></div>
 </div>
-<button type="button" class="btn btn-primary  test-btn" onclick="modalShow('#bigModal', '', modalDataInit('test'));">
-    模态框测试
-</button>
-<div class="modal bs-example-modal-lg" onclick="modalHide('#bigModal', '');"
-     id="bigModal">
+<div class="modal bs-example-modal-lg" id="bigModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" onclick="modalHide('#bigModal', '');" class="close"
                         data-dismiss="modal">
-                    <span aria-hidden="true">
-                        ×
-                    </span>
-                    <span class="sr-only">
-                        Close
-                    </span>
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title">
-                    模态框标题
-                </h4>
+                <h4 class="modal-title">核心成员</h4>
             </div>
             <div class="modal-body">
+                <input type="file" id="photoFile" name="photoFile" style="display: none;"/>
+                <form id="memberForm">
+                    <input type="hidden" id="photo" name="photo"/>
+                    <input type="hidden" id="memberid" name="id" value="0"/>
+                    <input type="hidden" id="projectid" name="projectid"/>
+                    <table>
+                        <tr>
+                            <td>头像</td>
+                            <td>
+                                <img width="180" height="180" id="photoImg" onclick="selectFile('photoFile');"/>&nbsp;
+                                <a href="#" onclick="uploadImage('photoFile','photoImg','photo')">上传</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>姓名</td>
+                            <td><input id="memberName" name="memberName"/></td>
+                        </tr>
+                        <tr>
+                            <td>是否创始人</td>
+                            <td>
+                                <input type="radio" name="isFounder" value="1"/>是
+                                <input type="radio" name="isFounder" value="0" checked="checked"/>否
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>职位</td>
+                            <td><input id="position" name="position"/></td>
+                        </tr>
+                        <tr>
+                            <td>个人介绍</td>
+                            <td><input id="memberSummary" name="summary"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="button" value="保存" onclick="saveMember()"/></td>
+                        </tr>
+                    </table>
+                </form>
             </div>
         </div>
     </div>
@@ -232,7 +275,7 @@
         }
         console.log(targetModel + " " + animateName);
         $(targetModel).show().animateCss(animateName);
-        callback.apply(this);
+        //callback.apply(this);
     }
     /**
      * 隐藏模态框方法
@@ -260,18 +303,25 @@
         $(targetModel).delay(900).hide(1, function () {
             $(this).removeClass('animated ' + animateName);
         });
-        callback.apply(this);
+        //callback.apply(this);
     }
-    var modalDataInit = function (info) {
-        //alert(info);
-        //填充数据，对弹出模态框数据样式初始化或修改
+    var modalDataInit = function (memberid) {
+        $('#memberForm')[0].reset();
+        $("#projectid").val(projectid);
+        if (memberid == 0) {
+            $("#photoImg").attr("src", "https://www.vchello.com/NewHome/src/images/founderImg.png");
+        } else {
+
+        }
     }
 
-    function selectLogo() {
-        $('#logoFile').click();
-    }
+    var projectid = <%=isNull?"0":project.getId().toString()%>;
 
-    function uploadPic(fileid, imgid) {
+    function selectFile(id) {
+        $('#' + id).click();
+    }
+    //上传logo
+    function uploadImage(fileid, imgid, hiddenid) {
         var file = $('#' + fileid);
         if (!file || !file.val())
             return;
@@ -291,8 +341,36 @@
                             alert(result.message);
                             return;
                         }
-                        $('#' + imgid).attr("src", result.data);
-                        $('#logo').val(result.data);
+                        $('#' + imgid).attr("src", result.data.path);
+                        $('#' + hiddenid).val(result.data.path);
+                    }
+                }
+        );
+    }
+    //上传文件
+    function uploadFile(fileid, showid) {
+        var file = $('#' + fileid);
+        if (!file || !file.val())
+            return;
+        var patn = /\.pdf$|\.ppt$|\.pptx$/i;
+        if (!patn.test(file.val())) {
+            alert("文件类型不正确");
+            return;
+        }
+        $.ajaxFileUpload({
+                    url: '/file/upload', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId: fileid, //文件上传域的ID
+                    dataType: 'json', //返回值类型 一般设置为json
+                    success: function (result) {  //服务器成功响应处理函数
+                        if (result.code == -1) {
+                            alert(result.message);
+                            return;
+                        }
+                        $('#' + showid).html(result.data.name);
+                        $('#bp').val(result.data.path);
+                        $('#bpName').val(result.data.name);
                     }
                 }
         );
@@ -331,11 +409,13 @@
     }, "json");
     //保存基本信息
     function saveBase() {
-        /*$("#baseForm").ajaxSubmit({
+        $.ajax({
             type: 'POST',
-            dataType: 'json',
             url: '/project/base/save',
-            contentType: 'application/x-www-form-urlencoded',
+            cache: false,
+            processData: false,
+            data: $('#baseForm').serialize(),
+            dataType: 'json',
             success: function (result) {
                 if (result.code < 0) {
                     alert(result.message);
@@ -345,27 +425,56 @@
                 $("#baseDiv").hide();
                 $("#projectDiv").show();
             }
-        });*/
-        /*var form = new FormData(document.getElementById("baseForm"));
+        });
+    }
+    //保存项目信息
+    function saveInfo() {
         $.ajax({
             type: 'POST',
-            url: '/project/base/save',
+            url: '/project/info/save/' + projectid,
             cache: false,
             processData: false,
-            contentType: 'application/x-www-form-urlencoded',
-            //data: $('#baseForm').serialize(),
-            data: form/!*,
+            data: $('#projectForm').serialize(),
+            dataType: 'json',
             success: function (result) {
                 if (result.code < 0) {
                     alert(result.message);
                     return;
                 }
-                $("#id").val(result.data);
-                $("#baseDiv").hide();
-                $("#projectDiv").show();
-            }*!/
-        });*/
-        $("#baseForm").ajaxSubmit();
+                $("#projectDiv").hide();
+                $("#memberDiv").show();
+            }
+        });
+    }
+    //保存成员信息
+    function saveMember() {
+        $.ajax({
+            type: 'POST',
+            url: '/team/member/save/',
+            cache: false,
+            processData: false,
+            data: $('#memberForm').serialize(),
+            dataType: 'json',
+            success: function (result) {
+                if (result.code < 0) {
+                    alert(result.message);
+                    return;
+                }
+                modalHide('#bigModal', '');
+                var member = result.data;
+                $("#members").append("<div id='memberDiv" + member.id + "'>姓名:" + member.memberName + "&nbsp;头像:<img width='180' height='180' src='" + member.photo + "'/>&nbsp;<a href='#' onclick='modifyMember(" + member.id + ");'>编辑</a>&nbsp;<a href='#' onclick='delMember(" + member.id + ");'>删除</a></div>")
+            }
+        });
+    }
+    //删除成员
+    function delMember(memberid) {
+        $.get("/team/member/del/" + memberid, function (result) {
+            if (result.code < 0) {
+                alert(result.message);
+                return;
+            }
+            $("#memberDiv" + memberid).remove();
+        }, "json");
     }
     //选择所属行业
     function fixIndustry(id) {

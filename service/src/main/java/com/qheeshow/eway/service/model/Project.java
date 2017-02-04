@@ -20,6 +20,7 @@ public class Project extends BaseModel {
     private String logo;//项目logo
     private String tags;//项目标签
     private String bp;//商业计划书
+    private String bpName;//上传时商业计划书的名称
     private Integer financingLimit;//融资额度
     private Integer percent;//出让股份百分比
     private String referee;//推荐人姓名
@@ -152,4 +153,11 @@ public class Project extends BaseModel {
         this.referee = referee;
     }
 
+    public String getBpName() {
+        return bpName;
+    }
+
+    public void setBpName(String bpName) {
+        this.bpName = bpName;
+    }
 }
