@@ -12,8 +12,10 @@
 <table id="datagrid"></table>
 <div id="w" class="easyui-window" title="项目详情" data-options="modal:true,closed:true,iconCls:'icon-save'"
      style="width:600px;height:550px;padding:10px;">
-    <div class="easyui-tabs" style="width:700px;height:600px">
+    <div class="easyui-tabs" style="width:500px;height:600px">
         <div title="基本信息" style="padding:10px">
+            <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
+            <input type="file" id="bpFile" name="bpFile" style="display: none;"/>
             <form id="baseForm">
                 <input type="hidden" id="id" name="id"/>
                 <input type="hidden" id="logo" name="logo"/>
@@ -38,7 +40,7 @@
                     <tr>
                         <td>所属行业</td>
                         <td>
-                            <select id="industry"></select>
+                            <select id="industry" name="industry"></select>
                         </td>
                     </tr>
                     <tr>
@@ -67,7 +69,7 @@
                     <tr>
                         <td>商业计划书</td>
                         <td>
-                            <span></span>
+                            <span id="bpSpan"></span>
                             <span id="bpSelect" onclick="selectFile('bpFile')">选择BP</span>
                             <input type="button" value="上传" onclick="uploadFile('bpFile','bpSelect')"/>
                         </td>
@@ -81,7 +83,29 @@
             </form>
         </div>
         <div title="项目信息" style="padding:10px">
-            <ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true"></ul>
+            <form id="projectForm">
+                <table>
+                    <tr>
+                        <td>项目介绍</td>
+                        <td><textarea id="desc" name="desc"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>宣传视频</td>
+                        <td><input id="videoLink" name="videoLink"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>产品网址</td>
+                        <td><input id="proLink" name="proLink"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="button" onclick="saveInfo();">保存</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </div>
         <div title="团队信息" style="padding:10px">
             This is the help content.
@@ -91,9 +115,17 @@
         </div>
     </div>
 </div>
+<div id="investor" class="easyui-window" title="投资人列表" data-options="modal:true,closed:true,iconCls:'icon-save'"
+     style="width:600px;height:550px;padding:10px;">
+    <div id="investors">
+        <span id="spanInvestor"><a onclick="delInvestor();">X</a>李华君</span>
+    </div>
+    <table id="investorDatagrid"></table>
+</div>
+
 <script>
-    function listByStatus(status) {
-        var list = $('#datagrid').datagrid({
+    function listInvestor() {
+        var list = $('#investorDatagrid').datagrid({
             border: false,
             fitColumns: true,
             singleSelect: true,
@@ -144,53 +176,119 @@
             }]
         });
     }
-    //确定
-    function fix() {
+
+    function listByStatus(status) {
+        var list = $('#datagrid').datagrid({
+            border: false,
+            fitColumns: true,
+            singleSelect: true,
+            pagination: true,
+            url: '/project/list/' + status,
+            columns: [[
+                {
+                    field: 'id', title: '编号', width: 3
+                },
+                {
+                    field: 'title', title: '项目名称', width: 18
+                },
+                {
+                    field: 'username', title: '项目联系人', width: 8,
+                    formatter: function (value, rec) {
+                        var btn = "<a onclick='openUpdate(\'" + rec.id + "\')' href='javascript:void(0)'>" + rec.username + "</a>";
+                        return btn;
+                    }
+                },
+                {
+                    field: 'createTime', title: '日期', width: 8,
+                    formatter: function (value, rec) {
+                        return dateFormatter(new Date(rec.createTime));
+                    }
+                },
+                {
+                    field: 'opt', title: '操作', align: 'center',
+                    formatter: function (value, rec) {
+                        var btn = '<a class="editcls" onclick="openUpdate(\'' + rec.id + '\')" href="javascript:void(0)">问答管理</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="openUpdate(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">匹配投资人</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="openUpdate(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">编辑</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',2)" href="javascript:void(0)">发布</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',3)" href="javascript:void(0)">不通过</a>&nbsp&nbsp';
+                        return btn;
+                    }
+                }
+            ]]
+        });
+        var pager = list.datagrid('getPager');
+        pager.pagination({
+            buttons: [{
+                iconCls: 'icon-add',
+                handler: function () {
+                    //$("#id").val("0");
+                    //$("#projectForm")[0].reset();
+                    $('#w').window('open');
+                }
+            }]
+        });
+    }
+    //保存基本信息
+    function saveBase() {
         $.ajax({
-            url: '/sys/goods/fix',
+            url: '/project/base/save',
             type: 'post',
-            data: {
-                "id": $("#id").val(),
-                "title": $("#title").val(),
-                "description": $("#description").val(),
-                "sort": $("#sort").val(),
-                "price": $("#price").val(),
-                "img": $("#img").val(),
-                "type": $("#type").val(),
-                "vipType": $("#vipType").val(),
-                "count": $("#count").val(),
-                "status": $("#status").val()
-            },
+            data: $('#baseForm').serialize(),
             dataType: 'json',
             success: function (result) {
                 if (result.code != 1) {
                     $.messager.alert('Info', "保存失败", 'info');
                 } else {
-                    $('#w').window('close');
                     $('#datagrid').datagrid('reload');
                 }
             }
         });
     }
-
-    function openUpdate(id) {
+    //保存基本信息
+    function saveInfo() {
         $.ajax({
-            url: '/sys/goods/get?id=' + id,
+            url: '/info/save/' + projectid,
+            type: 'post',
+            data: $('#projectForm').serialize(),
+            dataType: 'json',
+            success: function (result) {
+                if (result.code != 1) {
+                    $.messager.alert('Info', "保存失败", 'info');
+                } else {
+                    $('#datagrid').datagrid('reload');
+                }
+            }
+        });
+    }
+    var projectid = 0;
+    function openUpdate(id) {
+        projectid = id;
+        $.ajax({
+            url: '/project/get/' + id,
             type: 'get',
             dataType: 'json',
             success: function (result) {
                 if (result.code == 0) {
                     var data = result.data;
                     $("#id").val(data.id);
+                    $("#bp").val(data.bp);
+                    $("#bpName").val(data.bpName);
+                    $("#logoImg").attr(data.logo);
                     $("#title").val(data.title);
-                    $("#description").val(data.description);
-                    $("#sort").val(data.sort);
-                    $("#price").val(data.price);
-                    $("#img").val(data.img);
-                    $("#type").val(data.type);
-                    $("#vipType").val(data.vipType);
-                    $("#count").val(data.count);
-                    $("#status").val(data.status);
+                    $("#summary").val(data.summary);
+                    $("#percent").val(data.percent);
+                    $("#referee").val(data.referee);
+                    $("#bpSpan").html("<a href='" + data.bp + "'>" + data.bpName + "</a>");
+                    $("#industry").val(data.industry);
+                    $("#area").val(data.area);
+                    $("#financingLimit").val(data.financingLimit);
+                    $("#desc").val(data.desc);
+                    $("#videoLink").val(data.videoLink);
+                    $("#proLink").val(data.proLink);
+                    $("#desc").val(data.desc);
+                    $("#videoLink").val(data.videoLink);
+                    $("#proLink").val(data.proLink);
                     $('#w').window('open');
                 } else {
                     $.messager.alert('Info', "失败", 'info');
@@ -205,7 +303,7 @@
         else if (status == 0)
             status = 1;
         $.ajax({
-            url: '/sys/goods/status/update?id=' + id + "&status=" + status,
+            url: '/project/' + id + '/' + status,
             type: 'get',
             dataType: 'json',
             success: function (result) {
@@ -219,6 +317,101 @@
     }
 
     listByStatus(1);
+
+    function selectFile(id) {
+        $('#' + id).click();
+    }
+    //上传logo
+    function uploadImage(fileid, imgid, hiddenid) {
+        var file = $('#' + fileid);
+        if (!file || !file.val())
+            return;
+        var patn = /\.jpg$|\.jpeg$|\.png$|\.gif$/i;
+        if (!patn.test(file.val())) {
+            alert("请选择图片文件");
+            return;
+        }
+        $.ajaxFileUpload({
+                    url: '/image/upload', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId: fileid, //文件上传域的ID
+                    dataType: 'json', //返回值类型 一般设置为json
+                    success: function (result) {  //服务器成功响应处理函数
+                        if (result.code == -1) {
+                            alert(result.message);
+                            return;
+                        }
+                        $('#' + imgid).attr("src", result.data.path);
+                        $('#' + hiddenid).val(result.data.path);
+                    }
+                }
+        );
+    }
+    //上传文件
+    function uploadFile(fileid, showid) {
+        var file = $('#' + fileid);
+        if (!file || !file.val())
+            return;
+        var patn = /\.pdf$|\.ppt$|\.pptx$/i;
+        if (!patn.test(file.val())) {
+            alert("文件类型不正确");
+            return;
+        }
+        $.ajaxFileUpload({
+                    url: '/file/upload', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId: fileid, //文件上传域的ID
+                    dataType: 'json', //返回值类型 一般设置为json
+                    success: function (result) {  //服务器成功响应处理函数
+                        if (result.code == -1) {
+                            alert(result.message);
+                            return;
+                        }
+                        $('#' + showid).html(result.data.name);
+                        $('#bp').val(result.data.path);
+                        $('#bpName').val(result.data.name);
+                    }
+                }
+        );
+    }
+    //获得行业信息
+    $.get("/classinfo/list/root/" + classinfo_rootid_industry, function (result) {
+        if (result.code < 0) {
+            alert(result.message);
+            return;
+        }
+        var industry = $('#industry');
+        industry.html("");
+        for (i = 0; i < result.data.length; i++) {
+            industry.append("<option value='" + result.data[i].id + "'>" + result.data[i].name + "</option>");
+        }
+    }, "json");
+    //获得地域信息
+    $.get("/classinfo/list/root/" + classinfo_rootid_area, function (result) {
+        if (result.code < 0) {
+            alert(result.message);
+            return;
+        }
+        var area = $('#area');
+        area.html("<option value='0'>请选择</option>");
+        for (i = 0; i < result.data.length; i++) {
+            area.append("<option value='" + result.data[i].id + "'>" + result.data[i].name + "</option>");
+        }
+    }, "json");
+    //获得融资额度信息
+    $.get("/classinfo/list/root/" + classinfo_rootid_financing_limit, function (result) {
+        if (result.code < 0) {
+            alert(result.message);
+            return;
+        }
+        var financingLimit = $('#financingLimit');
+        financingLimit.html("<option value='0'>请选择</option>");
+        for (i = 0; i < result.data.length; i++) {
+            financingLimit.append("<option value='" + result.data[i].id + "'>" + result.data[i].name + "</option>");
+        }
+    }, "json");
 </script>
 </body>
 </html>

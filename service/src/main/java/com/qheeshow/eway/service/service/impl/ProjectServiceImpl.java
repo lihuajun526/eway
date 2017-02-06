@@ -51,4 +51,25 @@ public class ProjectServiceImpl implements ProjectService {
 
         return list;
     }
+
+    @Override public Project get(Integer id) {
+        Project project1 = new Project();
+        project1.setId(1);
+        project1.setBp("http://www.baidu.com");
+        project1.setBpName("计划书");
+        project1.setLogo("https://www.baidu.com/img/baidu_jgylogo3.gif");
+        project1.setSummary("简介");
+        project1.setPercent(12);
+        project1.setReferee("介绍人");
+        project1.setTitle("积分生活1");
+        project1.setIndustry(1);
+        project1.setArea(1);
+        project1.setFinancingLimit(1);
+        project1.setUsername("lihuajun1");
+        project1.setCreateTime(new Date());
+        project1.setDesc("desc");
+        project1.setVideoLink("http://www.caitu99.com");
+        project1.setProLink("http://www.baidu.com");
+        return project1;
+    }
 }

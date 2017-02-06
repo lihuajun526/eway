@@ -13,4 +13,6 @@ public interface ProjectService {
 
     List<Project> listByStatus(Integer status);
 
+    Project get(Integer id);
+
 }
