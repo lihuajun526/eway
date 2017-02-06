@@ -15,7 +15,8 @@ public class Project extends BaseModel {
     private String content;//项目内容
     private String videoLink;//宣传视频
     private String proLink;//项目网址
-    private Integer userid;//项目负责人
+    private Integer userid;//项目联系人id
+    private String username;//项目联系人
     private Integer status;//项目状态:1新项目,2审核通过,3审核未通过
     private String logo;//项目logo
     private String tags;//项目标签
@@ -159,5 +160,13 @@ public class Project extends BaseModel {
 
     public void setBpName(String bpName) {
         this.bpName = bpName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

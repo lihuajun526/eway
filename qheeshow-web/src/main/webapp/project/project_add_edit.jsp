@@ -461,8 +461,12 @@
                     return;
                 }
                 modalHide('#bigModal', '');
+                var memberid = $("#memberid").val();
                 var member = result.data;
-                $("#members").append("<div id='memberDiv" + member.id + "'>姓名:" + member.memberName + "&nbsp;头像:<img width='180' height='180' src='" + member.photo + "'/>&nbsp;<a href='#' onclick='modifyMember(" + member.id + ");'>编辑</a>&nbsp;<a href='#' onclick='delMember(" + member.id + ");'>删除</a></div>")
+                if (memberid == 0)
+                    $("#members").append("<div id='memberDiv" + member.id + "'>姓名:" + member.memberName + "&nbsp;头像:<img width='180' height='180' src='" + member.photo + "'/>&nbsp;<a href='#' onclick='modifyMember(" + member.id + ");'>编辑</a>&nbsp;<a href='#' onclick='delMember(" + member.id + ");'>删除</a></div>")
+                else
+                    $("#memberDiv" + member.id).html("姓名:" + member.memberName + "&nbsp;头像:<img width='180' height='180' src='" + member.photo + "'/>&nbsp;<a href='#' onclick='modifyMember(" + member.id + ");'>编辑</a>&nbsp;<a href='#' onclick='delMember(" + member.id + ");'>删除</a>")
             }
         });
     }
@@ -474,6 +478,24 @@
                 return;
             }
             $("#memberDiv" + memberid).remove();
+        }, "json");
+    }
+    //修改成员
+    function modifyMember(memberid) {
+        $.get("/team/member/get/" + memberid, function (result) {
+            if (result.code < 0) {
+                alert(result.message);
+                return;
+            }
+            var member = result.data;
+            $("#photo").val(member.photo);
+            $("#memberid").val(member.id);
+            $("#projectid").val(member.projectid);
+            $("#photoImg").attr("src", member.photo);
+            $("#memberName").val(member.memberName);
+            $("input[name='isFounder'][value='" + member.isFounder + "']").attr("checked", true);
+            $("#position").val(member.position);
+            $("#memberSummary").val(member.summary);
         }, "json");
     }
     //选择所属行业

@@ -9,6 +9,7 @@
     <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.min.js"></script>
     <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/statics/js/common.js"></script>
 </head>
 <body class="easyui-layout">
 <div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">爬虫规则管理系统</div>
@@ -73,11 +74,13 @@
     }
     $('#tree').tree({
         onClick: function (node) {
+            loadPage('sys/project/project_list.html');
+            return;
             curNode = node;
             if (node.attributes == null)
                 return;
             if (node.attributes.pageType == "crawlPoint") {
-                loadPage('rule/crawl_point.html');
+                loadPage('sys/project/project_list.html');
             } else if (node.attributes.pageType == "attacker") {
                 loadPage('rule/attacker.html');
             } else if (node.attributes.pageType == "qzoneCrawlPoint") {

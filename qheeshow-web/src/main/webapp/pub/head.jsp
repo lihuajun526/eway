@@ -16,7 +16,7 @@
     <a href="/user/regist.jsp">注册</a><%
 } else {
 %>
-    <%=loginUser.getMobile()%>
+    <%=loginUser.getName()%>
     <%
         }
     %>

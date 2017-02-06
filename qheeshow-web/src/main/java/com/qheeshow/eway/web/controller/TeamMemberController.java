@@ -32,12 +32,35 @@ public class TeamMemberController extends BaseController {
         return result.toString();
     }
 
-    @RequestMapping("/del")
+    /**
+     * 删除成员
+     *
+     * @param memberid
+     * @return
+     */
+    @RequestMapping("/del/{memberid}")
     @ResponseBody
     public String del(@PathVariable Integer memberid) {
         Result result = new Result();
 
         teamMemberService.del(memberid);
+
+        return result.toString();
+    }
+
+    /**
+     * 获得成员信息
+     *
+     * @param memberid
+     * @return
+     */
+    @RequestMapping("/get/{memberid}")
+    @ResponseBody
+    public String get(@PathVariable Integer memberid) {
+        Result<TeamMember> result = new Result<>();
+
+        TeamMember teamMember = teamMemberService.get(memberid);
+        result.setData(teamMember);
 
         return result.toString();
     }

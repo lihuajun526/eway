@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div style="margin-bottom: 10px;">
+    <a style="cursor: pointer" onclick="listByStatus(1)">新项目</a>&nbsp;&nbsp;
+    <a style="cursor: pointer" onclick="listByStatus(2)">审核通过</a>&nbsp;&nbsp;
+    <a style="cursor: pointer" onclick="listByStatus(3)">审核未通过</a>
+</div>
+<table id="datagrid"></table>
+<div id="w" class="easyui-window" title="项目详情" data-options="modal:true,closed:true,iconCls:'icon-save'"
+     style="width:600px;height:550px;padding:10px;">
+    <div class="easyui-tabs" style="width:700px;height:600px">
+        <div title="基本信息" style="padding:10px">
+            <form id="baseForm">
+                <input type="hidden" id="id" name="id"/>
+                <input type="hidden" id="logo" name="logo"/>
+                <input type="hidden" id="bp" name="bp"/>
+                <input type="hidden" id="bpName" name="bpName"/>
+                <table>
+                    <tr>
+                        <td>LOGO</td>
+                        <td>
+                            <img id="logoImg" width="180" height="180" onclick="selectFile('logoFile');">
+                            <input type="button" value="上传" onclick="uploadImage('logoFile','logoImg','logo')"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>项目名</td>
+                        <td><input id="title" name="title"/></td>
+                    </tr>
+                    <tr>
+                        <td>一句话介绍</td>
+                        <td><textarea id="summary" name="summary"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>所属行业</td>
+                        <td>
+                            <select id="industry"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>所在城市</td>
+                        <td>
+                            <select id="area" name="area"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>融资规模</td>
+                        <td>
+                            <select id="financingLimit" name="financingLimit"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>出让比例</td>
+                        <td>
+                            <input id="percent" name="percent"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>推荐人姓名</td>
+                        <td><input id="referee" name="referee"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>商业计划书</td>
+                        <td>
+                            <span></span>
+                            <span id="bpSelect" onclick="selectFile('bpFile')">选择BP</span>
+                            <input type="button" value="上传" onclick="uploadFile('bpFile','bpSelect')"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="button" onclick="saveBase();">保存</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div title="项目信息" style="padding:10px">
+            <ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true"></ul>
+        </div>
+        <div title="团队信息" style="padding:10px">
+            This is the help content.
+        </div>
+        <div title="媒体报道" style="padding:10px">
+            This is the help content.
+        </div>
+    </div>
+</div>
+<script>
+    function listByStatus(status) {
+        var list = $('#datagrid').datagrid({
+            border: false,
+            fitColumns: true,
+            singleSelect: true,
+            pagination: true,
+            url: '/project/list/' + status,
+            columns: [[
+                {
+                    field: 'id', title: '编号', width: 3
+                },
+                {
+                    field: 'title', title: '项目名称', width: 18
+                },
+                {
+                    field: 'username', title: '项目联系人', width: 8,
+                    formatter: function (value, rec) {
+                        var btn = "<a onclick='openUpdate(\'" + rec.id + "\')' href='javascript:void(0)'>" + rec.username + "</a>";
+                        return btn;
+                    }
+                },
+                {
+                    field: 'createTime', title: '日期', width: 8,
+                    formatter: function (value, rec) {
+                        return dateFormatter(new Date(rec.createTime));
+                    }
+                },
+                {
+                    field: 'opt', title: '操作', align: 'center',
+                    formatter: function (value, rec) {
+                        var btn = '<a class="editcls" onclick="openUpdate(\'' + rec.id + '\')" href="javascript:void(0)">问答管理</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">匹配投资人</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">编辑</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">发布</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">不通过</a>&nbsp&nbsp';
+                        return btn;
+                    }
+                }
+            ]]
+        });
+        var pager = list.datagrid('getPager');
+        pager.pagination({
+            buttons: [{
+                iconCls: 'icon-add',
+                handler: function () {
+                    //$("#id").val("0");
+                    //$("#projectForm")[0].reset();
+                    $('#w').window('open');
+                }
+            }]
+        });
+    }
+    //确定
+    function fix() {
+        $.ajax({
+            url: '/sys/goods/fix',
+            type: 'post',
+            data: {
+                "id": $("#id").val(),
+                "title": $("#title").val(),
+                "description": $("#description").val(),
+                "sort": $("#sort").val(),
+                "price": $("#price").val(),
+                "img": $("#img").val(),
+                "type": $("#type").val(),
+                "vipType": $("#vipType").val(),
+                "count": $("#count").val(),
+                "status": $("#status").val()
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code != 1) {
+                    $.messager.alert('Info', "保存失败", 'info');
+                } else {
+                    $('#w').window('close');
+                    $('#datagrid').datagrid('reload');
+                }
+            }
+        });
+    }
+
+    function openUpdate(id) {
+        $.ajax({
+            url: '/sys/goods/get?id=' + id,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    var data = result.data;
+                    $("#id").val(data.id);
+                    $("#title").val(data.title);
+                    $("#description").val(data.description);
+                    $("#sort").val(data.sort);
+                    $("#price").val(data.price);
+                    $("#img").val(data.img);
+                    $("#type").val(data.type);
+                    $("#vipType").val(data.vipType);
+                    $("#count").val(data.count);
+                    $("#status").val(data.status);
+                    $('#w').window('open');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+
+    function updateStatus(id, status) {
+        if (status == 1)
+            status = 0;
+        else if (status == 0)
+            status = 1;
+        $.ajax({
+            url: '/sys/goods/status/update?id=' + id + "&status=" + status,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#datagrid').datagrid('reload');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+
+    listByStatus(1);
+</script>
+</body>
+</html>

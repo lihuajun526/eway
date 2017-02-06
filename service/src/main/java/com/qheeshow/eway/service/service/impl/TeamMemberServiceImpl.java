@@ -16,4 +16,17 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     @Override public void del(Integer id) {
 
     }
+
+    @Override public TeamMember get(Integer id) {
+        TeamMember teamMember = new TeamMember();
+        teamMember.setId(1);
+        teamMember.setIsFounder(1);
+        teamMember.setMemberName("李华君");
+        teamMember.setPhoto("https://www.baidu.com/img/bd_logo1.png");
+        teamMember.setPosition("ceo");
+        teamMember.setProjectid(1);
+        teamMember.setSummary("简介");
+
+        return teamMember;
+    }
 }

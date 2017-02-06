@@ -11,4 +11,6 @@ public interface TeamMemberService {
 
     void del(Integer id);
 
+    TeamMember get(Integer id);
+
 }
