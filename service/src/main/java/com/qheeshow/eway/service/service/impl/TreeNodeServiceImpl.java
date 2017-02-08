@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by lihuajun on 16-7-25.
  */
-@Service("treeNodeService")
+@Service
 public class TreeNodeServiceImpl implements TreeNodeService {
 
     @Autowired

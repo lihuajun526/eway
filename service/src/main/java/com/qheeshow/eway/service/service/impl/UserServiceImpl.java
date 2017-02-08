@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by lihuajun on 17-1-22.
  */
-@Service("userService")
+@Service
 public class UserServiceImpl implements UserService {
 
 

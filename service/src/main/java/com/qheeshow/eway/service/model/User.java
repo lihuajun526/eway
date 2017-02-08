@@ -11,9 +11,10 @@ public class User extends BaseModel {
     private String openid;
     private String nickname;
     private String name;
-    private Integer roleid;//角色：1超级管理员,2普通管理员,3创业者,4投资人
+    private Integer roleid;//角色：1超级管理员,2普通管理员,3创业者,4投资人,签约投资人
     private Integer status;//项目状态:1新项目,2审核通过,3审核未通过
     private Integer companyid;//企业id
+    private Integer callTime;//剩余通话时长
 
     public String getMobile() {
         return mobile;
@@ -85,6 +86,14 @@ public class User extends BaseModel {
 
     public void setCompanyid(Integer companyid) {
         this.companyid = companyid;
+    }
+
+    public Integer getCallTime() {
+        return callTime;
+    }
+
+    public void setCallTime(Integer callTime) {
+        this.callTime = callTime;
     }
 }
 

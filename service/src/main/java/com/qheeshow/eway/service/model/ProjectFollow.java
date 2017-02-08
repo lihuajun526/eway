@@ -8,4 +8,19 @@ public class ProjectFollow extends BaseModel {
     private Integer projectid;
     private Integer userid;
 
+    public Integer getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(Integer projectid) {
+        this.projectid = projectid;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
 }

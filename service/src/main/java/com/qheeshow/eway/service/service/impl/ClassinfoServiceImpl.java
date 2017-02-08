@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by lihuajun on 17-1-23.
  */
-@Service("classinfoService")
+@Service
 public class ClassinfoServiceImpl implements ClassinfoService {
     @Override public List<Classinfo> listByParent(Integer pid) {
         List<Classinfo> list = new ArrayList<>();

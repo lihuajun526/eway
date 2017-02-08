@@ -1,5 +1,6 @@
 package com.qheeshow.eway.web.controller;
 
+import com.qheeshow.eway.service.exception.CommonException;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.UserFollowService;
 import com.qheeshow.eway.web.base.BaseController;
@@ -28,7 +29,12 @@ public class UserFollowController extends BaseController {
 
         Result result = new Result();
 
-        userFollowService.follow(userid, followid);
+        try {
+            userFollowService.follow(userid, followid);
+        } catch (CommonException e) {
+            result.set(-1, e.getDesc());
+            return result.toString();
+        }
 
         return result.toString();
     }
