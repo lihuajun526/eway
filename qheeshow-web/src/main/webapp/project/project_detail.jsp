@@ -71,10 +71,6 @@
     <div>团队信息</div>
     <div></div>
 </div>
-<div>
-    <div>媒体报道</div>
-    <div></div>
-</div>
 <button type="button" class="btn btn-primary  test-btn" onclick="modalShow('#bigModal', '', modalDataInit('test'));">
     模态框测试
 </button>

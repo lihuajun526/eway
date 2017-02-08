@@ -1,6 +1,7 @@
 package com.qheeshow.eway.service.service;
 
 import com.qheeshow.eway.service.model.Project;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -14,5 +15,8 @@ public interface ProjectService {
     List<Project> listByStatus(Integer status);
 
     Project get(Integer id);
+
+    List<Project> listByCondition(Integer type, Integer areaid,
+            Integer financingLimit, Integer industry, String keyword, Integer pageIndex);
 
 }

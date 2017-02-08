@@ -72,4 +72,11 @@ public class ProjectServiceImpl implements ProjectService {
         project1.setProLink("http://www.baidu.com");
         return project1;
     }
+
+    @Override public List<Project> listByCondition(Integer type, Integer areaid, Integer financingLimit, Integer industry,
+            String keyword, Integer pageIndex) {
+        // TODO: 17-2-7 分页
+        Integer pageSize;
+        return new ArrayList<Project>();
+    }
 }

@@ -1,6 +1,8 @@
 package com.qheeshow.eway.web.controller;
 
+import com.qheeshow.eway.service.model.Classinfo;
 import com.qheeshow.eway.service.model.Project;
+import com.qheeshow.eway.service.service.ClassinfoService;
 import com.qheeshow.eway.service.service.ProjectService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
@@ -10,8 +12,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lihuajun on 16-6-14.
@@ -22,6 +27,8 @@ public class ProjectController extends BaseController {
 
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private ClassinfoService classinfoService;
 
     /**
      * 保存基本信息
@@ -90,6 +97,93 @@ public class ProjectController extends BaseController {
         projectService.save(project);
 
         return result.toString();
+    }
+
+    /**
+     * 根据条件过滤项目
+     *
+     * @param type
+     * @param areaid
+     * @param financingLimit
+     * @param industry
+     * @param pageIndex
+     * @param keyword
+     * @return
+     */
+    @RequestMapping("/list/{type}/{areaid}/{financingLimit}/{industry}/{pageIndex}")
+    public ModelAndView listByCondition(@PathVariable Integer type, @PathVariable Integer areaid,
+            @PathVariable Integer financingLimit, @PathVariable Integer industry,
+            @PathVariable Integer pageIndex, String keyword) {
+
+        LOGGER.debug("根据条件过滤项目");
+
+        List<Project> projectList = projectService.listByCondition(type, areaid, financingLimit, industry, keyword, pageIndex);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("project/projects");
+        modelAndView.addObject("projects", projectList);
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/list")
+    public ModelAndView list() {
+
+        LOGGER.debug("根据条件过滤项目");
+
+        List<Classinfo> classinfoList = new ArrayList<>();
+
+        int areaRootid = 0;
+        int financingLimitRootid = 0;
+        int industryRootid = 0;
+
+        List<Classinfo> areas = new ArrayList<>();
+        Classinfo area1 = new Classinfo();
+        area1.setId(1);
+        area1.setName("北京");
+        Classinfo area2 = new Classinfo();
+        area2.setId(2);
+        area2.setName("上海");
+        areas.add(area1);
+        areas.add(area2);
+
+        List<Classinfo> financingLimits = new ArrayList<>();
+        Classinfo financingLimit1 = new Classinfo();
+        financingLimit1.setId(1);
+        financingLimit1.setName("50-100W");
+        Classinfo financingLimit2 = new Classinfo();
+        financingLimit2.setId(2);
+        financingLimit2.setName("100-200W");
+        financingLimits.add(financingLimit1);
+        financingLimits.add(financingLimit2);
+
+        List<Classinfo> industrys = new ArrayList<>();
+        Classinfo industry1 = new Classinfo();
+        industry1.setId(1);
+        industry1.setName("互联网金融");
+        Classinfo industry2 = new Classinfo();
+        industry2.setId(2);
+        industry2.setName("消费品");
+        industrys.add(industry1);
+        industrys.add(industry2);
+
+        for (Classinfo classinfo : classinfoList) {
+            if (classinfo.getParentid().intValue() == areaRootid) {
+                areas.add(classinfo);
+            } else if (classinfo.getParentid().intValue() == financingLimitRootid) {
+                financingLimits.add(classinfo);
+            } else if (classinfo.getParentid().intValue() == industryRootid) {
+                industrys.add(classinfo);
+            }
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("project/project_list");
+        modelAndView.addObject("areas", areas);
+        modelAndView.addObject("financingLimits", financingLimits);
+        modelAndView.addObject("industrys", industrys);
+
+        return modelAndView;
     }
 
 }

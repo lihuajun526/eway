@@ -1,7 +1,5 @@
 package com.qheeshow.eway.service.model;
 
-import java.math.BigDecimal;
-
 /**
  * Created by lihuajun on 17-1-11.
  */
@@ -10,8 +8,11 @@ public class Project extends BaseModel {
     private String title;//项目标题
     private String summary;//项目简介
     private String desc;//项目介绍
+    private Integer type;//项目类型:1平台推荐,2机构关注,3企业自荐
     private Integer industry;//所属行业
+    private String industryName;//所属行业名称
     private Integer area;//所在区域
+    private String areaName;//所在区域名称
     private String content;//项目内容
     private String videoLink;//宣传视频
     private String proLink;//项目网址
@@ -23,6 +24,7 @@ public class Project extends BaseModel {
     private String bp;//商业计划书
     private String bpName;//上传时商业计划书的名称
     private Integer financingLimit;//融资额度
+    private Integer limitid;//融资额度
     private Integer percent;//出让股份百分比
     private String referee;//推荐人姓名
 
@@ -168,5 +170,37 @@ public class Project extends BaseModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getIndustryName() {
+        return industryName;
+    }
+
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
+    }
+
+    public Integer getLimitid() {
+        return limitid;
+    }
+
+    public void setLimitid(Integer limitid) {
+        this.limitid = limitid;
     }
 }
