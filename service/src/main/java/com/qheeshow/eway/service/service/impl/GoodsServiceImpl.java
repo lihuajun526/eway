@@ -15,6 +15,10 @@ public class GoodsServiceImpl implements GoodsService {
         return null;
     }
 
+    @Override public List<Goods> listAll() {
+        return null;
+    }
+
     @Override public int save(Goods goods) {
         return 0;
     }

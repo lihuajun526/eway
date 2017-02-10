@@ -9,8 +9,9 @@ public class Goods extends BaseModel {
 
     private String title;
     private String desc;
-    private Integer type;//商品类型
+    private Integer type;//商品类型:1套餐,2话费
     private BigDecimal price;
+    private String items;//#号分隔
     private Integer status;
 
     public String getTitle() {
@@ -51,5 +52,13 @@ public class Goods extends BaseModel {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getItems() {
+        return items;
+    }
+
+    public void setItems(String items) {
+        this.items = items;
     }
 }

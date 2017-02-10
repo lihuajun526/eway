@@ -28,6 +28,7 @@ public class Project extends BaseModel {
     private Integer percent;//出让股份百分比
     private String referee;//推荐人姓名
 
+
     public String getTitle() {
         return title;
     }

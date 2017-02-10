@@ -11,6 +11,8 @@ public interface GoodsService {
 
     List<Goods> listByType(Integer type);
 
+    List<Goods> listAll();
+
     int save(Goods goods);
 
     int update(Goods goods);
