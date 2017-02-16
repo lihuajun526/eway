@@ -15,9 +15,4 @@ public class IndexController extends BaseController {
         return "index";
     }
 
-    @RequestMapping("/ueditor")
-    public String ueditor(){
-        return "ueditor";
-    }
-
 }

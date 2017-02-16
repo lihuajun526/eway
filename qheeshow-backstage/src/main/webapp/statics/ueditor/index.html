@@ -68,12 +68,14 @@
 
 
     ue.ready(function () {
-        //ue.setDisabled();
-        //ue.hide();
         ue.addListener('beforeInsertImage', function (t, arg) {     //侦听图片上传
             alert(arg[0].src);
         });
-        //看了网上的例子,但是我用的时候,alert都没有执行到 是神马情况,难道最新版已经取消了beforeInsertImage
+
+        ue.addListener('afterUpfile', function (t, arg)
+        {
+            alert('这是文件地址：');
+        });
     });
 
     function isFocus(e) {
