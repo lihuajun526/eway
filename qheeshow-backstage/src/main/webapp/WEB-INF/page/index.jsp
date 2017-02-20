@@ -29,13 +29,17 @@
 </div>
 <div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">银联钱包杭州事业部</div>
 <div data-options="region:'center',title:'工作区'">
-    <div id="p" class="easyui-panel" style="width:900px;height:480px;padding:10px;margin: 10px;"
-         data-options="
+    <div id="tt" class="easyui-tabs">
+        <div title="Home">
+            <div id="p" class="easyui-panel" style="width:900px;height:480px;padding:10px;margin: 10px;"
+                 data-options="
 				tools:[{
 					iconCls:'icon-reload',
 					handler:loadPage
 				}]
 			">
+            </div>
+        </div>
     </div>
 </div>
 <div id="mm" class="easyui-menu" style="width:120px;">
@@ -75,7 +79,7 @@
     }
     $('#tree').tree({
         onClick: function (node) {
-            loadPage('sys/project/project_list.html');
+            loadPage('sys/document/document_list.html');
             return;
             curNode = node;
             if (node.attributes == null)
@@ -86,6 +90,8 @@
                 loadPage('rule/attacker.html');
             } else if (node.attributes.pageType == "qzoneCrawlPoint") {
                 loadPage('rule/qzone_crawl_point.html');
+            }else if (node.attributes.pageType == "activity") {
+                loadPage('sys/document/document_list.html');
             }
         },
         onContextMenu: function (e, node) {

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table id="datagrid"></table>
+<script>
+
+    var docid = 0;
+
+    function listDocument() {
+        var status = 0;
+        var list = $('#datagrid').datagrid({
+            border: false,
+            fitColumns: true,
+            singleSelect: true,
+            pagination: true,
+            url: '/document/list/' + status,
+            columns: [[
+                {
+                    field: 'id', title: '编号', width: 3
+                },
+                {
+                    field: 'title', title: '标题', width: 18
+                },
+                {
+                    field: 'createTime', title: '日期', width: 8,
+                    formatter: function (value, rec) {
+                        return dateFormatter(new Date(rec.createTime));
+                    }
+                },
+                {
+                    field: 'opt', title: '操作', align: 'center',
+                    formatter: function (value, rec) {
+                        var btn = '<a class="editcls" onclick="modify(' + rec.id + ')" href="javascript:void(0)">编辑</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">发布</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">删除</a>&nbsp&nbsp';
+                        return btn;
+                    }
+                }
+            ]]
+        });
+        var pager = list.datagrid('getPager');
+        pager.pagination({
+            buttons: [{
+                iconCls: 'icon-add',
+                handler: function () {
+                    addTab("添加");
+                }
+            }]
+        });
+    }
+
+    function addTab(title) {
+        if ($('#tt').tabs('exists', title)) {
+            $('#tt').tabs('select', title);
+        } else {
+            var content = '<iframe scrolling="auto" frameborder="0"  src="/statics/sys/document/document_add_edit.html" style="width:100%;height:100%;"></iframe>';
+            $('#tt').tabs('add', {
+                title: title,
+                content: content,
+                closable: true
+            });
+        }
+    }
+
+    function modify(id) {
+        docid = id;
+        addTab("修改");
+    }
+
+    function updateStatus(docid, status) {
+
+        $.get("/document/save?id=" + docid + "&status=" + status, function (result) {
+            $('#datagrid').datagrid('reload');
+        });
+    }
+
+    listDocument();
+
+</script>
+</body>
+</html>

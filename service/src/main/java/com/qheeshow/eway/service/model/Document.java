@@ -12,7 +12,7 @@ public class Document extends BaseModel {
     private String indexPic;//首页图片
     private String ishead;//是否头条:0否,1是
     private Integer orderno;//排序
-    private Integer status;//状态:0删除,1正常
+    private Integer status;//状态:0删除,1新稿,2发布
 
     public String getTitle() {
         return title;
