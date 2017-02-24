@@ -1,8 +1,11 @@
 package com.qheeshow.eway.backstage.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.qheeshow.eway.backstage.base.BaseController;
 import com.qheeshow.eway.backstage.base.Result;
+import com.qheeshow.eway.backstage.base.ResultDg;
 import com.qheeshow.eway.service.model.Document;
+import com.qheeshow.eway.service.model.Project;
 import com.qheeshow.eway.service.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,13 +41,14 @@ public class DocumentController extends BaseController {
     @ResponseBody
     public String list(@PathVariable Integer status) {
 
-        Result<List<Document>> result = new Result();
+        ResultDg<List<Document>> resultDg = new ResultDg<>();
 
         List<Document> list = documentService.listByStatus(status);
+        resultDg.setTotal(list == null ? 0 : list.size());
+        resultDg.setRows(list);
 
-        result.setData(list);
+        return JSON.toJSONString(resultDg);
 
-        return result.toString();
     }
 
     @RequestMapping("/get/{id}")

@@ -28,9 +28,9 @@
 <div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region
 </div>
 <div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">银联钱包杭州事业部</div>
-<div data-options="region:'center',title:'工作区'">
+<div data-options="region:'center',title:''">
     <div id="tt" class="easyui-tabs">
-        <div title="Home">
+        <div title="工作区">
             <div id="p" class="easyui-panel" style="width:900px;height:480px;padding:10px;margin: 10px;"
                  data-options="
 				tools:[{

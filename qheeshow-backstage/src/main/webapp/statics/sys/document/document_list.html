@@ -65,6 +65,12 @@
         }
     }
 
+    function closeTab(title) {
+        if ($('#tt').tabs('exists', title)) {
+            $('#tt').tabs('close', title);
+        }
+    }
+
     function modify(id) {
         docid = id;
         addTab("修改");

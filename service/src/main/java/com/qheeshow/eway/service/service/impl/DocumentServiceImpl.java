@@ -4,6 +4,7 @@ import com.qheeshow.eway.service.model.Document;
 import com.qheeshow.eway.service.service.DocumentService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,10 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public List<Document> listByStatus(Integer status) {
-        return null;
+
+        List<Document> list = new ArrayList<>();
+
+        return list;
     }
 
     @Override
