@@ -12,7 +12,7 @@
     <a href="/index.jsp">首页</a>&nbsp;
     <%
         if (loginUser == null) {
-    %><a href="/user/login.jsp">登录</a>&nbsp;
+    %><a href="./user/login.jsp">登录</a>&nbsp;
     <a href="/user/regist.jsp">注册</a><%
 } else {
 %>

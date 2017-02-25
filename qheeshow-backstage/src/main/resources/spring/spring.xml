@@ -15,28 +15,57 @@
        default-lazy-init="false">
 
     <util:properties id="propertiesReader" location="classpath:properties/config.properties" />
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                    <property name="supportedMediaTypes">
-                        <list>
-                            <value>text/html;charset=UTF-8</value>
-                        </list>
-                    </property>
-                </bean>
-            </list>
-        </property>
-    </bean>
+<!--     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"> -->
+<!--         <property name="messageConverters"> -->
+<!--             <list> -->
+<!--                 <bean class="org.springframework.http.converter.StringHttpMessageConverter"> -->
+<!--                     <property name="supportedMediaTypes"> -->
+<!--                         <list> -->
+<!--                             <value>text/html;charset=UTF-8</value> -->
+<!--                         </list> -->
+<!--                     </property> -->
+<!--                 </bean> -->
+<!--             </list> -->
+<!--         </property> -->
+<!--     </bean> -->
     <!-- active annotation -->
-    <mvc:annotation-driven>
+<!--     <mvc:annotation-driven> -->
+<!--         <mvc:message-converters register-defaults="true"> -->
+<!--             <bean class="org.springframework.http.converter.StringHttpMessageConverter"> -->
+<!--                 <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/> -->
+<!--             </bean> -->
+<!--         </mvc:message-converters> -->
+<!--     </mvc:annotation-driven> -->
+    
+	<mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
+            <!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+                <constructor-arg value="UTF-8"/>
+                <property name="writeAcceptCharset" value="false" />
+            </bean>
+            <!--替换 jackson 为 fastjson-->
+            <bean id="fastJsonHttpMessageConverter"
+                  class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value><!-- 避免IE出现下载JSON文件的情况 -->
+                    </list>
+                </property>
+                <property name="features">
+                    <array>
+                        <value>PrettyFormat</value>
+                        <value>WriteMapNullValue</value>
+                        <value>QuoteFieldNames</value>
+                        <value>WriteDateUseDateFormat</value>
+                        <value>WriteNullStringAsEmpty</value>
+                    </array>
+                </property>
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-
+    
     <!-- scan package -->
     <context:component-scan base-package="com.qheeshow.eway.backstage.controller"/>
     <context:component-scan base-package="com.qheeshow.eway.service"/>

@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>用户注册</title>
-    <script type="text/javascript" src="/statics/jquery/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="/statics/jquery/jquery-validate.js"></script>
-    <script type="text/javascript" src="/statics/js/util.js"></script>
+    <script type="text/javascript" src="../statics/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="../statics/jquery/jquery-validate.js"></script>
+    <script type="text/javascript" src="../statics/js/util.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
@@ -17,8 +17,13 @@
         </tr>
         <tr>
             <td>真实姓名</td>
-            <td><input name="name" data-tip="请输入您的真实姓名" class="required" data-valid="isNonEmpty"
+            <td><input name="truename" data-tip="请输入您的真实姓名" class="required" data-valid="isNonEmpty"
                        data-error="真实姓名不能为空"/></td>
+        </tr>
+        <tr>
+            <td>用户名</td>
+            <td><input name="username" data-tip="请输入您的用户名" class="required" data-valid="isNonEmpty"
+                       data-error="用户不能为空"/></td>
         </tr>
         <tr>
             <td>Email</td>
@@ -61,7 +66,7 @@
             alert("请填写手机号");
             return;
         }
-        $.get("/sms/get/" + mobile, function (result) {
+        $.get("/web/sms/get/" + mobile + "?type=regist", function (result) {
             alert(result.message);
         }, "json");
     }
@@ -72,7 +77,7 @@
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/user/regist',
+            url: '/web/user/regist',
             data: $('#registForm').serialize(),
             success: function (result) {
                 if (!result.data) {

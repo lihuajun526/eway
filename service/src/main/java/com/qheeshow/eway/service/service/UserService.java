@@ -1,13 +1,20 @@
 package com.qheeshow.eway.service.service;
 
-import com.qheeshow.eway.service.exception.UserExistException;
+import java.util.List;
+
 import com.qheeshow.eway.service.model.User;
 
 /**
  * Created by lihuajun on 17-1-17.
  */
 public interface UserService {
+	
+	public boolean isRegist(User user);
 
-    void regist(User user) throws UserExistException;
+	public boolean regist(User user);
+	
+	public void changePassword(User user);
+    
+    public List<User> login(User user);
 
 }

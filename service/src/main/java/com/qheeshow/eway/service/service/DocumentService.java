@@ -1,18 +1,21 @@
 package com.qheeshow.eway.service.service;
 
-import com.qheeshow.eway.service.model.Document;
 
 import java.util.List;
+
+import com.qheeshow.eway.service.model.DocumentWithBLOBs;
 
 /**
  * Created by lihuajun on 17-1-17.
  */
 public interface DocumentService {
 
-    void save(Document document);
+    void save(DocumentWithBLOBs document);
+    
+    void update(DocumentWithBLOBs document);
 
-    List<Document> listByStatus(Integer status);
+    List<DocumentWithBLOBs> getList(DocumentWithBLOBs document);
 
-    Document get(Integer id);
+    DocumentWithBLOBs get(Integer id);
 
 }

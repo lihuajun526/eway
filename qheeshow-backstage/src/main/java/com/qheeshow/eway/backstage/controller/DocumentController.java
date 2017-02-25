@@ -1,19 +1,20 @@
 package com.qheeshow.eway.backstage.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.qheeshow.eway.backstage.base.BaseController;
-import com.qheeshow.eway.backstage.base.Result;
-import com.qheeshow.eway.backstage.base.ResultDg;
-import com.qheeshow.eway.service.model.Document;
-import com.qheeshow.eway.service.model.Project;
-import com.qheeshow.eway.service.service.DocumentService;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import com.qheeshow.eway.backstage.base.BaseController;
+import com.qheeshow.eway.common.web.HaResponse;
+import com.qheeshow.eway.service.model.DocumentWithBLOBs;
+import com.qheeshow.eway.service.service.DocumentService;
 
 
 /**
@@ -26,42 +27,79 @@ public class DocumentController extends BaseController {
     @Autowired
     private DocumentService documentService;
 
+    /**
+     * 
+     * @Title: save
+     * @Description: 新增活动
+     * @author yue
+     * @date 2017年2月25日 下午1:35:19
+     * @param document
+     * @return
+     */
     @RequestMapping("/save")
     @ResponseBody
-    public String save(Document document) {
-
-        Result result = new Result();
-
-        documentService.save(document);
-
-        return result.toString();
+    public HaResponse save(DocumentWithBLOBs document,HttpSession session) {
+    	if(session.getAttribute("userId") != null){
+    		document.setCruser(session.getAttribute("userName").toString());
+            documentService.save(document);
+            return HaResponse.sussess();
+    	}else{
+    		return HaResponse.fail();
+    	}
     }
 
-    @RequestMapping("/list/{status}")
+    /**
+     * 
+     * @Title: update
+     * @Description: 修改活动
+     * @author yue
+     * @date 2017年2月25日 下午1:38:14
+     * @param document
+     * @return
+     */
+    @RequestMapping(value = "/update")
     @ResponseBody
-    public String list(@PathVariable Integer status) {
-
-        ResultDg<List<Document>> resultDg = new ResultDg<>();
-
-        List<Document> list = documentService.listByStatus(status);
-        resultDg.setTotal(list == null ? 0 : list.size());
-        resultDg.setRows(list);
-
-        return JSON.toJSONString(resultDg);
-
+    public HaResponse update(DocumentWithBLOBs document,HttpSession session) {
+    	if(session.getAttribute("userId") != null){
+    		document.setCruser(session.getAttribute("userName").toString());
+        	documentService.update(document);
+            return HaResponse.sussess();
+    	}else{
+    		return HaResponse.fail();
+    	}
     }
-
-    @RequestMapping("/get/{id}")
+    
+    /**
+     * 
+     * @Title: getList
+     * @Description: 根据条件获取活动列表
+     * @author yue
+     * @date 2017年2月25日 下午1:35:36
+     * @param document
+     * @return
+     */
+    @RequestMapping("/getList")
     @ResponseBody
-    public String get(@PathVariable Integer id) {
+    public HaResponse getList(DocumentWithBLOBs document) {
+        List<DocumentWithBLOBs> list = documentService.getList(document);
+        return HaResponse.sussess(list);
 
-        Result<Document> result = new Result();
-
-        Document document = documentService.get(id);
-
-        result.setData(document);
-
-        return result.toString();
     }
 
+    /**
+     * 
+     * @Title: get
+     * @Description: 根据id获取活动详情
+     * @author yue
+     * @date 2017年2月25日 下午1:35:49
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/get/{appid}", method = RequestMethod.GET)
+    @ResponseBody
+    public HaResponse get(@PathVariable("appid") Integer id) {
+        DocumentWithBLOBs document = documentService.get(id);
+        return HaResponse.sussess(document);
+    }
+    
 }
