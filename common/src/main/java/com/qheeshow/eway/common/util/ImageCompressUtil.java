@@ -87,11 +87,18 @@ public class ImageCompressUtil {
 		}
 		BufferedImage tag = new BufferedImage(deskWidth, deskHeight, BufferedImage.TYPE_3BYTE_BGR);
 		tag.getGraphics().drawImage(src, 0, 0, deskWidth, deskHeight, null); //绘制缩小后的图
+		String filePath = deskURL.substring(0,deskURL.lastIndexOf("/"));
+		File forderFile = new File(filePath);
+		if (!forderFile.exists())
+			forderFile.mkdirs();
 		ImageIO.write(tag,  "jpeg" , new File(deskURL)); 
 		tag.flush();
 	}
 
 	public static void main(String args[]) throws Exception {
-		ImageCompressUtil.saveMinPhoto("E:/Grp1.dat_001098.png", "E:/11.jpg", 128, 1);
+//		String deskURL = "D:/workspace/eway/qheeshow-backstage/src/main/webapp/backstage/statics/upload/imageMin/20170226/1488093797715097408.jpg";
+//		String filePath = deskURL.substring(0,deskURL.lastIndexOf("/"));
+//		System.out.println(filePath);
+		ImageCompressUtil.saveMinPhoto("D:/work_lhj/CN-wp5.jpg", "D:/workspace/eway/qheeshow-backstage/src/main/webapp/statics/upload/imageMin/20170226/1488093797715097408.jpg", 1920, 1);
 	}
 }

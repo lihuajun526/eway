@@ -8,12 +8,12 @@
     <script type="text/javascript" src="../../../statics/jquery-easyui-1.4.5/jquery.min.js"></script>
     <script type="text/javascript" src="../../../statics/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../../../statics/jquery-easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../../statics/js/config.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../../statics/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../../statics/ueditor/ueditor.all.min.js"></script>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
     <script type="text/javascript" charset="utf-8" src="../../../statics/ueditor/lang/zh-cn/zh-cn.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../../../statics/js/config.js"></script>
 </head>
 <body>
 <form id="documentForm">
@@ -37,6 +37,24 @@
             </td>
         </tr>
         <tr>
+            <td>是否头条</td>
+            <td>
+            	<input type="radio" name="ishead" value="0" id="ishead0" checked/>否
+            	<input type="radio" name="ishead" value="1" id="ishead1" />是
+            </td>
+        </tr>
+        <tr>
+            <td>报名权限</td>
+            <td>
+            	<input type="radio" name="enrollType" value="0" id="enrollType0" checked/>所有人
+            	<input type="radio" name="enrollType" value="1" id="enrollType1" />已审核通过用户
+            </td>
+        </tr>
+        <tr>
+            <td>报名费</td>
+            <td><input id="enrollPrice" name="enrollPrice" width="600"/></td>
+        </tr>
+        <tr>
             <td colspan="2" align="center">
                 <input type="button" value="保存" onclick="save();"/>&nbsp;&nbsp;
                 <input type="button" value="保存并发布" onclick="saveAndPublish();"/>
@@ -50,11 +68,30 @@
     var ue = UE.getEditor('editor');
     ue.ready(function () {
         ue.addListener('beforeInsertImage', function (t, arg) {     //侦听图片上传
-            $("#indexPic").val(root_path + arg[0].src);
+            $("#indexPic").val(arg[0].src);
         });
         ue.addListener('afterUpfile', function (t, arg) {
             alert('这是文件地址：');
         });
+    	var docid = $(parent.document.getElementById("docid")).val();
+        if (docid != null && docid != "") {
+            $.get(app_name + "/document/get/" + docid, function (result) {
+                var doc = result.data;
+                $("#id").val(doc.id);
+                $("#indexPic").val(doc.indexPic);
+                $("#status").val(doc.status);
+                $("#title").val(doc.title);
+                $("#summary").val(doc.summary);
+                $("#enrollPrice").val(doc.enrollPrice);
+                if(doc.ishead == 1){
+                	$('#ishead1').attr('checked', true);
+                }
+                if(doc.enrollType == 1){
+                	$('#enrollType1').attr('checked', true);
+                }
+                ue.setContent(doc.html);
+            });
+        }
     });
 
     function save() {
@@ -63,17 +100,18 @@
         $("#html").val(html);
         $("#content").val(content);
         $.ajax({
-            url: '/document/save',
+            url: app_name + '/document/save',
             type: 'post',
             data: $('#documentForm').serialize(),
             dataType: 'json',
             success: function (result) {
-                if (result.code == 0) {
+                if (result.success) {
                     alert("保存成功");
+                    window.parent.loadList();
                     window.parent.closeTab('添加');
-                    $("#datagrid", window.parent.document).datagrid('reload');
+//                     $("#datagrid", window.parent.document).datagrid('reload');
                 } else {
-                    $.messager.alert('Info', "保存失败", 'info');
+                    $.messager.alert('Info', "错误", 'info');
                 }
             }
         });
@@ -82,18 +120,6 @@
     function saveAndPublish() {
         $("#status").val("2");
         save();
-    }
-
-    if (parent.document.docid > 0) {
-        $.get("/document/get/" + docid, function (result) {
-            var doc = result.data;
-            $("#id").val(doc.id);
-            $("#indexPic").val(doc.indexPic);
-            $("#status").val(doc.status);
-            $("#title").val(doc.title);
-            $("#summary").val(doc.summary);
-            UE.getEditor("editor").setContent(doc.html, false);
-        });
     }
 </script>
 </body>

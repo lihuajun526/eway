@@ -21,21 +21,20 @@
                     <td><input id="price" name="price" type="input"/></td>
                 </tr>
                 <tr>
-                    <td align="right">商品类型</td>
-                    <td>
-                        <select id="type" name="type">
-                            <option value="1">套餐</option>
-                            <option value="2">话费</option>
-                        </select>
-                    </td>
+                    <td align="right">打折价格</td>
+                    <td><input id="discountPrice" name=discountPrice type="input"/></td>
                 </tr>
                 <tr>
                     <td height="100">描述</td>
-                    <td><textarea id="desc" name="desc" rows="8" cols="30"></textarea></td>
+                    <td><textarea id="desc" name="goodsDescribe" rows="8" cols="30"></textarea></td>
                 </tr>
                 <tr>
                     <td height="100">服务条目</td>
                     <td><textarea id="items" name="items" rows="8" cols="30"></textarea></td>
+                </tr>
+                <tr>
+                    <td align="right">排序</td>
+                    <td><input id="orderNum" name=orderNum type="input"/></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="right">
@@ -52,7 +51,7 @@
         fitColumns: true,
         singleSelect: true,
         pagination: true,
-        url: '/goods/list',
+//         url: app_name + '/goods/list',
         columns: [[
             {
                 field: 'title', title: '名称', width: 22
@@ -61,16 +60,13 @@
                 field: 'price', title: '价格', width: 16
             },
             {
-                field: 'desc', title: '描述', width: 16
+                field: 'discountPrice', title: '打折价格', width: 16
             },
             {
-                field: 'type', title: '类型', width: 16,
-                formatter: function (value, rec) {
-                    if (rec.type == 1)
-                        return "套餐";
-                    else if (rec.type == 2)
-                        return "话费";
-                }
+                field: 'goodsDescribe', title: '描述', width: 16
+            },
+            {
+                field: 'items', title: '服务条目', width: 16
             },
             {
                 field: 'opt', title: '操作', width: 20, align: 'center',
@@ -81,12 +77,13 @@
             }
         ]]
     });
+    
     var pager = list.datagrid('getPager');
     pager.pagination({
         buttons: [{
             iconCls: 'icon-add',
             handler: function () {
-                $("#id").val("0");
+                $("#id").val("");
                 $("#goodsForm")[0].reset();
                 $('#w').window('open');
             }
@@ -95,16 +92,17 @@
     //确定
     function fix() {
         $.ajax({
-            url: '/goods/fix',
+            url: app_name + '/goods/fix',
             type: 'post',
             data: $('#goodsForm').serialize(),
             dataType: 'json',
             success: function (result) {
-                if (result.code != 1) {
+                if (!result.success) {
                     $.messager.alert('Info', "保存失败", 'info');
                 } else {
                     $('#w').window('close');
-                    $('#datagrid').datagrid('reload');
+//                     $('#datagrid').datagrid('reload');
+                    loadList();
                 }
             }
         });
@@ -112,17 +110,19 @@
 
     function openUpdate(id) {
         $.ajax({
-            url: '/goods/get?id=' + id,
+            url: app_name + '/goods/get?id=' + id,
             type: 'get',
             dataType: 'json',
             success: function (result) {
-                if (result.code == 0) {
+                if (result.data != null) {
                     var data = result.data;
                     $("#id").val(data.id);
                     $("#title").val(data.title);
-                    $("#desc").val(data.desc);
+                    $("#desc").val(data.goodsDescribe);
                     $("#price").val(data.price);
-                    $("#type").val(data.type);
+                    $("#discountPrice").val(data.discountPrice);
+                    $("#items").val(data.items);
+                    $("#orderNum").val(data.orderNum);
                     $('#w').window('open');
                 } else {
                     $.messager.alert('Info', "失败", 'info');
@@ -130,6 +130,21 @@
             }
         });
     }
+    function loadList(){
+    	$.ajax({
+            url: app_name + '/goods/list',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                if (data.data != null) {
+                	$('#datagrid').datagrid('loadData', data.data);
+                } else {
+                    $.messager.alert('Info', "获取列表失败", 'info');
+                }
+            }
+        });
+    }
+    loadList();
 </script>
 </body>
 </html>

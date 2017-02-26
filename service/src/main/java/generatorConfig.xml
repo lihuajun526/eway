@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <classPathEntry location="D:\m2\repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar" />
+
+  <context id="DB2Tables" targetRuntime="MyBatis3">
+  
+<!--         connectionURL="jdbc:mysql://192.168.9.150:3306/new_oa?useUnicode=true&amp;characterEncoding=UTF-8" 
+			localhost:3306/ha_common -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+		connectionURL="jdbc:mysql://localhost:3306/eway?useUnicode=true&amp;characterEncoding=UTF-8"
+        userId="root"
+        password="yue12580" >
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="com.qheeshow.eway.service.model" targetProject="service\src\main\java" >
+    	<property name="rootClass" value="com.qheeshow.eway.common.bean.BaseBean" />
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="sqlmap"  targetProject="service/src/main/resources" >
+    </sqlMapGenerator>
+
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.qheeshow.eway.service.dao"  targetProject="service\src\main\java"  >
+    </javaClientGenerator>
+
+<!--     <table schema="" tableName="t_document" domainObjectName="Document" ></table> -->
+<!--     <table schema="" tableName="t_user" domainObjectName="User" ></table> -->
+<!--     <table schema="" tableName="t_document_enroll" domainObjectName="DocumentEnroll" ></table> -->
+<!--     <table schema="" tableName="t_goods" domainObjectName="Goods" ></table> -->
+    <table schema="" tableName="t_file" domainObjectName="File" ></table>
+
+
+		
+  </context>
+</generatorConfiguration>

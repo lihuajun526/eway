@@ -13,7 +13,7 @@
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
 <div>用户登录</div>
-<input id="userName" placeholder="用户名" value="zhuyue"/>
+<input id="userName" placeholder="用户名" value="123123123"/>
 		<input id="userPassword" placeholder="密码" value="123123"/>
 		<button onclick="login()" >登录</button>
 <jsp:include page="../pub/foot.jsp" flush="true"/>
@@ -23,7 +23,7 @@
 function login(){
 	$.ajax({
 		type:'GET',
-		url:"http://localhost:8080/web/user/login.json?username=" + $("#userName").val() + 
+		url:"http://localhost:8080/web/user/login.json?mobile=" + $("#userName").val() + 
 			"&password=" + $("#userPassword").val(),
 		success:function(data){
 			if(data.success){

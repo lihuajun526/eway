@@ -23,9 +23,9 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public void save(DocumentWithBLOBs document) {
     	Date nowTime = new Date();
-    	document.setCrtime(nowTime);
-    	if(document.getDocstatus() != null && document.getDocstatus() == 2){
-    		document.setDocpubtime(nowTime);
+    	document.setCreateTime(nowTime);
+    	if(document.getStatus() != null && document.getStatus() == 2){
+    		document.setPublishTime(nowTime);
     	}
     	documentMapper.insertSelective(document);
     }
@@ -33,12 +33,11 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public void update(DocumentWithBLOBs document) {
     	Date nowTime = new Date();
-    	document.setDocreltime(nowTime);
-    	if(document.getDocstatus() != null && document.getDocstatus() == 2){
-    		document.setDocpubtime(nowTime);
+    	if(document.getStatus() != null && document.getStatus() == 2){
+    		document.setPublishTime(nowTime);
     	}
     	DocumentExample example = new DocumentExample();
-    	example.createCriteria().andCruserEqualTo(document.getCruser()).andDocidEqualTo(document.getDocid());
+    	example.createCriteria().andCreateUserIdEqualTo(document.getCreateUserId()).andIdEqualTo(document.getId());
     	documentMapper.updateByExampleSelective(document, example);
     }
 
@@ -46,11 +45,11 @@ public class DocumentServiceImpl implements DocumentService {
     public List<DocumentWithBLOBs> getList(DocumentWithBLOBs document) {
     	DocumentExample example = new DocumentExample();
     	DocumentExample.Criteria criteria =  example.createCriteria();
-    	if(document.getDocstatus() != null){
-    		criteria.andDocstatusEqualTo(document.getDocstatus());
+    	if(document.getStatus() != null){
+    		criteria.andStatusEqualTo(document.getStatus());
     	}
-    	if(document.getDoctitle() != null){
-    		criteria.andDoctitleLike(document.getDoctitle());
+    	if(document.getTitle() != null){
+    		criteria.andTitleLike(document.getTitle());
     	}
         List<DocumentWithBLOBs> list = documentMapper.selectByExampleWithBLOBs(example);
         return list;

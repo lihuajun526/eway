@@ -33,7 +33,7 @@ public class DocumentEnrollController {
     public HaResponse addNewEnroll(DocumentEnroll documentEnroll,HttpSession session) {
     	if(session.getAttribute("userId") != null){
     		documentEnroll.setUserId((Integer) session.getAttribute("userId"));
-    		documentEnroll.setUserName(session.getAttribute("userName").toString());
+//    		documentEnroll.setUserName(session.getAttribute("userName").toString());
     		String url = documentEnrollService.addNewEnroll(documentEnroll);
             return HaResponse.sussess(url);
     	}else{

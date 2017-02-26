@@ -30,7 +30,7 @@ public class DocumentController extends BaseController {
     /**
      * 
      * @Title: save
-     * @Description: 新增活动
+     * @Description: 新增或修改活动
      * @author yue
      * @date 2017年2月25日 下午1:35:19
      * @param document
@@ -39,9 +39,14 @@ public class DocumentController extends BaseController {
     @RequestMapping("/save")
     @ResponseBody
     public HaResponse save(DocumentWithBLOBs document,HttpSession session) {
+    	session.setAttribute("userId", "1");
     	if(session.getAttribute("userId") != null){
-    		document.setCruser(session.getAttribute("userName").toString());
-            documentService.save(document);
+    		document.setCreateUserId(Integer.parseInt(session.getAttribute("userId").toString()));
+    		if(document.getId() == null){
+                documentService.save(document);
+    		}else{
+            	documentService.update(document);
+    		}
             return HaResponse.sussess();
     	}else{
     		return HaResponse.fail();
@@ -60,8 +65,9 @@ public class DocumentController extends BaseController {
     @RequestMapping(value = "/update")
     @ResponseBody
     public HaResponse update(DocumentWithBLOBs document,HttpSession session) {
+    	session.setAttribute("userId", "1");
     	if(session.getAttribute("userId") != null){
-    		document.setCruser(session.getAttribute("userName").toString());
+    		document.setCreateUserId(Integer.parseInt(session.getAttribute("userId").toString()));
         	documentService.update(document);
             return HaResponse.sussess();
     	}else{

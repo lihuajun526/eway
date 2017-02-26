@@ -10,16 +10,18 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.qheeshow.eway.backstage.util.ueditor.PathFormat;
-import com.qheeshow.eway.backstage.util.ueditor.define.AppInfo;
-import com.qheeshow.eway.backstage.util.ueditor.define.BaseState;
-import com.qheeshow.eway.backstage.util.ueditor.define.FileType;
-import com.qheeshow.eway.backstage.util.ueditor.define.State;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import com.qheeshow.eway.backstage.util.ueditor.PathFormat;
+import com.qheeshow.eway.backstage.util.ueditor.define.AppInfo;
+import com.qheeshow.eway.backstage.util.ueditor.define.BaseState;
+import com.qheeshow.eway.backstage.util.ueditor.define.FileType;
+import com.qheeshow.eway.backstage.util.ueditor.define.State;
+import com.qheeshow.eway.common.util.ImageCompressUtil;
 
 public class BinaryUploader {
 
@@ -76,9 +78,17 @@ public class BinaryUploader {
 			State storageState = StorageManager.saveFileByInputStream(is,
 					physicalPath, maxSize);
 			is.close();
-
+			//若是图片则生成等比例压缩图
+			if(physicalPath.indexOf("/statics/upload/image") > 0){
+				try {
+					ImageCompressUtil.saveMinPhoto(physicalPath, physicalPath.replace("/statics/upload/image", "/statics/upload/imageMin"), 128, 1);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			if (storageState.isSuccess()) {
-				storageState.putInfo("url", PathFormat.format(savePath));
+				storageState.putInfo("url", PathFormat.format("/backstage" + savePath));
 				storageState.putInfo("type", suffix);
 				storageState.putInfo("original", originFileName + suffix);
 			}
