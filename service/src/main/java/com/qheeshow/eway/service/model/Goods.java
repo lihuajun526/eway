@@ -9,7 +9,6 @@ public class Goods extends BaseModel {
 
     private String title;
     private String desc;
-    private Integer type;//商品类型:1套餐,2话费
     private BigDecimal price;
     private String items;//#号分隔
     private Integer status;
@@ -28,14 +27,6 @@ public class Goods extends BaseModel {
 
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 
     public BigDecimal getPrice() {
