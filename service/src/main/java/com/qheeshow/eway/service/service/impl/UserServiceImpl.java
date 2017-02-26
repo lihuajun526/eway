@@ -29,9 +29,6 @@ public class UserServiceImpl implements UserService {
 	public boolean isRegist(User user){
 		UserExample example = new UserExample();
 		example.or().andMobileEqualTo(user.getMobile());
-		if(user.getUsername() != null){
-			example.or().andUsernameEqualTo(user.getUsername());
-		}
 		List<User> users = userMapper.selectByExample(example);
 		if(users.size() > 0){
 			return false;
@@ -43,13 +40,8 @@ public class UserServiceImpl implements UserService {
     @Override 
     public boolean regist(User user){
     	if(isRegist(user)){
-    		user.setStatus((byte) 1);
+    		user.setStatus(1);
         	user.setPassword(MD5Util.MD5(user.getPassword()));
-        	user.setLogintimes(0);
-        	user.setPrice(0);
-        	user.setIsdeleted((byte) 0);
-        	user.setPasswordlev(0);
-        	user.setSupervisorid(0);
     		userMapper.insert(user);
     		return true;
     	}else{
@@ -69,18 +61,22 @@ public class UserServiceImpl implements UserService {
     public List<User> login(User user){
     	
 //		MailBean mailInfo = new MailBean();
-//		mailInfo.setMailServerHost("smtp.163.com");
-//		mailInfo.setUserName("zhuyue_nonglin@163.com");
-//		mailInfo.setPassword("yue12580");
-//		mailInfo.setFromAddress("zhuyue_nonglin@163.com");
+//		mailInfo.setMailServerHost("smtp.exmail.qq.com");
+//		mailInfo.setUserName("service@qheefund.com");
+//		mailInfo.setPassword("wutongE123456");
+//		mailInfo.setFromAddress("service@qheefund.com");
 //		mailInfo.setToAddress("1065443674@qq.com");
 //		mailInfo.setSubject("你好");
 //		mailInfo.setContent("大家好");
-//		mailService.sendTextMail(mailInfo);
+//		
+//		String[] files = {"D:\\work_fykj\\IMG_20170216_163938.jpg","D:\\work_fykj\\IMG_20170216_163938中文.jpg"};
+//		mailInfo.setAttachFileNames(files);
+//		
+//		mailService.sendHtmlMail(mailInfo);
 		
 		UserExample example = new UserExample();
 		UserExample.Criteria criteria = example.createCriteria();
-		criteria.andUsernameEqualTo(user.getUsername());
+		criteria.andMobileEqualTo(user.getMobile());
 		criteria.andPasswordEqualTo(MD5Util.MD5(user.getPassword()));
 		List<User> users = userMapper.selectByExample(example);
 		return users;

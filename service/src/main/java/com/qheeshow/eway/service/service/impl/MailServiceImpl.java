@@ -1,8 +1,13 @@
 package com.qheeshow.eway.service.service.impl;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
@@ -16,6 +21,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 import org.springframework.stereotype.Service;
 
@@ -111,6 +117,23 @@ public class MailServiceImpl implements MailService {
 			// 设置HTML内容
 			html.setContent(mailInfo.getContent(), "text/html; charset=utf-8");
 			mainPart.addBodyPart(html);
+			
+			//添加附件
+			for (String file : mailInfo.getAttachFileNames()) {  
+                File usFile = new File(file);  
+                MimeBodyPart fileBody = new MimeBodyPart();  
+                DataSource source = new FileDataSource(file);  
+                fileBody.setDataHandler(new DataHandler(source));  
+				fileBody.setFileName(usFile.getName());
+                try {
+					fileBody.setFileName(MimeUtility.encodeText(usFile.getName()));
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                mainPart.addBodyPart(fileBody);  
+            }
+			
 			// 将MiniMultipart对象设置为邮件内容
 			mailMessage.setContent(mainPart);
 			// 发送邮件

@@ -94,8 +94,8 @@ public class UserController extends BaseController {
     	List<User> users = userService.login(user); 
     	if(users.size() > 0){
     		user = users.get(0);
-        	session.setAttribute("userId", user.getUserid());
-        	session.setAttribute("userName", user.getUsername());
+        	session.setAttribute("userId", user.getId());
+        	session.setAttribute("nickname", user.getNickname());
         	user.setPassword("");
             return HaResponse.sussess(user);
     	}else{
