@@ -1,4 +1,4 @@
-CREATE TABLE `ew_user` (
+CREATE TABLE `t_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nickname` varchar(64) DEFAULT NULL COMMENT '昵称',
   `password` varchar(64) DEFAULT NULL COMMENT '密码',
