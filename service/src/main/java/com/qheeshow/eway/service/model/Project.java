@@ -61,9 +61,10 @@ public class Project extends BaseModel {
     private String bp;//商业计划书
     private String bpName;//上传时商业计划书的名称
     private Integer financingLimit;//融资额度
-    private Integer limitid;//融资额度
+    private String limitid;//融资额度
     private Integer percent;//出让股份百分比
     private String referee;//推荐人姓名
+    private String stage;//项目阶段
 
 
     public String getTitle() {
@@ -234,11 +235,19 @@ public class Project extends BaseModel {
         this.areaName = areaName;
     }
 
-    public Integer getLimitid() {
+    public String getLimitid() {
         return limitid;
     }
 
-    public void setLimitid(Integer limitid) {
+    public void setLimitid(String limitid) {
         this.limitid = limitid;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
     }
 }

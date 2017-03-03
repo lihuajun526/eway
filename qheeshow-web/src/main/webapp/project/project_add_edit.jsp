@@ -45,9 +45,14 @@
         <input type="hidden" id="logo" name="logo"/>
         <input type="hidden" id="bp" name="bp"/>
         <input type="hidden" id="bpName" name="bpName"/>
+        <input type="hidden" id="financingLimit" name="financingLimit" value="0"/>
+        <input type="hidden" id="financingLimit" name="financingLimit" value="0"/>
         <input type="hidden" id="industry" name="industry" value="0"/>
+        <input type="hidden" id="area" name="area" value="0"/>
+        <input type="hidden" id="stage" name="stage" value="0"/>
         <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
         <input type="file" id="bpFile" name="bpFile" style="display: none;"/>
+
         <div class="pro-wap">
             <div class="pro-t">项目信息(1/3)</div>
             <div class="pro-one">
@@ -131,13 +136,13 @@
                                     </div>
                                     <div id="one1_" class="pro-menu-ico" style="display: none;"></div>
                                     <ul id="one1" class="pro-menu" style="display: none;">
-                                        <li><a style="cursor: pointer" onclick="setOne1('500万以下')">500万以下</a></li>
-                                        <li><a style="cursor: pointer" onclick="setOne1('500~2000万')">500~2000万</a></li>
-                                        <li><a style="cursor: pointer" onclick="setOne1('2000~5000万')">2000~5000万</a>
+                                        <li><a onclick="setOne1('500万以下')">500万以下</a></li>
+                                        <li><a onclick="setOne1('500~2000万')">500~2000万</a></li>
+                                        <li><a onclick="setOne1('2000~5000万')">2000~5000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setOne1('5000~10000万')">5000~10000万</a>
+                                        <li><a onclick="setOne1('5000~10000万')">5000~10000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setOne1('10000万以上')">10000万以上</a></li>
+                                        <li><a onclick="setOne1('10000万以上')">10000万以上</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -156,12 +161,12 @@
                                     </div>
                                     <div id="one2_" class="pro-menu-ico" style="display: none;"></div>
                                     <ul id="one2" class="pro-menu" style="display: none;">
-                                        <li><a style="cursor: pointer" onclick="setOne2('100万以下')">100万以下</a></li>
-                                        <li><a style="cursor: pointer" onclick="setOne2('100~500万')">100~500万</a></li>
-                                        <li><a style="cursor: pointer" onclick="setOne2('500~1000万')">500~1000万</a></li>
-                                        <li><a style="cursor: pointer" onclick="setOne2('1000~3000万')">1000~3000万</a>
+                                        <li><a onclick="setOne2('100万以下')">100万以下</a></li>
+                                        <li><a onclick="setOne2('100~500万')">100~500万</a></li>
+                                        <li><a onclick="setOne2('500~1000万')">500~1000万</a></li>
+                                        <li><a onclick="setOne2('1000~3000万')">1000~3000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setOne2('3000万以上')">3000万以上</a></li>
+                                        <li><a onclick="setOne2('3000万以上')">3000万以上</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -180,12 +185,12 @@
                                     </div>
                                     <div id="one3_" class="pro-menu-ico" style="display: none;"></div>
                                     <ul id="one3" class="pro-menu" style="display: none;">
-                                        <li><a style="cursor: pointer" onclick="setOne3('1000万以下')">1000万以下</a></li>
-                                        <li><a style="cursor: pointer" onclick="setOne3('1000~5000万')">1000~5000万</a>
+                                        <li><a onclick="setOne3('1000万以下')">1000万以下</a></li>
+                                        <li><a onclick="setOne3('1000~5000万')">1000~5000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setOne3('5000~10000万')">5000~10000万</a>
+                                        <li><a onclick="setOne3('5000~10000万')">5000~10000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setOne3('10000万以上')">10000万以上</a></li>
+                                        <li><a onclick="setOne3('10000万以上')">10000万以上</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -204,11 +209,11 @@
                                     </div>
                                     <div id="one4_" class="pro-menu-ico" style="display: none;"></div>
                                     <ul id="one4" class="pro-menu" style="display: none;">
-                                        <li><a style="cursor: pointer" onclick="setOne4('500万以下')">500万以下</a></li>
-                                        <li><a style="cursor: pointer" onclick="setOne4('500~2000万')">500~2000万</a></li>
-                                        <li><a style="cursor: pointer" onclick="setOne4('2000~5000万')">2000~5000万</a>
+                                        <li><a onclick="setOne4('500万以下')">500万以下</a></li>
+                                        <li><a onclick="setOne4('500~2000万')">500~2000万</a></li>
+                                        <li><a onclick="setOne4('2000~5000万')">2000~5000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setOne4('5000万以上')">5000万以上</a></li>
+                                        <li><a onclick="setOne4('5000万以上')">5000万以上</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -231,13 +236,13 @@
                                     </div>
                                     <div id="two1_" class="pro-menu-ico" style="display: none;"></div>
                                     <ul id="two1" class="pro-menu" style="display: none;">
-                                        <li><a style="cursor: pointer" onclick="setTwo1('500万以下')">500万以下</a></li>
-                                        <li><a style="cursor: pointer" onclick="setTwo1('500~2000万')">500~2000万</a></li>
-                                        <li><a style="cursor: pointer" onclick="setTwo1('2000~5000万')">2000~5000万</a>
+                                        <li><a onclick="setTwo1('500万以下')">500万以下</a></li>
+                                        <li><a onclick="setTwo1('500~2000万')">500~2000万</a></li>
+                                        <li><a onclick="setTwo1('2000~5000万')">2000~5000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setTwo1('5000~10000万')">5000~10000万</a>
+                                        <li><a onclick="setTwo1('5000~10000万')">5000~10000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setTwo1('10000万以上')">10000万以上</a></li>
+                                        <li><a onclick="setTwo1('10000万以上')">10000万以上</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -256,12 +261,12 @@
                                     </div>
                                     <div id="two2_" class="pro-menu-ico" style="display: none;"></div>
                                     <ul id="two2" class="pro-menu" style="display: none;">
-                                        <li><a style="cursor: pointer" onclick="setTwo2('100万以下')">100万以下</a></li>
-                                        <li><a style="cursor: pointer" onclick="setTwo2('100~500万')">100~500万</a></li>
-                                        <li><a style="cursor: pointer" onclick="setTwo2('500~1000万')">500~1000万</a></li>
-                                        <li><a style="cursor: pointer" onclick="setTwo2('1000~3000万')">1000~3000万</a>
+                                        <li><a onclick="setTwo2('100万以下')">100万以下</a></li>
+                                        <li><a onclick="setTwo2('100~500万')">100~500万</a></li>
+                                        <li><a onclick="setTwo2('500~1000万')">500~1000万</a></li>
+                                        <li><a onclick="setTwo2('1000~3000万')">1000~3000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setTwo2('3000万以上')">3000万以上</a></li>
+                                        <li><a onclick="setTwo2('3000万以上')">3000万以上</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -280,12 +285,12 @@
                                     </div>
                                     <div id="two3_" class="pro-menu-ico" style="display: none;"></div>
                                     <ul id="two3" class="pro-menu" style="display: none;">
-                                        <li><a style="cursor: pointer" onclick="setTwo3('1000万以下')">1000万以下</a></li>
-                                        <li><a style="cursor: pointer" onclick="setTwo3('1000~5000万')">1000~5000万</a>
+                                        <li><a onclick="setTwo3('1000万以下')">1000万以下</a></li>
+                                        <li><a onclick="setTwo3('1000~5000万')">1000~5000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setTwo3('5000~10000万')">5000~10000万</a>
+                                        <li><a onclick="setTwo3('5000~10000万')">5000~10000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setTwo3('10000万以上')">10000万以上</a></li>
+                                        <li><a onclick="setTwo3('10000万以上')">10000万以上</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -304,11 +309,11 @@
                                     </div>
                                     <div id="two4_" class="pro-menu-ico" style="display: none;"></div>
                                     <ul id="two4" class="pro-menu" style="display: none;">
-                                        <li><a style="cursor: pointer" onclick="setTwo4('500万以下')">500万以下</a></li>
-                                        <li><a style="cursor: pointer" onclick="setTwo4('500~2000万')">500~2000万</a></li>
-                                        <li><a style="cursor: pointer" onclick="setTwo4('2000~5000万')">2000~5000万</a>
+                                        <li><a onclick="setTwo4('500万以下')">500万以下</a></li>
+                                        <li><a onclick="setTwo4('500~2000万')">500~2000万</a></li>
+                                        <li><a onclick="setTwo4('2000~5000万')">2000~5000万</a>
                                         </li>
-                                        <li><a style="cursor: pointer" onclick="setTwo4('5000万以上')">5000万以上</a></li>
+                                        <li><a onclick="setTwo4('5000万以上')">5000万以上</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -325,20 +330,31 @@
                         <ul class="pro-fo-lst">
                             <%
                                 for (Xwcmclassinfo xwcmclassinfo : financingLimits) {
-                                    if (!isNull && xwcmclassinfo.getClassinfoid().intValue() == project.getFinancingLimit()) {
+                                    if (!isNull && xwcmclassinfo.getClassinfoid().intValue() == project.getFinancingLimit().intValue()) {
                             %>
-                            <li class="on"><a href="#" onclick="fixFinancingLimit();"><%=xwcmclassinfo.getCname() %>
-                            </a></li>
+                            <li class="on" onclick="fixFinancingLimit(this,<%=xwcmclassinfo.getClassinfoid() %>);">
+                                <a><%=xwcmclassinfo.getCname() %>
+                                </a></li>
                             <%
                             } else {
                             %>
-                            <li><a href="#"><%=xwcmclassinfo.getCname() %>
-                            </a></li>
+                            <li onclick="fixFinancingLimit(this,<%=xwcmclassinfo.getClassinfoid() %>);">
+                                <a><%=xwcmclassinfo.getCname() %>
+                                </a></li>
                             <%
                                     }
                                 }
                             %>
                         </ul>
+                        <script>
+                            function fixFinancingLimit(obj, id) {
+                                $(obj).parent().children('li').each(function () {
+                                    $(this).removeClass("on")
+                                });
+                                $(obj).attr("class", "on");
+                                $("#financingLimit").val(id);
+                            }
+                        </script>
                     </li>
                 </ul>
                 <ul class="pro-one-lst">
@@ -347,20 +363,31 @@
                         <ul class="pro-fo-lst">
                             <%
                                 for (Xwcmclassinfo xwcmclassinfo : industrys) {
-                                    if (!isNull && xwcmclassinfo.getClassinfoid().intValue() == project.getFinancingLimit()) {
+                                    if (!isNull && xwcmclassinfo.getClassinfoid().intValue() == project.getIndustry().intValue()) {
                             %>
-                            <li class="on"><a href="#" onclick="fixIndustry();"><%=xwcmclassinfo.getCname() %>
-                            </a></li>
+                            <li class="on" onclick="fixIndustry(this,<%=xwcmclassinfo.getClassinfoid() %>);">
+                                <a><%=xwcmclassinfo.getCname() %>
+                                </a></li>
                             <%
                             } else {
                             %>
-                            <li><a href="#"><%=xwcmclassinfo.getCname() %>
-                            </a></li>
+                            <li onclick="fixIndustry(this,<%=xwcmclassinfo.getClassinfoid() %>);">
+                                <a><%=xwcmclassinfo.getCname() %>
+                                </a></li>
                             <%
                                     }
                                 }
                             %>
                         </ul>
+                        <script>
+                            function fixIndustry(obj, id) {
+                                $(obj).parent().children('li').each(function () {
+                                    $(this).removeClass("on")
+                                });
+                                $(obj).attr("class", "on");
+                                $("#industry").val(id);
+                            }
+                        </script>
                     </li>
                 </ul>
                 <ul class="pro-one-lst">
@@ -369,20 +396,31 @@
                         <ul class="pro-fo-lst">
                             <%
                                 for (Xwcmclassinfo xwcmclassinfo : areas) {
-                                    if (!isNull && xwcmclassinfo.getClassinfoid().intValue() == project.getFinancingLimit()) {
+                                    if (!isNull && xwcmclassinfo.getClassinfoid().intValue() == project.getArea().intValue()) {
                             %>
-                            <li class="on"><a href="#" onclick="fixArea();"><%=xwcmclassinfo.getCname() %>
-                            </a></li>
+                            <li class="on" onclick="fixArea(this,<%=xwcmclassinfo.getClassinfoid() %>);">
+                                <a><%=xwcmclassinfo.getCname() %>
+                                </a></li>
                             <%
                             } else {
                             %>
-                            <li><a href="#"><%=xwcmclassinfo.getCname() %>
-                            </a></li>
+                            <li onclick="fixArea(this,<%=xwcmclassinfo.getClassinfoid() %>);">
+                                <a><%=xwcmclassinfo.getCname() %>
+                                </a></li>
                             <%
                                     }
                                 }
                             %>
                         </ul>
+                        <script>
+                            function fixArea(obj, id) {
+                                $(obj).parent().children('li').each(function () {
+                                    $(this).removeClass("on")
+                                });
+                                $(obj).attr("class", "on");
+                                $("#area").val(id);
+                            }
+                        </script>
                     </li>
                 </ul>
                 <ul class="pro-one-lst">
@@ -393,18 +431,29 @@
                                 for (Xwcmclassinfo xwcmclassinfo : stages) {
                                     if (!isNull && xwcmclassinfo.getClassinfoid().intValue() == project.getFinancingLimit()) {
                             %>
-                            <li class="on"><a href="#" onclick="fixStage();"><%=xwcmclassinfo.getCname() %>
-                            </a></li>
+                            <li class="on" onclick="fixStage(this,<%=xwcmclassinfo.getClassinfoid() %>);">
+                                <a><%=xwcmclassinfo.getCname() %>
+                                </a></li>
                             <%
                             } else {
                             %>
-                            <li><a href="#"><%=xwcmclassinfo.getCname() %>
-                            </a></li>
+                            <li onclick="fixStage(this,<%=xwcmclassinfo.getClassinfoid() %>);">
+                                <a><%=xwcmclassinfo.getCname() %>
+                                </a></li>
                             <%
                                     }
                                 }
                             %>
                         </ul>
+                        <script>
+                            function fixStage(obj, id) {
+                                $(obj).parent().children('li').each(function () {
+                                    $(this).removeClass("on")
+                                });
+                                $(obj).attr("class", "on");
+                                $("#stage").val(id);
+                            }
+                        </script>
                     </li>
                 </ul>
             </div>
@@ -413,8 +462,10 @@
                     <li class="on1">商业计划书<span>（选填）</span></li>
                     <li class="on2">
                         <ul class="pro-fiv-lst">
-                            <li class="e1"><a id="bpSelect" onclick="selectFile('bpFile')" href="#">点击选择</a></li>
-                            <li class="e3"><span><a href="#" onclick="uploadFile('bpFile','bpSelect')">上传</a></span>
+                            <li class="e1"><a id="bpSelect" onclick="selectFile('bpFile')">点击选择</a></li>
+                            <li class="e3">
+                                <span><a onclick="uploadFile('bpFile','bpSelect')">上传</a></span>
+                                <span id="fileName"></span>
                             </li>
                         </ul>
                     </li>
@@ -423,7 +474,7 @@
             </div>
             <!--*************************下一步按钮************************-->
             <div class="pro-clear"></div>
-            <div class="pro-btn"><a href="#">下一步</a></div>
+            <div class="pro-btn"><a onclick="saveBase();">下一步</a></div>
         </div>
     </form>
 </div>
@@ -482,45 +533,13 @@
                             alert(result.message);
                             return;
                         }
-                        $('#' + showid).html(result.data.name);
                         $('#bp').val(result.data.path);
                         $('#bpName').val(result.data.name);
+                        $('#fileName').html(result.data.name);
                     }
                 }
         );
     }
-    //获得行业信息
-    function listIndustry() {
-        $.get("/classinfo/list/root/" + classinfo_rootid_industry, function (result) {
-            if (result.code < 0)
-                return;
-            var industrys = $('#industrys');
-            industrys.html("");
-            for (i = 0; i < result.data.length; i++) {
-                industrys.append("<span onclick='fixIndustry(" + result.data[i].id + ")'>" + result.data[i].name + "</span>&nbsp;&nbsp;");
-            }
-        }, "json");
-    }
-    //获得地域信息
-    $.get("/classinfo/list/root/" + classinfo_rootid_area, function (result) {
-        if (result.code < 0)
-            return;
-        var area = $('#area');
-        area.html("<option value='0'>请选择</option>");
-        for (i = 0; i < result.data.length; i++) {
-            area.append("<option value='" + result.data[i].id + "'>" + result.data[i].name + "</option>");
-        }
-    }, "json");
-    //获得融资额度信息
-    $.get("/classinfo/list/root/" + classinfo_rootid_financing_limit, function (result) {
-        if (result.code < 0)
-            return;
-        var financingLimit = $('#financingLimit');
-        financingLimit.html("<option value='0'>请选择</option>");
-        for (i = 0; i < result.data.length; i++) {
-            financingLimit.append("<option value='" + result.data[i].id + "'>" + result.data[i].name + "</option>");
-        }
-    }, "json");
     //保存基本信息
     function saveBase() {
         $.ajax({
@@ -560,70 +579,7 @@
             }
         });
     }
-    //保存成员信息
-    function saveMember() {
-        $.ajax({
-            type: 'POST',
-            url: '/team/member/save/',
-            cache: false,
-            processData: false,
-            data: $('#memberForm').serialize(),
-            dataType: 'json',
-            success: function (result) {
-                if (result.code < 0) {
-                    alert(result.message);
-                    return;
-                }
-                modalHide('#bigModal', '');
-                var memberid = $("#memberid").val();
-                var member = result.data;
-                if (memberid == 0)
-                    $("#members").append("<div id='memberDiv" + member.id + "'>姓名:" + member.memberName + "&nbsp;头像:<img width='180' height='180' src='" + member.photo + "'/>&nbsp;<a href='#' onclick='modifyMember(" + member.id + ");'>编辑</a>&nbsp;<a href='#' onclick='delMember(" + member.id + ");'>删除</a></div>")
-                else
-                    $("#memberDiv" + member.id).html("姓名:" + member.memberName + "&nbsp;头像:<img width='180' height='180' src='" + member.photo + "'/>&nbsp;<a href='#' onclick='modifyMember(" + member.id + ");'>编辑</a>&nbsp;<a href='#' onclick='delMember(" + member.id + ");'>删除</a>")
-            }
-        });
-    }
-    //删除成员
-    function delMember(memberid) {
-        $.get("/team/member/del/" + memberid, function (result) {
-            if (result.code < 0) {
-                alert(result.message);
-                return;
-            }
-            $("#memberDiv" + memberid).remove();
-        }, "json");
-    }
-    //修改成员
-    function modifyMember(memberid) {
-        $.get("/team/member/get/" + memberid, function (result) {
-            if (result.code < 0) {
-                alert(result.message);
-                return;
-            }
-            var member = result.data;
-            $("#photo").val(member.photo);
-            $("#memberid").val(member.id);
-            $("#projectid").val(member.projectid);
-            $("#photoImg").attr("src", member.photo);
-            $("#memberName").val(member.memberName);
-            $("input[name='isFounder'][value='" + member.isFounder + "']").attr("checked", true);
-            $("#position").val(member.position);
-            $("#memberSummary").val(member.summary);
-        }, "json");
-    }
-    //选择所属行业
-    function fixIndustry(id) {
-        $("#industry").val(id);
-    }
-    var one1 = "0";
-    var one2 = "0";
-    var one3 = "0";
-    var one4 = "0";
-    var two1 = "0";
-    var two2 = "0";
-    var two3 = "0";
-    var two4 = "0";
+    var one1 = "0", one2 = "0", one3 = "0", one4 = "0", two1 = "0", two2 = "0", two3 = "0", two4 = "0";
     function setOne1(value) {
         one1 = value;
         hideMenu();
