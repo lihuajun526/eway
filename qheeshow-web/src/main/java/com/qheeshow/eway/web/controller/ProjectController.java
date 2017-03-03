@@ -1,9 +1,11 @@
 package com.qheeshow.eway.web.controller;
 
+import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.service.model.Classinfo;
 import com.qheeshow.eway.service.model.Project;
-import com.qheeshow.eway.service.service.ClassinfoService;
+import com.qheeshow.eway.service.model.Xwcmclassinfo;
 import com.qheeshow.eway.service.service.ProjectService;
+import com.qheeshow.eway.service.service.XwcmclassinfoService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,35 @@ public class ProjectController extends BaseController {
     @Autowired
     private ProjectService projectService;
     @Autowired
-    private ClassinfoService classinfoService;
+    private XwcmclassinfoService xwcmclassinfoService;
+
+
+    @RequestMapping("/add")
+    public ModelAndView add() {
+
+        //项目所属行业rootid
+        int classinfo_rootid_industry = Config.getInt("classinfo.rootid.industry");
+        //项目所属地域rootid
+        int classinfo_rootid_area = Config.getInt("classinfo.rootid.area");
+        //项目融资额度rootid
+        int classinfo_rootid_financing_limit = Config.getInt("classinfo.rootid.financing.limit");
+        //项目阶段rootid
+        int classinfo_rootid_stage = Config.getInt("classinfo.rootid.stage");
+
+        List<Xwcmclassinfo> industrys = xwcmclassinfoService.listByRoot(classinfo_rootid_industry);
+        List<Xwcmclassinfo> areas = xwcmclassinfoService.listByRoot(classinfo_rootid_area);
+        List<Xwcmclassinfo> financingLimits = xwcmclassinfoService.listByRoot(classinfo_rootid_financing_limit);
+        List<Xwcmclassinfo> stages = xwcmclassinfoService.listByRoot(classinfo_rootid_stage);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("industrys",industrys);
+        modelAndView.addObject("areas",areas);
+        modelAndView.addObject("financingLimits",financingLimits);
+        modelAndView.addObject("stages",stages);
+        modelAndView.setViewName("/project/project_add_edit");
+
+        return modelAndView;
+    }
 
     /**
      * 保存基本信息
@@ -112,8 +142,8 @@ public class ProjectController extends BaseController {
      */
     @RequestMapping("/list/{type}/{areaid}/{financingLimit}/{industry}/{pageIndex}")
     public ModelAndView listByCondition(@PathVariable Integer type, @PathVariable Integer areaid,
-            @PathVariable Integer financingLimit, @PathVariable Integer industry,
-            @PathVariable Integer pageIndex, String keyword) {
+                                        @PathVariable Integer financingLimit, @PathVariable Integer industry,
+                                        @PathVariable Integer pageIndex, String keyword) {
 
         LOGGER.debug("根据条件过滤项目");
 

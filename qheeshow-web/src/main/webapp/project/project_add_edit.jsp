@@ -1,322 +1,436 @@
 <%@ page import="com.qheeshow.eway.service.model.Project" %>
 <%@ page import="org.springframework.util.StringUtils" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="com.qheeshow.eway.service.model.Xwcmclassinfo" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Object object = request.getAttribute("project");
     Project project = object == null ? null : (Project) object;
     boolean isNull = project == null;
+    Calendar calendar = Calendar.getInstance();
+    int curYear = calendar.get(Calendar.YEAR);
+    List<Xwcmclassinfo> industrys = request.getAttribute("industrys") == null ? new ArrayList<Xwcmclassinfo>() : (List<Xwcmclassinfo>) request.getAttribute("industrys");
+    List<Xwcmclassinfo> areas = request.getAttribute("areas") == null ? new ArrayList<Xwcmclassinfo>() : (List<Xwcmclassinfo>) request.getAttribute("areas");
+    List<Xwcmclassinfo> financingLimits = request.getAttribute("financingLimits") == null ? new ArrayList<Xwcmclassinfo>() : (List<Xwcmclassinfo>) request.getAttribute("financingLimits");
+    List<Xwcmclassinfo> stages = request.getAttribute("stages") == null ? new ArrayList<Xwcmclassinfo>() : (List<Xwcmclassinfo>) request.getAttribute("stages");
+    String[] datas1 = isNull ? null : project.getLastOne().split(":")[1].split("#");
+    String[] datas2 = isNull ? null : project.getLastTwo().split(":")[1].split("#");
 %>
 <html>
 <head>
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <title><%=Config.get("app.name")%>--创建项目</title>
+    <link rel="stylesheet" href="/images/animate.min.css">
+    <link rel="stylesheet" href="/images/bootstrap.css">
+    <!--*************************bootstrap css end************************-->
+    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="/images/wt_index.css"/>
+    <!--*************************创建项目的主链接************************-->
+    <link rel="stylesheet" href="/images/project.css"/>
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="../statics/jquery/ajaxfileupload.js"></script>
-    <script src="../statics/jquery/jquery-form.js"></script>
-    <script src="../statics/js/config.js"></script>
+    <script src="/jquery/ajaxfileupload.js"></script>
+    <script src="/jquery/jquery-form.js"></script>
+    <script src="/js/config.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
-<div id="baseDiv" style="display: none;">
-    <div>基本信息</div>
-    <div>
+<div class="pro-body">
+    <form id="baseForm">
+        <input type="hidden" id="lastOne" name="lastOne" value="<%=curYear-1 %>:1_0#2_0#3_0#4_0"/>
+        <input type="hidden" id="lastTwo" name="lastTwo" value="<%=curYear-2 %>:1_0#2_0#3_0#4_0"/>
+        <input type="hidden" id="id" name="id" value="0"/>
+        <input type="hidden" id="logo" name="logo"/>
+        <input type="hidden" id="bp" name="bp"/>
+        <input type="hidden" id="bpName" name="bpName"/>
+        <input type="hidden" id="industry" name="industry" value="0"/>
         <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
         <input type="file" id="bpFile" name="bpFile" style="display: none;"/>
-        <form id="baseForm">
-            <input type="hidden" id="id" name="id" value="0"/>
-            <input type="hidden" id="logo" name="logo"/>
-            <input type="hidden" id="bp" name="bp"/>
-            <input type="hidden" id="bpName" name="bpName"/>
-            <input type="hidden" id="industry" name="industry" value="0"/>
-            <table>
-                <tr>
-                    <td>LOGO</td>
-                    <td>
-                        <img id="logoImg"
-                             src="<%=(isNull|| StringUtils.isEmpty(project.getLogo()))?"https://www.vchello.com/NewHome/src/images/upload-logo.png":project.getLogo() %>"
-                             title="点击添加图片"
-                             width="180" height="180" style="position: relative; z-index: 1;" onclick="selectFile('logoFile');">
-                        <input type="button" value="上传" onclick="uploadImage('logoFile','logoImg','logo')"/></td>
-                </tr>
-                <tr>
-                    <td>项目名</td>
-                    <td><input name="title"
-                               value="<%=(isNull || StringUtils.isEmpty(project.getTitle()))?"":project.getTitle()%>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>一句话介绍</td>
-                    <td><textarea name="summary"><%=(isNull || StringUtils.isEmpty(project.getSummary())) ?
-                            "" :
-                            project.getSummary()%></textarea></td>
-                </tr>
-                <tr>
-                    <td>所属行业</td>
-                    <td>
-                        <div id="industrys" onclick="listIndustry();"></div>
-                        <script>
-                            <%
-                                if(!isNull && project.getIndustry()!=null){
-                                %>
-                            $.get("/classinfo/get/<%=project.getIndustry() %>", function (result) {
-                                if (result.code < 0)
-                                    return;
-                                var industrys = $('#industrys');
-                                if (result.data != null)
-                                    industrys.html("<span onclick='fixIndustry(" + result.data.id + ")'>" + result.data.name + "</span>&nbsp;&nbsp;");
-                            }, "json");
-                            <%
-                            }else{
-                            %>
-                            $("#industrys").html("选择行业");
-                            <%
-                            }
-                        %>
-                        </script>
-                    </td>
-                </tr>
-                <tr>
-                    <td>所在城市</td>
-                    <td>
-                        <select id="area" name="area"></select>
-                        <script>
-                            <%
-                                if(!isNull && project.getIndustry()!=null){
-                                %>
-                            $.get("/classinfo/get/<%=project.getArea() %>", function (result) {
-                                if (result.code < 0)
-                                    return;
-                                $("#area").val(result.data.area);
-                            }, "json");
-                            <%
-                            }
-                            %>
-                        </script>
-                    </td>
-                </tr>
-                <tr>
-                    <td>融资规模</td>
-                    <td>
-                        <select id="financingLimit" name="financingLimit"></select>
-                        <script>
-                            <%
-                                if(!isNull && project.getFinancingLimit()!=null){
-                                %>
-                            $.get("/classinfo/get/<%=project.getFinancingLimit() %>", function (result) {
-                                if (result.code < 0)
-                                    return;
-                                $("#financingLimit").val(result.data.financingLimit);
-                            }, "json");
-                            <%
-                            }
-                            %>
-                        </script>
-                        出让比例<input name="percent"
-                                   value="<%=(isNull || project.getPercent()==null)?"":String.valueOf(project.getPercent())%>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>推荐人姓名</td>
-                    <td><input name="referee"
-                               value="<%=(isNull || StringUtils.isEmpty(project.getReferee()))?"":project.getReferee()%>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>商业计划书</td>
-                    <td>
-                        <%
-                            if (isNull || StringUtils.isEmpty(project.getBp())) {
-                        %><span id="bpSelect" onclick="selectFile('bpFile')">选择BP</span><input type="button" value="上传"
-                                                                                               onclick="uploadFile('bpFile','bpSelect')"/><%
-                    } else {
-                    %><%=project.getBpName() %>&nbsp;<span id="bpSelect" onclick="selectFile('bpFile')">选择BP</span><input
-                            type="button" value="上传"
-                            onclick="uploadFile('bpFile','bpSelect')"/>
-                        <%
-                            }
-                        %>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <button type="button" onclick="saveBase();">保存</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-</div>
-<div id="projectDiv" style="display: none;">
-    <div>项目信息</div>
-    <div>
-        <form id="projectForm">
-            <table>
-                <tr>
-                    <td>项目介绍</td>
-                    <td><textarea name="desc"><%=(isNull || StringUtils.isEmpty(project.getDesc())) ?
-                            "" :
-                            project.getDesc() %></textarea></td>
-                </tr>
-                <tr>
-                    <td>宣传视频</td>
-                    <td><input name="videoLink" <%=(isNull || StringUtils.isEmpty(project.getVideoLink())) ?
-                            "" :
-                            project.getVideoLink()%>/></td>
-                </tr>
-                <tr>
-                    <td>产品网址</td>
-                    <td><input name="proLink"<%=(isNull || StringUtils.isEmpty(project.getProLink())) ?
-                            "" :
-                            project.getProLink()%>/></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <button type="button" onclick="saveInfo();">保存</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-</div>
-<div id="memberDiv">
-    <div>团队信息</div>
-    <div id="members"></div>
-    <a href="#" onclick="modalShow('#bigModal', '', modalDataInit(0));">添加核心成员</a>
-    <a href="#" onclick="">保存</a>
-</div>
-<div id="videoDiv" style="display: none;">
-    <div>媒体报道</div>
-    <div></div>
-</div>
-<div class="modal bs-example-modal-lg" id="bigModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" onclick="modalHide('#bigModal', '');" class="close"
-                        data-dismiss="modal">
-                    <span aria-hidden="true">×</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title">核心成员</h4>
+        <div class="pro-wap">
+            <div class="pro-t">项目信息(1/3)</div>
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">项目LOGO</li>
+                    <li class="on2">
+                        <img id="logoImg" onclick="selectFile('logoFile');" title="点击添加图片"
+                             src="<%=(isNull|| StringUtils.isEmpty(project.getLogo()))?"/images/bg-new1.png":project.getLogo() %>"
+                             class="oimg"/>
+                        <span><a href="#" class="on"
+                                 onclick="uploadImage('logoFile','logoImg','logo')">上传LOGO</a></span>
+                    </li>
+                    <li class="on3">支持png/jpg/jepg格式</li>
+                </ul>
             </div>
-            <div class="modal-body">
-                <input type="file" id="photoFile" name="photoFile" style="display: none;"/>
-                <form id="memberForm">
-                    <input type="hidden" id="photo" name="photo"/>
-                    <input type="hidden" id="memberid" name="id" value="0"/>
-                    <input type="hidden" id="projectid" name="projectid"/>
-                    <table>
-                        <tr>
-                            <td>头像</td>
-                            <td>
-                                <img width="180" height="180" id="photoImg" onclick="selectFile('photoFile');"/>&nbsp;
-                                <a href="#" onclick="uploadImage('photoFile','photoImg','photo')">上传</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>姓名</td>
-                            <td><input id="memberName" name="memberName"/></td>
-                        </tr>
-                        <tr>
-                            <td>是否创始人</td>
-                            <td>
-                                <input type="radio" name="isFounder" value="1"/>是
-                                <input type="radio" name="isFounder" value="0" checked="checked"/>否
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>职位</td>
-                            <td><input id="position" name="position"/></td>
-                        </tr>
-                        <tr>
-                            <td>个人介绍</td>
-                            <td><input id="memberSummary" name="summary"/></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><input type="button" value="保存" onclick="saveMember()"/></td>
-                        </tr>
-                    </table>
-                </form>
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">项目名称</li>
+                    <li class="on2"><input name="title"
+                                           value="<%=(isNull || StringUtils.isEmpty(project.getTitle()))?"":project.getTitle()%>"
+                                           class="pro-one-ipt" placeholder="填写你的项目名称，不超过8个字"/></li>
+                </ul>
             </div>
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">解决需求</li>
+                    <li class="on2"><input name="demand"
+                                           value="<%=(isNull || StringUtils.isEmpty(project.getDemand()))?"":project.getDemand()%>"
+                                           class="pro-one-ipt" placeholder="一句话介绍你的项目所能解决的市场需求，不超过30个汉字"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">项目亮点</li>
+                    <li class="on2">
+                        <textarea name="highlights" class="pro-one-tex"
+                                  placeholder="一句话介绍你的团队的优势（不超过300字）"><%=(isNull || StringUtils.isEmpty(project.getHighlights())) ? "" : project.getHighlights()%></textarea>
+                    </li>
+                    <li class="on3">投资人重点关注</li>
+                </ul>
+            </div>
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">项目视频<span>（选填）</span></li>
+                    <li class="on2"><input name="videoLink"
+                                           value="<%=(isNull || StringUtils.isEmpty(project.getVideoLink()))?"":project.getVideoLink()%>"
+                                           class="pro-one-ipt" placeholder="添加视频播放地址"/></li>
+                    <li class="on3">支持MP4格式／优酷／土豆视频链接</li>
+                </ul>
+            </div>
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">项目详述</li>
+                    <li class="on2">
+                        <textarea name="description" class="pro-one-tex"
+                                  placeholder="项目详述"><%=(isNull || StringUtils.isEmpty(project.getDescription())) ? "" : project.getDescription()%></textarea>
+                    </li>
+                    <li class="on3">详细描述你的项目亮点，优势等等，便于下一轮投资者更完整了解该项目</li>
+                </ul>
+            </div>
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">财务数据<span>（选填）</span></li>
+                    <li class="on2">
+                        <div class="clear"></div>
+                        <div class="pro-two-wap">
+                            <span class="time"><%=curYear - 1 %>年</span>
+                            <ul class="pro-two-lst">
+                                <li class="on6">主营收入:</li>
+                                <li class="on7">
+                                    <div id="one1__" class="pro-two-ipt" onclick="showMenu('one1');">
+                                        <%
+                                            if (datas1 != null) {
+                                        %><a class="a1" href="#"><%=datas1[0]%>
+                                    </a><%
+                                    } else {
+                                    %><a class="a1" href="#">500万以下</a><%
+                                        }
+                                    %>
+                                    </div>
+                                    <div id="one1_" class="pro-menu-ico" style="display: none;"></div>
+                                    <ul id="one1" class="pro-menu" style="display: none;">
+                                        <li><a style="cursor: pointer" onclick="setOne1('500万以下')">500万以下</a></li>
+                                        <li><a style="cursor: pointer" onclick="setOne1('500~2000万')">500~2000万</a></li>
+                                        <li><a style="cursor: pointer" onclick="setOne1('2000~5000万')">2000~5000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setOne1('5000~10000万')">5000~10000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setOne1('10000万以上')">10000万以上</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="pro-two-lst">
+                                <li class="on6">利润:</li>
+                                <li class="on7">
+                                    <div id="one2__" class="pro-two-ipt" onclick="showMenu('one2');">
+                                        <%
+                                            if (datas1 != null) {
+                                        %><a class="a1" href="#"><%=datas1[1]%>
+                                    </a><%
+                                    } else {
+                                    %><a class="a1" href="#">100万以下</a><%
+                                        }
+                                    %>
+                                    </div>
+                                    <div id="one2_" class="pro-menu-ico" style="display: none;"></div>
+                                    <ul id="one2" class="pro-menu" style="display: none;">
+                                        <li><a style="cursor: pointer" onclick="setOne2('100万以下')">100万以下</a></li>
+                                        <li><a style="cursor: pointer" onclick="setOne2('100~500万')">100~500万</a></li>
+                                        <li><a style="cursor: pointer" onclick="setOne2('500~1000万')">500~1000万</a></li>
+                                        <li><a style="cursor: pointer" onclick="setOne2('1000~3000万')">1000~3000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setOne2('3000万以上')">3000万以上</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="pro-two-lst">
+                                <li class="on6">总资产:</li>
+                                <li class="on7">
+                                    <div id="one3__" class="pro-two-ipt" onclick="showMenu('one3');">
+                                        <%
+                                            if (datas1 != null) {
+                                        %><a class="a1" href="#"><%=datas1[2]%>
+                                    </a><%
+                                    } else {
+                                    %><a class="a1" href="#">1000万以下</a><%
+                                        }
+                                    %>
+                                    </div>
+                                    <div id="one3_" class="pro-menu-ico" style="display: none;"></div>
+                                    <ul id="one3" class="pro-menu" style="display: none;">
+                                        <li><a style="cursor: pointer" onclick="setOne3('1000万以下')">1000万以下</a></li>
+                                        <li><a style="cursor: pointer" onclick="setOne3('1000~5000万')">1000~5000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setOne3('5000~10000万')">5000~10000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setOne3('10000万以上')">10000万以上</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="pro-two-lst">
+                                <li class="on6">净资产:</li>
+                                <li class="on7">
+                                    <div id="one4__" class="pro-two-ipt" onclick="showMenu('one4');">
+                                        <%
+                                            if (datas1 != null) {
+                                        %><a class="a1" href="#"><%=datas1[3]%>
+                                    </a><%
+                                    } else {
+                                    %><a class="a1" href="#">1000万以下</a><%
+                                        }
+                                    %>
+                                    </div>
+                                    <div id="one4_" class="pro-menu-ico" style="display: none;"></div>
+                                    <ul id="one4" class="pro-menu" style="display: none;">
+                                        <li><a style="cursor: pointer" onclick="setOne4('500万以下')">500万以下</a></li>
+                                        <li><a style="cursor: pointer" onclick="setOne4('500~2000万')">500~2000万</a></li>
+                                        <li><a style="cursor: pointer" onclick="setOne4('2000~5000万')">2000~5000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setOne4('5000万以上')">5000万以上</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="pro-two-wap">
+                            <span class="time"><%=curYear - 2 %>年</span>
+                            <ul class="pro-two-lst">
+                                <li class="on6">主营收入:</li>
+                                <li class="on7">
+                                    <div id="two1__" class="pro-two-ipt" onclick="showMenu('two1');">
+                                        <%
+                                            if (datas2 != null) {
+                                        %><a class="a1" href="#"><%=datas2[0]%>
+                                    </a><%
+                                    } else {
+                                    %><a class="a1" href="#">500万以下</a><%
+                                        }
+                                    %>
+                                    </div>
+                                    <div id="two1_" class="pro-menu-ico" style="display: none;"></div>
+                                    <ul id="two1" class="pro-menu" style="display: none;">
+                                        <li><a style="cursor: pointer" onclick="setTwo1('500万以下')">500万以下</a></li>
+                                        <li><a style="cursor: pointer" onclick="setTwo1('500~2000万')">500~2000万</a></li>
+                                        <li><a style="cursor: pointer" onclick="setTwo1('2000~5000万')">2000~5000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setTwo1('5000~10000万')">5000~10000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setTwo1('10000万以上')">10000万以上</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="pro-two-lst">
+                                <li class="on6">利润:</li>
+                                <li class="on7">
+                                    <div id="two2__" class="pro-two-ipt" onclick="showMenu('two2');">
+                                        <%
+                                            if (datas2 != null) {
+                                        %><a class="a1" href="#"><%=datas2[1]%>
+                                    </a><%
+                                    } else {
+                                    %><a class="a1" href="#">100万以下</a><%
+                                        }
+                                    %>
+                                    </div>
+                                    <div id="two2_" class="pro-menu-ico" style="display: none;"></div>
+                                    <ul id="two2" class="pro-menu" style="display: none;">
+                                        <li><a style="cursor: pointer" onclick="setTwo2('100万以下')">100万以下</a></li>
+                                        <li><a style="cursor: pointer" onclick="setTwo2('100~500万')">100~500万</a></li>
+                                        <li><a style="cursor: pointer" onclick="setTwo2('500~1000万')">500~1000万</a></li>
+                                        <li><a style="cursor: pointer" onclick="setTwo2('1000~3000万')">1000~3000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setTwo2('3000万以上')">3000万以上</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="pro-two-lst">
+                                <li class="on6">总资产:</li>
+                                <li class="on7">
+                                    <div id="two3__" class="pro-two-ipt" onclick="showMenu('two3');">
+                                        <%
+                                            if (datas2 != null) {
+                                        %><a class="a1" href="#"><%=datas2[2]%>
+                                    </a><%
+                                    } else {
+                                    %><a class="a1" href="#">1000万以下</a><%
+                                        }
+                                    %>
+                                    </div>
+                                    <div id="two3_" class="pro-menu-ico" style="display: none;"></div>
+                                    <ul id="two3" class="pro-menu" style="display: none;">
+                                        <li><a style="cursor: pointer" onclick="setTwo3('1000万以下')">1000万以下</a></li>
+                                        <li><a style="cursor: pointer" onclick="setTwo3('1000~5000万')">1000~5000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setTwo3('5000~10000万')">5000~10000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setTwo3('10000万以上')">10000万以上</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="pro-two-lst">
+                                <li class="on6">净资产:</li>
+                                <li class="on7">
+                                    <div id="two4__" class="pro-two-ipt" onclick="showMenu('two4');">
+                                        <%
+                                            if (datas2 != null) {
+                                        %><a class="a1" href="#"><%=datas2[3]%>
+                                    </a><%
+                                    } else {
+                                    %><a class="a1" href="#">1000万以下</a><%
+                                        }
+                                    %>
+                                    </div>
+                                    <div id="two4_" class="pro-menu-ico" style="display: none;"></div>
+                                    <ul id="two4" class="pro-menu" style="display: none;">
+                                        <li><a style="cursor: pointer" onclick="setTwo4('500万以下')">500万以下</a></li>
+                                        <li><a style="cursor: pointer" onclick="setTwo4('500~2000万')">500~2000万</a></li>
+                                        <li><a style="cursor: pointer" onclick="setTwo4('2000~5000万')">2000~5000万</a>
+                                        </li>
+                                        <li><a style="cursor: pointer" onclick="setTwo4('5000万以上')">5000万以上</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="on3">财务数据是投资人最关心的数据之一</li>
+                </ul>
+            </div>
+            <!--*************************需融资金额************************-->
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">需融资金额</li>
+                    <li class="on8">
+                        <ul class="pro-fo-lst">
+                            <%
+                                for (Xwcmclassinfo xwcmclassinfo : financingLimits) {
+                                    if (!isNull && xwcmclassinfo.getClassinfoid().intValue() == project.getFinancingLimit()) {
+                            %>
+                            <li class="on"><a href="#" onclick="fixFinancingLimit();"><%=xwcmclassinfo.getCname() %>
+                            </a></li>
+                            <%
+                            } else {
+                            %>
+                            <li><a href="#"><%=xwcmclassinfo.getCname() %>
+                            </a></li>
+                            <%
+                                    }
+                                }
+                            %>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="pro-one-lst">
+                    <li class="on1">所属行业</li>
+                    <li class="on8">
+                        <ul class="pro-fo-lst">
+                            <%
+                                for (Xwcmclassinfo xwcmclassinfo : industrys) {
+                                    if (!isNull && xwcmclassinfo.getClassinfoid().intValue() == project.getFinancingLimit()) {
+                            %>
+                            <li class="on"><a href="#" onclick="fixIndustry();"><%=xwcmclassinfo.getCname() %>
+                            </a></li>
+                            <%
+                            } else {
+                            %>
+                            <li><a href="#"><%=xwcmclassinfo.getCname() %>
+                            </a></li>
+                            <%
+                                    }
+                                }
+                            %>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="pro-one-lst">
+                    <li class="on1">项目地点</li>
+                    <li class="on8">
+                        <ul class="pro-fo-lst">
+                            <%
+                                for (Xwcmclassinfo xwcmclassinfo : areas) {
+                                    if (!isNull && xwcmclassinfo.getClassinfoid().intValue() == project.getFinancingLimit()) {
+                            %>
+                            <li class="on"><a href="#" onclick="fixArea();"><%=xwcmclassinfo.getCname() %>
+                            </a></li>
+                            <%
+                            } else {
+                            %>
+                            <li><a href="#"><%=xwcmclassinfo.getCname() %>
+                            </a></li>
+                            <%
+                                    }
+                                }
+                            %>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="pro-one-lst">
+                    <li class="on1">融资阶段</li>
+                    <li class="on8">
+                        <ul class="pro-fo-lst">
+                            <%
+                                for (Xwcmclassinfo xwcmclassinfo : stages) {
+                                    if (!isNull && xwcmclassinfo.getClassinfoid().intValue() == project.getFinancingLimit()) {
+                            %>
+                            <li class="on"><a href="#" onclick="fixStage();"><%=xwcmclassinfo.getCname() %>
+                            </a></li>
+                            <%
+                            } else {
+                            %>
+                            <li><a href="#"><%=xwcmclassinfo.getCname() %>
+                            </a></li>
+                            <%
+                                    }
+                                }
+                            %>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">商业计划书<span>（选填）</span></li>
+                    <li class="on2">
+                        <ul class="pro-fiv-lst">
+                            <li class="e1"><a id="bpSelect" onclick="selectFile('bpFile')" href="#">点击选择</a></li>
+                            <li class="e3"><span><a href="#" onclick="uploadFile('bpFile','bpSelect')">上传</a></span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="on3">支持pdf/ppt/pptx/doc/docx格式</li>
+                </ul>
+            </div>
+            <!--*************************下一步按钮************************-->
+            <div class="pro-clear"></div>
+            <div class="pro-btn"><a href="#">下一步</a></div>
         </div>
-    </div>
+    </form>
 </div>
 <jsp:include page="../pub/foot.jsp" flush="true"/>
 </body>
 <script>
-    //animate.css动画触动一次方法
-    $.fn.extend({
-        animateCss: function (animationName) {
-            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-            this.addClass('animated ' + animationName).one(animationEnd, function () {
-                $(this).removeClass('animated ' + animationName);
-            });
-        }
-    });
-    /**
-     * 显示模态框方法
-     * @param targetModel 模态框选择器，jquery选择器
-     * @param animateName 弹出动作
-     * @ callback 回调方法
-     */
-    var modalShow = function (targetModel, animateName, callback) {
-        var animationIn = ["bounceIn", "bounceInDown", "bounceInLeft", "bounceInRight", "bounceInUp",
-            "fadeIn", "fadeInDown", "fadeInLeft", "fadeInRight", "fadeOutUp",
-            "fadeInDownBig", "fadeInLeftBig", "fadeOutRightBig", "fadeOutUpBig", "flipInX", "flipInY",
-            "lightSpeedIn", "rotateIn", "rotateInDownLeft", "rotateInDownRight", "rotateInUpLeft", "rotateInUpRight",
-            "zoomIn", "zoomInDown", "zoomInLeft", "zoomInRight", "zoomInUp", "slideInDown", "slideInLeft",
-            "slideInRight", "slideInUp", "rollIn"];
-        if (!animateName || animationIn.indexOf(animateName) == -1) {
-            console.log(animationIn.length);
-            var intRandom = Math.floor(Math.random() * animationIn.length);
-            animateName = animationIn[intRandom];
-        }
-        console.log(targetModel + " " + animateName);
-        $(targetModel).show().animateCss(animateName);
-        //callback.apply(this);
-    }
-    /**
-     * 隐藏模态框方法
-     * @param targetModel 模态框选择器，jquery选择器
-     * @param animateName 隐藏动作
-     * @ callback 回调方法
-     */
-    var modalHide = function (targetModel, animateName, callback) {
-        var animationOut = ["bounceOut", "bounceOutDown", "bounceOutLeft", "bounceOutRight", "bounceOutUp",
-            "fadeOut", "fadeOutDown", "fadeOutLeft", "fadeOutRight", "fadeOutUp",
-            "fadeOutDownBig", "fadeOutLeftBig", "fadeOutRightBig", "fadeOutUpBig", "flipOutX", "flipOutY",
-            "lightSpeedOut", "rotateOut", "rotateOutDownLeft", "rotateOutDownRight", "rotateOutUpLeft", "rotateOutUpRight",
-            "zoomOut", "zoomOutDown", "zoomOutLeft", "zoomOutRight", "zoomOutUp",
-            "zoomOut", "zoomOutDown", "zoomOutLeft", "zoomOutRight", "zoomOutUp", "slideOutDown", "slideOutLeft",
-            "slideOutRight", "slideOutUp", "rollOut"];
-        if (!animateName || animationOut.indexOf(animateName) == -1) {
-            console.log(animationOut.length);
-            var intRandom = Math.floor(Math.random() * animationOut.length);
-            animateName = animationOut[intRandom];
-        }
-        $(targetModel).children().click(function (e) {
-            e.stopPropagation()
-        });
-        $(targetModel).animateCss(animateName);
-        $(targetModel).delay(900).hide(1, function () {
-            $(this).removeClass('animated ' + animateName);
-        });
-        //callback.apply(this);
-    }
-    var modalDataInit = function (memberid) {
-        $('#memberForm')[0].reset();
-        $("#projectid").val(projectid);
-        if (memberid == 0) {
-            $("#photoImg").attr("src", "https://www.vchello.com/NewHome/src/images/founderImg.png");
-        } else {
-
-        }
-    }
-
     var projectid = <%=isNull?"0":project.getId().toString()%>;
-
     function selectFile(id) {
         $('#' + id).click();
     }
@@ -501,6 +615,69 @@
     //选择所属行业
     function fixIndustry(id) {
         $("#industry").val(id);
+    }
+    var one1 = "0";
+    var one2 = "0";
+    var one3 = "0";
+    var one4 = "0";
+    var two1 = "0";
+    var two2 = "0";
+    var two3 = "0";
+    var two4 = "0";
+    function setOne1(value) {
+        one1 = value;
+        hideMenu();
+        $("#one1__").html("<a class='a1' href='#'>" + value + "</a>");
+    }
+    function setOne2(value) {
+        one2 = value;
+        hideMenu();
+        $("#one2__").html("<a class='a1' href='#'>" + value + "</a>");
+    }
+    function setOne3(value) {
+        one3 = value;
+        hideMenu();
+        $("#one3__").html("<a class='a1' href='#'>" + value + "</a>");
+    }
+    function setOne4(value) {
+        one4 = value;
+        hideMenu();
+        $("#one4__").html("<a class='a1' href='#'>" + value + "</a>");
+    }
+    function setTwo1(value) {
+        two1 = value;
+        hideMenu();
+        $("#two1__").html("<a class='a1' href='#'>" + value + "</a>");
+    }
+    function setTwo2(value) {
+        two2 = value;
+        hideMenu();
+        $("#two2__").html("<a class='a1' href='#'>" + value + "</a>");
+    }
+    function setTwo3(value) {
+        two3 = value;
+        hideMenu();
+        $("#two3__").html("<a class='a1' href='#'>" + value + "</a>");
+    }
+    function setTwo4(value) {
+        two4 = value;
+        hideMenu();
+        $("#two4__").html("<a class='a1' href='#'>" + value + "</a>");
+    }
+
+    function showMenu(id) {
+        hideMenu();
+        $("#" + id).show();
+        $("#" + id + "_").show();
+    }
+
+    function hideMenu() {
+        for (var i = 1; i <= 4; i++) {
+            $("#one" + i).hide();
+            $("#one" + i + "_").hide();
+            $("#two" + i).hide();
+            $("#two" + i + "_").hide();
+        }
     }
 </script>
 </html>

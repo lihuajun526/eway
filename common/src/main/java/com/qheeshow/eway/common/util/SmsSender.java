@@ -21,7 +21,9 @@ public class SmsSender {
 
     public static String send(String phone) throws SendSMSException {
 
-        String account = Config.get("cl.account");
+        return "1234";
+
+        /*String account = Config.get("cl.account");
         String password = Config.get("cl.password");
         String url = Config.get("cl.url");
         String sign = Config.get("cl.sign");
@@ -49,6 +51,6 @@ public class SmsSender {
             LOGGER.error("发送短信验证码到{}失败,返回{}", phone, response, e);
             throw new SendSMSException();
         }
-        return vcode;
+        return vcode;*/
     }
 }

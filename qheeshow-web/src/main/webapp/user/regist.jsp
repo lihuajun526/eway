@@ -2,60 +2,46 @@
 <html>
 <head>
     <title>用户注册</title>
-    <script type="text/javascript" src="../statics/jquery/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="../statics/jquery/jquery-validate.js"></script>
-    <script type="text/javascript" src="../statics/js/util.js"></script>
+    <link rel="stylesheet" href="/images/animate.min.css">
+    <link rel="stylesheet" href="/images/bootstrap.css">
+    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="/images/wt_index.css"/>
+    <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="/js/util.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
-<form id="registForm">
-    <table>
-        <tr>
-            <td>手机号</td>
-            <td><input id="mobile" name="mobile" data-tip="请输入您的手机号码" class="required" data-valid="isNonEmpty||isMobile"
-                       data-error="手机号码不能为空||手机号码不正确"/></td>
-        </tr>
-        <tr>
-            <td>真实姓名</td>
-            <td><input name="truename" data-tip="请输入您的真实姓名" class="required" data-valid="isNonEmpty"
-                       data-error="真实姓名不能为空"/></td>
-        </tr>
-        <tr>
-            <td>用户名</td>
-            <td><input name="username" data-tip="请输入您的用户名" class="required" data-valid="isNonEmpty"
-                       data-error="用户不能为空"/></td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><input name="email" data-tip="请输入您的邮箱" class="required" data-valid="isNonEmpty||isEmail"
-                       data-error="email不能为空||邮箱格式不正确"/></td>
-        </tr>
-        <tr>
-            <td>手机验证码</td>
-            <td><input name="smsCode" class="required" data-valid="isNonEmpty"
-                       data-error="验证码不能为空"/>
-                <button type="button" onclick="getSmsCode()">获取短信验证码</button>
-            </td>
-        </tr>
-        <tr>
-            <td>身份</td>
-            <td>
-                <input type="radio" name="roleid" value="3" checked>创业者
-                <input type="radio" name="roleid" value="4">投资人
-            </td>
-        </tr>
-        <tr>
-            <td>密码</td>
-            <td><input type="password" name="password" class="required" data-valid="isNonEmpty||minLength:8"
-                       data-error="密码不能为空||密码至少8个字符"/></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <button type="button" onclick="regist()">注册</button>
-            </td>
-        </tr>
-    </table>
-</form>
+<div class="g-lgin">
+    <div class="g-lgin-m">
+        <ul class="g-lgin-t g-lgin-t2">
+            <li class="on2"><a href="/user/login.jsp">登录</a></li>
+            <li class="on1"><a>注册</a></li>
+        </ul>
+        <form id="registForm">
+            <input id="roleid" name="roleid" type="hidden" value="3"/>
+
+            <div class="g-lgin-cnt g-lgin-cnt2">
+                <ul class="g-lgin-lst3">
+                    <li><a style="cursor: pointer" onclick="setRole(3);">企业/创业者</a></li>
+                    <li><a style="cursor: pointer" onclick="setRole(4);">投资人</a></li>
+                </ul>
+                <ul class="g-lgin-lst">
+                    <li><input value="李华君" id="name" name="name" type="text" class="g-lgin-ipt2" placeholder="请输入真实姓名"/></li>
+                    <li><input value="18857107097" id="mobile" name="mobile" type="text" class="g-lgin-ipt2" placeholder="请输入手机号"/></li>
+                    <li><input value="515182557@qq.com" id="email" name="email" type="text" class="g-lgin-ipt2" placeholder="请输入邮箱"/></li>
+                    <li><input value="1234" id="smsCode" name="smsCode" type="text" class="g-lgin-ipt2"
+                               placeholder="请输入短信验证码"/><span><a
+                            style="cursor: pointer" onclick="getSmsCode();">获取验证码</a></span>
+                    </li>
+                    <li><input value="password" id="password" name="password" type="password" class="g-lgin-ipt2" placeholder="请输入密码"/></li>
+                    <li><input value="password" id="rePassword" name="rePassword" type="password" class="g-lgin-ipt2" placeholder="请再次输入密码"/>
+                    </li>
+                </ul>
+                <div class="g-pw-btnw2"><input type="button" value="注 册" class="g-lgin-btn" onclick="regist();"></div>
+            </div>
+        </form>
+    </div>
+</div>
 <jsp:include page="../pub/foot.jsp" flush="true"/>
 </body>
 <script>
@@ -66,27 +52,67 @@
             alert("请填写手机号");
             return;
         }
-        $.get("/web/sms/get/" + mobile + "?type=regist", function (result) {
+        $.get("/sms/get/" + mobile + "?type=regist", function (result) {
             alert(result.message);
         }, "json");
     }
     //提交表单
     function regist() {
-        if (!$('#registForm').validate('submitValidate'))
+        if (!validate())
             return;
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/web/user/regist',
+            url: '/user/regist',
             data: $('#registForm').serialize(),
             success: function (result) {
                 if (!result.data) {
                     alert(result.message);
                     return;
                 }
-                window.location.href = "../project/project_create.jsp";
+                window.location.href = "/project/add";
             }
         });
+    }
+    function setRole(roleid) {
+        $("#roleid").val(roleid);
+    }
+    function validate() {
+        var name = $("#name").val();
+        var mobile = $("#mobile").val();
+        var email = $("#email").val();
+        var smsCode = $("#smsCode").val();
+        var password = $("#password").val();
+        var rePassword = $("#rePassword").val();
+        if (!name.length) {
+            alert("请输入用户名");
+            return false;
+        }
+        if (!mobile.length) {
+            return false;
+        }
+        if (!email.length) {
+            return false;
+        }
+        if (!smsCode.length) {
+            return false;
+        }
+        if (!password.length) {
+            return false;
+        }
+        if (!rePassword.length) {
+            return false;
+        }
+        if (!/(^1[3|5|8][0-9]{9}$)/.test(mobile)) {
+            return false;
+        }
+        if (!/(^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)/.test(email)) {
+            return false;
+        }
+        if (password != rePassword) {
+            return false;
+        }
+        return true;
     }
 </script>
 </html>

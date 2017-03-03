@@ -1,7 +1,9 @@
 package com.qheeshow.eway.service.service.impl;
 
+import com.qheeshow.eway.service.dao.ClassinfoMapper;
 import com.qheeshow.eway.service.model.Classinfo;
 import com.qheeshow.eway.service.service.ClassinfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +14,11 @@ import java.util.List;
  */
 @Service
 public class ClassinfoServiceImpl implements ClassinfoService {
+
+    @Autowired
+    private ClassinfoMapper classinfoMapper;
+
+
     @Override public List<Classinfo> listByParent(Integer pid) {
         List<Classinfo> list = new ArrayList<>();
 
@@ -44,4 +51,11 @@ public class ClassinfoServiceImpl implements ClassinfoService {
         classinfo1.setName("互联网");
         return classinfo1;
     }
+
+    @Override
+    public void synData() {
+
+    }
+
+
 }

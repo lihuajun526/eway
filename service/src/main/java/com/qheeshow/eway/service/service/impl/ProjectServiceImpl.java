@@ -67,7 +67,7 @@ public class ProjectServiceImpl implements ProjectService {
         project1.setFinancingLimit(1);
         project1.setUsername("lihuajun1");
         project1.setCreateTime(new Date());
-        project1.setDesc("desc");
+        project1.setDescription("desc");
         project1.setVideoLink("http://www.caitu99.com");
         project1.setProLink("http://www.baidu.com");
         return project1;

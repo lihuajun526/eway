@@ -35,4 +35,12 @@ public class OrderDetail extends BaseModel {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 }

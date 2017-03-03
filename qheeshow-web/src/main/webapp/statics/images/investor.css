@@ -1,0 +1,240 @@
+@charset "utf-8";
+/* CSS Document */
+.inv-body {
+	background:#f9f9f9;
+	overflow:hidden;
+}
+.inv-wap {
+	background:#ffffff;
+	border:1px solid #f4f4f4;
+	width:998px;
+	margin:0 auto;
+	margin-top:22px;
+	margin-bottom:40px;
+	overflow:hidden;
+}
+.inv-one {
+	font-size:16px;
+	margin-top:30px;
+}
+.inv-t {
+	font-size:18px;
+	height:64px;
+	line-height:64px;
+	padding-left:40px;
+	border-bottom:1px solid #f1f1f1;
+}
+.inv-one-lst {
+	clear:both;
+}
+.inv-one-lst li {
+	float:left;
+}
+.inv-one-lst li.on1 {
+	width:174px;
+	margin-right:15px;
+	text-align:right;
+	margin-top:44px;
+	font-size:15px;
+}
+.inv-one-lst li.on1 span {
+	color:#0097e1;
+}
+.inv-one-lst li.on2 {
+	width:444px;
+	margin-right:35px;
+	margin-top:28px;
+	padding:5px 0;
+	position:relative;
+}
+.inv-one-lst li.on3 {
+	width:293px;
+	color:#999999;
+	padding-top:45px;
+	margin-right:35px;
+	font-size:15px;
+}
+.inv-one-ipt, .inv-one-ipt1 {
+	background:#f5f5f5;
+	border:1px solid #e2e6e9;
+	border-radius:6px;
+	width:442px;
+	padding-left:20px;
+	height:50px;
+	color:#a9a9a9;
+	font-size:14px;
+}
+.inv-one-ipt1 {
+	width:212px;
+}
+.inv-c-name {
+	margin-right:18px;
+}
+.inv-lst1 {
+	background:url(wt-icon20.png) no-repeat;
+	width:154px;
+	height:155px;
+	text-align:center;
+	padding-top:30px;
+}
+.inv-lst1 li {
+	float:inherit;
+	font-size:14px;
+	color:#a9a9a9;
+}
+.inv-lst1 li.head {
+	margin-top:13px;
+}
+.inv-one-lst2 {
+	height:40px;
+	line-height:38px;
+	font-size:15px;
+}
+.inv-radio {
+	margin:3px 60px 0 10px;
+}
+.inv-radio2 {
+	margin:3px 25px 0 10px;
+}
+.inv-addto, .inv-addto1 {
+	background:#f5f5f5 url(wt-icon21.png) no-repeat 18px center;
+	border:1px dashed #999999;
+	border-radius:6px;
+	width:88px;
+	padding-left:40px;
+	height:50px;
+	line-height:48px;
+	font-size:14px;
+	color:#a1a1a1;
+}
+.inv-addto1 {
+	width:349px;
+}
+.inv-two-ipt {
+	background:#f5f5f5;
+	border:1px solid #e2e6e9;
+	border-radius:6px;
+	padding-left:20px;
+	height:50px;
+	line-height:50px;
+	color:#a9a9a9;
+	font-size:14px;
+	width:308px;
+	cursor:pointer;
+	background:url(icon-up.png) no-repeat 275px center;
+	margin-bottom:15px;
+}
+.a1 {
+	color:#000000;
+}
+.inv-menu-ico {
+	position:absolute;
+	z-index:99;
+	top:40px;
+	right:150px;
+	background:url(wt-icon8.png) no-repeat;
+	width:30px;
+	height:15px;
+	display:block;
+}
+.inv-menu {
+	width:144px;
+	position:absolute;
+	text-align:center;
+	z-index:9;
+	background:#fff;
+	top:54px;
+	right:140px;
+	box-shadow:0 0 8px #d4d4d4;
+	border-radius:4px;
+	overflow:hidden;
+	border:1px solid #f8f8f8;
+}
+.inv-menu li {
+	width:144px;
+	border-bottom:1px solid #f4f4f4;
+	font-size:12px;
+	height:31px;
+	line-height:31px;
+}
+.inv-menu li a {
+	display:block;
+	color:#6a6a6a;
+}
+.inv-menu li a:hover {
+	background:#e8e8e8;
+}
+.inv-one-tex {
+	background:#f5f5f5;
+	border:1px solid #e2e6e9;
+	border-radius:6px;
+	width:442px;
+	padding-left:20px;
+	height:50px;
+	color:#a9a9a9;
+	font-size:14px;
+	height:184px;
+	padding-top:16px;
+	resize:none;
+	overflow:hidden;
+}
+.inv-clear {
+	clear:both;
+}
+.inv-btn, .inv-btn2 {
+	text-align:left;
+	margin-top:36px;
+	margin-left:164px;
+	margin-bottom:50px;
+}
+.inv-btn2 {
+	margin-left:284px;
+}
+.inv-btn a, .inv-btn2 a {
+	background:#0097e1;
+	width:180px;
+	height:50px;
+	line-height:50px;
+	border-radius:4px;
+	display:inline-block;
+	margin:27px 25px;
+	color:#FFFFFF;
+	font-size:16px;
+	text-align:center;
+}
+.inv-lst2 li {
+	background:url(wt-icon22.png) no-repeat;
+	width:209px;
+	height:154px;
+	text-align:center;
+	padding-top:30px;
+}
+.inv-lst2-l {
+	margin-right:24px;
+}
+.inv-lst2 span {
+	display:block;
+	font-size:14px;
+	color:#a9a9a9;
+}
+.inv-lst2 li span.head {
+	margin-top:13px;
+}
+.inv-one-lst li.on5, .inv-one-lst li.on6 {
+	width:730px;
+	margin-right:35px;
+	margin-top:28px;
+	padding:5px 0;
+	position:relative;
+}
+.inv-one-lst li.on6 {
+	margin-top:10px;
+}
+.inv-one-span {
+	display:block;
+	background:url(wt-icon23.png) no-repeat left center;
+	padding-left:20px;
+	margin-bottom:5px;
+	font-size:15px;
+	color:#808080;
+}

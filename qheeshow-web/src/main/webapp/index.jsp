@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>梧桐E路</title>
     <link rel="stylesheet" href="/images/animate.min.css">
     <link rel="stylesheet"  href="/images/bootstrap.css">
     <!--*************************bootstrap css end************************-->

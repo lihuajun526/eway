@@ -11,7 +11,7 @@ public interface UserService {
 	
 	public boolean isRegist(User user);
 
-	public boolean regist(User user);
+	public void regist(User user);
 	
 	public void changePassword(User user);
     

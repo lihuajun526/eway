@@ -76,9 +76,10 @@ table {
 table th {
 	font-weight:300;
 }
-a, a:hover, a:visited {
+a:link,a:visited,a:hover,a:active{
 	text-decoration:none;
 }
+
 /* width_control  */
 .width_control {
 	width:100%;

@@ -30,10 +30,14 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/regist", method = RequestMethod.POST)
     @ResponseBody
-    public String regist(User user, String smsCode, HttpServletRequest request) {
+    public String regist(User user, String smsCode, String rePassword, HttpServletRequest request) {
         Result<Boolean> result = new Result<>();
         result.set("注册成功", true);
 
+        if (StringUtils.isEmpty(user.getName())) {
+            result.set("真实姓名不能为空", false);
+            return result.toString();
+        }
         if (StringUtils.isEmpty(user.getMobile())) {
             result.set("手机号不能为空", false);
             return result.toString();
@@ -42,87 +46,109 @@ public class UserController extends BaseController {
             result.set("邮箱不能为空", false);
             return result.toString();
         }
-        if (StringUtils.isEmpty(user.getPassword())) {
-            result.set("密码不能为空", false);
-            return result.toString();
-        }
         if (StringUtils.isEmpty(smsCode)) {
             result.set("短信验证码不能为空", false);
             return result.toString();
         }
-//        if (user.getRoleid() == null) {
-//            result.set("身份不能为空", false);
-//            return result.toString();
-//        }
         if (StringUtils.isEmpty(user.getPassword())) {
             result.set("密码不能为空", false);
             return result.toString();
         }
-        HttpSession httpSession = request.getSession();
-        if (httpSession.getAttribute(httpSession.getId() + "_" + user.getMobile()) == null) {
-            result.set("短信验证码错误", false);
-//            return result.toString();
+        if (user.getRoleid() == null) {
+            result.set("身份不能为空", false);
+            return result.toString();
         }
-        String sSmsCode = (String) httpSession.getAttribute("regist" + "smsCode");
+        if (!user.getPassword().equals(rePassword)) {
+            result.set("两次密码输入不一致", false);
+            return result.toString();
+        }
+        HttpSession httpSession = request.getSession();
+        if (httpSession.getAttribute("regist_smsCode") == null) {
+            result.set("短信验证码错误", false);
+            return result.toString();
+        }
+        String sSmsCode = (String) httpSession.getAttribute("regist_smsCode");
         if (sSmsCode == null || !sSmsCode.equals(smsCode)) {
             result.set("短信验证码错误", false);
-//            return result.toString();
+            return result.toString();
         }
-        boolean isSuccess = userService.regist(user);
-        if(!isSuccess){
+        if (userService.isRegist(user)) {
             result.set("该手机号码已被注册", false);
             return result.toString();
         }
+        userService.regist(user);
+        LOGGER.debug("用户ID={}", user.getId());
         httpSession.setAttribute("loginUser", user);
         return result.toString();
     }
-    
-    
+
+
     /**
-     * 
+     * @param session
+     * @param user
+     * @return
      * @Title: SaveAddress
      * @Description: 登录并将当前用户相关信息放入缓存
      * @author yue
      * @date 2017年2月25日 下午2:14:12
-     * @param session
-     * @param user
-     * @return
      */
-    @RequestMapping(value = "/login" , method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
-    public HaResponse login(HttpSession session,User user){
-    	List<User> users = userService.login(user); 
-    	if(users.size() > 0){
-    		user = users.get(0);
-        	session.setAttribute("userId", user.getId());
-        	session.setAttribute("nickname", user.getNickname());
-        	user.setPassword("");
+    public HaResponse login(HttpSession session, User user) {
+        List<User> users = userService.login(user);
+        if (users.size() > 0) {
+            user = users.get(0);
+            session.setAttribute("userId", user.getId());
+            session.setAttribute("nickname", user.getNickname());
+            user.setPassword("");
             return HaResponse.sussess(user);
-    	}else{
+        } else {
             return HaResponse.fail("用户名密码错误");
-    	}
+        }
     }
-    
+
     /**
-     * 
-     * @Title: changePassword
-     * @Description: 修改密码
-     * @author yue
-     * @date 2017年2月25日 下午3:48:11
      * @param session
      * @param user
      * @param smsCode
      * @return
+     * @Title: changePassword
+     * @Description: 修改密码
+     * @author yue
+     * @date 2017年2月25日 下午3:48:11
      */
-    @RequestMapping(value = "/changePassword" , method = RequestMethod.GET)
+    @RequestMapping(value = "/changePassword", method = RequestMethod.GET)
     @ResponseBody
-    public HaResponse changePassword(HttpSession session,User user,String smsCode){
-    	if(smsCode.equals((String) session.getAttribute("regist" + "smsCode"))){
-    		userService.changePassword(user);
+    public HaResponse changePassword(HttpSession session, User user, String smsCode) {
+        if (smsCode.equals((String) session.getAttribute("regist" + "smsCode"))) {
+            userService.changePassword(user);
             return HaResponse.sussess();
-    	}else{
-    		return HaResponse.fail("短信验证码错误");
-    	}
+        } else {
+            return HaResponse.fail("短信验证码错误");
+        }
+    }
+
+    @RequestMapping(value = "/password/reset")
+    @ResponseBody
+    public HaResponse resetPassword(HttpSession session, User user, String smsCode, String rePassword) {
+
+        Object object = session.getAttribute("reset" + "smsCode");
+        if (StringUtils.isEmpty(user.getMobile()))
+            return HaResponse.fail("手机号不能为空");
+        if (StringUtils.isEmpty(smsCode))
+            return HaResponse.fail("短信验证码不能为空");
+        if (StringUtils.isEmpty(user.getPassword()))
+            return HaResponse.fail("新密码不能为空");
+        if (!user.getPassword().equals(rePassword))
+            return HaResponse.fail("两次密码不匹配");
+        if (object == null)
+            return HaResponse.fail("请先获取短信验证码");
+        if (!smsCode.equals((String) object)) {
+            return HaResponse.fail("短信验证码错误");
+        } else {
+            userService.changePassword(user);
+            return HaResponse.sussess();
+        }
     }
 
 }

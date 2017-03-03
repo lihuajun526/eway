@@ -2,6 +2,10 @@ package com.qheeshow.eway.service.service.impl;
 
 import java.util.List;
 
+import com.qheeshow.eway.common.exception.CryptoException;
+import com.qheeshow.eway.common.util.AESCryptoUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,47 +23,46 @@ import com.qheeshow.eway.service.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	UserMapper userMapper;
-	
-	@Autowired
-	MailService mailService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
-	@Override 
-	public boolean isRegist(User user){
-		UserExample example = new UserExample();
-		example.or().andMobileEqualTo(user.getMobile());
-		List<User> users = userMapper.selectByExample(example);
-		if(users.size() > 0){
-			return false;
-		}else{
-			return true;
-		}
-	}
-	
-    @Override 
-    public boolean regist(User user){
-    	if(isRegist(user)){
-    		user.setStatus(1);
-        	user.setPassword(MD5Util.MD5(user.getPassword()));
-    		userMapper.insert(user);
-    		return true;
-    	}else{
-    		return false;
-    	}
+    @Autowired
+    UserMapper userMapper;
+    @Autowired
+    MailService mailService;
+
+    @Override
+    public boolean isRegist(User user) {
+        UserExample example = new UserExample();
+        example.or().andMobileEqualTo(user.getMobile());
+        List<User> users = userMapper.selectByExample(example);
+        if (users.size() > 0) {
+            return true;
+        }
+        return false;
     }
-    
-    @Override 
-    public void changePassword(User user){
-    	UserExample example = new UserExample();
-    	example.createCriteria().andMobileEqualTo(user.getMobile());
-    	user.setPassword(MD5Util.MD5(user.getPassword()));
-    	userMapper.updateByExampleSelective(user, example);
+
+    @Override
+    public void regist(User user) {
+        user.setStatus(1);
+        try {
+            user.setPassword(AESCryptoUtil.encrypt(user.getPassword()));
+        } catch (CryptoException e) {
+            LOGGER.error("密码[{}]加密失败", user.getPassword());
+        }
+        userMapper.insert(user);
     }
-    
-    @Override 
-    public List<User> login(User user){
-    	
+
+    @Override
+    public void changePassword(User user) {
+        UserExample example = new UserExample();
+        example.createCriteria().andMobileEqualTo(user.getMobile());
+        user.setPassword(MD5Util.MD5(user.getPassword()));
+        userMapper.updateByExampleSelective(user, example);
+    }
+
+    @Override
+    public List<User> login(User user) {
+
 //		MailBean mailInfo = new MailBean();
 //		mailInfo.setMailServerHost("smtp.exmail.qq.com");
 //		mailInfo.setUserName("service@qheefund.com");
@@ -73,13 +76,13 @@ public class UserServiceImpl implements UserService {
 //		mailInfo.setAttachFileNames(files);
 //		
 //		mailService.sendHtmlMail(mailInfo);
-		
-		UserExample example = new UserExample();
-		UserExample.Criteria criteria = example.createCriteria();
-		criteria.andMobileEqualTo(user.getMobile());
-		criteria.andPasswordEqualTo(MD5Util.MD5(user.getPassword()));
-		List<User> users = userMapper.selectByExample(example);
-		return users;
-	}
-    
+
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andMobileEqualTo(user.getMobile());
+        criteria.andPasswordEqualTo(MD5Util.MD5(user.getPassword()));
+        List<User> users = userMapper.selectByExample(example);
+        return users;
+    }
+
 }

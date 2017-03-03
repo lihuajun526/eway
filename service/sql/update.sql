@@ -78,3 +78,17 @@ CREATE TABLE `t_file` (
   `file_size` bigint(20) DEFAULT NULL COMMENT '文件大小',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件';
+
+/*----------------------17-02-27之后添加----------------------*/
+alter table t_user add create_time datetime default CURRENT_TIMESTAMP;
+alter table t_user add update_time timestamp default CURRENT_TIMESTAMP;
+CREATE TABLE `t_classinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rootid` int(11) DEFAULT NULL COMMENT '根id',
+  `parentid` int(11) DEFAULT NULL COMMENT '父id',
+  `name` varchar(128) DEFAULT NULL COMMENT '名称',
+  `status` int(2) DEFAULT '1' COMMENT '状态:1可用；0不可用',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -15,4 +15,6 @@ public interface ClassinfoService {
 
     Classinfo get(Integer id);
 
+    void synData();
+
 }

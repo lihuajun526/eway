@@ -6,8 +6,45 @@ package com.qheeshow.eway.service.model;
 public class Project extends BaseModel {
 
     private String title;//项目标题
+    private String demand;//解决需求
+    private String highlights;//项目亮点
+    private String lastOne;//去年财务数据
+    private String lastTwo;//前年财务数据
+
+    public String getLastOne() {
+        return lastOne;
+    }
+
+    public void setLastOne(String lastOne) {
+        this.lastOne = lastOne;
+    }
+
+    public String getLastTwo() {
+        return lastTwo;
+    }
+
+    public void setLastTwo(String lastTwo) {
+        this.lastTwo = lastTwo;
+    }
+
+    public String getHighlights() {
+        return highlights;
+    }
+
+    public void setHighlights(String highlights) {
+        this.highlights = highlights;
+    }
+
+    public String getDemand() {
+        return demand;
+    }
+
+    public void setDemand(String demand) {
+        this.demand = demand;
+    }
+
     private String summary;//项目简介
-    private String desc;//项目介绍
+    private String description;//项目介绍
     private Integer type;//项目类型:1平台推荐,2机构关注,3企业自荐
     private Integer industry;//所属行业
     private String industryName;//所属行业名称
@@ -45,12 +82,12 @@ public class Project extends BaseModel {
         this.summary = summary;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getIndustry() {
