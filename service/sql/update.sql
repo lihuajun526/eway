@@ -92,3 +92,40 @@ CREATE TABLE `t_classinfo` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 2017年3月5日19:28:43
+CREATE TABLE `t_investor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `img` int(11) DEFAULT NULL COMMENT '头像id',
+  `true_name` varchar(32) DEFAULT NULL COMMENT '真实姓名',
+  `investor_type` int(1) DEFAULT NULL COMMENT '类型,1,个人,2,机构',
+  `company_name` varchar(64) DEFAULT NULL COMMENT '所在公司名称',
+  `company_rank` varchar(64) DEFAULT NULL COMMENT '公司内头衔',
+  `wechat_id` varchar(64) DEFAULT NULL COMMENT '微信号',
+  `city_id` text COMMENT '活跃城市id',
+  `city_name` text COMMENT '活跃城市名称',
+  `stage_id` text COMMENT '投资阶段id',
+  `stage_name` text COMMENT '投资阶段名称',
+  `field_id` text COMMENT '投资领域id',
+  `field_name` text COMMENT '投资领域名称',
+  `single_price_id` int(11) DEFAULT NULL COMMENT '单笔投资额度id',
+  `single_price` text COMMENT '单笔投资额度',
+  `style_id` int(11) DEFAULT NULL COMMENT '风格id',
+  `style` text COMMENT '风格',
+  `preference_id` text COMMENT '偏好id',
+  `preference` text COMMENT '偏好',
+  `investor_case` text COMMENT '案例',
+  `recommender` text COMMENT '推荐人',
+  `personal_profile` text COMMENT '个人简介',
+  `mobile` varchar(16) DEFAULT NULL COMMENT '手机',
+  `email` varchar(32) DEFAULT NULL COMMENT '邮箱',
+  `id_card` varchar(32) DEFAULT NULL COMMENT '身份证',
+  `business_card_positive` int(11) DEFAULT NULL COMMENT '名片正面照',
+  `business_card_opposite` int(11) DEFAULT NULL COMMENT '名片反面照',
+  `personal_assets_id` int(11) DEFAULT NULL COMMENT '个人资产分类所属id',
+  `personal_assets` varchar(32) DEFAULT NULL COMMENT '个人资产',
+  `status` int(1) DEFAULT '1' COMMENT '用户状态,1,普通,2,审核通过,3,认证通过',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `create_time` datetime DEFAULT NULL COMMENT '提交时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='投资人审核信息';
