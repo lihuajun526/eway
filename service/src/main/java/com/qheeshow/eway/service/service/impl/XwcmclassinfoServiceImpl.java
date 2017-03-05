@@ -1,7 +1,6 @@
 package com.qheeshow.eway.service.service.impl;
 
 import com.qheeshow.eway.service.dao.XwcmclassinfoMapper;
-import com.qheeshow.eway.service.model.Classinfo;
 import com.qheeshow.eway.service.model.Xwcmclassinfo;
 import com.qheeshow.eway.service.model.XwcmclassinfoExample;
 import com.qheeshow.eway.service.service.XwcmclassinfoService;
@@ -13,7 +12,7 @@ import java.util.List;
 /**
  * Created by lihuajun on 17-1-23.
  */
-@Service
+@Service("xwcmclassinfoService")
 public class XwcmclassinfoServiceImpl implements XwcmclassinfoService {
 
     @Autowired

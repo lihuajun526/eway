@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="../statics/jquery/ajaxfileupload.js"></script>
-    <script src="../statics/jquery/jquery-form.js"></script>
-    <script src="../statics/js/config.js"></script>
+    <script src="/jquery/ajaxfileupload.js"></script>
+    <script src="/jquery/jquery-form.js"></script>
+    <script src="/js/config.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
@@ -46,12 +46,7 @@
                                value="<%=(isNull || StringUtils.isEmpty(project.getTitle()))?"":project.getTitle()%>"/>
                     </td>
                 </tr>
-                <tr>
-                    <td>一句话介绍</td>
-                    <td><textarea name="summary"><%=(isNull || StringUtils.isEmpty(project.getSummary())) ?
-                            "" :
-                            project.getSummary()%></textarea></td>
-                </tr>
+
                 <tr>
                     <td>所属行业</td>
                     <td>
@@ -155,9 +150,9 @@
             <table>
                 <tr>
                     <td>项目介绍</td>
-                    <td><textarea name="desc"><%=(isNull || StringUtils.isEmpty(project.getDesc())) ?
+                    <td><textarea name="desc"><%=(isNull || StringUtils.isEmpty(project.getDescription())) ?
                             "" :
-                            project.getDesc() %></textarea></td>
+                            project.getDescription() %></textarea></td>
                 </tr>
                 <tr>
                     <td>宣传视频</td>

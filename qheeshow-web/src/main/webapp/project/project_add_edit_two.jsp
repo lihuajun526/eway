@@ -2,8 +2,7 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    Object object = request.getAttribute("project");
-    Project project = object == null ? null : (Project) object;
+    Project project = (Project)request.getAttribute("project");
 %>
 <html>
 <head>
@@ -17,15 +16,14 @@
     <link rel="stylesheet" href="/images/project.css"/>
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="/jquery/ajaxfileupload.js"></script>
-    <script src="/jquery/jquery-form.js"></script>
     <script src="/js/config.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
 <div class="pro-body">
     <form id="teamForm">
-        <input type="hidden" name="id" value="<%=project.getId()%>"/>
+        <input type="hidden" name="projectid" value="<%=project.getId()%>"/>
+        <input type="hidden" name="memberNames" value="<%=project.getId()%>"/>
         <div class="pro-wap">
             <div class="pro-t">项目信息(2/3)</div>
             <div class="empty"></div>
@@ -47,7 +45,7 @@
             </div>
             <!--*************************下一步按钮************************-->
             <div class="pro-clear"></div>
-            <div class="pro-btn"><a href="#">上一步</a><a href="#">下一步</a></div>
+            <div class="pro-btn"><a href="/project/<%=project.getId() %>/add/edit/1">上一步</a><a onclick="saveTeam();">下一步</a></div>
         </div>
     </form>
 </div>

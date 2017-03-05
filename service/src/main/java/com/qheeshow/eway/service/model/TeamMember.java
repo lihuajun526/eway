@@ -1,16 +1,33 @@
 package com.qheeshow.eway.service.model;
 
-/**
- * Created by lihuajun on 17-1-18.
- */
-public class TeamMember extends BaseModel {
+import java.util.Date;
 
-    private Integer projectid;//项目id
-    private String memberName;//团队成员
-    private String photo;//成员头像
-    private String position;//职位
-    private String summary;//个人介绍
-    private Integer isFounder;//是否是创始人:1是,0不是
+public class TeamMember {
+    private Integer id;
+
+    private Integer projectid;
+
+    private String memberName;
+
+    private String photo;
+
+    private String position;
+
+    private String summary;
+
+    private Integer isFounder;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getProjectid() {
         return projectid;
@@ -25,7 +42,7 @@ public class TeamMember extends BaseModel {
     }
 
     public void setMemberName(String memberName) {
-        this.memberName = memberName;
+        this.memberName = memberName == null ? null : memberName.trim();
     }
 
     public String getPhoto() {
@@ -33,7 +50,7 @@ public class TeamMember extends BaseModel {
     }
 
     public void setPhoto(String photo) {
-        this.photo = photo;
+        this.photo = photo == null ? null : photo.trim();
     }
 
     public String getPosition() {
@@ -41,7 +58,7 @@ public class TeamMember extends BaseModel {
     }
 
     public void setPosition(String position) {
-        this.position = position;
+        this.position = position == null ? null : position.trim();
     }
 
     public String getSummary() {
@@ -49,7 +66,7 @@ public class TeamMember extends BaseModel {
     }
 
     public void setSummary(String summary) {
-        this.summary = summary;
+        this.summary = summary == null ? null : summary.trim();
     }
 
     public Integer getIsFounder() {
@@ -58,5 +75,21 @@ public class TeamMember extends BaseModel {
 
     public void setIsFounder(Integer isFounder) {
         this.isFounder = isFounder;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

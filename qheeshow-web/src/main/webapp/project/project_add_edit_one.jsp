@@ -24,8 +24,10 @@
     List<Xwcmclassinfo> stages = request.getAttribute("stages") == null ?
             new ArrayList<Xwcmclassinfo>() :
             (List<Xwcmclassinfo>) request.getAttribute("stages");
-    String[] datas1 = isNull ? null : project.getLastOne().split(":")[1].split("#");
-    String[] datas2 = isNull ? null : project.getLastTwo().split(":")[1].split("#");
+    String[] datas1 =
+            isNull || StringUtils.isEmpty(project.getLastOne()) ? null : project.getLastOne().split(":")[1].split("#");
+    String[] datas2 =
+            isNull || StringUtils.isEmpty(project.getLastTwo()) ? null : project.getLastTwo().split(":")[1].split("#");
 %>
 <html>
 <head>
@@ -579,7 +581,7 @@
                     alert(result.message);
                     return;
                 }
-                window.location.href = "/" + result.data + "/add/edit/2";
+                window.location.href = "/project/" + result.data + "/add/edit/2";
             }
         });
     }
