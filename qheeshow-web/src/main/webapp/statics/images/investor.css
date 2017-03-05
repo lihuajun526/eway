@@ -238,3 +238,32 @@
 	font-size:15px;
 	color:#808080;
 }
+
+
+.inv-fo-lst {
+	margin-top:12px;
+}
+.inv-fo-lst li {
+	background:#ffffff;
+	border:1px solid #f5f5f5;
+	border-radius:4px;
+	height:25px;
+	line-height:23px;
+	margin-right:10px;
+	margin-bottom:10px;
+	font-size:13px;
+	color:#999999;
+}
+.inv-fo-lst li a {
+	color:#999999;
+	padding:0 22px;
+	height:25px;
+}
+.inv-fo-lst li.on {
+	background:#0097e1;
+	border:1px solid #0097e1;
+}
+.inv-fo-lst li.on a{ color:#FFFFFF;}
+
+
+

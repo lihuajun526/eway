@@ -33,8 +33,10 @@ public class ZFileController {
 	@RequestMapping(value = "/upload" , method = RequestMethod.POST)
     public HaResponse upload(@RequestParam("file") MultipartFile[] files,HttpSession session){
 		FileWithBLOBs sysFile = new FileWithBLOBs();
-		sysFile.setCompanyId(Integer.parseInt(session.getAttribute("companyId").toString()));
-		sysFile.setUserId(Integer.parseInt(session.getAttribute("userId").toString()));
+//		sysFile.setCompanyId(Integer.parseInt(session.getAttribute("companyId").toString()));
+//		sysFile.setUserId(Integer.parseInt(session.getAttribute("userId").toString()));
+		sysFile.setCompanyId(1);
+		sysFile.setUserId(1);
 		List<String> fileIds = fileService.upload(files, sysFile);
         return HaResponse.sussess(fileIds);
     }

@@ -1,9 +1,8 @@
 package com.qheeshow.eway.web.controller;
 
-import com.qheeshow.eway.service.model.Classinfo;
-import com.qheeshow.eway.service.service.ClassinfoService;
-import com.qheeshow.eway.web.base.BaseController;
-import com.qheeshow.eway.web.base.Result;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import com.qheeshow.eway.common.web.HaResponse;
+import com.qheeshow.eway.service.model.Classinfo;
+import com.qheeshow.eway.service.model.XWClassInfo;
+import com.qheeshow.eway.service.service.ClassinfoService;
+import com.qheeshow.eway.web.base.BaseController;
+import com.qheeshow.eway.web.base.Result;
 
 /**
  * Created by lihuajun on 16-6-14.
@@ -60,5 +64,12 @@ public class ClassinfoController extends BaseController {
 
         return result.toString();
     }
+    
+    @RequestMapping(value="/getTypeList")
+	@ResponseBody
+	public HaResponse getTypeList(){
+    	Map<String,List<XWClassInfo>> result = classinfoService.getTypeList();
+		return HaResponse.sussess(result);
+	}
 
 }

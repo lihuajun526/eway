@@ -1,8 +1,10 @@
 package com.qheeshow.eway.service.service;
 
-import com.qheeshow.eway.service.model.Classinfo;
-
 import java.util.List;
+import java.util.Map;
+
+import com.qheeshow.eway.service.model.Classinfo;
+import com.qheeshow.eway.service.model.XWClassInfo;
 
 /**
  * Created by lihuajun on 17-1-17.
@@ -17,4 +19,5 @@ public interface ClassinfoService {
 
     void synData();
 
+    public Map<String,List<XWClassInfo>> getTypeList();
 }

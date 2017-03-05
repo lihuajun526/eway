@@ -100,6 +100,7 @@ public class UserController extends BaseController {
             user = users.get(0);
             session.setAttribute("userId", user.getId());
             session.setAttribute("nickname", user.getNickname());
+            session.setAttribute("roleid", user.getRoleid());
             user.setPassword("");
             return HaResponse.sussess(user);
         } else {
@@ -150,5 +151,19 @@ public class UserController extends BaseController {
             return HaResponse.sussess();
         }
     }
+    
+    /**
+	 * 
+	 * @Title: reLogin
+	 * @Description: 未登录时，请求需登录才可访问的请求时统一转向该接口返回
+	 * @author yue
+	 * @date 2017年3月5日11:35:34
+	 * @return
+	 */
+	@RequestMapping(value="/reLogin")
+    @ResponseBody
+	public HaResponse reLogin(){
+		return HaResponse.fail("-1");
+	}
 
 }

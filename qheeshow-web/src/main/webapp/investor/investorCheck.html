@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="images/animate.min.css">   
+    <link rel="stylesheet"  href="images/bootstrap.css">
+ <!--*************************bootstrap css end************************-->   
+    <link rel="stylesheet" href="images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="images/wt_index.css"/>
+ <!--*************************投资人认证的主链接************************-->     
+    <link rel="stylesheet" href="images/investor.css"/>
+    <script type="text/javascript" src="jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+
+</head>
+<body>
+
+<form id= "uploadForm" style="display:none">  
+      <p >上传文件： <input type="file" name="file" multiple="multiple" onchange="doUpload()"/></p>  
+</form>  
+<!--*************************头部************************-->
+<div class="g-top">
+   <div class="g-logo"></div>
+   <div class="g-link">
+      <ul>
+        <li class="on"><a href="#">首页</a></li>
+        <li><a href="#">项目</a></li>
+        <li><a href="#">投资人</a></li>
+        <li><a href="#">活动</a></li>
+      </ul>
+   </div>
+   <div class="g-login">
+      <ul>
+         <li class="on1"><a href="#">购买服务</a></li>
+         <li class="on2"><a href="#">创建项目</a></li>
+         <li class="on3"><a href="#"><img src="images/wt-top3.png"/></a></li>
+      </ul>
+   </div>
+</div>
+
+<!--*************************main************************-->
+<form id="sendForm">
+<div class="inv-body">
+    <div class="inv-wap">
+    
+            <div class="inv-t">基本信息(1/2)</div>
+            <div class="inv-one">
+                <ul class="inv-one-lst">
+                   <li class="on1">个人头像：</li>
+                   <li class="on2" onclick="showFileSelect('img')">
+                      <a>
+                      <ul class="inv-lst1">
+                         <li><img id="img" src="images/wt-icon19.png" width="58" height="58"/></li>
+                         <li class="head">上传头像</li>
+                      </ul>
+                      </a>
+                   </li>
+                   <li class="on3">支持png/jpg/jepg格式</li>
+                </ul>
+            </div>
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">真实姓名：</li>
+                   <li class="on2"><input name="trueName" type="text" class="inv-one-ipt" value="填写你的创业项目名称，不超过8个字"/></li>
+                </ul>
+            </div>
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">我      是：</li>
+                   <li class="on2">
+                       <ul class="inv-one-lst2">
+                          <li><input name="investorType" type="radio" value="1" checked></li>
+                          <li class="inv-radio">个人投资者</li>
+                          <li><input name="investorType" type="radio" value="2"></li>
+                          <li class="inv-radio">机构投资者</li>
+                       </ul>
+                   </li>
+                </ul>
+            </div>
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">所在公司：</li>
+                   <li class="on2">
+                      <ul>
+                         <li class="inv-c-name"><input name="companyName" type="text" class="inv-one-ipt1" value="公司名称"></li>
+                         <li><input name="companyRank" type="text" class="inv-one-ipt1" value="头衔"></li>
+                      </ul>
+                   </li>
+                   <li class="on3">很重要的信息哦</li>
+                </ul>
+            </div>
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">个人微信<span>（选填）</span>:</li>
+                   <li class="on2"><input type="text" name="wechatId" class="inv-one-ipt1" value="微信id"/></li>
+                </ul>
+            </div>
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">活跃城市：</li>
+                   <li class="on2" id="city">
+                        <ul class="inv-fo-lst" id="cityView">
+                          <li><a href="#">上海市</a></li>
+                          <li class="on"><a href="#">杭州市</a></li>
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li> 
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li> 
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li> 
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li>  
+                       </ul>
+                      
+                   </li>
+                   <li class="on3">城市可多选</li>
+                </ul>
+            </div>
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">投资阶段：</li>
+                   <li class="on2" id="stage">
+                        <ul class="inv-fo-lst" id="stageView">
+                                <li><a href="#">0-100W</a></li>
+                                <li class="on" id="1" onclick="changeShow(this)"><a >杭州市</a></li>
+                                <li><a href="#">0-100W</a></li>
+                                <li><a href="#">100-1000W</a></li>
+                                <li><a href="#">100-1000W</a></li> 
+                                <li><a href="#">100-1000W</a></li> 
+                                <li><a href="#">100-1000W</a></li> 
+                                <li><a href="#">100-1000W</a></li> 
+                       </ul>
+                      
+                      
+                   </li>
+                   <li class="on3">可有可无的文案</li>
+                </ul>
+            </div> 
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">投资领域：</li>
+                   <li class="on2" id="field">
+                         <ul class="inv-fo-lst"  id="fieldView">
+                          <li><a href="#">上海市</a></li>
+                          <li class="on"><a href="#">杭州市</a></li>
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li> 
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li> 
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li> 
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li>  
+                       </ul>
+                      
+                      
+                      
+                   </li>
+                </ul>
+            </div> 
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">单笔投资：</li>
+                   <li class="on2">
+                      <div class="inv-two-ipt" onclick="showSelect('singlePrice')">
+                          <a class="a1" id="singlePriceFirst">无收入</a>
+                      </div>
+             <!-- ----------下拉---------->
+                       <div class="inv-menu-ico singlePrice" style="display:none"></div>
+                        <ul class="inv-menu singlePrice" id="singlePriceView" style="display:none">
+                              <li><a href="#">无收入</a></li>
+                              <li onclick="selectOne('singlePrice',this)"><a>0-100W</a></li>
+                              <li><a href="#">100-1000W</a></li>
+                              <li><a href="#">100-1000W</a></li>
+                        </ul>
+                   </li>
+                   <li class="on3">一些文案吧，可有可无</li>
+                </ul>
+            </div>
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">投资风格：</li>
+                   <li class="on2">
+                          <div class="inv-two-ipt" onclick="showSelect('style')">
+                              <a class="a1" id="styleFirst">无收入</a>
+                          </div>
+                 <!-- ----------下拉---------->
+                           <div class="inv-menu-ico style" style="display:none"></div>
+                            <ul class="inv-menu style" style="display:none" id="styleView">
+                                  <li><a href="#">无收入</a></li>
+                                  <li><a href="#">0-100W</a></li>
+                                  <li><a href="#">100-1000W</a></li>
+                                  <li><a href="#">100-1000W</a></li>
+                            </ul>
+                   </li>
+                </ul>
+            </div>
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">投资偏好：</li>
+                   <li class="on2" id="preference">
+                         <ul class="inv-fo-lst" id="preferenceView">
+                          <li><a href="#">上海市</a></li>
+                          <li class="on"><a href="#">杭州市</a></li>
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li> 
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li> 
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li> 
+                          <li><a href="#">温州市</a></li>
+                          <li><a href="#">北京市</a></li>  
+                       </ul>
+                   
+                   </li>
+                   
+                   <li class="on3">这里是说明，若没有说明这一条li可以直接去掉</li>
+                </ul>
+            </div>
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">投资案例<span>（选填）</span>:</li>
+                   <li class="on2"><input type="text" name="investorCase" class="inv-one-ipt" value="请输入项目名，并以空格隔开"/></li>
+                </ul>
+            </div>
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">推荐人<span>（选填）</span>:</li>
+                   <li class="on2"><input type="text" name="recommender" class="inv-one-ipt" value="请输入推荐人"/></li>
+                </ul>
+            </div>
+            <div class="inv-one">        
+               <ul class="inv-one-lst">
+                   <li class="on1">个人简介<span>（选填）</span>:</li>
+                   <li class="on2"><textarea name="personalProfile" cols="" rows="" class="inv-one-tex">包括教育经历,工作经验，创业经历，行业背景等内容。</textarea></li>
+                  <li class="on3">&nbsp;</li>
+                </ul>
+            </div>
+           <!--*************************下一步按钮************************-->       
+           <div class="inv-clear"></div>    
+           <div class="inv-btn"><a onclick="doSubmit()">保存</a><a href="#">保存并申请认证</a></div>
+
+        </div>
+
+</div>
+</form>
+<!--*************************footer************************-->
+
+<div class="g-foot">
+   <div class="g-conter">
+       <div class="g-foot-l">
+          <div class="g-fl-t">
+             <span class="g-fl-tit"></span>
+             <h3>MUX倾力打造的矢量图标管理、交流平台。设计师将图标上传到Iconfont平台，用户可以自定义下载多种格式的icon，平台也可将图标。</h3>
+          </div>
+          <ul class="g-fl-lst">
+            <li><a href="#">服务条款</a></li>
+            <li><a href="#">服务条款</a></li>
+            <li><a href="#">服务条款</a></li>
+            <li><a href="#">服务条款</a></li>
+          </ul>
+          <div class="g-fl-Remarks">服务热线:020-32039118  /   粤ICP备14063324号  /  ©2</div>
+       </div>
+       <div class="g-foot-r">
+          <div class="g-fr-t">友情链接</div>
+          <ul class="g-fr-lst">
+            <li><a href="#">THX</a></li>
+            <li><a href="#">阿里妈妈MUX</a></li>
+            <li><a href="#">钱庄网</a></li>
+            <li><a href="#">网易财经</a></li>
+            <li><a href="#">21财经</a></li>
+            <li><a href="#">虎嗅</a></li>
+            <li><a href="#">36kr</a></li>
+            <li><a href="#">搜狐财经</a></li>
+            <li><a href="#">新浪网</a></li>
+          </ul>
+          <div class="g-fr-ewm">不错过任何一个好产品<span><img src="images/wt-ewm.png"/></span></div>
+       </div>
+       
+       
+   </div>
+   
+</div>
+</body>
+<script type="text/javascript">
+var sendMessage = {};	//要提交的信息
+var imgType = "";	//图片用处
+$(function(){
+	$.ajax({  
+        url: '/web/classinfo/getTypeList' ,  
+        success: function (data) {  
+        	var result = data.data;
+        	for(var key in result){
+    			var view = result[key];
+    			var html = "";
+    			if(key == "21" || key == "44" || key == "20" || key == "61"){
+        			for(var i = 0;i < view.length;i ++){
+        				html += '<li onclick="changeShow(this)" id="'+view[i].classinfoid+'"><a>'+view[i].cname+'</a></li>'
+        			}
+            		if(key == "21"){
+            			$("#cityView").html(html);
+            		}else if(key == "44"){
+            			$("#stageView").html(html);
+            		}else if(key == "20"){
+            			$("#fieldView").html(html);
+            		}else if(key == "61"){
+            			$("#preferenceView").html(html);
+            		}
+    			}else if(key == "49"){
+        			for(var i = 0;i < view.length;i ++){
+        				html += '<li onclick="selectOne(\'singlePrice\',this)" id="'+view[i].classinfoid+'"><a>'+view[i].cname+'</a></li>'
+        			}
+        			$("#singlePriceView").html(html);
+        			$("#singlePriceFirst").text(view[0].cname);
+        			sendMessage.singlePriceId = view[0].classinfoid;
+        			sendMessage.singlePrice = view[0].cname;
+    			}else if(key == "57"){
+        			for(var i = 0;i < view.length;i ++){
+        				html += '<li onclick="selectOne(\'style\',this)" id="'+view[i].classinfoid+'"><a>'+view[i].cname+'</a></li>'
+        			}
+        			$("#styleView").html(html);
+        			$("#styleFirst").text(view[0].cname);
+        			sendMessage.styleId = view[0].classinfoid;
+        			sendMessage.style = view[0].cname;
+    			}
+        	}
+        }
+   });
+})
+function showFileSelect(type){
+	imgType = type;
+	$("input[name=file]").click();
+}
+//上传图片
+function doUpload() {  
+    var formData = new FormData($( "#uploadForm" )[0]);  
+    $.ajax({  
+         url: '/backstage/file/upload' ,  
+         type: 'POST',  
+         data: formData,  
+         contentType: false,  
+         processData: false,  
+         success: function (returndata) {  
+        	 sendMessage[imgType] = returndata.data;  
+        	 $("#img").attr("src","/backstage/file/download/" + returndata.data);
+         },  
+         error: function (returndata) {  
+             alert("图片上传失败");  
+         }  
+    });  
+} 
+//点击选中与取消切换
+function changeShow(view){
+	if($(view).hasClass("on")){
+		$(view).removeClass("on");
+	}else{
+		$(view).addClass("on");
+	}
+}
+function showSelect(view){
+	if($("."+view).css("display") == "block"){
+		$("."+view).hide()
+	}else{
+		$("."+view).show()
+	}
+}
+function selectOne(type,view){
+	sendMessage[type+"Id"] = $(view).attr("id");
+	sendMessage[type] = $(view).text();
+	$("#"+type+"First").text($(view).text());
+	$("."+type).hide()
+}
+//处理多选列表值
+function getSelectList(type,message){
+	var Id = [];
+	var Name = [];
+	$("#"+type).find("li").each(function(){
+		if($(this).hasClass("on")){
+			Id.push($(this).attr("id"));
+			Name.push($(this).text());
+		}
+	})
+	sendMessage[type+"Id"] = JSON.stringify(Id);
+	sendMessage[type+"Name"] = JSON.stringify(Name);
+}
+//提交
+function doSubmit(){
+// 	var formData = $('#sendForm').serialize();
+	getSelectList("city");
+	getSelectList("stage");
+	getSelectList("field");
+	getSelectList("preference");
+// 	$.extend(sendMessage,formData);
+	sendMessage.trueName = $("input[name=trueName]").val();
+	sendMessage.investorType = $("input:radio[name=investorType]:checked").val();
+	sendMessage.companyName = $("input[name=companyName]").val();
+	sendMessage.companyRank = $("input[name=companyRank]").val();
+	sendMessage.wechatId = $("input[name=wechatId]").val();
+	sendMessage.investorCase = $("input[name=investorCase]").val();
+	sendMessage.recommender = $("input[name=recommender]").val();
+	sendMessage.personalProfile = $("textarea[name=personalProfile]").val();
+	$.ajax({  
+        url: '/web/investor/submit' ,  
+        data: sendMessage,  
+        success: function (returndata) {  
+        }
+   });  
+}
+</script>
+</html>

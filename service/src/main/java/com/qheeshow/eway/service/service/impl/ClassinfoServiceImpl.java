@@ -1,13 +1,20 @@
 package com.qheeshow.eway.service.service.impl;
 
-import com.qheeshow.eway.service.dao.ClassinfoMapper;
-import com.qheeshow.eway.service.model.Classinfo;
-import com.qheeshow.eway.service.service.ClassinfoService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.qheeshow.eway.service.dao.ClassinfoMapper;
+import com.qheeshow.eway.service.dao.XWClassInfoMapper;
+import com.qheeshow.eway.service.model.Classinfo;
+import com.qheeshow.eway.service.model.ClassinfoExample;
+import com.qheeshow.eway.service.model.XWClassInfo;
+import com.qheeshow.eway.service.model.XWClassInfoExample;
+import com.qheeshow.eway.service.service.ClassinfoService;
 
 /**
  * Created by lihuajun on 17-1-23.
@@ -17,6 +24,9 @@ public class ClassinfoServiceImpl implements ClassinfoService {
 
     @Autowired
     private ClassinfoMapper classinfoMapper;
+    
+    @Autowired
+    private XWClassInfoMapper XWClassInfoMapper;
 
 
     @Override public List<Classinfo> listByParent(Integer pid) {
@@ -57,5 +67,19 @@ public class ClassinfoServiceImpl implements ClassinfoService {
 
     }
 
+    @Override
+    public Map<String,List<XWClassInfo>> getTypeList(){
+    	Map<String,List<XWClassInfo>> result = new HashMap<String,List<XWClassInfo>>();
+    	XWClassInfoExample example = new XWClassInfoExample();
+    	example.createCriteria().andParentidEqualTo(0);
+    	List<XWClassInfo> parents = XWClassInfoMapper.selectByExample(example);
+    	for(XWClassInfo classinfo : parents){
+    		XWClassInfoExample exampleAnother = new XWClassInfoExample();
+    		exampleAnother.createCriteria().andParentidEqualTo(classinfo.getClassinfoid());
+        	List<XWClassInfo> parentsAnother = XWClassInfoMapper.selectByExample(exampleAnother);
+        	result.put(classinfo.getClassinfoid().toString(), parentsAnother);
+    	}
+    	return result;
+    }
 
 }
