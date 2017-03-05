@@ -505,7 +505,6 @@
 <jsp:include page="../pub/foot.jsp" flush="true"/>
 </body>
 <script>
-    var projectid = <%=isNull?"0":project.getId().toString()%>;
     function selectFile(id) {
         $('#' + id).click();
     }
@@ -566,6 +565,8 @@
     }
     //保存基本信息
     function saveBase() {
+        $("#lastOne").val("<%=curYear-1%>:" + one1 + "#" + one2 + "#" + one3 + "#" + one4);
+        $("#lastTwo").val("<%=curYear-2%>:" + two1 + "#" + two2 + "#" + two3 + "#" + two4);
         $.ajax({
             type: 'POST',
             url: '/project/base/save',
@@ -578,30 +579,7 @@
                     alert(result.message);
                     return;
                 }
-                $("#id").val(result.data);
-                $("#baseDiv").hide();
-                $("#projectDiv").show();
-            }
-        });
-    }
-    //保存项目信息
-    function saveInfo() {
-        $("#lastOne").val("<%=curYear-1%>:" + one1 + "#" + one2 + "#" + one3 + "#" + one4);
-        $("#lastTwo").val("<%=curYear-2%>:" + two1 + "#" + two2 + "#" + two3 + "#" + two4);
-        $.ajax({
-            type: 'POST',
-            url: '/project/info/save/' + projectid,
-            cache: false,
-            processData: false,
-            data: $('#projectForm').serialize(),
-            dataType: 'json',
-            success: function (result) {
-                if (result.code < 0) {
-                    alert(result.message);
-                    return;
-                }
-                $("#projectDiv").hide();
-                $("#memberDiv").show();
+                window.location.href = "/" + result.data + "/add/edit/2";
             }
         });
     }

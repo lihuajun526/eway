@@ -3,7 +3,6 @@ package com.qheeshow.eway.web.controller;
 import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.service.model.Classinfo;
 import com.qheeshow.eway.service.model.Project;
-import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.model.Xwcmclassinfo;
 import com.qheeshow.eway.service.service.ProjectService;
 import com.qheeshow.eway.service.service.XwcmclassinfoService;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +54,28 @@ public class ProjectController extends BaseController {
         modelAndView.addObject("areas", areas);
         modelAndView.addObject("financingLimits", financingLimits);
         modelAndView.addObject("stages", stages);
+        modelAndView.addObject("project", projectService.get(id));
         modelAndView.setViewName("/project/project_add_edit_one");
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/{id}/add/edit/2")
+    public ModelAndView addOrEditTwo(@PathVariable Integer id) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("project", projectService.get(id));
+        modelAndView.setViewName("/project/project_add_edit_two");
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/{id}/add/edit/3")
+    public ModelAndView addOrEditThree(@PathVariable Integer id) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("project", projectService.get(id));
+        modelAndView.setViewName("/project/project_add_edit_three");
 
         return modelAndView;
     }
@@ -108,19 +127,39 @@ public class ProjectController extends BaseController {
     }
 
     /**
+     * 保存团队信息
+     *
+     * @param project
+     * @return
+     */
+    @RequestMapping("/team/save")
+    @ResponseBody
+    public String saveTeam(Project project) {
+
+        LOGGER.debug("保存团队信息");
+        Result<Integer> result = new Result<>();
+
+        projectService.save(project);
+
+        result.setData(project.getId());
+
+        return result.toString();
+    }
+
+    /**
      * 保存项目信息
      *
      * @param project
      * @return
      */
-    @RequestMapping("/info/save/{projectid}")
+    @RequestMapping("/financing/save")
     @ResponseBody
-    public String saveInfo(@PathVariable Integer projectid, Project project) {
+    public String saveFinancing(Project project) {
 
         LOGGER.debug("保存项目信息");
         Result result = new Result<>();
 
-        project.setId(projectid);
+        //project.setId(projectid);
 
         projectService.save(project);
 

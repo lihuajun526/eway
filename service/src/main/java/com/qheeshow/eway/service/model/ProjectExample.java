@@ -1905,6 +1905,216 @@ public class ProjectExample {
             return (Criteria) this;
         }
 
+        public Criteria andLastInvestmentIsNull() {
+            addCriterion("last_investment is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentIsNotNull() {
+            addCriterion("last_investment is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentEqualTo(String value) {
+            addCriterion("last_investment =", value, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentNotEqualTo(String value) {
+            addCriterion("last_investment <>", value, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentGreaterThan(String value) {
+            addCriterion("last_investment >", value, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentGreaterThanOrEqualTo(String value) {
+            addCriterion("last_investment >=", value, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentLessThan(String value) {
+            addCriterion("last_investment <", value, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentLessThanOrEqualTo(String value) {
+            addCriterion("last_investment <=", value, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentLike(String value) {
+            addCriterion("last_investment like", value, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentNotLike(String value) {
+            addCriterion("last_investment not like", value, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentIn(List<String> values) {
+            addCriterion("last_investment in", values, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentNotIn(List<String> values) {
+            addCriterion("last_investment not in", values, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentBetween(String value1, String value2) {
+            addCriterion("last_investment between", value1, value2, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastInvestmentNotBetween(String value1, String value2) {
+            addCriterion("last_investment not between", value1, value2, "lastInvestment");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageIsNull() {
+            addCriterion("last_stage is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageIsNotNull() {
+            addCriterion("last_stage is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageEqualTo(String value) {
+            addCriterion("last_stage =", value, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageNotEqualTo(String value) {
+            addCriterion("last_stage <>", value, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageGreaterThan(String value) {
+            addCriterion("last_stage >", value, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageGreaterThanOrEqualTo(String value) {
+            addCriterion("last_stage >=", value, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageLessThan(String value) {
+            addCriterion("last_stage <", value, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageLessThanOrEqualTo(String value) {
+            addCriterion("last_stage <=", value, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageLike(String value) {
+            addCriterion("last_stage like", value, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageNotLike(String value) {
+            addCriterion("last_stage not like", value, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageIn(List<String> values) {
+            addCriterion("last_stage in", values, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageNotIn(List<String> values) {
+            addCriterion("last_stage not in", values, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageBetween(String value1, String value2) {
+            addCriterion("last_stage between", value1, value2, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastStageNotBetween(String value1, String value2) {
+            addCriterion("last_stage not between", value1, value2, "lastStage");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitIsNull() {
+            addCriterion("last_limit is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitIsNotNull() {
+            addCriterion("last_limit is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitEqualTo(String value) {
+            addCriterion("last_limit =", value, "lastLimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitNotEqualTo(String value) {
+            addCriterion("last_limit <>", value, "lastLimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitGreaterThan(String value) {
+            addCriterion("last_limit >", value, "lastLimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitGreaterThanOrEqualTo(String value) {
+            addCriterion("last_limit >=", value, "lastLimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitLessThan(String value) {
+            addCriterion("last_limit <", value, "lastLimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitLessThanOrEqualTo(String value) {
+            addCriterion("last_limit <=", value, "lastLimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitLike(String value) {
+            addCriterion("last_limit like", value, "lastLimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitNotLike(String value) {
+            addCriterion("last_limit not like", value, "lastLimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitIn(List<String> values) {
+            addCriterion("last_limit in", values, "lastLimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitNotIn(List<String> values) {
+            addCriterion("last_limit not in", values, "lastLimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitBetween(String value1, String value2) {
+            addCriterion("last_limit between", value1, value2, "lastLimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLimitNotBetween(String value1, String value2) {
+            addCriterion("last_limit not between", value1, value2, "lastLimit");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

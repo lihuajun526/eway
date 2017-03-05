@@ -57,6 +57,12 @@ public class Project {
 
     private String referee;
 
+    private String lastInvestment;
+
+    private String lastStage;
+
+    private String lastLimit;
+
     private Date createTime;
 
     private Date updateTime;
@@ -277,6 +283,30 @@ public class Project {
 
     public void setReferee(String referee) {
         this.referee = referee == null ? null : referee.trim();
+    }
+
+    public String getLastInvestment() {
+        return lastInvestment;
+    }
+
+    public void setLastInvestment(String lastInvestment) {
+        this.lastInvestment = lastInvestment == null ? null : lastInvestment.trim();
+    }
+
+    public String getLastStage() {
+        return lastStage;
+    }
+
+    public void setLastStage(String lastStage) {
+        this.lastStage = lastStage == null ? null : lastStage.trim();
+    }
+
+    public String getLastLimit() {
+        return lastLimit;
+    }
+
+    public void setLastLimit(String lastLimit) {
+        this.lastLimit = lastLimit == null ? null : lastLimit.trim();
     }
 
     public Date getCreateTime() {
