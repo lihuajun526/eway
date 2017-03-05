@@ -1,7 +1,9 @@
 package com.qheeshow.eway.service.service.impl;
 
+import com.qheeshow.eway.service.dao.ProjectMapper;
 import com.qheeshow.eway.service.model.Project;
 import com.qheeshow.eway.service.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,13 +15,17 @@ import java.util.List;
  */
 @Service("projectService")
 public class ProjectServiceImpl implements ProjectService {
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
     @Override public void save(Project project) {
 
-        if (project.getId() == null) {
+        if (project.getId().intValue() == 0) {
             project.setStatus(0);
-            //save
+            projectMapper.insert(project);
         } else {
-            //update
+            projectMapper.updateByPrimaryKeySelective(project);
         }
 
     }
@@ -58,7 +64,6 @@ public class ProjectServiceImpl implements ProjectService {
         project1.setBp("http://www.baidu.com");
         project1.setBpName("计划书");
         project1.setLogo("https://www.baidu.com/img/baidu_jgylogo3.gif");
-        project1.setSummary("简介");
         project1.setPercent(12);
         project1.setReferee("介绍人");
         project1.setTitle("积分生活1");

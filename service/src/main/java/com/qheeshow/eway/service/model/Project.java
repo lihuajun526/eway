@@ -1,38 +1,82 @@
 package com.qheeshow.eway.service.model;
 
-/**
- * Created by lihuajun on 17-1-11.
- */
-public class Project extends BaseModel {
+import java.util.Date;
 
-    private String title;//项目标题
-    private String demand;//解决需求
-    private String highlights;//项目亮点
-    private String lastOne;//去年财务数据
-    private String lastTwo;//前年财务数据
+public class Project {
+    private Integer id;
 
-    public String getLastOne() {
-        return lastOne;
+    private String title;
+
+    private String demand;
+
+    private String highlights;
+
+    private String lastOne;
+
+    private String lastTwo;
+
+    private String description;
+
+    private Integer type;
+
+    private Integer industry;
+
+    private String industryName;
+
+    private Integer area;
+
+    private String areaName;
+
+    private Integer financingLimit;
+
+    private String financingLimitName;
+
+    private Integer stage;
+
+    private String stageName;
+
+    private String videoLink;
+
+    private String proLink;
+
+    private Integer userid;
+
+    private String username;
+
+    private Integer status;
+
+    private String logo;
+
+    private String tags;
+
+    private String bp;
+
+    private String bpName;
+
+    private Integer percent;
+
+    private String referee;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    private String content;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setLastOne(String lastOne) {
-        this.lastOne = lastOne;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getLastTwo() {
-        return lastTwo;
+    public String getTitle() {
+        return title;
     }
 
-    public void setLastTwo(String lastTwo) {
-        this.lastTwo = lastTwo;
-    }
-
-    public String getHighlights() {
-        return highlights;
-    }
-
-    public void setHighlights(String highlights) {
-        this.highlights = highlights;
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
     public String getDemand() {
@@ -40,47 +84,31 @@ public class Project extends BaseModel {
     }
 
     public void setDemand(String demand) {
-        this.demand = demand;
+        this.demand = demand == null ? null : demand.trim();
     }
 
-    private String summary;//项目简介
-    private String description;//项目介绍
-    private Integer type;//项目类型:1平台推荐,2机构关注,3企业自荐
-    private Integer industry;//所属行业
-    private String industryName;//所属行业名称
-    private Integer area;//所在区域
-    private String areaName;//所在区域名称
-    private String content;//项目内容
-    private String videoLink;//宣传视频
-    private String proLink;//项目网址
-    private Integer userid;//项目联系人id
-    private String username;//项目联系人
-    private Integer status;//项目状态:1新项目,2审核通过,3审核未通过
-    private String logo;//项目logo
-    private String tags;//项目标签
-    private String bp;//商业计划书
-    private String bpName;//上传时商业计划书的名称
-    private Integer financingLimit;//融资额度
-    private String limitid;//融资额度
-    private Integer percent;//出让股份百分比
-    private String referee;//推荐人姓名
-    private String stage;//项目阶段
-
-
-    public String getTitle() {
-        return title;
+    public String getHighlights() {
+        return highlights;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setHighlights(String highlights) {
+        this.highlights = highlights == null ? null : highlights.trim();
     }
 
-    public String getSummary() {
-        return summary;
+    public String getLastOne() {
+        return lastOne;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setLastOne(String lastOne) {
+        this.lastOne = lastOne == null ? null : lastOne.trim();
+    }
+
+    public String getLastTwo() {
+        return lastTwo;
+    }
+
+    public void setLastTwo(String lastTwo) {
+        this.lastTwo = lastTwo == null ? null : lastTwo.trim();
     }
 
     public String getDescription() {
@@ -88,7 +116,15 @@ public class Project extends BaseModel {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description == null ? null : description.trim();
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public Integer getIndustry() {
@@ -99,6 +135,14 @@ public class Project extends BaseModel {
         this.industry = industry;
     }
 
+    public String getIndustryName() {
+        return industryName;
+    }
+
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName == null ? null : industryName.trim();
+    }
+
     public Integer getArea() {
         return area;
     }
@@ -107,12 +151,44 @@ public class Project extends BaseModel {
         this.area = area;
     }
 
-    public String getContent() {
-        return content;
+    public String getAreaName() {
+        return areaName;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setAreaName(String areaName) {
+        this.areaName = areaName == null ? null : areaName.trim();
+    }
+
+    public Integer getFinancingLimit() {
+        return financingLimit;
+    }
+
+    public void setFinancingLimit(Integer financingLimit) {
+        this.financingLimit = financingLimit;
+    }
+
+    public String getFinancingLimitName() {
+        return financingLimitName;
+    }
+
+    public void setFinancingLimitName(String financingLimitName) {
+        this.financingLimitName = financingLimitName == null ? null : financingLimitName.trim();
+    }
+
+    public Integer getStage() {
+        return stage;
+    }
+
+    public void setStage(Integer stage) {
+        this.stage = stage;
+    }
+
+    public String getStageName() {
+        return stageName;
+    }
+
+    public void setStageName(String stageName) {
+        this.stageName = stageName == null ? null : stageName.trim();
     }
 
     public String getVideoLink() {
@@ -120,7 +196,7 @@ public class Project extends BaseModel {
     }
 
     public void setVideoLink(String videoLink) {
-        this.videoLink = videoLink;
+        this.videoLink = videoLink == null ? null : videoLink.trim();
     }
 
     public String getProLink() {
@@ -128,7 +204,7 @@ public class Project extends BaseModel {
     }
 
     public void setProLink(String proLink) {
-        this.proLink = proLink;
+        this.proLink = proLink == null ? null : proLink.trim();
     }
 
     public Integer getUserid() {
@@ -137,6 +213,14 @@ public class Project extends BaseModel {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     public Integer getStatus() {
@@ -152,7 +236,7 @@ public class Project extends BaseModel {
     }
 
     public void setLogo(String logo) {
-        this.logo = logo;
+        this.logo = logo == null ? null : logo.trim();
     }
 
     public String getTags() {
@@ -160,7 +244,7 @@ public class Project extends BaseModel {
     }
 
     public void setTags(String tags) {
-        this.tags = tags;
+        this.tags = tags == null ? null : tags.trim();
     }
 
     public String getBp() {
@@ -168,15 +252,15 @@ public class Project extends BaseModel {
     }
 
     public void setBp(String bp) {
-        this.bp = bp;
+        this.bp = bp == null ? null : bp.trim();
     }
 
-    public Integer getFinancingLimit() {
-        return financingLimit;
+    public String getBpName() {
+        return bpName;
     }
 
-    public void setFinancingLimit(Integer financingLimit) {
-        this.financingLimit = financingLimit;
+    public void setBpName(String bpName) {
+        this.bpName = bpName == null ? null : bpName.trim();
     }
 
     public Integer getPercent() {
@@ -192,62 +276,30 @@ public class Project extends BaseModel {
     }
 
     public void setReferee(String referee) {
-        this.referee = referee;
+        this.referee = referee == null ? null : referee.trim();
     }
 
-    public String getBpName() {
-        return bpName;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setBpName(String bpName) {
-        this.bpName = bpName;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public String getUsername() {
-        return username;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public Integer getType() {
-        return type;
+    public String getContent() {
+        return content;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public String getIndustryName() {
-        return industryName;
-    }
-
-    public void setIndustryName(String industryName) {
-        this.industryName = industryName;
-    }
-
-    public String getAreaName() {
-        return areaName;
-    }
-
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
-    }
-
-    public String getLimitid() {
-        return limitid;
-    }
-
-    public void setLimitid(String limitid) {
-        this.limitid = limitid;
-    }
-
-    public String getStage() {
-        return stage;
-    }
-
-    public void setStage(String stage) {
-        this.stage = stage;
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 }
