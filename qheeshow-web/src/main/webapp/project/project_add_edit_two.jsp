@@ -2,7 +2,7 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    Project project = (Project)request.getAttribute("project");
+    Project project = (Project) request.getAttribute("project");
 %>
 <html>
 <head>
@@ -23,29 +23,64 @@
 <div class="pro-body">
     <form id="teamForm">
         <input type="hidden" name="projectid" value="<%=project.getId()%>"/>
-        <input type="hidden" name="memberNames" value="<%=project.getId()%>"/>
         <div class="pro-wap">
-            <div class="pro-t">项目信息(2/3)</div>
+            <div class="pro-t">创始人信息(2/3)</div>
             <div class="empty"></div>
             <div class="pro-one">
                 <ul class="pro-one-lst">
-                    <li class="on1">项目名称</li>
+                    <li class="on1">个人信息</li>
                     <li class="on2">
-                        <ul class="pro-six-lst">
-                            <li><input type="text" class="pro-one-ipt" value="填写你的创业项目名称，不超过8个字"/></li>
-                            <li><input type="text" class="pro-one-ipt" value="一句话介绍你的项目所能解决的市场需求，不超过30个汉字"/></li>
-                            <li><textarea name="" cols="" rows="" class="pro-one-tex">一句话介绍你的团队的优势（不超过300字）</textarea></li>
+                        <ul>
+                            <li class="pro-c-name"><input type="text" class="pro-one-ipt1" value="姓名"></li>
+                            <li><input type="text" class="pro-one-ipt1" value="职位"></li>
                         </ul>
-                    </li>
-                    <li class="on3">详细的团队成员信息，可以让投资人透彻的
-                        了解团队的组成情况，团队中每位成员的亮
-                        点都能为项目起到加分的作用
                     </li>
                 </ul>
             </div>
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">个人简介</li>
+                    <li class="on2">
+                        <ul class="pro-six-lst">
+                            <li><textarea name="" cols="" rows="" class="pro-one-tex">一句话介绍你的团队的优势（不超过300字）</textarea></li>
+                        </ul>
+                        <div class="pro-six-janj">详细的团队成员信息，可以让投资人透彻的
+                            了解团队的组成情况，团队中每位成员的亮
+                            点都能为项目起到加分的作用
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+            <!--下面是多个的情况 复制上面2块-->
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">个人信息</li>
+                    <li class="on2">
+                        <ul>
+                            <li class="pro-c-name"><input type="text" class="pro-one-ipt1" value="姓名"></li>
+                            <li><input type="text" class="pro-one-ipt1" value="职位"></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">个人简介</li>
+                    <li class="on2">
+                        <ul class="pro-six-lst">
+                            <li><textarea name="" cols="" rows="" class="pro-one-tex">一句话介绍你的团队的优势（不超过300字）</textarea></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--下面是多个的情况 复制上面2块  end-->
+            <div class="pro-clear"></div>
+            <div class="pro-btn1"><a href="#">保 存</a></div>
+            <div class="group"><a href="#">添加核心成员</a></div>
             <!--*************************下一步按钮************************-->
             <div class="pro-clear"></div>
-            <div class="pro-btn"><a href="/project/<%=project.getId() %>/add/edit/1">上一步</a><a onclick="saveTeam();">下一步</a></div>
+            <div class="pro-btn"><a href="#">上一步</a><a href="#">下一步</a></div>
         </div>
     </form>
 </div>

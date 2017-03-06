@@ -13,7 +13,6 @@
 	margin-bottom:40px;
 }
 .pro-one {
-	
 	font-size:16px;
 }
 .pro-t {
@@ -238,4 +237,55 @@
 }
 .pro-clear {
 	clear:both;
+}
+.pro-c-name {
+	margin-right:18px;
+}
+.pro-one-ipt1 {
+	background:#f5f5f5;
+	border:1px solid #e2e6e9;
+	border-radius:6px;
+	width:212px;
+	padding-left:20px;
+	height:50px;
+	color:#a9a9a9;
+	font-size:14px;
+}
+.pro-six-janj {
+	position:absolute;
+	top:-82px;
+	left:480px;
+	width:293px;
+	color:#999999;
+	padding-top:25px;
+	margin-right:35px;
+	font-size:15px;
+	line-height:26px;
+}
+.group {
+	background:url(group.png) no-repeat left center;
+	text-align:left;
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+	margin-left:181px;
+	padding-left:40px;
+}
+.group a {
+	color:#333333;
+}
+.pro-btn1 {
+	margin-left:465px;
+}
+.pro-btn1 a {
+	background:#0097e1;
+	width:140px;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	border-radius:4px;
+	display:inline-block;
+	margin:0 25px 35px;
+	color:#FFFFFF;
+	font-size:16px;
 }
