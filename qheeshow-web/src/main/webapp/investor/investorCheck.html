@@ -342,8 +342,8 @@ function doUpload() {
          contentType: false,  
          processData: false,  
          success: function (returndata) {  
-        	 sendMessage[imgType] = returndata.data;  
-        	 $("#img").attr("src","/backstage/file/download/" + returndata.data);
+        	 sendMessage[imgType] = returndata.data[0];  
+        	 $("#img").attr("src","/backstage/file/download/" + returndata.data[0]);
          },  
          error: function (returndata) {  
              alert("图片上传失败");  
