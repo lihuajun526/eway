@@ -1,197 +1,168 @@
+<%@ page import="com.qheeshow.eway.service.model.Project" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Project project = (Project) request.getAttribute("areas");
+%>
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="../statics/jquery/ajaxfileupload.js"></script>
+    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="/images/wt_index.css"/>
+    <script src="/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
-<div>
-    <div>基本信息</div>
-    <div>
-        <form>
-        <table>
-            <tr>
-                <td>LOGO</td>
-                <td>
-                    <img id="logoImg" src="https://www.vchello.com/NewHome/src/images/upload-logo.png" title="点击添加图片"
-                         width="180" height="180" style="position: relative; z-index: 1;" onclick="selectLogo();">
-                    <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
-                    <input type="button" value="上传" onclick="uploadPic('logoFile','logoImg')"/></td>
-            </tr>
-            <tr>
-                <td>项目名</td>
-                <td><input name="title"/></td>
-            </tr>
-            <tr>
-                <td>一句话介绍</td>
-                <td><textarea name="summary"></textarea></td>
-            </tr>
-            <tr>
-                <td>所属行业</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>所在城市</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>所处阶段</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>融资额度</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>推荐人姓名</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>商业计划书</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>LOGO</td>
-                <td></td>
-            </tr>
-        </table>
-        </form>
-    </div>
-</div>
-<div>
-    <div>项目信息</div>
-    <div></div>
-</div>
-<div>
-    <div>团队信息</div>
-    <div></div>
-</div>
-<button type="button" class="btn btn-primary  test-btn" onclick="modalShow('#bigModal', '', modalDataInit('test'));">
-    模态框测试
-</button>
-<div class="modal bs-example-modal-lg" onclick="modalHide('#bigModal', '');"
-     id="bigModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" onclick="modalHide('#bigModal', '');" class="close"
-                        data-dismiss="modal">
-                    <span aria-hidden="true">
-                        ×
-                    </span>
-                    <span class="sr-only">
-                        Close
-                    </span>
-                </button>
-                <h4 class="modal-title">
-                    模态框标题
-                </h4>
-            </div>
-            <div class="modal-body">
-            </div>
+<div class="g-proj">
+    <div class="g-invest">
+        <div class="g-proj-img"><img src="<%=project.getLogo()%>" width="200" height="200"/></div>
+        <div class="g-proj-tr">
+            <div class="g-invest-name2"><%=project.getTitle()%></div>
+            <div class="g-invest-t"><%=project.getDemand()%></div>
+            <ul class="g-proj-lst">
+                <li class="on1"><a><%=project.getAreaName()%></a></li>
+                <li class="on2"><a><%=project.getStageName()%></a></li>
+                <li class="on3"><a><%=project.getIndustryName()%></a></li>
+            </ul>
+            <ul class="g-proj-lst2">
+                <li><a href="#">专业人士(120)</a></li>
+                <li><a href="#">专业人士(120)</a></li>
+                <li><a href="#">市场运作经验</a></li>
+                <li><a href="#">渠道资源</a></li>
+                <li><a href="#">渠道资源</a></li>
+            </ul>
+            <a href="#" class="g-invest-focus">+关注</a>
+            <ul class="g-proj-lst3">
+                <li><a href="#">申请成为专职金融顾问</a></li>
+                <li><a href="#">查看联系方式</a></li>
+            </ul>
+            <div class="g-proj-ico2"></div>
         </div>
     </div>
+
+    <div class="g-conter">
+        <div class="g-invest-l">
+            <div class="g-invest-lone3">
+                <ul class="g-proj-titlst">
+                    <li><a href="#">项目简介</a></li>
+                    <li><a href="#">项目简介</a></li>
+                    <li><a href="#">项目简介</a></li>
+                    <li><a href="#">项目亮点</a></li>
+                    <li><a href="#">项目亮点</a></li>
+                </ul>
+            </div>
+            <div class="g-invest-lone">
+                <div class="g-proj-lonetit6">项目简介</div>
+                <div class="g-invest-lonect"><%=project.getDescription()%></div>
+            </div>
+            <div class="g-invest-lone2">
+                <div class="g-proj-lonetit2">团队介绍</div>
+                <div class="g-invest-tre">
+                    <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
+                    <div class="g-invest-tre-r">
+                        <div class="g-invest-tre-rt"><span class="on1">张成</span><span class="on2">工程师</span></div>
+                        <div class="g-invest-tre-rcnt"><a href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a></div>
+                    </div>
+                </div>
+                <div class="g-invest-tre">
+                    <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
+                    <div class="g-invest-tre-r">
+                        <div class="g-invest-tre-rt"><span class="on1">张成</span><span class="on2">工程师</span></div>
+                        <div class="g-invest-tre-rcnt"><a href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="g-invest-lone">
+                <div class="g-proj-lonetit6">项目亮点</div>
+                <div class="g-invest-lonect">
+                    老鹰基金创始人，企业家、天使投资人，20年中国贸易、投资和电讯从业经验。中国长远控股有限公司
+                    创办人，董事局主席兼首席执行官，香港中文大学新亚书院校董之一，湖北省黄石锶发矿业有限公司董
+                    事长，湖南省张家界盛美达度假酒店董事长，北京威速科技有限公司董事。1993年，刘小鹰创办长远有誉会长。
+                </div>
+            </div>
+            <div class="g-invest-lone3">
+                <ul class="g-proj-titlst">
+                    <li class="on-bp">项目BP</li>
+                </ul>
+                <a href="#" class="g-proj-more">登录查看商业计划书</a>
+            </div>
+            <div class="g-invest-lone2">
+                <div class="g-proj-lonetit4">提问互动<span>20条评论</span></div>
+                <div class="g-invest-tre">
+                    <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
+                    <div class="g-invest-tre-r">
+                        <div class="g-invest-tre-rt"><span class="on1">宋仲基</span><span class="on2">今天 17:09</span></div>
+                        <div class="g-invest-tre-rcnt"><a href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a></div>
+                        <div class="g-proj-reply"><a href="#">回复</a></div>
+                    </div>
+                </div>
+                <div class="g-invest-tre">
+                    <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
+                    <div class="g-invest-tre-r">
+                        <div class="g-invest-tre-rt"><span class="on1">宋仲基</span><span class="on2">今天 17:09</span></div>
+                        <div class="g-invest-tre-rcnt"><a href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a></div>
+                        <div class="g-proj-reply"><a href="#">回复</a></div>
+                        <div class="g-proj-texwap"><textarea name="" cols="" rows="" class="g-proj-textarea"></textarea><div class="g-proj-texcru">还可以输入<span>150</span>个字</div></div>
+                        <div class="g-proj-texbtn"><a href="#" class="on1">取消</a><a href="#" class="on2">回复</a></div>
+
+                    </div>
+                </div>
+                <div class="g-invest-tre">
+                    <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
+                    <div class="g-invest-tre-r">
+                        <div class="g-invest-tre-rt"><span class="on1">宋仲基</span><span class="on2">今天 17:09</span></div>
+                        <div class="g-proj-subtitle">@宋积   您的项目太棒了，我要投资。</div>
+                        <div class="g-invest-tre-rcnt"><a href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a></div>
+                        <div class="g-proj-reply"><a href="#">回复</a></div>
+                    </div>
+                </div>
+                <div class="i-Page"><a href="#" class="on1">&nbsp;</a><!--<a href="#" class="on4">&nbsp;</a>当前位置及鼠标经过箭头效果--> <a href="#">1</a> <a href="#" class="on">2</a> <a href="#">3</a> <a href="#" class="on3">...</a> <a href="#" class="on2">&nbsp;</a>
+                    <!--<a href="#" class="on5">&nbsp;</a>--></div>
+            </div>
+        </div>
+        <!--*************************right star************************-->
+        <div class="g-invest-r">
+            <div class="g-invest-rone">
+                <div class="g-invest-rt2">专职顾问</div>
+                <ul class="g-proj-cost">
+                    <li><a href="#"><img src="images/bg-new1.png" width="50" height="50"/><span>章程</span></a></li>
+                    <li><a href="#"><img src="images/bg-new1.png" width="50" height="50"/><span>陈芯</span></a></li>
+                    <li><a href="#"><img src="images/bg-new1.png" width="50" height="50"/><span>章程</span></a></li>
+                    <li><a href="#"><img src="images/bg-new1.png" width="50" height="50"/><span>章程</span></a></li>
+                    <li><a href="#"><img src="images/bg-new1.png" width="50" height="50"/><span>章程</span></a></li>
+                </ul>
+            </div>
+            <div class="g-invest-rone">
+                <div class="g-invest-rt2">感兴趣的人</div>
+                <ul class="g-proj-cost">
+                    <li><a href="#"><img src="images/bg-new1.png" width="50" height="50"/><span>章程</span></a></li>
+                    <li><a href="#"><img src="images/bg-new1.png" width="50" height="50"/><span>章程</span></a></li>
+                    <li><a href="#"><img src="images/bg-new1.png" width="50" height="50"/><span>章程</span></a></li>
+                    <li><a href="#"><img src="images/bg-new1.png" width="50" height="50"/><span>章程</span></a></li>
+                    <li><a href="#"><img src="images/bg-new1.png" width="50" height="50"/><span>章程</span></a></li>
+                </ul>
+            </div>
+
+            <div class="g-invest-rone">
+                <div class="g-invest-rt">常见问题</div>
+                <ul class="g-invest-rlst2">
+                    <li><span class="on1"></span><span><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></span></li>
+                    <li><span class="on1"></span><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></li>
+                    <li><span class="on1"></span><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></li>
+                    <li><span class="on1"></span><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></li>
+                </ul>
+                <div class="g-invest-rmore"><a href="#">更多项目</a></div>
+            </div>
+
+        </div>
+
+
+    </div>
+
 </div>
 <jsp:include page="../pub/foot.jsp" flush="true"/>
 </body>
 <script>
-    //animate.css动画触动一次方法
-    $.fn.extend({
-        animateCss: function (animationName) {
-            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-            this.addClass('animated ' + animationName).one(animationEnd, function () {
-                $(this).removeClass('animated ' + animationName);
-            });
-        }
-    });
-    /**
-     * 显示模态框方法
-     * @param targetModel 模态框选择器，jquery选择器
-     * @param animateName 弹出动作
-     * @ callback 回调方法
-     */
-    var modalShow = function (targetModel, animateName, callback) {
-        var animationIn = ["bounceIn", "bounceInDown", "bounceInLeft", "bounceInRight", "bounceInUp",
-            "fadeIn", "fadeInDown", "fadeInLeft", "fadeInRight", "fadeOutUp",
-            "fadeInDownBig", "fadeInLeftBig", "fadeOutRightBig", "fadeOutUpBig", "flipInX", "flipInY",
-            "lightSpeedIn", "rotateIn", "rotateInDownLeft", "rotateInDownRight", "rotateInUpLeft", "rotateInUpRight",
-            "zoomIn", "zoomInDown", "zoomInLeft", "zoomInRight", "zoomInUp", "slideInDown", "slideInLeft",
-            "slideInRight", "slideInUp", "rollIn"];
-        if (!animateName || animationIn.indexOf(animateName) == -1) {
-            console.log(animationIn.length);
-            var intRandom = Math.floor(Math.random() * animationIn.length);
-            animateName = animationIn[intRandom];
-        }
-        console.log(targetModel + " " + animateName);
-        $(targetModel).show().animateCss(animateName);
-        callback.apply(this);
-    }
-    /**
-     * 隐藏模态框方法
-     * @param targetModel 模态框选择器，jquery选择器
-     * @param animateName 隐藏动作
-     * @ callback 回调方法
-     */
-    var modalHide = function (targetModel, animateName, callback) {
-        var animationOut = ["bounceOut", "bounceOutDown", "bounceOutLeft", "bounceOutRight", "bounceOutUp",
-            "fadeOut", "fadeOutDown", "fadeOutLeft", "fadeOutRight", "fadeOutUp",
-            "fadeOutDownBig", "fadeOutLeftBig", "fadeOutRightBig", "fadeOutUpBig", "flipOutX", "flipOutY",
-            "lightSpeedOut", "rotateOut", "rotateOutDownLeft", "rotateOutDownRight", "rotateOutUpLeft", "rotateOutUpRight",
-            "zoomOut", "zoomOutDown", "zoomOutLeft", "zoomOutRight", "zoomOutUp",
-            "zoomOut", "zoomOutDown", "zoomOutLeft", "zoomOutRight", "zoomOutUp", "slideOutDown", "slideOutLeft",
-            "slideOutRight", "slideOutUp", "rollOut"];
-        if (!animateName || animationOut.indexOf(animateName) == -1) {
-            console.log(animationOut.length);
-            var intRandom = Math.floor(Math.random() * animationOut.length);
-            animateName = animationOut[intRandom];
-        }
-        $(targetModel).children().click(function (e) {
-            e.stopPropagation()
-        });
-        $(targetModel).animateCss(animateName);
-        $(targetModel).delay(900).hide(1, function () {
-            $(this).removeClass('animated ' + animateName);
-        });
-        callback.apply(this);
-    }
-    var modalDataInit = function (info) {
-        //alert(info);
-        //填充数据，对弹出模态框数据样式初始化或修改
-    }
 
-    function selectLogo() {
-        $('#logoFile').click();
-    }
-
-    function uploadPic(fileid, imgid) {
-        var file = $('#' + fileid);
-        if (!file || !file.val())
-            return;
-        var patn = /\.jpg$|\.jpeg$|\.png$|\.gif$/i;
-        if (!patn.test(file.val())) {
-            alert("请选择图片文件");
-            return;
-        }
-        $.ajaxFileUpload({
-                    url: '/image/upload', //用于文件上传的服务器端请求地址
-                    type: 'post',
-                    secureuri: false, //是否需要安全协议，一般设置为false
-                    fileElementId: fileid, //文件上传域的ID
-                    dataType: 'json', //返回值类型 一般设置为json
-                    success: function (result) {  //服务器成功响应处理函数
-                        if (result.code == -1) {
-                            alert(result.message);
-                            return;
-                        }
-                        $('#' + imgid).attr("src", result.data);
-                    }
-                }
-        );
-    }
 </script>
 </html>

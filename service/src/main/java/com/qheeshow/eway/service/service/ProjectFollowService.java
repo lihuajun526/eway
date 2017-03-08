@@ -1,6 +1,7 @@
 package com.qheeshow.eway.service.service;
 
 import com.qheeshow.eway.service.exception.CommonException;
+import com.qheeshow.eway.service.model.ProjectFollow;
 import com.qheeshow.eway.service.model.User;
 
 import java.util.List;
@@ -10,11 +11,11 @@ import java.util.List;
  */
 public interface ProjectFollowService {
 
-    void follow(Integer userid,Integer followid) throws CommonException;
+    void follow(ProjectFollow projectFollow) throws CommonException;
 
-    void unFollow(Integer userid,Integer followid);
+    void unFollow(ProjectFollow projectFollow);
 
-    boolean isFollow(Integer userid,Integer followid);
+    boolean isFollow(ProjectFollow projectFollow);
 
     List<User> list(Integer projectid);
 

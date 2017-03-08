@@ -2,7 +2,7 @@ package com.qheeshow.eway.service.model;
 
 import java.util.Date;
 
-public class Project {
+public class Project extends BaseModel{
     private Integer id;
 
     private String title;

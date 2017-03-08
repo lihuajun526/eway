@@ -7,8 +7,6 @@ import com.qheeshow.eway.service.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,9 +41,25 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override public List<Project> listByCondition(Integer type, Integer areaid, Integer financingLimit, Integer industry,
-            String keyword, Integer pageIndex) {
-        // TODO: 17-2-7 分页
-        Integer pageSize;
-        return new ArrayList<Project>();
+            Integer pageIndex) {
+
+        Project project = new Project();
+        project.setType(type);
+        project.setArea(areaid);
+        project.setFinancingLimit(financingLimit);
+        project.setIndustry(industry);
+        project.setPageSize(20);
+        project.setStartRow((pageIndex - 1) * project.getPageSize());
+
+        return projectMapper.listByCondition(project);
+    }
+
+    @Override public List<Project> search(String keyword) {
+
+        ProjectExample example = new ProjectExample();
+        ProjectExample.Criteria criteria = example.createCriteria();
+        criteria.andTitleLike(keyword);
+
+        return projectMapper.selectByExample(example);
     }
 }

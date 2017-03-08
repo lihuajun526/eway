@@ -1,12 +1,33 @@
 package com.qheeshow.eway.service.model;
 
-/**
- * Created by lihuajun on 17-2-8.
- */
-public class ProjectFollow extends BaseModel {
+import java.util.Date;
+
+public class ProjectFollow {
+    private Integer id;
+
+    private Integer userid;
 
     private Integer projectid;
-    private Integer userid;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
 
     public Integer getProjectid() {
         return projectid;
@@ -16,11 +37,19 @@ public class ProjectFollow extends BaseModel {
         this.projectid = projectid;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

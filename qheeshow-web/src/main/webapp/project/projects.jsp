@@ -6,92 +6,68 @@
 %>
 <html>
 <head>
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="/images/wt_index.css"/>
+    <link rel="stylesheet" href="/images/project.css"/>
+    <script src="/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
-<table>
+<div class="g-proj-two">
+
     <%
         for (Project project : projects) {
-            String[] tags = project.getTags().split(",");
     %>
-    <tr>
-        <td><img src="<%=project.getLogo()%>"/></td>
-        <td><%=project.getTitle()%>
-        </td>
-        <td><%=project.getSummary()%>
-        </td>
-        <td><%=project.getAreaName()%>&nbsp;<%=project.getFinancingLimit()%>&nbsp;<%=project.getIndustryName()%>
-        </td>
-        <td>
-            <%
-                for (String tag:tags) {
-            %>
-            <%=tag%>&nbsp;
-            <%
-                }
-            %>
-        </td>
-    </tr>
+    <div class="g-proj-twow">
+        <div class="g-proj-twol"><img src="<%=project.getLogo() %>" width="80" height="80"/></div>
+        <div class="g-proj-twoc">
+            <div class="g-proj-twoc-t"><%=project.getTitle() %><span><%=project.getStageName()%></span></div>
+            <h3><a><%=project.getDemand()%>
+            </a></h3>
+        </div>
+        <div class="g-proj-twor">
+            <ul>
+                <li><a><%=project.getAreaName()%>
+                </a></li>
+                <li><a><%=project.getFinancingLimitName()%>
+                </a></li>
+                <li><a><%=project.getIndustryName()%>
+                </a></li>
+            </ul>
+        </div>
+    </div>
     <%
         }
     %>
-</table>
-<div>
-    总记录数:<a>records</a><br />
-    每页条数:<a>pageSize</a><br />
-    当前第几页:<a>pageIndex</a><br />
-    总页数:<a>pageCount</a><br />
-    <%
-        int records = 100;
-        int pageSize = 10;
-        int pageIndex = 10;
-        int pageCount = 20;
+    <div class="i-Page">
+        <%
+            int len = 6;
+            int index = 4;
+            int start = index < len ? 1 : index - (len - 2);
+            int pageCount = 10;
+        %>
+        <a onclick="goto(<%=index-1%>)" class="on1">&nbsp;</a>
+        <%
 
-        int cur = pageIndex;
-
-        if(pageIndex == 0||pageIndex == 1){
-        }else{
-            %><a style="cursor: pointer" onclick="goto(1)">首页</a>|<a style="cursor: pointer" onclick="goto(<%=(pageIndex-1) %>)">上一页 </a> | <%
-        }
-        if(pageIndex<=3){
-            for(int i=1; i<=(pageCount<=5?pageCount:5); i++){
-                if(i==pageIndex){
-                    %><%=i+" | " %><%
+            for (int i = 0; i < len; i++, start++) {
+                if (start == pageCount) {
+                    %><a onclick="goto(<%=start%>)" <%=start==index?"class='on'":"" %>><%=start%></a><%
+                    break;
+                }
+                if((i+1)==len){
+                    %><a onclick="goto(<%=start%>)">...</a><%
                 }else{
-                    %><a style="cursor: pointer" onclick="goto(<%=i %>)"><%=i%></a> | <%
+                    %><a onclick="goto(<%=start%>)" <%=start==index?"class='on'":"" %>><%=start%></a><%
                 }
             }
-        }else if(pageIndex>3 && pageCount<=(pageIndex+2)){
-            for(int i=pageCount-4; i<=pageCount; i++){
-                if(i==pageIndex){
-                    %><%=i+" | " %><%
-                }else{
-                    %><a style="cursor: pointer" onclick="goto(<%=i %>)"><%=i %></a> | <%
-                }
-            }
-        }else if(pageIndex>3 && pageCount>(pageIndex+2)){
-            for(int i=pageIndex-2; i<=pageIndex+2; i++){
-                if(i==pageIndex){
-                    %><%=i+" | " %><%
-                }else{
-                    %><a style="cursor: pointer" onclick="goto(<%=i %>)"><%=i %></a> | <%
-                }
-            }
-        }
-        if(pageIndex == pageCount){
-        }else{
-            %>
-            <a style="cursor: pointer" onclick="goto(<%=(pageIndex+1) %>)">下一页 </a> |
-            <a style="cursor: pointer" onclick="goto(<%=pageSize %>)">尾页</a>|
-            <%
-        }
-    %>
+        %>
+        <a onclick="goto(<%=index+1%>)" class="on2">&nbsp;</a>
+    </div>
 </div>
 </body>
 <script>
     function goto(pageIndex) {
+        if (pageIndex <= 0 || pageIndex ><%=pageCount%>)
+            return;
         window.parent.goto(pageIndex);
     }
 </script>

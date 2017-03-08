@@ -2,7 +2,9 @@ package com.qheeshow.eway.service.dao;
 
 import com.qheeshow.eway.service.model.Project;
 import com.qheeshow.eway.service.model.ProjectExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ProjectMapper {
@@ -33,4 +35,6 @@ public interface ProjectMapper {
     int updateByPrimaryKeyWithBLOBs(Project record);
 
     int updateByPrimaryKey(Project record);
+
+    List<Project> listByCondition(Project project);
 }

@@ -1,10 +1,11 @@
 package com.qheeshow.eway.web.controller;
 
 import com.qheeshow.eway.common.util.Config;
-import com.qheeshow.eway.service.model.Classinfo;
 import com.qheeshow.eway.service.model.Project;
+import com.qheeshow.eway.service.model.TeamMember;
 import com.qheeshow.eway.service.model.Xwcmclassinfo;
 import com.qheeshow.eway.service.service.ProjectService;
+import com.qheeshow.eway.service.service.TeamMemberService;
 import com.qheeshow.eway.service.service.XwcmclassinfoService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
@@ -31,6 +32,8 @@ public class ProjectController extends BaseController {
     private ProjectService projectService;
     @Autowired
     private XwcmclassinfoService xwcmclassinfoService;
+    @Autowired
+    private TeamMemberService teamMemberService;
 
     @RequestMapping("/{id}/add/edit/1")
     public ModelAndView addOrEditOne(@PathVariable Integer id) {
@@ -63,8 +66,10 @@ public class ProjectController extends BaseController {
     @RequestMapping("/{id}/add/edit/2")
     public ModelAndView addOrEditTwo(@PathVariable Integer id) {
 
+        List<TeamMember> members = teamMemberService.listByProject(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("project", projectService.get(id));
+        modelAndView.addObject("members", members);
         modelAndView.setViewName("/project/project_add_edit_two");
 
         return modelAndView;
@@ -129,19 +134,19 @@ public class ProjectController extends BaseController {
     /**
      * 保存团队信息
      *
-     * @param project
+     * @param teamMember
      * @return
      */
     @RequestMapping("/team/save")
     @ResponseBody
-    public String saveTeam(Project project) {
+    public String saveTeam(TeamMember teamMember) {
 
         LOGGER.debug("保存团队信息");
         Result<Integer> result = new Result<>();
 
-        projectService.save(project);
+        teamMemberService.save(teamMember);
 
-        result.setData(project.getId());
+        result.setData(teamMember.getId());
 
         return result.toString();
     }
@@ -183,8 +188,11 @@ public class ProjectController extends BaseController {
             @PathVariable Integer pageIndex, String keyword) {
 
         LOGGER.debug("根据条件过滤项目");
-
-        List<Project> projectList = projectService.listByCondition(type, areaid, financingLimit, industry, keyword, pageIndex);
+        List<Project> projectList = new ArrayList<>();
+        if (StringUtils.isEmpty(keyword))
+            projectList = projectService.listByCondition(type, areaid, financingLimit, industry, pageIndex);
+        else
+            projectList = projectService.search(keyword);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("project/projects");
@@ -195,54 +203,15 @@ public class ProjectController extends BaseController {
 
     @RequestMapping("/list")
     public ModelAndView list() {
-
         LOGGER.debug("根据条件过滤项目");
 
-        List<Classinfo> classinfoList = new ArrayList<>();
+        int areaRootid = Config.getInt("classinfo.rootid.area");
+        int financingLimitRootid = Config.getInt("classinfo.rootid.financing.limit");
+        int industryRootid = Config.getInt("classinfo.rootid.industry");
 
-        int areaRootid = 0;
-        int financingLimitRootid = 0;
-        int industryRootid = 0;
-
-        List<Classinfo> areas = new ArrayList<>();
-        Classinfo area1 = new Classinfo();
-        area1.setId(1);
-        area1.setName("北京");
-        Classinfo area2 = new Classinfo();
-        area2.setId(2);
-        area2.setName("上海");
-        areas.add(area1);
-        areas.add(area2);
-
-        List<Classinfo> financingLimits = new ArrayList<>();
-        Classinfo financingLimit1 = new Classinfo();
-        financingLimit1.setId(1);
-        financingLimit1.setName("50-100W");
-        Classinfo financingLimit2 = new Classinfo();
-        financingLimit2.setId(2);
-        financingLimit2.setName("100-200W");
-        financingLimits.add(financingLimit1);
-        financingLimits.add(financingLimit2);
-
-        List<Classinfo> industrys = new ArrayList<>();
-        Classinfo industry1 = new Classinfo();
-        industry1.setId(1);
-        industry1.setName("互联网金融");
-        Classinfo industry2 = new Classinfo();
-        industry2.setId(2);
-        industry2.setName("消费品");
-        industrys.add(industry1);
-        industrys.add(industry2);
-
-        for (Classinfo classinfo : classinfoList) {
-            if (classinfo.getParentid().intValue() == areaRootid) {
-                areas.add(classinfo);
-            } else if (classinfo.getParentid().intValue() == financingLimitRootid) {
-                financingLimits.add(classinfo);
-            } else if (classinfo.getParentid().intValue() == industryRootid) {
-                industrys.add(classinfo);
-            }
-        }
+        List<Xwcmclassinfo> industrys = xwcmclassinfoService.listByRoot(industryRootid);
+        List<Xwcmclassinfo> areas = xwcmclassinfoService.listByRoot(areaRootid);
+        List<Xwcmclassinfo> financingLimits = xwcmclassinfoService.listByRoot(financingLimitRootid);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("project/project_list");
@@ -250,6 +219,19 @@ public class ProjectController extends BaseController {
         modelAndView.addObject("financingLimits", financingLimits);
         modelAndView.addObject("industrys", industrys);
 
+        return modelAndView;
+    }
+
+    @RequestMapping("/{id}")
+    public ModelAndView get(@PathVariable Integer id) {
+        Project project = projectService.get(id);
+        List<TeamMember> members = teamMemberService.listByProject(id);
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("project/project_detail");
+        modelAndView.addObject("project", project);
+        modelAndView.addObject("members", members);
         return modelAndView;
     }
 

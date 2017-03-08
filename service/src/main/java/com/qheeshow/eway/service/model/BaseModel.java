@@ -10,6 +10,8 @@ public class BaseModel {
     private Integer id;
     private Date createTime;
     private Date updateTime;
+    private Integer startRow;
+    private Integer pageSize;
 
     public Integer getId() {
         return id;
@@ -33,5 +35,21 @@ public class BaseModel {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getStartRow() {
+        return startRow;
+    }
+
+    public void setStartRow(Integer startRow) {
+        this.startRow = startRow;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

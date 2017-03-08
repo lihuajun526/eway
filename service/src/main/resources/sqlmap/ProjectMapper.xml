@@ -697,4 +697,15 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="listByCondition" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Project" >
+    select
+    <include refid="Base_Column_List" />
+    from t_project
+    where type = #{type,jdbcType=INTEGER}
+    area =#{area,jdbcType=INTEGER}
+    financingLimit =#{financingLimit,jdbcType=INTEGER}
+    industry =#{industry,jdbcType=INTEGER}
+    limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.qheeshow.eway.web.controller;
 
 import com.qheeshow.eway.service.exception.CommonException;
+import com.qheeshow.eway.service.model.ProjectFollow;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.ProjectFollowService;
 import com.qheeshow.eway.web.base.BaseController;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -23,51 +25,61 @@ public class ProjectFollowController extends BaseController {
     @Autowired
     private ProjectFollowService projectFollowService;
 
-    @RequestMapping("/follow/{userid}/{followid}")
+    @RequestMapping("/follow/{projectid}")
     @ResponseBody
-    public String follow(@PathVariable Integer userid, @PathVariable Integer followid) {
+    public String follow(@PathVariable Integer projectid, HttpSession session) {
 
         Result result = new Result();
-
+        User loginUser = (User) session.getAttribute("loginUser");
+        ProjectFollow projectFollow = new ProjectFollow();
+        projectFollow.setProjectid(projectid);
+        projectFollow.setUserid(loginUser.getId());
         try {
-            projectFollowService.follow(userid, followid);
+            projectFollowService.follow(projectFollow);
         } catch (CommonException e) {
-            result.set(-1,e.getDesc());
+            result.set(-1, e.getDesc());
             return result.toString();
         }
 
         return result.toString();
     }
 
-    @RequestMapping("/unfollow/{userid}/{followid}")
+    @RequestMapping("/unfollow/{projectid}")
     @ResponseBody
-    public String unFollow(@PathVariable Integer userid, @PathVariable Integer followid) {
+    public String unFollow(@PathVariable Integer projectid, HttpSession session) {
 
         Result result = new Result();
-
-        projectFollowService.unFollow(userid, followid);
+        User loginUser = (User) session.getAttribute("loginUser");
+        ProjectFollow projectFollow = new ProjectFollow();
+        projectFollow.setProjectid(projectid);
+        projectFollow.setUserid(loginUser.getId());
+        projectFollowService.unFollow(projectFollow);
 
         return result.toString();
     }
 
-    @RequestMapping("/isfollow/{userid}/{followid}")
+    @RequestMapping("/isfollow/{projectid}")
     @ResponseBody
-    public String isFollow(@PathVariable Integer userid, @PathVariable Integer followid) {
+    public String isFollow(@PathVariable Integer projectid, HttpSession session) {
 
-        Result result = new Result();
-
-        projectFollowService.isFollow(userid, followid);
+        Result<Boolean> result = new Result();
+        User loginUser = (User) session.getAttribute("loginUser");
+        ProjectFollow projectFollow = new ProjectFollow();
+        projectFollow.setProjectid(projectid);
+        projectFollow.setUserid(loginUser.getId());
+        boolean isFollow = projectFollowService.isFollow(projectFollow);
+        result.setData(isFollow);
 
         return result.toString();
     }
 
-    @RequestMapping("/list/{userid}")
+    @RequestMapping("/list/{projectid}")
     @ResponseBody
-    public String list(@PathVariable Integer userid) {
+    public String list(@PathVariable Integer projectid) {
 
         Result<List<User>> result = new Result<>();
 
-        List<User> list = projectFollowService.list(userid);
+        List<User> list = projectFollowService.list(projectid);
         result.setData(list);
 
         return result.toString();
