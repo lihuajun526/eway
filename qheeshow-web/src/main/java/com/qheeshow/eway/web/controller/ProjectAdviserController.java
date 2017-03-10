@@ -1,6 +1,7 @@
 package com.qheeshow.eway.web.controller;
 
 import com.qheeshow.eway.service.exception.CommonException;
+import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.ProjectAdviser;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.MessageService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -27,16 +29,16 @@ public class ProjectAdviserController extends BaseController {
     @Autowired
     private MessageService messageService;
 
-    @RequestMapping("/apply/{projectid}/{userid}")
+    @RequestMapping("/apply/{projectid}/")
     @ResponseBody
-    public String apply(@PathVariable Integer projectid, @PathVariable Integer userid) {
+    public String apply(@PathVariable Integer projectid, HttpSession session) {
 
         Result result = new Result();
-
+        User loginUser = (User) session.getAttribute("loginUser");
         try {
-            projectAdviserService.apply(projectid, userid);
+            projectAdviserService.apply(projectid, loginUser.getId());
         } catch (CommonException e) {
-            result.set(-1, e.getDesc());
+            result.set(-1, e.getCode());
             return result.toString();
         }
 
@@ -47,9 +49,9 @@ public class ProjectAdviserController extends BaseController {
     @ResponseBody
     public String list(@PathVariable Integer projectid) {
 
-        Result<List<User>> result = new Result<>();
+        Result<List<Investor>> result = new Result<>();
 
-        List<User> list = projectAdviserService.list(projectid);
+        List<Investor> list = projectAdviserService.list(projectid);
         result.setData(list);
 
         return result.toString();
@@ -69,13 +71,14 @@ public class ProjectAdviserController extends BaseController {
 
     @RequestMapping("/status/set/{projectid}/{userid}/{status}")
     @ResponseBody
-    public String setStatus(@PathVariable Integer projectid, @PathVariable Integer userid, @PathVariable Integer status, String desc) {
+    public String setStatus(@PathVariable Integer projectid, @PathVariable Integer userid, @PathVariable Integer status,
+            String description) {
 
         Result result = new Result();
 
-        ProjectAdviser projectAdviser = projectAdviserService.getByProjectAndUser(projectid,userid);
+        ProjectAdviser projectAdviser = projectAdviserService.getByProjectAndUser(projectid, userid);
         projectAdviser.setStatus(status);
-        projectAdviser.setDesc(desc);
+        projectAdviser.setDescription(description);
 
         projectAdviserService.save(projectAdviser);
 

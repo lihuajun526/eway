@@ -1,16 +1,29 @@
 package com.qheeshow.eway.service.model;
 
-/**
- * Created by lihuajun on 17-2-8.
- */
-public class ProjectAdviser extends BaseModel{
+import java.util.Date;
+
+public class ProjectAdviser {
+    private Integer id;
 
     private Integer projectid;
-    private String projectName;
+
     private Integer userid;
-    private String username;
-    private Integer status;//状态:1新申请,2通过,3,不通过
-    private String desc;
+
+    private Integer status;
+
+    private String description;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getProjectid() {
         return projectid;
@@ -36,27 +49,27 @@ public class ProjectAdviser extends BaseModel{
         this.status = status;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
-    public String getUsername() {
-        return username;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public String getDesc() {
-        return desc;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

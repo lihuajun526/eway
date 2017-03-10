@@ -1,6 +1,7 @@
 package com.qheeshow.eway.web.controller;
 
 import com.qheeshow.eway.service.exception.CommonException;
+import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.ProjectFollow;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.ProjectFollowService;
@@ -73,13 +74,13 @@ public class ProjectFollowController extends BaseController {
         return result.toString();
     }
 
-    @RequestMapping("/list/{projectid}")
+    @RequestMapping("/follow/list/{projectid}")
     @ResponseBody
     public String list(@PathVariable Integer projectid) {
 
-        Result<List<User>> result = new Result<>();
+        Result<List<Investor>> result = new Result<>();
 
-        List<User> list = projectFollowService.list(projectid);
+        List<Investor> list = projectFollowService.list(projectid);
         result.setData(list);
 
         return result.toString();

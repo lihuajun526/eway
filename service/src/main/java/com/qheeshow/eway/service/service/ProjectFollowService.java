@@ -1,6 +1,7 @@
 package com.qheeshow.eway.service.service;
 
 import com.qheeshow.eway.service.exception.CommonException;
+import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.ProjectFollow;
 import com.qheeshow.eway.service.model.User;
 
@@ -17,6 +18,6 @@ public interface ProjectFollowService {
 
     boolean isFollow(ProjectFollow projectFollow);
 
-    List<User> list(Integer projectid);
+    List<Investor> list(Integer projectid);
 
 }

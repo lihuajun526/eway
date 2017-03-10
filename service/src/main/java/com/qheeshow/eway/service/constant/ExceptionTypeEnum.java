@@ -9,7 +9,9 @@ public enum ExceptionTypeEnum {
     Project_Adviser_Apply_Exist_ERROR("100000", "已申请过,不能重复申请"),
     Project_Follow_Exist_ERROR("100001", "已关注项目,不能重复关注"),
     User_Follow_Exist_ERROR("100002", "已关注投资人,不能重复关注"),
-    ;
+    Investor_Not_Auth_ERROR("100003", "投资人尚未认证"),
+    Project_Adviser_Full_ERROR("100004", "顾问名额已满"),
+    Is_Not_Adviser_ERROR("100005", "非投资人"),;
 
     public final String code;
     public final String desc;

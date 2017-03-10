@@ -1,14 +1,17 @@
 package com.qheeshow.eway.service.service.impl;
 
+import com.qheeshow.eway.service.dao.InvestorMapper;
+import com.qheeshow.eway.service.dao.ProjectAdviserMapper;
 import com.qheeshow.eway.service.exception.CommonException;
-import com.qheeshow.eway.service.model.ProjectAdviser;
-import com.qheeshow.eway.service.model.User;
+import com.qheeshow.eway.service.model.*;
 import com.qheeshow.eway.service.service.ProjectAdviserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static com.qheeshow.eway.service.constant.ExceptionTypeEnum.Project_Adviser_Apply_Exist_ERROR;
+import static com.qheeshow.eway.service.constant.ExceptionTypeEnum.*;
 
 /**
  * Created by lihuajun on 17-2-8.
@@ -16,15 +19,54 @@ import static com.qheeshow.eway.service.constant.ExceptionTypeEnum.Project_Advis
 @Service
 public class ProjectAdviserServiceImpl implements ProjectAdviserService {
 
+    @Autowired
+    private ProjectAdviserMapper projectAdviserMapper;
+    @Autowired
+    private InvestorMapper investorMapper;
+
     @Override public void apply(Integer projectid, Integer userid) throws CommonException {
-        // TODO: 17-2-8 检查是否已申请过
-        if (true) {//如果已申请过,则抛异常
+        ProjectAdviser projectAdviser = new ProjectAdviser();
+        projectAdviser.setProjectid(projectid);
+        projectAdviser.setUserid(userid);
+
+        InvestorExample investorExample = new InvestorExample();
+        InvestorExample.Criteria criteria = investorExample.createCriteria();
+        criteria.andUserIdEqualTo(userid);
+        List<Investor> list = investorMapper.selectByExample(investorExample);
+        Investor investor = list.size() > 0 ? list.get(0) : null;
+        if (investor == null) {
+            throw new CommonException(Is_Not_Adviser_ERROR);
+        }
+        if (investor.getStatus().intValue() != 3) {//尚未认证
+            throw new CommonException(Investor_Not_Auth_ERROR);
+        }
+        if (isAdviser(projectAdviser)) {//如果已申请过,则抛异常
             throw new CommonException(Project_Adviser_Apply_Exist_ERROR);
         }
+        if (list(projectid).size() >= 10) {//顾问人数已满
+            throw new CommonException(Project_Adviser_Full_ERROR);
+        }
+
+        projectAdviser.setStatus(1);
+        projectAdviserMapper.insert(projectAdviser);
+
     }
 
-    @Override public List<User> list(Integer projectid) {
-        return null;
+    @Override public List<Investor> list(Integer projectid) {
+
+        ProjectAdviserExample projectAdviserExample = new ProjectAdviserExample();
+        ProjectAdviserExample.Criteria criteria = projectAdviserExample.createCriteria();
+        criteria.andProjectidEqualTo(projectid);
+        criteria.andStatusEqualTo(2);
+        List<ProjectAdviser> list = projectAdviserMapper.selectByExample(projectAdviserExample);
+        List<Integer> ids = new ArrayList<>();
+        for (ProjectAdviser projectAdviser : list) {
+            ids.add(projectAdviser.getUserid());
+        }
+        InvestorExample investorExample = new InvestorExample();
+        InvestorExample.Criteria criteria1 = investorExample.createCriteria();
+        criteria1.andUserIdIn(ids);
+        return investorMapper.selectByExample(investorExample);
     }
 
     @Override public List<ProjectAdviser> listByStatus(Integer status) {
@@ -32,6 +74,13 @@ public class ProjectAdviserServiceImpl implements ProjectAdviserService {
     }
 
     @Override public ProjectAdviser getByProjectAndUser(Integer projectid, Integer userid) {
+        ProjectAdviserExample projectAdviserExample = new ProjectAdviserExample();
+        ProjectAdviserExample.Criteria criteria = projectAdviserExample.createCriteria();
+        criteria.andProjectidEqualTo(projectid);
+        criteria.andUseridEqualTo(userid);
+        List<ProjectAdviser> list = projectAdviserMapper.selectByExample(projectAdviserExample);
+        if (list != null && list.size() > 0)
+            return list.get(0);
         return null;
     }
 
@@ -50,6 +99,14 @@ public class ProjectAdviserServiceImpl implements ProjectAdviserService {
         if (list.size() >= 10)
             return false;
 
+        return true;
+    }
+
+    @Override public Boolean isAdviser(ProjectAdviser projectAdviser) {
+
+        projectAdviser = getByProjectAndUser(projectAdviser.getProjectid(), projectAdviser.getUserid());
+        if (projectAdviser == null)
+            return false;
         return true;
     }
 }

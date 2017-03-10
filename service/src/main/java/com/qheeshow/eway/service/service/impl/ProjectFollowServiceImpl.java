@@ -1,13 +1,13 @@
 package com.qheeshow.eway.service.service.impl;
 
 import com.qheeshow.eway.service.constant.ExceptionTypeEnum;
+import com.qheeshow.eway.service.dao.InvestorMapper;
 import com.qheeshow.eway.service.dao.ProjectFollowMapper;
-import com.qheeshow.eway.service.dao.UserMapper;
 import com.qheeshow.eway.service.exception.CommonException;
+import com.qheeshow.eway.service.model.Investor;
+import com.qheeshow.eway.service.model.InvestorExample;
 import com.qheeshow.eway.service.model.ProjectFollow;
 import com.qheeshow.eway.service.model.ProjectFollowExample;
-import com.qheeshow.eway.service.model.User;
-import com.qheeshow.eway.service.model.UserExample;
 import com.qheeshow.eway.service.service.ProjectFollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class ProjectFollowServiceImpl implements ProjectFollowService {
     @Autowired
     private ProjectFollowMapper projectFollowMapper;
     @Autowired
-    private UserMapper userMapper;
+    private InvestorMapper investorMapper;
 
     @Override public void follow(ProjectFollow projectFollow) throws CommonException {
 
@@ -53,7 +53,7 @@ public class ProjectFollowServiceImpl implements ProjectFollowService {
         return false;
     }
 
-    @Override public List<User> list(Integer projectid) {
+    @Override public List<Investor> list(Integer projectid) {
         ProjectFollowExample example = new ProjectFollowExample();
         ProjectFollowExample.Criteria criteria = example.createCriteria();
         criteria.andProjectidEqualTo(projectid);
@@ -62,9 +62,9 @@ public class ProjectFollowServiceImpl implements ProjectFollowService {
         for (ProjectFollow projectFollow : list) {
             ids.add(projectFollow.getUserid());
         }
-        UserExample userExample = new UserExample();
-        UserExample.Criteria criteria1 = userExample.createCriteria();
-        criteria1.andIdIn(ids);
-        return userMapper.selectByExample(userExample);
+        InvestorExample investorExample = new InvestorExample();
+        InvestorExample.Criteria criteria1 = investorExample.createCriteria();
+        criteria1.andUserIdIn(ids);
+        return investorMapper.selectByExample(investorExample);
     }
 }
