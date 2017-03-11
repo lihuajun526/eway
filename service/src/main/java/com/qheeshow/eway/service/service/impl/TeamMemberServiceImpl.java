@@ -18,21 +18,28 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     @Autowired
     private TeamMemberMapper teamMemberMapper;
 
-    @Override public void save(TeamMember teamMember) {
-        teamMemberMapper.insertSelective(teamMember);
+    @Override
+    public void save(TeamMember teamMember) {
+        if (teamMember.getId().intValue() == 0)
+            teamMemberMapper.insert(teamMember);
+        else
+            teamMemberMapper.updateByPrimaryKeySelective(teamMember);
     }
 
-    @Override public void del(Integer id) {
+    @Override
+    public void del(Integer id) {
         teamMemberMapper.deleteByPrimaryKey(id);
     }
 
-    @Override public TeamMember get(Integer id) {
+    @Override
+    public TeamMember get(Integer id) {
 
 
         return teamMemberMapper.selectByPrimaryKey(id);
     }
 
-    @Override public List<TeamMember> listByProject(Integer projectid) {
+    @Override
+    public List<TeamMember> listByProject(Integer projectid) {
         TeamMemberExample teamMemberExample = new TeamMemberExample();
         TeamMemberExample.Criteria criteria = teamMemberExample.createCriteria();
         criteria.andProjectidEqualTo(projectid);

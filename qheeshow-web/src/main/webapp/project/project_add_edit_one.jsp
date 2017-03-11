@@ -12,18 +12,11 @@
     boolean isNull = project == null;
     Calendar calendar = Calendar.getInstance();
     int curYear = calendar.get(Calendar.YEAR);
-    List<Xwcmclassinfo> industrys = request.getAttribute("industrys") == null ?
-            new ArrayList<Xwcmclassinfo>() :
-            (List<Xwcmclassinfo>) request.getAttribute("industrys");
-    List<Xwcmclassinfo> areas = request.getAttribute("areas") == null ?
-            new ArrayList<Xwcmclassinfo>() :
-            (List<Xwcmclassinfo>) request.getAttribute("areas");
-    List<Xwcmclassinfo> financingLimits = request.getAttribute("financingLimits") == null ?
-            new ArrayList<Xwcmclassinfo>() :
-            (List<Xwcmclassinfo>) request.getAttribute("financingLimits");
-    List<Xwcmclassinfo> stages = request.getAttribute("stages") == null ?
-            new ArrayList<Xwcmclassinfo>() :
-            (List<Xwcmclassinfo>) request.getAttribute("stages");
+    List<Xwcmclassinfo> industrys = (List<Xwcmclassinfo>) request.getAttribute("industrys");
+    List<Xwcmclassinfo> areas = (List<Xwcmclassinfo>) request.getAttribute("areas");
+    List<Xwcmclassinfo> financingLimits = (List<Xwcmclassinfo>) request.getAttribute("financingLimits");
+    List<Xwcmclassinfo> stages = (List<Xwcmclassinfo>) request.getAttribute("stages");
+    List<Xwcmclassinfo> tags = (List<Xwcmclassinfo>) request.getAttribute("tags");
     String[] datas1 =
             isNull || StringUtils.isEmpty(project.getLastOne()) ? null : project.getLastOne().split(":")[1].split("#");
     String[] datas2 =
@@ -32,17 +25,13 @@
 <html>
 <head>
     <title><%=Config.get("app.name")%>--创建项目</title>
-    <link rel="stylesheet" href="/images/animate.min.css">
-    <link rel="stylesheet" href="/images/bootstrap.css">
     <!--*************************bootstrap css end************************-->
     <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="/images/wt_index.css"/>
     <!--*************************创建项目的主链接************************-->
     <link rel="stylesheet" href="/images/project.css"/>
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
     <script src="/jquery/ajaxfileupload.js"></script>
-    <script src="/jquery/jquery-form.js"></script>
     <script src="/js/config.js"></script>
 </head>
 <body>
@@ -50,6 +39,7 @@
 <div class="pro-body">
     <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
     <input type="file" id="bpFile" name="bpFile" style="display: none;"/>
+
     <form id="baseForm">
         <input type="hidden" id="lastOne" name="lastOne" value="<%=curYear-1 %>:500万以下#100万以下#1000万以下#500万以下"/>
         <input type="hidden" id="lastTwo" name="lastTwo" value="<%=curYear-2 %>:500万以下#100万以下#1000万以下#500万以下"/>
@@ -57,7 +47,8 @@
         <input type="hidden" id="logo" name="logo" value="<%=isNull?"":project.getLogo()%>"/>
         <input type="hidden" id="bp" name="bp" value="<%=isNull?"":project.getBp()%>"/>
         <input type="hidden" id="bpName" name="bpName" value="<%=isNull?"":project.getBpName()%>"/>
-        <input type="hidden" id="financingLimit" name="financingLimit" value="<%=isNull?"0":project.getFinancingLimit()%>"/>
+        <input type="hidden" id="financingLimit" name="financingLimit"
+               value="<%=isNull?"0":project.getFinancingLimit()%>"/>
         <input type="hidden" id="financingLimitName" name="financingLimitName"
                value="<%=isNull?"":project.getFinancingLimitName()%>"/>
         <input type="hidden" id="industry" name="industry" value="<%=isNull?"0":project.getIndustry()%>"/>
@@ -67,6 +58,8 @@
         <input type="hidden" id="stage" name="stage" value="<%=isNull?"0":project.getStage()%>"/>
         <input type="hidden" id="stageName" name="stageName" value="<%=isNull?"":project.getStageName()%>"/>
         <input type="hidden" name="type" value="3"/>
+        <input type="hidden" id="tags" name="tags" value=""/>
+
         <div class="pro-wap">
             <div class="pro-t">项目信息(1/3)</div>
             <div class="pro-one">
@@ -108,6 +101,52 @@
                                 .isEmpty(project.getHighlights())) ? "" : project.getHighlights()%></textarea>
                     </li>
                     <li class="on3">投资人重点关注</li>
+                </ul>
+            </div>
+            <div class="pro-one">
+                <ul class="pro-one-lst">
+                    <li class="on1">项目标签</li>
+                    <li class="on8">
+                        <ul id="tags_" class="pro-fo-lst">
+                            <%
+                                int count = 0;
+                                for (Xwcmclassinfo tag : tags) {
+                                    boolean isCheck = false;
+                                    if (!isNull && !StringUtils.isEmpty(project.getTags())) {
+                                        for (String sTag : project.getTags().split("#")) {
+                                            if (sTag.equals(tag.getCname())) {
+                                                count++;
+                                                isCheck = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                            %>
+                            <li data="<%=tag.getCname()%>" <%=isCheck ? "class='on'" : ""%>
+                                onclick="checkTag(this);">
+                                <a><%=tag.getCname() %>
+                                </a></li>
+                            <%
+                                }
+                            %>
+                            <script>
+                                var count = <%=count%>;
+                                function checkTag(obj) {
+                                    if ($(obj).attr("class") == "on") {
+                                        $(obj).removeClass("on");
+                                        count--;
+                                    } else {
+                                        if (count >= 6) {
+                                            alert("最多选择6个标签");
+                                        } else {
+                                            $(obj).attr("class", "on");
+                                            count++;
+                                        }
+                                    }
+                                }
+                            </script>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="pro-one">
@@ -569,6 +608,12 @@
     function saveBase() {
         $("#lastOne").val("<%=curYear-1%>:" + one1 + "#" + one2 + "#" + one3 + "#" + one4);
         $("#lastTwo").val("<%=curYear-2%>:" + two1 + "#" + two2 + "#" + two3 + "#" + two4);
+        var tags = "";
+        $("#tags_").children('li').each(function () {
+            if ($(this).attr("class") == "on")
+                tags += $(this).attr("data") + "#";
+        });
+        $("#tags").val(tags);
         $.ajax({
             type: 'POST',
             url: '/project/base/save',

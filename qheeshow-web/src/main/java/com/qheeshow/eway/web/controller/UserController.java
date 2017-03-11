@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.qheeshow.eway.common.exception.CryptoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -92,15 +93,13 @@ public class UserController extends BaseController {
      * @author yue
      * @date 2017年2月25日 下午2:14:12
      */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login")
     @ResponseBody
-    public HaResponse login(HttpSession session, User user) {
+    public HaResponse login(HttpSession session, User user) throws CryptoException {
         List<User> users = userService.login(user);
         if (users.size() > 0) {
             user = users.get(0);
-            session.setAttribute("userId", user.getId());
-            session.setAttribute("nickname", user.getNickname());
-            session.setAttribute("roleid", user.getRoleid());
+            session.setAttribute("loginUser", user);
             user.setPassword("");
             return HaResponse.sussess(user);
         } else {
@@ -151,19 +150,18 @@ public class UserController extends BaseController {
             return HaResponse.sussess();
         }
     }
-    
+
     /**
-	 * 
-	 * @Title: reLogin
-	 * @Description: 未登录时，请求需登录才可访问的请求时统一转向该接口返回
-	 * @author yue
-	 * @date 2017年3月5日11:35:34
-	 * @return
-	 */
-	@RequestMapping(value="/reLogin")
+     * @return
+     * @Title: reLogin
+     * @Description: 未登录时，请求需登录才可访问的请求时统一转向该接口返回
+     * @author yue
+     * @date 2017年3月5日11:35:34
+     */
+    @RequestMapping(value = "/reLogin")
     @ResponseBody
-	public HaResponse reLogin(){
-		return HaResponse.fail("-1");
-	}
+    public HaResponse reLogin() {
+        return HaResponse.fail("-1");
+    }
 
 }

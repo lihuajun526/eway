@@ -10,30 +10,26 @@
 <html>
 <head>
     <title><%=Config.get("app.name")%>--创建项目</title>
-    <link rel="stylesheet" href="/images/animate.min.css">
-    <link rel="stylesheet" href="/images/bootstrap.css">
-    <!--*************************bootstrap css end************************-->
     <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="/images/wt_index.css"/>
-    <!--*************************创建项目的主链接************************-->
     <link rel="stylesheet" href="/images/project.css"/>
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="/js/config.js"></script>
+    <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
 <div class="pro-body">
     <input type="hidden" name="projectid" value="<%=project.getId()%>"/>
+
     <div class="pro-wap">
         <div class="pro-t">创始人信息(2/3)</div>
         <div class="empty"></div>
         <%
-            if (members == null || members.size() == 0) {
+            if (members.size() == 0) {
         %>
         <form>
             <input name="id" type="hidden" value="0"/>
             <input name="projectid" type="hidden" value="<%=project.getId()%>"/>
+
             <div class="pro-one">
                 <ul class="pro-one-lst">
                     <li class="on1">个人信息</li>
@@ -51,7 +47,8 @@
                     <li class="on1">个人简介</li>
                     <li class="on2">
                         <ul class="pro-six-lst">
-                            <li><textarea name="summary" class="pro-one-tex" placeholder="个人简介（不超过300字）"></textarea></li>
+                            <li><textarea name="summary" class="pro-one-tex" placeholder="个人简介（不超过300字）"></textarea>
+                            </li>
                         </ul>
                         <div class="pro-six-janj">详细的团队成员信息，可以让投资人透彻的
                             了解团队的组成情况，团队中每位成员的亮
@@ -71,6 +68,7 @@
         <form>
             <input name="id" type="hidden" value="<%=member.getId()%>"/>
             <input name="projectid" type="hidden" value="<%=member.getProjectid()%>"/>
+
             <div class="pro-one">
                 <ul class="pro-one-lst">
                     <li class="on1">个人信息</li>
@@ -125,12 +123,13 @@
 <script>
     //保存基本信息
     function saveTeam(obj) {
+
         $.ajax({
             type: 'POST',
             url: '/project/team/save',
             cache: false,
             processData: false,
-            data: $(obj).parent().serialize(),
+            data: $(obj).parent().parent().serialize(),
             dataType: 'json',
             success: function (result) {
                 if (result.code < 0) {
@@ -138,13 +137,13 @@
                     return;
                 }
                 alert("保存成功");
-                //window.location.href = "/" + result.data + "/add/edit/3";
+                window.location.reload();
             }
         });
     }
     function addMember() {
         $("#temp").load("/project/member_append.jsp?projectid=<%=project.getId()%>", function () {
-            $("#members").append("$('#temp').html()");
+            $("#members").append($('#temp').html());
         });
     }
 </script>

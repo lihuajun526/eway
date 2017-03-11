@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-6-14.
@@ -46,17 +47,21 @@ public class ProjectController extends BaseController {
         int classinfo_rootid_financing_limit = Config.getInt("classinfo.rootid.financing.limit");
         //项目阶段rootid
         int classinfo_rootid_stage = Config.getInt("classinfo.rootid.stage");
+        //项目标签
+        int classinfo_rootid_tag = Config.getInt("classinfo.rootid.tag");
 
         List<Xwcmclassinfo> industrys = xwcmclassinfoService.listByRoot(classinfo_rootid_industry);
         List<Xwcmclassinfo> areas = xwcmclassinfoService.listByRoot(classinfo_rootid_area);
         List<Xwcmclassinfo> financingLimits = xwcmclassinfoService.listByRoot(classinfo_rootid_financing_limit);
         List<Xwcmclassinfo> stages = xwcmclassinfoService.listByRoot(classinfo_rootid_stage);
+        List<Xwcmclassinfo> tags = xwcmclassinfoService.listByRoot(classinfo_rootid_tag);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("industrys", industrys);
         modelAndView.addObject("areas", areas);
         modelAndView.addObject("financingLimits", financingLimits);
         modelAndView.addObject("stages", stages);
+        modelAndView.addObject("tags", tags);
         modelAndView.addObject("project", projectService.get(id));
         modelAndView.setViewName("/project/project_add_edit_one");
 
@@ -119,6 +124,11 @@ public class ProjectController extends BaseController {
             result.setMessage("项目融资规模不能为空");
             return result.toString();
         }
+        if (StringUtils.isEmpty(project.getTags())) {
+            result.setMessage("请选择项目标签");
+            return result.toString();
+        }
+        project.setTags(project.getTags().substring(0, project.getTags().length() - 1));
 
         /*User loginUser = (User) httpSession.getAttribute("loginUser");
         project.setUserid(loginUser.getId());
@@ -184,19 +194,28 @@ public class ProjectController extends BaseController {
      */
     @RequestMapping("/list/{type}/{areaid}/{financingLimit}/{industry}/{pageIndex}")
     public ModelAndView listByCondition(@PathVariable Integer type, @PathVariable Integer areaid,
-            @PathVariable Integer financingLimit, @PathVariable Integer industry,
-            @PathVariable Integer pageIndex, String keyword) {
+                                        @PathVariable Integer financingLimit, @PathVariable Integer industry,
+                                        @PathVariable Integer pageIndex, String keyword) {
 
         LOGGER.debug("根据条件过滤项目");
+
+        int pageSize = 2;
+        int recordCount = 0;
+
         List<Project> projectList = new ArrayList<>();
-        if (StringUtils.isEmpty(keyword))
-            projectList = projectService.listByCondition(type, areaid, financingLimit, industry, pageIndex);
-        else
+        if (StringUtils.isEmpty(keyword)) {
+            Map<String, Object> map = projectService.listByCondition(type, areaid, financingLimit, industry, pageIndex, pageSize);
+            projectList = (List<Project>) map.get("projects");
+            recordCount = (Integer) map.get("count");
+        } else
             projectList = projectService.search(keyword);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("project/projects");
         modelAndView.addObject("projects", projectList);
+        modelAndView.addObject("pageSize", pageSize);
+        modelAndView.addObject("pageIndex", pageIndex);
+        modelAndView.addObject("pageCount", recordCount % pageSize == 0 ? recordCount / pageSize : (recordCount / pageSize + 1));
 
         return modelAndView;
     }

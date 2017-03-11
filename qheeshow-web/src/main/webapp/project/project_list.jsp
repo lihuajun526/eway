@@ -24,7 +24,7 @@
         var keyword = "";
         var pageIndex = 1;
         function list() {
-            $("#iframe_list").attr("src", "/project/list/" + type + "/" + areaid + "/" + limitid + "/" + industryid + "/" + pageIndex + "?keyword=" + keyword);
+            $("#projects").load("/project/list/" + type + "/" + areaid + "/" + limitid + "/" + industryid + "/" + pageIndex + "?keyword=" + keyword);
         }
         function setType(value) {
             type = value;
@@ -48,10 +48,6 @@
         }
         function search() {
             keyword = $("#keyword").val();
-            list();
-        }
-        function goto(pageIndex) {
-            pageIndex = pageIndex;
             list();
         }
     </script>
@@ -126,9 +122,10 @@
                 </div>
             </div>
         </div>
-        <div class="g-proj-two">
-            <iframe id="iframe_list" src="/project/list/1/1/1/1/1?keyword=" frameborder="0"/>
-        </div>
+        <div id="projects" class="g-proj-two"></div>
+        <script>
+            list();
+        </script>
     </div>
 </div>
 <jsp:include page="../pub/foot.jsp" flush="true"/>

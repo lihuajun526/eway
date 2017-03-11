@@ -61,26 +61,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> login(User user) {
-
-//		MailBean mailInfo = new MailBean();
-//		mailInfo.setMailServerHost("smtp.exmail.qq.com");
-//		mailInfo.setUserName("service@qheefund.com");
-//		mailInfo.setPassword("wutongE123456");
-//		mailInfo.setFromAddress("service@qheefund.com");
-//		mailInfo.setToAddress("1065443674@qq.com");
-//		mailInfo.setSubject("你好");
-//		mailInfo.setContent("大家好");
-//		
-//		String[] files = {"D:\\work_fykj\\IMG_20170216_163938.jpg","D:\\work_fykj\\IMG_20170216_163938中文.jpg"};
-//		mailInfo.setAttachFileNames(files);
-//		
-//		mailService.sendHtmlMail(mailInfo);
-
+    public List<User> login(User user) throws CryptoException {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andMobileEqualTo(user.getMobile());
-        criteria.andPasswordEqualTo(MD5Util.MD5(user.getPassword()));
+        criteria.andPasswordEqualTo(AESCryptoUtil.encrypt(user.getPassword()));
         List<User> users = userMapper.selectByExample(example);
         return users;
     }

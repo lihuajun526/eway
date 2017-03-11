@@ -20,13 +20,13 @@
             <div class="g-lgin-cnt">
                 <ul class="g-lgin-lst">
                     <li><input id="mobile" name="mobile" class="g-lgin-ipt" placeholder="请输入手机号"/></li>
-                    <li><input id="password" name="password" class="g-lgin-ipt" placeholder="请输入密码"/></li>
+                    <li><input id="password" name="password" type="password" class="g-lgin-ipt" placeholder="请输入密码"/></li>
                 </ul>
                 <ul class="g-lgin-lst2">
                     <li class="on1"><input name="remind" type="checkbox" value="1"><span>记住密码</span></li>
                     <li class="on2"><a href="#">找回密码</a></li>
                 </ul>
-                <div class="g-pw-btnw"><input type="button" value="登  录" class="g-lgin-btn"></div>
+                <div class="g-pw-btnw"><input type="button" value="登  录" class="g-lgin-btn" onclick="login();"></div>
             </div>
         </div>
     </form>
@@ -43,8 +43,8 @@
             url: '/user/login',
             data: $('#loginForm').serialize(),
             success: function (result) {
-                if (!result.data) {
-                    alert(result.message);
+                if (!result.success) {
+                    alert(result.data);
                     return;
                 }
                 window.location.href = "/index";

@@ -2,6 +2,7 @@ package com.qheeshow.eway.service.service;
 
 import java.util.List;
 
+import com.qheeshow.eway.common.exception.CryptoException;
 import com.qheeshow.eway.service.model.User;
 
 /**
@@ -15,6 +16,6 @@ public interface UserService {
 	
 	public void changePassword(User user);
     
-    public List<User> login(User user);
+    public List<User> login(User user) throws CryptoException;
 
 }

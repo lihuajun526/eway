@@ -37,4 +37,6 @@ public interface ProjectMapper {
     int updateByPrimaryKey(Project record);
 
     List<Project> listByCondition(Project project);
+
+    List<Project> getCount(Project project);
 }

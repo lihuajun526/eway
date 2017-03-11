@@ -31,6 +31,10 @@ public class ProjectFollowController extends BaseController {
     public String follow(@PathVariable Integer projectid, HttpSession session) {
 
         Result result = new Result();
+        if (session.getAttribute("loginUser") == null) {
+            result.set(-1, "请先登录");
+            return result.toString();
+        }
         User loginUser = (User) session.getAttribute("loginUser");
         ProjectFollow projectFollow = new ProjectFollow();
         projectFollow.setProjectid(projectid);
@@ -41,7 +45,6 @@ public class ProjectFollowController extends BaseController {
             result.set(-1, e.getDesc());
             return result.toString();
         }
-
         return result.toString();
     }
 
@@ -62,15 +65,17 @@ public class ProjectFollowController extends BaseController {
     @RequestMapping("/isfollow/{projectid}")
     @ResponseBody
     public String isFollow(@PathVariable Integer projectid, HttpSession session) {
-
         Result<Boolean> result = new Result();
+        if (session.getAttribute("loginUser") == null) {
+            result.setData(false);
+            return result.toString();
+        }
         User loginUser = (User) session.getAttribute("loginUser");
         ProjectFollow projectFollow = new ProjectFollow();
         projectFollow.setProjectid(projectid);
         projectFollow.setUserid(loginUser.getId());
         boolean isFollow = projectFollowService.isFollow(projectFollow);
         result.setData(isFollow);
-
         return result.toString();
     }
 

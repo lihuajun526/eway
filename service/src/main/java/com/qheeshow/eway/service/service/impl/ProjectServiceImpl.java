@@ -7,7 +7,9 @@ import com.qheeshow.eway.service.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 17-1-17.
@@ -18,7 +20,8 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private ProjectMapper projectMapper;
 
-    @Override public void save(Project project) {
+    @Override
+    public void save(Project project) {
 
         if (project.getId().intValue() == 0) {
             project.setStatus(0);
@@ -29,32 +32,41 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
-    @Override public List<Project> listByStatus(Integer status) {
+    @Override
+    public List<Project> listByStatus(Integer status) {
         ProjectExample projectExample = new ProjectExample();
         ProjectExample.Criteria criteria = projectExample.createCriteria();
         criteria.andStatusEqualTo(status);
         return projectMapper.selectByExample(projectExample);
     }
 
-    @Override public Project get(Integer id) {
+    @Override
+    public Project get(Integer id) {
         return projectMapper.selectByPrimaryKey(id);
     }
 
-    @Override public List<Project> listByCondition(Integer type, Integer areaid, Integer financingLimit, Integer industry,
-            Integer pageIndex) {
-
+    @Override
+    public Map<String, Object> listByCondition(Integer type, Integer areaid, Integer financingLimit, Integer industry,
+                                               Integer pageIndex, Integer pageSize) {
         Project project = new Project();
-        project.setType(type);
-        project.setArea(areaid);
-        project.setFinancingLimit(financingLimit);
-        project.setIndustry(industry);
-        project.setPageSize(20);
+        if (type > 0)
+            project.setType(type);
+        if (areaid > 0)
+            project.setArea(areaid);
+        if (financingLimit > 0)
+            project.setFinancingLimit(financingLimit);
+        if (industry > 0)
+            project.setIndustry(industry);
+        project.setPageSize(pageSize);
         project.setStartRow((pageIndex - 1) * project.getPageSize());
-
-        return projectMapper.listByCondition(project);
+        Map<String, Object> map = new HashMap<>();
+        map.put("projects", projectMapper.listByCondition(project));
+        map.put("count", projectMapper.getCount(project).size());
+        return map;
     }
 
-    @Override public List<Project> search(String keyword) {
+    @Override
+    public List<Project> search(String keyword) {
 
         ProjectExample example = new ProjectExample();
         ProjectExample.Criteria criteria = example.createCriteria();

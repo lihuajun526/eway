@@ -70,7 +70,7 @@
                     alert(result.message);
                     return;
                 }
-                window.location.href = "/project/add";
+                window.location.href = "/project/0/add/edit/1";
             }
         });
     }

@@ -29,6 +29,9 @@
     <result column="bp_name" property="bpName" jdbcType="VARCHAR" />
     <result column="percent" property="percent" jdbcType="INTEGER" />
     <result column="referee" property="referee" jdbcType="VARCHAR" />
+    <result column="last_investment" property="lastInvestment" jdbcType="VARCHAR" />
+    <result column="last_stage" property="lastStage" jdbcType="VARCHAR" />
+    <result column="last_limit" property="lastLimit" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -96,8 +99,8 @@
   <sql id="Base_Column_List" >
     id, title, demand, highlights, last_one, last_two, description, type, industry, industry_name, 
     area, area_name, financing_limit, financing_limit_name, stage, stage_name, video_link, 
-    pro_link, userid, username, status, logo, tags, bp, bp_name, percent, referee, create_time, 
-    update_time
+    pro_link, userid, username, status, logo, tags, bp, bp_name, percent, referee, last_investment, 
+    last_stage, last_limit, create_time, update_time
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -153,9 +156,6 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.qheeshow.eway.service.model.Project" >
-    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
-      SELECT LAST_INSERT_ID() AS id
-    </selectKey>
     insert into t_project (id, title, demand, 
       highlights, last_one, last_two, 
       description, type, industry, 
@@ -164,7 +164,8 @@
       stage_name, video_link, pro_link, 
       userid, username, status, 
       logo, tags, bp, bp_name, 
-      percent, referee, create_time, 
+      percent, referee, last_investment, 
+      last_stage, last_limit, create_time, 
       update_time, content)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{demand,jdbcType=VARCHAR}, 
       #{highlights,jdbcType=VARCHAR}, #{lastOne,jdbcType=VARCHAR}, #{lastTwo,jdbcType=VARCHAR}, 
@@ -174,7 +175,8 @@
       #{stageName,jdbcType=VARCHAR}, #{videoLink,jdbcType=VARCHAR}, #{proLink,jdbcType=VARCHAR}, 
       #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{logo,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{bp,jdbcType=VARCHAR}, #{bpName,jdbcType=VARCHAR}, 
-      #{percent,jdbcType=INTEGER}, #{referee,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{percent,jdbcType=INTEGER}, #{referee,jdbcType=VARCHAR}, #{lastInvestment,jdbcType=VARCHAR}, 
+      #{lastStage,jdbcType=VARCHAR}, #{lastLimit,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Project" >
@@ -260,6 +262,15 @@
       </if>
       <if test="referee != null" >
         referee,
+      </if>
+      <if test="lastInvestment != null" >
+        last_investment,
+      </if>
+      <if test="lastStage != null" >
+        last_stage,
+      </if>
+      <if test="lastLimit != null" >
+        last_limit,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -352,6 +363,15 @@
       </if>
       <if test="referee != null" >
         #{referee,jdbcType=VARCHAR},
+      </if>
+      <if test="lastInvestment != null" >
+        #{lastInvestment,jdbcType=VARCHAR},
+      </if>
+      <if test="lastStage != null" >
+        #{lastStage,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLimit != null" >
+        #{lastLimit,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -454,6 +474,15 @@
       <if test="record.referee != null" >
         referee = #{record.referee,jdbcType=VARCHAR},
       </if>
+      <if test="record.lastInvestment != null" >
+        last_investment = #{record.lastInvestment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastStage != null" >
+        last_stage = #{record.lastStage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastLimit != null" >
+        last_limit = #{record.lastLimit,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -497,6 +526,9 @@
       bp_name = #{record.bpName,jdbcType=VARCHAR},
       percent = #{record.percent,jdbcType=INTEGER},
       referee = #{record.referee,jdbcType=VARCHAR},
+      last_investment = #{record.lastInvestment,jdbcType=VARCHAR},
+      last_stage = #{record.lastStage,jdbcType=VARCHAR},
+      last_limit = #{record.lastLimit,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       content = #{record.content,jdbcType=LONGVARCHAR}
@@ -533,6 +565,9 @@
       bp_name = #{record.bpName,jdbcType=VARCHAR},
       percent = #{record.percent,jdbcType=INTEGER},
       referee = #{record.referee,jdbcType=VARCHAR},
+      last_investment = #{record.lastInvestment,jdbcType=VARCHAR},
+      last_stage = #{record.lastStage,jdbcType=VARCHAR},
+      last_limit = #{record.lastLimit,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -620,6 +655,15 @@
       <if test="referee != null" >
         referee = #{referee,jdbcType=VARCHAR},
       </if>
+      <if test="lastInvestment != null" >
+        last_investment = #{lastInvestment,jdbcType=VARCHAR},
+      </if>
+      <if test="lastStage != null" >
+        last_stage = #{lastStage,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLimit != null" >
+        last_limit = #{lastLimit,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -660,6 +704,9 @@
       bp_name = #{bpName,jdbcType=VARCHAR},
       percent = #{percent,jdbcType=INTEGER},
       referee = #{referee,jdbcType=VARCHAR},
+      last_investment = #{lastInvestment,jdbcType=VARCHAR},
+      last_stage = #{lastStage,jdbcType=VARCHAR},
+      last_limit = #{lastLimit,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
@@ -693,6 +740,9 @@
       bp_name = #{bpName,jdbcType=VARCHAR},
       percent = #{percent,jdbcType=INTEGER},
       referee = #{referee,jdbcType=VARCHAR},
+      last_investment = #{lastInvestment,jdbcType=VARCHAR},
+      last_stage = #{lastStage,jdbcType=VARCHAR},
+      last_limit = #{lastLimit,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
@@ -702,10 +752,39 @@
     select
     <include refid="Base_Column_List" />
     from t_project
-    where type = #{type,jdbcType=INTEGER}
-    area =#{area,jdbcType=INTEGER}
-    financingLimit =#{financingLimit,jdbcType=INTEGER}
-    industry =#{industry,jdbcType=INTEGER}
+    where 1=1
+    <if test="type != null" >
+      and type = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="area != null" >
+      and area =#{area,jdbcType=INTEGER}
+    </if>
+    <if test="financingLimit != null" >
+      and financing_limit =#{financingLimit,jdbcType=INTEGER}
+    </if>
+    <if test="industry != null" >
+      and industry =#{industry,jdbcType=INTEGER}
+    </if>
     limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
+
+  <select id="getCount" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Project" >
+    select
+    id
+    from t_project
+    where 1=1
+    <if test="type != null" >
+      and type = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="area != null" >
+      and area =#{area,jdbcType=INTEGER}
+    </if>
+    <if test="financingLimit != null" >
+      and financing_limit =#{financingLimit,jdbcType=INTEGER}
+    </if>
+    <if test="industry != null" >
+      and industry =#{industry,jdbcType=INTEGER}
+    </if>
+  </select>
+
 </mapper>

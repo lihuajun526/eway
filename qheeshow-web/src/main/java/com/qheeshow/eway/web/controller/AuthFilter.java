@@ -27,7 +27,7 @@ public class AuthFilter implements Filter {
 		HttpSession session = httpRequest.getSession();
 		String url = httpRequest.getRequestURI();
 		// 如果是不需要用户登录认证的服务或者用户已经进行登录认证并未过期，则放行
-		if (session.getAttribute("userId") != null || UrlFilterConfig.getInstance().matchExcludeUrl(httpRequest.getContextPath(), httpRequest.getServletPath())) {
+		if (session.getAttribute("loginUser") != null || UrlFilterConfig.getInstance().matchExcludeUrl(httpRequest.getContextPath(), httpRequest.getServletPath())) {
 			try{
 				chain.doFilter(request, response);
 			}finally{

@@ -10,7 +10,7 @@
     <div class="g-link">
         <ul>
             <li class="on"><a href="/index">首页</a></li>
-            <li><a href="#">项目</a></li>
+            <li><a href="/project/list">项目</a></li>
             <li><a href="#">投资人</a></li>
             <li><a href="#">活动</a></li>
         </ul>
@@ -18,7 +18,7 @@
     <div class="g-login">
         <ul>
             <li class="on1"><a href="#">购买服务</a></li>
-            <li class="on2"><a href="#">创建项目</a></li>
+            <li class="on2"><a href="/project/0/add/edit/1">创建项目</a></li>
             <li class="on3"><a href="/user/login.jsp"><img src="/images/wt-top3.png"/></a></li>
         </ul>
     </div>
