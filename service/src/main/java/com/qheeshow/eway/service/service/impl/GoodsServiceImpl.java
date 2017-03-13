@@ -16,38 +16,47 @@ import com.qheeshow.eway.service.service.GoodsService;
  */
 @Service
 public class GoodsServiceImpl implements GoodsService {
-	
-	@Autowired
-	private GoodsMapper goodsMapper;
-	
-    @Override 
+
+    @Autowired
+    private GoodsMapper goodsMapper;
+
+    @Override
     public List<Goods> listByType(Integer type) {
         return null;
     }
 
-    @Override 
+    @Override public List<Goods> listByStatus(Integer status) {
+
+        GoodsExample example = new GoodsExample();
+        GoodsExample.Criteria criteria = example.createCriteria();
+        criteria.andStatusEqualTo(status);
+
+        return goodsMapper.selectByExample(example);
+    }
+
+    @Override
     public List<GoodsWithBLOBs> listAll() {
-    	GoodsExample example = new GoodsExample();
-    	example.setOrderByClause("order_num");
-    	List<GoodsWithBLOBs> goods = goodsMapper.selectByExampleWithBLOBs(example);
+        GoodsExample example = new GoodsExample();
+        example.setOrderByClause("order_num");
+        List<GoodsWithBLOBs> goods = goodsMapper.selectByExampleWithBLOBs(example);
         return goods;
     }
 
-    @Override 
+    @Override
     public int save(GoodsWithBLOBs goods) {
-    	int result = goodsMapper.insert(goods);
+        int result = goodsMapper.insert(goods);
         return result;
     }
 
-    @Override 
+    @Override
     public int update(GoodsWithBLOBs goods) {
-    	int result = goodsMapper.updateByPrimaryKeySelective(goods);
+        int result = goodsMapper.updateByPrimaryKeySelective(goods);
         return result;
     }
 
-    @Override 
+    @Override
     public GoodsWithBLOBs selectByPrimaryKey(Integer id) {
-    	GoodsWithBLOBs goods = goodsMapper.selectByPrimaryKey(id);
+        GoodsWithBLOBs goods = goodsMapper.selectByPrimaryKey(id);
         return goods;
     }
 }

@@ -17,8 +17,10 @@ public interface ProjectService {
     Project get(Integer id);
 
     Map<String, Object> listByCondition(Integer type, Integer areaid,
-                                        Integer financingLimit, Integer industry, Integer pageIndex, Integer pageSize);
+            Integer financingLimit, Integer industry, Integer pageIndex, Integer pageSize);
 
     List<Project> search(String keyword);
+
+    List<Project> listByUser(Integer userid);
 
 }
