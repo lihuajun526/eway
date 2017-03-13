@@ -12,6 +12,8 @@ public interface GoodsService {
 
     List<Goods> listByType(Integer type);
 
+    List<Goods> listByStatus(Integer status);
+
     List<GoodsWithBLOBs> listAll();
 
     int save(GoodsWithBLOBs goods);

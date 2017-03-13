@@ -1,9 +1,11 @@
 package com.qheeshow.eway.web.controller;
 
 import com.qheeshow.eway.common.util.Config;
+import com.qheeshow.eway.service.model.CommonQa;
 import com.qheeshow.eway.service.model.Project;
 import com.qheeshow.eway.service.model.TeamMember;
 import com.qheeshow.eway.service.model.Xwcmclassinfo;
+import com.qheeshow.eway.service.service.CommonQaService;
 import com.qheeshow.eway.service.service.ProjectService;
 import com.qheeshow.eway.service.service.TeamMemberService;
 import com.qheeshow.eway.service.service.XwcmclassinfoService;
@@ -35,6 +37,8 @@ public class ProjectController extends BaseController {
     private XwcmclassinfoService xwcmclassinfoService;
     @Autowired
     private TeamMemberService teamMemberService;
+    @Autowired
+    private CommonQaService commonQaService;
 
     @RequestMapping("/{id}/add/edit/1")
     public ModelAndView addOrEditOne(@PathVariable Integer id) {
@@ -245,12 +249,14 @@ public class ProjectController extends BaseController {
     public ModelAndView get(@PathVariable Integer id) {
         Project project = projectService.get(id);
         List<TeamMember> members = teamMemberService.listByProject(id);
+        List<CommonQa> commonQas = commonQaService.list();
 
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("project/project_detail");
         modelAndView.addObject("project", project);
         modelAndView.addObject("members", members);
+        modelAndView.addObject("commonQas", commonQas);
         return modelAndView;
     }
 

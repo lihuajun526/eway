@@ -1,15 +1,39 @@
 package com.qheeshow.eway.service.model;
 
-/**
- * Created by lihuajun on 17-1-18.
- */
-public class ProjectQa extends BaseModel {
+import java.util.Date;
 
-    private String projectName;//项目名称
-    private Integer parentid;//项目或问题id
-    private String content;//问题或答案内容
-    private Integer userid;//提问者或回答者id
-    private Integer status;//状态:1新问题或新回答,2审核通过,3审核未通过
+public class ProjectQa {
+    private Integer id;
+
+    private String projectName;
+
+    private Integer parentid;
+
+    private String content;
+
+    private Integer userid;
+
+    private Integer status;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName == null ? null : projectName.trim();
+    }
 
     public Integer getParentid() {
         return parentid;
@@ -24,7 +48,7 @@ public class ProjectQa extends BaseModel {
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = content == null ? null : content.trim();
     }
 
     public Integer getUserid() {
@@ -43,11 +67,19 @@ public class ProjectQa extends BaseModel {
         this.status = status;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

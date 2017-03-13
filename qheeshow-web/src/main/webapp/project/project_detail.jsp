@@ -2,15 +2,16 @@
 <%@ page import="com.qheeshow.eway.service.model.TeamMember" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
+<%@ page import="com.qheeshow.eway.service.model.CommonQa" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Project project = (Project) request.getAttribute("project");
     List<TeamMember> members = (List<TeamMember>) request.getAttribute("members");
+    List<CommonQa> commonQas = (List<CommonQa>) request.getAttribute("commonQas");
 %>
 <html>
 <head>
-    <title><%=Config.get("app.name")%>--<%=project.getTitle()%>
-    </title>
+    <title><%=Config.get("app.name")%>--<%=project.getTitle()%></title>
     <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="/images/wt_index.css"/>
     <script src="/jquery/jquery-1.11.1.js"></script>
@@ -60,7 +61,6 @@
                     <li><a href="#">团队介绍</a></li>
                     <li><a href="#">项目亮点</a></li>
                     <li><a href="#">项目BP</a></li>
-                    <li><a href="#">提问互动</a></li>
                 </ul>
             </div>
             <div class="g-invest-lone">
@@ -98,7 +98,7 @@
                 </ul>
                 <a href="#" class="g-proj-more">登录查看商业计划书</a>
             </div>
-            <div class="g-invest-lone2">
+            <%--<div class="g-invest-lone2">
                 <div class="g-proj-lonetit4">提问互动<span>20条评论</span></div>
 
                 <!--提问-->
@@ -154,7 +154,7 @@
                                                                                              class="on3">...</a> <a
                             href="#" class="on2">&nbsp;</a>
                     <!--<a href="#" class="on5">&nbsp;</a>--></div>
-            </div>
+            </div>--%>
         </div>
         <!--*************************right star************************-->
         <div class="g-invest-r">
@@ -169,10 +169,13 @@
             <div class="g-invest-rone">
                 <div class="g-invest-rt">常见问题</div>
                 <ul class="g-invest-rlst2">
-                    <li><span class="on1"></span><span><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></span></li>
-                    <li><span class="on1"></span><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></li>
-                    <li><span class="on1"></span><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></li>
-                    <li><span class="on1"></span><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></li>
+                    <%
+                        for (CommonQa commonQa : commonQas) {
+                    %>
+                    <li><span class="on1"></span><span><a href="#"><%=commonQa.getQuestion()%></a></span></li>
+                    <%
+                        }
+                    %>
                 </ul>
                 <div class="g-invest-rmore"><a href="#">更多项目</a></div>
             </div>

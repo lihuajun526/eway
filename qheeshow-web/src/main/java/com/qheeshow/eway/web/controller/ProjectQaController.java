@@ -2,6 +2,7 @@ package com.qheeshow.eway.web.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.qheeshow.eway.service.model.ProjectQa;
+import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.ProjectQaService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -26,10 +28,17 @@ public class ProjectQaController extends BaseController {
 
     @RequestMapping("/q")
     @ResponseBody
-    public String question(ProjectQa projectQa) {
+    public String question(ProjectQa projectQa, HttpSession session) {
 
         Result result = new Result();
 
+        if (session.getAttribute("loginUser") == null) {
+            result.set(-1, "请先登录");
+            return result.toString();
+        }
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        projectQa.setUserid(loginUser.getId());
         projectQaService.save(projectQa);
 
         return result.toString();
@@ -37,8 +46,13 @@ public class ProjectQaController extends BaseController {
 
     @RequestMapping("/a")
     @ResponseBody
-    public String answer(ProjectQa projectQa) {
+    public String answer(ProjectQa projectQa,HttpSession session) {
         Result result = new Result();
+
+        if (session.getAttribute("loginUser") == null) {
+            result.set(-1, "请先登录");
+            return result.toString();
+        }
 
         projectQaService.save(projectQa);
 
@@ -47,7 +61,7 @@ public class ProjectQaController extends BaseController {
 
     @RequestMapping("/list/{status}")
     @ResponseBody
-    public String answer(@PathVariable Integer status) {
+    public String list(@PathVariable Integer status) {
 
         ResultDg<List<ProjectQa>> resultDg = new ResultDg<>();
 

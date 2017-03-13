@@ -74,4 +74,12 @@ public class ProjectServiceImpl implements ProjectService {
 
         return projectMapper.selectByExample(example);
     }
+
+    @Override public List<Project> listByUser(Integer userid) {
+        ProjectExample example = new ProjectExample();
+        ProjectExample.Criteria criteria = example.createCriteria();
+        criteria.andUseridEqualTo(userid);
+
+        return projectMapper.selectByExample(example);
+    }
 }
