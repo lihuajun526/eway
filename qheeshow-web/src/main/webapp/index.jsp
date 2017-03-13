@@ -230,7 +230,13 @@
             <span class="on4">已完成融资</span>
         </li>
         <li>
-            <h1 class="on1">Airbnb全球</h1>
+            <h1 class="on1">Airbnb全球2</h1>
+            <h3 class="on2">你的旅行住宿</h3>
+            <span><img src="images/bg-4.png" width="100" height="100"/></span>
+            <span class="on4">已完成融资</span>
+        </li>
+        <li>
+            <h1 class="on1">Airbnb全球1</h1>
             <h3 class="on2">你的旅行住宿</h3>
             <span><img src="images/bg-4.png" width="100" height="100"/></span>
             <span class="on4">已完成融资</span>

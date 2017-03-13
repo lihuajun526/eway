@@ -100,6 +100,17 @@
             </div>
             <div class="g-invest-lone2">
                 <div class="g-proj-lonetit4">提问互动<span>20条评论</span></div>
+
+                <!--提问-->
+                <div class="g-invest-tre">
+                    <div class="g-invest-tre-r">
+                        <div class="g-proj-texwap"><textarea name="" cols="" rows="" class="g-proj-textarea"></textarea>
+                            <div class="g-proj-texcru">还可以输入<span>150</span>个字</div>
+                        </div>
+                        <div class="g-proj-texbtn">请先登录<a href="#" class="on2">提问</a></div>
+                    </div>
+                </div>
+                <!------>
                 <div class="g-invest-tre">
                     <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
                     <div class="g-invest-tre-r">

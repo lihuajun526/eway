@@ -7,10 +7,10 @@
     for (Project project : projects) {
 %>
 <div class="g-proj-twow">
-    <div class="g-proj-twol" onclick="openDetail(<%=project.getId()%>);"><img src="<%=project.getLogo()%>" width="80"
+    <div class="g-proj-twol" style="cursor: pointer" onclick="openDetail(<%=project.getId()%>);"><img src="<%=project.getLogo()%>" width="80"
                                                                               height="80"/></div>
     <div class="g-proj-twoc" onclick="openDetail(<%=project.getId()%>);">
-        <div class="g-proj-twoc-t"><%=project.getTitle()%><span><%=project.getStageName()%></span></div>
+        <div class="g-proj-twoc-t" style="cursor: pointer"><%=project.getTitle()%><span><%=project.getStageName()%></span></div>
         <h3><a><%=project.getDemand() %>
         </a></h3>
     </div>
