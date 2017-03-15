@@ -138,7 +138,7 @@
 	display:block;
 }
 .inv-menu {
-	width:144px;
+	width:200px;
 	position:absolute;
 	text-align:center;
 	z-index:9;
@@ -151,7 +151,7 @@
 	border:1px solid #f8f8f8;
 }
 .inv-menu li {
-	width:144px;
+	width:200px;
 	border-bottom:1px solid #f4f4f4;
 	font-size:12px;
 	height:31px;

@@ -64,7 +64,7 @@ public class ProjectFollowServiceImpl implements ProjectFollowService {
         }
         InvestorExample investorExample = new InvestorExample();
         InvestorExample.Criteria criteria1 = investorExample.createCriteria();
-        criteria1.andUserIdIn(ids);
+        criteria1.andUseridIn(ids);
         return investorMapper.selectByExample(investorExample);
     }
 }

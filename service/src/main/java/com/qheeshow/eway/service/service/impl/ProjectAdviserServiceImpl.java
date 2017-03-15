@@ -31,7 +31,7 @@ public class ProjectAdviserServiceImpl implements ProjectAdviserService {
 
         InvestorExample investorExample = new InvestorExample();
         InvestorExample.Criteria criteria = investorExample.createCriteria();
-        criteria.andUserIdEqualTo(userid);
+        criteria.andUseridEqualTo(userid);
         List<Investor> list = investorMapper.selectByExample(investorExample);
         Investor investor = list.size() > 0 ? list.get(0) : null;
         if (investor == null) {
@@ -65,7 +65,7 @@ public class ProjectAdviserServiceImpl implements ProjectAdviserService {
         }
         InvestorExample investorExample = new InvestorExample();
         InvestorExample.Criteria criteria1 = investorExample.createCriteria();
-        criteria1.andUserIdIn(ids);
+        criteria1.andUseridIn(ids);
         return investorMapper.selectByExample(investorExample);
     }
 
