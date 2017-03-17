@@ -2,9 +2,11 @@
 <%@ page import="com.qheeshow.eway.service.model.Investor" %>
 <%@ page import="com.qheeshow.eway.service.model.Xwcmclassinfo" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.springframework.util.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Investor investor = (Investor) request.getAttribute("investor");
+
 
 %>
 <html>
@@ -27,12 +29,21 @@
             </div>
             <div class="g-invest-onect">
                 <div class="on1">个人介绍：</div>
-                <div class="on2"><%=investor.getPersonalProfile()%>
+                <div class="on2"><%=investor.getSummary()%>
                 </div>
             </div>
             <ul class="g-invest-lst">
-                <li><a href="#">专业人士(120)</a></li>
-                <li><a href="#">专业人士(120)</a></li>
+                <%
+                    if (!StringUtils.isEmpty(investor.getTags())) {
+                        String[] tags = investor.getTags().split("#");
+                        for (String tag : tags) {
+                            String[] strs = tag.split(":");
+                %>
+                <li><a><%=strs[0]%>(<%=strs[1]%>)</a></li>
+                <%
+                        }
+                    }
+                %>
             </ul>
             <a href="#" class="g-invest-focus">+关注</a>
             <ul class="g-invest-lst2">
@@ -45,48 +56,43 @@
         <div class="g-invest-l">
             <div class="g-invest-lone">
                 <div class="g-invest-lonetit">个人介绍 <span>/Evaluate</span></div>
-                <div class="g-invest-lonect">
-                    老鹰基金创始人，企业家、天使投资人，20年中国贸易、投资和电讯从业经验。中国长远控股有限公司
-                    创办人，董事局主席兼首席执行官，香港中文大学新亚书院校董之一，湖北省黄石锶发矿业有限公司董
-                    事长，湖南省张家界盛美达度假酒店董事长，北京威速科技有限公司董事。1993年，刘小鹰创办长远有
-                    限公司，成功取得诺基亚移动电话中国市场第一家全国总代理资格，在中国建立全国性分销和加盟连锁
-                    销售网络，并创下年销售额30亿港元的佳绩。2000年1月带领长远集团于香港创业板上市，于2004年
-                    转往主板挂牌。 积极参与和推动中港信息科技的交流和发展，曾任香港无线科技商会(WITA)副会长，
-                    历任广东省外商公会副会长，香港潮人联会副会长，上海潮汕商会名誉会长。
+                <div class="g-invest-lonect"><%=investor.getPersonalProfile()%>
                 </div>
             </div>
-
             <div class="g-invest-lone2">
-                <div class="g-invest-two3">
-                    <div class="g-invest-lonetit">评价 <span>/Profile</span></div>
-                    <ul class="g-invest-lst3">
-                        <li><a href="#">人脉大咖</a></li>
-                        <li><a href="#">专业人士</a></li>
-                        <li><a href="#">专业人士</a></li>
-                        <li><a href="#">专业人士</a></li>
-                        <li class="on"><a href="#">添加</a></li>
-                    </ul>
-                </div>
-                <div class="g-invest-two">
-                    <div class="g-invest-twl">星级评价：</div>
-                    <div class="g-invest-twr">
-                        <ul>
-                            <li><img src="images/star-n.png"/></li>
-                            <li><img src="images/star-n.png"/></li>
-                            <li><img src="images/star-n.png"/></li>
-                            <li><img src="images/star-m.png"/></li>
+                <form id="commentForm">
+                    <input type="hidden" id="tags" name="tags" value=""/>
+                    <input type="hidden" id="star" name="star" value="0"/>
+                    <div class="g-invest-two3">
+                        <div class="g-invest-lonetit">评价 <span>/Profile</span></div>
+                        <ul id="tags_" class="g-invest-lst3">
+                            <li onclick="setTag(this);">人脉大咖</li>
+                            <li onclick="setTag(this);">专业人士</li>
+                            <li onclick="setTag(this);">金融专家</li>
+                            <li onclick="setTag(this);">FA达人</li>
                         </ul>
                     </div>
-                </div>
-                <div class="g-invest-two1">
-                    <div class="g-invest-twl">描述评论：</div>
-                    <div class="g-invest-twr">
-                        <textarea name="" cols="" rows="" class="g-invest-twrtex"></textarea>
-                        <div class="g-invest-twr-fb"><a href="#">发表评论</a></div>
+                    <div class="g-invest-two">
+                        <div class="g-invest-twl">星级评价：</div>
+                        <div class="g-invest-twr">
+                            <ul>
+                                <li id="li1" onclick="setStar(1);"><img src="images/star-m.png"/></li>
+                                <li id="li2" onclick="setStar(2);"><img src="images/star-m.png"/></li>
+                                <li id="li3" onclick="setStar(3);"><img src="images/star-m.png"/></li>
+                                <li id="li4" onclick="setStar(4);"><img src="images/star-m.png"/></li>
+                                <li id="li5" onclick="setStar(5);"><img src="images/star-m.png"/></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="g-invest-two2">20条评论</div>
-
+                    <div class="g-invest-two1">
+                        <div class="g-invest-twl">评论：</div>
+                        <div class="g-invest-twr">
+                            <textarea name="content" class="g-invest-twrtex"></textarea>
+                            <div class="g-invest-twr-fb"><a onclick="saveComment();">发表评论</a></div>
+                        </div>
+                    </div>
+                </form>
+                <%--<div class="g-invest-two2">20条评论</div>
                 <div class="g-invest-tre">
                     <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
                     <div class="g-invest-tre-r">
@@ -94,30 +100,8 @@
                         <div class="g-invest-tre-rcnt"><a href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a>
                         </div>
                     </div>
-                </div>
-                <div class="g-invest-tre">
-                    <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
-                    <div class="g-invest-tre-r">
-                        <div class="g-invest-tre-rt"><span class="on1">宋仲基</span><span class="on2">今天 17:09</span></div>
-                        <div class="g-invest-tre-rcnt"><a href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="g-invest-tre">
-                    <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
-                    <div class="g-invest-tre-r">
-                        <div class="g-invest-tre-rt"><span class="on1">宋仲基</span><span class="on2">今天 17:09</span></div>
-                        <div class="g-invest-tre-rcnt"><a href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="i-Page"><a href="#" class="on1">&nbsp;</a><!--<a href="#" class="on4">&nbsp;</a>当前位置及鼠标经过箭头效果--> <a
-                        href="#">1</a> <a href="#" class="on">2</a> <a href="#">3</a> <a href="#" class="on3">...</a> <a
-                        href="#" class="on2">&nbsp;</a>
-                    <!--<a href="#" class="on5">&nbsp;</a>--></div>
+                </div>--%>
             </div>
-
         </div>
         <!--*************************right star************************-->
         <div class="g-invest-r">
@@ -142,6 +126,38 @@
 <jsp:include page="../pub/foot.jsp" flush="true"/>
 </body>
 <script>
-
+    function setTag() {
+        if ($(this).attr("class") == "on") {
+            $(this).removeAttr("class");
+        } else {
+            $(this).attr("class", "on");
+        }
+    }
+    function setStar(v) {
+        for (var i = 1; i <= 5; i++) {
+            if (i <= v)
+                $("#li" + i).html("<img src='images/star-n.png'/>");
+            else
+                $("#li" + i).html("<img src='images/star-m.png'/>");
+        }
+        $("#star").val(v);
+    }
+    function saveComment() {
+        $.ajax({
+            type: 'POST',
+            url: '/comment/save',
+            cache: false,
+            processData: false,
+            data: $('#commentForm').serialize(),
+            dataType: 'json',
+            success: function (result) {
+                if (result.code < 0) {
+                    alert(result.message);
+                    return;
+                }
+                alert("评论成功");
+            }
+        });
+    }
 </script>
 </html>

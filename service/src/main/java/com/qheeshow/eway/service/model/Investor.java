@@ -37,6 +37,26 @@ public class Investor {
 
     private String style;
 
+    private String tags;
+
+    private String summary;
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     private Integer preferenceId;
 
     private String preference;
