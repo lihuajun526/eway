@@ -7,6 +7,16 @@ public class Message extends BaseModel {
 
     private Integer toUserid;
     private String content;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     private Integer status;//状态:1新消息,2已读
 
     public Integer getToUserid() {
