@@ -3,7 +3,6 @@
 <%@ page import="java.util.Calendar" %>
 <%@ page import="com.qheeshow.eway.service.model.Xwcmclassinfo" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -39,7 +38,6 @@
 <div class="pro-body">
     <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
     <input type="file" id="bpFile" name="bpFile" style="display: none;"/>
-
     <form id="baseForm">
         <input type="hidden" id="lastOne" name="lastOne" value="<%=curYear-1 %>:500万以下#100万以下#1000万以下#500万以下"/>
         <input type="hidden" id="lastTwo" name="lastTwo" value="<%=curYear-2 %>:500万以下#100万以下#1000万以下#500万以下"/>
@@ -59,7 +57,6 @@
         <input type="hidden" id="stageName" name="stageName" value="<%=isNull?"":project.getStageName()%>"/>
         <input type="hidden" name="type" value="3"/>
         <input type="hidden" id="tags" name="tags" value=""/>
-
         <div class="pro-wap">
             <div class="pro-t">项目信息(1/3)</div>
             <div class="pro-one">
@@ -406,7 +403,7 @@
                         <script>
                             function fixFinancingLimit(obj, id, name) {
                                 $(obj).parent().children('li').each(function () {
-                                    $(this).removeClass("on")
+                                    $(this).removeClass("on");
                                 });
                                 $(obj).attr("class", "on");
                                 $("#financingLimit").val(id);
@@ -442,7 +439,7 @@
                         <script>
                             function fixIndustry(obj, id, name) {
                                 $(obj).parent().children('li').each(function () {
-                                    $(this).removeClass("on")
+                                    $(this).removeClass("on");
                                 });
                                 $(obj).attr("class", "on");
                                 $("#industry").val(id);
@@ -477,7 +474,7 @@
                         <script>
                             function fixArea(obj, id, name) {
                                 $(obj).parent().children('li').each(function () {
-                                    $(this).removeClass("on")
+                                    $(this).removeClass("on");
                                 });
                                 $(obj).attr("class", "on");
                                 $("#area").val(id);
@@ -512,7 +509,7 @@
                         <script>
                             function fixStage(obj, id, name) {
                                 $(obj).parent().children('li').each(function () {
-                                    $(this).removeClass("on")
+                                    $(this).removeClass("on");
                                 });
                                 $(obj).attr("class", "on");
                                 $("#stage").val(id);

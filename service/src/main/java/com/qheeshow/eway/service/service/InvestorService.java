@@ -4,16 +4,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.qheeshow.eway.service.model.InvestorWithBLOBs;
+import com.qheeshow.eway.service.model.Investor;
 
 public interface InvestorService {
 
-	public void submit(InvestorWithBLOBs investor);
+	public void save(Investor investor);
 	
-	public void update(InvestorWithBLOBs investor);
+	public void update(Investor investor);
 	
-	public InvestorWithBLOBs detail(Integer id);
+	public Investor detail(Integer id);
 	
-	public List<InvestorWithBLOBs> list(InvestorWithBLOBs investor,HttpSession session);
+	public List<Investor> list(Investor investor,HttpSession session);
+
+	Investor get(Integer id);
 	
 }
