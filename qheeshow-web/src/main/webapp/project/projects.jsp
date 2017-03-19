@@ -30,7 +30,7 @@
 %>
 <div class="i-Page">
     <%
-        int len = 6;
+        int len = 200;
         int index = (Integer) request.getAttribute("pageIndex");
         int start = index < len ? 1 : index - (len - 2);
         int pageCount = (Integer) request.getAttribute("pageCount");

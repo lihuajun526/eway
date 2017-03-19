@@ -4,21 +4,22 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.qheeshow.eway.common.util.Config;
-import com.qheeshow.eway.service.model.Investor;
-import com.qheeshow.eway.service.model.User;
-import com.qheeshow.eway.service.model.Xwcmclassinfo;
-import com.qheeshow.eway.service.service.XwcmclassinfoService;
-import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.qheeshow.eway.common.web.HaResponse;
-import com.qheeshow.eway.service.service.InvestorService;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.qheeshow.eway.common.page.PageInfo;
+import com.qheeshow.eway.common.util.Config;
+import com.qheeshow.eway.common.web.HaResponse;
+import com.qheeshow.eway.service.model.Investor;
+import com.qheeshow.eway.service.model.User;
+import com.qheeshow.eway.service.model.Xwcmclassinfo;
+import com.qheeshow.eway.service.service.InvestorService;
+import com.qheeshow.eway.service.service.XwcmclassinfoService;
+import com.qheeshow.eway.web.base.Result;
 
 @Controller
 @RequestMapping("/investor")
@@ -123,6 +124,13 @@ public class InvestorController {
     public HaResponse list(Investor investor, HttpSession session) {
         List<Investor> investors = investorService.list(investor, session);
         return HaResponse.sussess(investors);
+    }
+    
+    @RequestMapping(value = "/listAll")
+    @ResponseBody
+    public HaResponse listAll(Investor investor,PageInfo pageInfo) {
+    	List<Investor> investors = investorService.listAll(investor,pageInfo);
+    	return HaResponse.sussess(investors).page(pageInfo);
     }
 
 }

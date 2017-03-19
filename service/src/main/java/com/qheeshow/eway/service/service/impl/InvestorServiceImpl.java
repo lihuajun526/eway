@@ -1,14 +1,19 @@
 package com.qheeshow.eway.service.service.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.qheeshow.eway.common.page.PageInfo;
 import com.qheeshow.eway.service.dao.InvestorMapper;
 import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.InvestorExample;
 import com.qheeshow.eway.service.service.InvestorService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Service
 public class InvestorServiceImpl implements InvestorService {
@@ -58,6 +63,32 @@ public class InvestorServiceImpl implements InvestorService {
         example.setOrderByClause("create_time");
         List<Investor> investors = investorMapper.selectByExample(example);
         return investors;
+    }
+    
+    @Override
+    public List<Investor> listAll(Investor investor,PageInfo pageInfo) {
+    	InvestorExample example = new InvestorExample();
+    	InvestorExample.Criteria criteria = example.createCriteria();
+    	criteria.andStatusIn(new ArrayList<Integer>(Arrays.asList(2,3)));
+    	if(investor.getStageId() != null){
+    		criteria.andStageIdLike("%#" + investor.getStageId() + "#%");
+    	}
+    	if(investor.getCityId() != null){
+        	criteria.andCityIdLike("%#" + investor.getCityId() + "#%");
+    	}
+	    if(investor.getIndustryId() != null){
+	    	criteria.andIndustryIdLike("%#" + investor.getIndustryId() + "#%");
+	    }
+	    if(investor.getTrueName() != null){
+	    	criteria.andTrueNameLike("%" + investor.getTrueName() + "%");
+	    }
+//	    if(investor.getIdentityId() != null){
+//	    	criteria.andIdentityIdLike("%#" + investor.getIdentityId() + "#%");
+//	    }
+    	example.setOrderByClause("create_time");
+    	example.setPageInfo(pageInfo);
+    	List<Investor> investors = investorMapper.selectByExample(example);
+    	return investors;
     }
 
     @Override public Investor get(Integer id) {

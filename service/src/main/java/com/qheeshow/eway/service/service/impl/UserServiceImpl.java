@@ -2,16 +2,15 @@ package com.qheeshow.eway.service.service.impl;
 
 import java.util.List;
 
-import com.qheeshow.eway.common.exception.CryptoException;
-import com.qheeshow.eway.common.util.AESCryptoUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qheeshow.eway.common.exception.CryptoException;
+import com.qheeshow.eway.common.util.AESCryptoUtil;
 import com.qheeshow.eway.common.util.MD5Util;
 import com.qheeshow.eway.service.dao.UserMapper;
-import com.qheeshow.eway.service.model.MailBean;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.model.UserExample;
 import com.qheeshow.eway.service.service.MailService;
@@ -33,7 +32,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isRegist(User user) {
         UserExample example = new UserExample();
-        example.or().andMobileEqualTo(user.getMobile());
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andMobileEqualTo(user.getMobile());
+        if(user.getOpenid() != null){
+        	//判断该手机号是否已经绑定微信账号
+        	criteria.andOpenidIsNotNull();
+        }
         List<User> users = userMapper.selectByExample(example);
         if (users.size() > 0) {
             return true;
@@ -69,5 +73,9 @@ public class UserServiceImpl implements UserService {
         List<User> users = userMapper.selectByExample(example);
         return users;
     }
-
+    
+    @Override
+    public void update(User user) {
+    	userMapper.updateByPrimaryKeySelective(user);
+    }
 }

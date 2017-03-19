@@ -129,3 +129,10 @@ CREATE TABLE `t_investor` (
   `create_time` datetime DEFAULT NULL COMMENT '提交时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='投资人审核信息';
+
+-- 2017/3/19
+ALTER TABLE `eway`.`t_user`   
+  CHANGE `openid` `openid` VARCHAR(32) NULL   COMMENT '微信openid';
+ALTER TABLE `eway`.`t_investor`   
+  ADD COLUMN `identity_id` INT(11) NULL   COMMENT '人物身份id' AFTER `update_time`,
+  ADD COLUMN `identity_name` VARCHAR(32) NULL   COMMENT '人物身份名称' AFTER `identity_id`;

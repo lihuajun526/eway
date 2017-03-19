@@ -27,6 +27,7 @@
                     <li class="on2"><a href="#">找回密码</a></li>
                 </ul>
                 <div class="g-pw-btnw"><input type="button" value="登  录" class="g-lgin-btn" onclick="login();"></div>
+          		<div class="g-pw-weixin"><a onclick="weChatLogin()">微信快速登录</a></div>
             </div>
         </div>
     </form>
@@ -61,6 +62,18 @@
         if (!password.length)
             return false;
         return true;
+    }
+    function weChatLogin(){
+//     	var webAppId = "wx268fcfe924dcb171";
+//     	var resturUrl = "http://localhost:8080/weChat/getUserMessage.html";
+    	var webAppId = "wx268fcfe924dcb171";
+    	var resturUrl = "https://www.zhihu.com";
+    	var href = "https://open.weixin.qq.com/connect/qrconnect?appid=" + webAppId;
+    	href += "&redirect_uri=" + encodeURIComponent(resturUrl);
+    	href += "&response_type=code" +
+    			"&scope=snsapi_login" +
+    			"#wechat_redirect";
+    	location.href = href;
     }
 </script>
 </html>

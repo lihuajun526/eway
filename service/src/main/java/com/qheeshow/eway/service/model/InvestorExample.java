@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.qheeshow.eway.common.page.PageInfo;
+
 public class InvestorExample {
     protected String orderByClause;
 
@@ -2408,4 +2410,15 @@ public class InvestorExample {
             this(condition, value, secondValue, null);
         }
     }
+    
+
+    private PageInfo pageInfo;
+
+	public PageInfo getPageInfo() {
+		return pageInfo;
+	}
+
+	public void setPageInfo(PageInfo pageInfo) {
+		this.pageInfo = pageInfo;
+	}
 }
