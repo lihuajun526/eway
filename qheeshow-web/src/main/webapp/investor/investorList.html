@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="jquery/page.css"/>
     <script type="text/javascript" src="jquery/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="jquery/jquery.page.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
 </head>
 <body>
 <!--*************************头部************************-->
@@ -232,24 +233,28 @@ function getList(index){
         	for(var i = 0;i < result.length;i ++){
         		html += 
         			'<div class="g-people-lst">' +
-		                '<span><img src="/images/bg-tzr-2.png" width="240" height="181"/></span>' +
+		                '<span><img src="'+result[i].photo+'" width="240" height="181"/></span>' +
 		                '<h1>'+result[i].trueName+'</h1>' +
 		                '<h5>'+result[i].companyName+' | '+result[i].companyRank+'</h5>' +
 		                '<ul class="g-people-lst-ul">' +
 		                   '<li class="on1">关注领域：</li>' +
 		                   '<li class="on2">';
-		                   var industryName = JSON.parse(result[i].industryName)
+		                   var industryName = result[i].industryName.split("#");
 		                   for(var j = 0;j < industryName.length;j ++){
-		                	   html += '<span>'+industryName[j]+'</span>';
+		                	   if(industryName[j] != ""){
+			                	   html += '<span>'+industryName[j]+'</span>';
+		                	   }
 		                   }
 		        html +=   '</li>' +
 		                '</ul>' +
 		                '<ul class="g-people-lst-ul">' +
 		                   '<li class="on1">偏好投资：</li>' +
 		                   '<li class="on2">';
-			                var stageName = JSON.parse(result[i].stageName)
+			                var stageName = result[i].stageName.split("#");
 			                for(var j = 0;j < stageName.length;j ++){
-			             	   html += '<span>'+stageName[j]+'</span>';
+			                	if(stageName[j] != ""){
+					            	html += '<span>'+stageName[j]+'</span>';
+			                	}
 			                }
 			     html +=   '</li> ' +
 		                '</ul>' +

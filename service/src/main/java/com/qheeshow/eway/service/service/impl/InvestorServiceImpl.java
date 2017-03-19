@@ -71,19 +71,19 @@ public class InvestorServiceImpl implements InvestorService {
     	InvestorExample.Criteria criteria = example.createCriteria();
     	criteria.andStatusIn(new ArrayList<Integer>(Arrays.asList(2,3)));
     	if(investor.getStageId() != null){
-    		criteria.andStageIdLike("%" + investor.getStageId() + "%");
+    		criteria.andStageIdLike("%#" + investor.getStageId() + "#%");
     	}
     	if(investor.getCityId() != null){
-        	criteria.andCityIdLike("%" + investor.getCityId() + "%");
+        	criteria.andCityIdLike("%#" + investor.getCityId() + "#%");
     	}
 	    if(investor.getIndustryId() != null){
-	    	criteria.andIndustryIdLike("%" + investor.getIndustryId() + "%");
+	    	criteria.andIndustryIdLike("%#" + investor.getIndustryId() + "#%");
 	    }
 	    if(investor.getTrueName() != null){
 	    	criteria.andTrueNameLike("%" + investor.getTrueName() + "%");
 	    }
 //	    if(investor.getIdentityId() != null){
-//	    	criteria.andIdentityIdLike(investor.getIdentityId());
+//	    	criteria.andIdentityIdLike("%#" + investor.getIdentityId() + "#%");
 //	    }
     	example.setOrderByClause("create_time");
     	example.setPageInfo(pageInfo);
