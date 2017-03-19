@@ -2,7 +2,7 @@ package com.qheeshow.eway.service.model;
 
 import java.util.Date;
 
-public class Message extends BaseModel{
+public class Message {
     private Integer id;
 
     private Integer toUserid;
