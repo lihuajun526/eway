@@ -6,8 +6,8 @@
 %>
 <div class="g-mg-rwap">
     <ul class="g-mg-rtitlst">
-        <li onclick="setType(1)" class="on"><a>平台推荐</a></li>
-        <li onclick="setType(2)" class="on1"><a>关注的项目</a></li>
+        <li onclick="setType(1)" class="on1"><a>平台推荐</a></li>
+        <li onclick="setType(2)" class="on"><a>关注的项目</a></li>
         <li onclick="setType(3)" class="on1"><a>金融顾问</a></li>
     </ul>
     <%
@@ -21,7 +21,7 @@
             </a></div>
             <div class="g-mg-rtit3"><a><%=project.getDemand()%>
             </a></div>
-            <div class="g-mg-rtit4"><a onclick="unSuggest(<%=project.getId()%>);">不感兴趣</a></div>
+            <div class="g-mg-rtit4"><a onclick="unFollow(<%=project.getId()%>);">取消关注</a></div>
         </div>
     </div>
     <%
@@ -54,15 +54,15 @@
     </div>
 </div>
 <script>
-    function unSuggest(projectid) {
-        $.get("/center/unsuggest/" + projectid, function (result) {
-            load("/center/project/1/1/<%=index%>");
+    function unFollow(projectid) {
+        $.get("/center/unfollow/" + projectid, function (result) {
+            load("/center/project/2/1/<%=index%>");
         });
     }
     function goto(index) {
         if (index <= 0 || index ><%=pageCount%>)
             return;
-        load("/center/project/1/1/" + index);
+        load("/center/project/2/1/" + index);
     }
     function setType(v) {
         //project/{type}/{pageSize}/{pageIndex}

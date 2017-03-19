@@ -247,8 +247,8 @@
     <include refid="Base_Column_List" />
     from t_message
     where 1=1
-    <if test="to_userid != null" >
-      and to_userid =#{toUserid,jdbcType=INTEGER}
+    <if test="toUserid != null" >
+      and to_userid = #{toUserid,jdbcType=INTEGER}
     </if>
     <if test="status != null" >
       and status =#{status,jdbcType=INTEGER}
@@ -261,7 +261,7 @@
     id
     from t_message
     where 1=1
-    <if test="to_userid != null" >
+    <if test="toUserid != null" >
       and to_userid =#{toUserid,jdbcType=INTEGER}
     </if>
     <if test="status != null" >

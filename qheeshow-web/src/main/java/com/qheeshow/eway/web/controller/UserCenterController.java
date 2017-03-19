@@ -3,11 +3,14 @@ package com.qheeshow.eway.web.controller;
 import com.qheeshow.eway.service.model.*;
 import com.qheeshow.eway.service.service.ProjectFollowService;
 import com.qheeshow.eway.service.service.ProjectService;
+import com.qheeshow.eway.service.service.ProjectSuggestService;
 import com.qheeshow.eway.web.base.BaseController;
+import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -27,6 +30,8 @@ public class UserCenterController extends BaseController {
     private ProjectService projectService;
     @Autowired
     private ProjectFollowService projectFollowService;
+    @Autowired
+    private ProjectSuggestService projectSuggestService;
 
     @RequestMapping("/index")
     public String index() {
@@ -81,5 +86,15 @@ public class UserCenterController extends BaseController {
         return modelAndView;
     }
 
-
+    @RequestMapping("/unsuggest/{projectid}")
+    @ResponseBody
+    public String unSuggest(@PathVariable Integer projectid, HttpSession session) {
+        Result result = new Result();
+        User loginUser = (User) session.getAttribute("loginUser");
+        ProjectSuggest projectSuggest = new ProjectSuggest();
+        projectSuggest.setProjectid(projectid);
+        projectSuggest.setInvestorid(loginUser.getId());
+        projectSuggestService.del(projectSuggest);
+        return result.toString();
+    }
 }

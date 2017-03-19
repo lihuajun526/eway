@@ -9,6 +9,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title><%=Config.get("app.name")%>--个人中心</title>
+    <link rel="stylesheet" href="/images/animate.min.css">
+    <link rel="stylesheet" href="/images/bootstrap.css">
     <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="/images/wt_index.css"/>
     <script src="/jquery/jquery-1.11.1.js"></script>
@@ -37,16 +39,16 @@
             </div>
             <div class="g-mg-ltwo">
                 <ul class="g-mg-ltwolst">
-                    <li onclick="menu(this,'/center/project/mgr/5/1');" class="on">项目管理</li>
+                    <li style="cursor: pointer" onclick="menu(this,'/center/project/1/5/1');" class="on">项目管理</li>
                     <%
                         if (loginUser.getRoleid() == 3) {
                     %>
-                    <li onclick="menu(this,'');">购买的服务</li>
+                    <li style="cursor: pointer" onclick="menu(this,'');">购买的服务</li>
                     <%
                         }
                     %>
-                    <li onclick="menu(this,'/center/message/list/1/1/5');">消息</li>
-                    <li onclick="menu(this,'');">个人设置</li>
+                    <li style="cursor: pointer" onclick="menu(this,'/center/message/list/1/1/5');">消息</li>
+                    <li style="cursor: pointer" onclick="menu(this,'');">个人设置</li>
                 </ul>
             </div>
         </div>
@@ -55,18 +57,18 @@
 </div>
 <jsp:include page="../pub/foot.jsp" flush="true"/>
 <script>
-    function menu(obj) {
+    function menu(obj, url) {
         if ($(obj).attr("class") == "on")
             return;
         $(obj).parent().children('li').each(function () {
             $(this).removeClass("on");
         });
         $(obj).attr("class", "on");
+        load(url);
     }
-    $("#content").load("/center/project/1/1/1");
     function load(url) {
         $("#content").load(url);
     }
-
+    load("/center/project/1/1/1");
 </script>
 </html>
