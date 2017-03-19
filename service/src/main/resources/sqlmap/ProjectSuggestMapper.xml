@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qheeshow.eway.service.dao.MessageMapper" >
-  <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.Message" >
+<mapper namespace="com.qheeshow.eway.service.dao.ProjectSuggestMapper" >
+  <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.ProjectSuggest" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="to_userid" property="toUserid" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="projectid" property="projectid" jdbcType="INTEGER" />
+    <result column="investorid" property="investorid" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -69,16 +67,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, to_userid, title, content, status, create_time, update_time
+    id, projectid, investorid, create_time, update_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.MessageExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectSuggestExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from t_message
+    from t_project_suggest
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,44 +87,36 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from t_message
+    from t_project_suggest
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_message
+    delete from t_project_suggest
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.qheeshow.eway.service.model.MessageExample" >
-    delete from t_message
+  <delete id="deleteByExample" parameterType="com.qheeshow.eway.service.model.ProjectSuggestExample" >
+    delete from t_project_suggest
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.qheeshow.eway.service.model.Message" >
-    insert into t_message (id, to_userid, title, 
-      content, status, create_time, 
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{toUserid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.qheeshow.eway.service.model.ProjectSuggest" >
+    insert into t_project_suggest (id, projectid, investorid, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{projectid,jdbcType=INTEGER}, #{investorid,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Message" >
-    insert into t_message
+  <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.ProjectSuggest" >
+    insert into t_project_suggest
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="toUserid != null" >
-        to_userid,
+      <if test="projectid != null" >
+        projectid,
       </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="content != null" >
-        content,
-      </if>
-      <if test="status != null" >
-        status,
+      <if test="investorid != null" >
+        investorid,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -139,17 +129,11 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="toUserid != null" >
-        #{toUserid,jdbcType=INTEGER},
+      <if test="projectid != null" >
+        #{projectid,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
+      <if test="investorid != null" >
+        #{investorid,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -159,29 +143,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.qheeshow.eway.service.model.MessageExample" resultType="java.lang.Integer" >
-    select count(*) from t_message
+  <select id="countByExample" parameterType="com.qheeshow.eway.service.model.ProjectSuggestExample" resultType="java.lang.Integer" >
+    select count(*) from t_project_suggest
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_message
+    update t_project_suggest
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.toUserid != null" >
-        to_userid = #{record.toUserid,jdbcType=INTEGER},
+      <if test="record.projectid != null" >
+        projectid = #{record.projectid,jdbcType=INTEGER},
       </if>
-      <if test="record.title != null" >
-        title = #{record.title,jdbcType=VARCHAR},
-      </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
+      <if test="record.investorid != null" >
+        investorid = #{record.investorid,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -195,32 +173,24 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_message
+    update t_project_suggest
     set id = #{record.id,jdbcType=INTEGER},
-      to_userid = #{record.toUserid,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
+      projectid = #{record.projectid,jdbcType=INTEGER},
+      investorid = #{record.investorid,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.Message" >
-    update t_message
+  <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.ProjectSuggest" >
+    update t_project_suggest
     <set >
-      <if test="toUserid != null" >
-        to_userid = #{toUserid,jdbcType=INTEGER},
+      <if test="projectid != null" >
+        projectid = #{projectid,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
+      <if test="investorid != null" >
+        investorid = #{investorid,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -231,12 +201,10 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.Message" >
-    update t_message
-    set to_userid = #{toUserid,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.ProjectSuggest" >
+    update t_project_suggest
+    set projectid = #{projectid,jdbcType=INTEGER},
+      investorid = #{investorid,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

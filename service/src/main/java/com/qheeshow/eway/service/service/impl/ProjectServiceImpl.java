@@ -1,8 +1,10 @@
 package com.qheeshow.eway.service.service.impl;
 
+import com.qheeshow.eway.service.dao.ProjectAdviserMapper;
+import com.qheeshow.eway.service.dao.ProjectFollowMapper;
 import com.qheeshow.eway.service.dao.ProjectMapper;
-import com.qheeshow.eway.service.model.Project;
-import com.qheeshow.eway.service.model.ProjectExample;
+import com.qheeshow.eway.service.dao.ProjectSuggestMapper;
+import com.qheeshow.eway.service.model.*;
 import com.qheeshow.eway.service.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,11 +77,47 @@ public class ProjectServiceImpl implements ProjectService {
         return projectMapper.selectByExample(example);
     }
 
-    @Override public List<Project> listByUser(Integer userid) {
+    @Override
+    public List<Project> listByUser(Integer userid) {
         ProjectExample example = new ProjectExample();
         ProjectExample.Criteria criteria = example.createCriteria();
         criteria.andUseridEqualTo(userid);
 
         return projectMapper.selectByExample(example);
+    }
+
+    @Override
+    public Map<String, Object> listSuggest(ProjectSuggest projectSuggest) {
+
+        Map<String, Object> map = new HashMap<>();
+        List<Project> projects = projectMapper.listSuggest(projectSuggest);
+        map.put("projects", projects);
+        map.put("count", projectMapper.listSuggestCount(projectSuggest).size());
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> listSuggestCount(ProjectSuggest projectSuggest) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> listFollow(ProjectFollow projectFollow) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> listFollowCount(ProjectFollow projectFollow) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> listAdviser(ProjectAdviser projectAdviser) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> listAdviserCount(ProjectAdviser projectAdviser) {
+        return null;
     }
 }

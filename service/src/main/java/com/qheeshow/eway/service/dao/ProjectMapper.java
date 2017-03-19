@@ -1,7 +1,6 @@
 package com.qheeshow.eway.service.dao;
 
-import com.qheeshow.eway.service.model.Project;
-import com.qheeshow.eway.service.model.ProjectExample;
+import com.qheeshow.eway.service.model.*;
 
 import java.util.List;
 
@@ -39,4 +38,16 @@ public interface ProjectMapper {
     List<Project> listByCondition(Project project);
 
     List<Project> getCount(Project project);
+
+    List<Project> listSuggest(ProjectSuggest projectSuggest);
+
+    List<Project> listSuggestCount(ProjectSuggest projectSuggest);
+
+    List<Project> listFollow(ProjectFollow projectFollow);
+
+    List<Project> listFollowCount(ProjectFollow projectFollow);
+
+    List<Project> listAdviser(ProjectAdviser projectAdviser);
+
+    List<Project> listAdviserCount(ProjectAdviser projectAdviser);
 }

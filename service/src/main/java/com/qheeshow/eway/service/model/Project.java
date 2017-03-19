@@ -69,6 +69,16 @@ public class Project extends BaseModel{
 
     private String content;
 
+    private Integer forcus;
+
+    public Integer getForcus() {
+        return forcus;
+    }
+
+    public void setForcus(Integer forcus) {
+        this.forcus = forcus;
+    }
+
     public Integer getId() {
         return id;
     }

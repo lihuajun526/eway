@@ -2,7 +2,7 @@ package com.qheeshow.eway.service.model;
 
 import java.util.Date;
 
-public class ProjectFollow {
+public class ProjectFollow extends BaseModel{
     private Integer id;
 
     private Integer userid;

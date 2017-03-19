@@ -1,6 +1,9 @@
 package com.qheeshow.eway.service.service;
 
 import com.qheeshow.eway.service.model.Project;
+import com.qheeshow.eway.service.model.ProjectAdviser;
+import com.qheeshow.eway.service.model.ProjectFollow;
+import com.qheeshow.eway.service.model.ProjectSuggest;
 
 import java.util.List;
 import java.util.Map;
@@ -22,5 +25,17 @@ public interface ProjectService {
     List<Project> search(String keyword);
 
     List<Project> listByUser(Integer userid);
+
+    Map<String, Object> listSuggest(ProjectSuggest projectSuggest);
+
+    Map<String, Object> listSuggestCount(ProjectSuggest projectSuggest);
+
+    Map<String, Object> listFollow(ProjectFollow projectFollow);
+
+    Map<String, Object> listFollowCount(ProjectFollow projectFollow);
+
+    Map<String, Object> listAdviser(ProjectAdviser projectAdviser);
+
+    Map<String, Object> listAdviserCount(ProjectAdviser projectAdviser);
 
 }
