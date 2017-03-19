@@ -17,5 +17,7 @@ public interface UserService {
 	public void changePassword(User user);
     
     public List<User> login(User user) throws CryptoException;
+    
+    public void update(User user);
 
 }

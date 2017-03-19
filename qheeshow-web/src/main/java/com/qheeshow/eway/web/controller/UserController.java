@@ -150,7 +150,26 @@ public class UserController extends BaseController {
             return HaResponse.sussess();
         }
     }
-
+    
+    /**
+     * 
+     * @Title: update
+     * @Description: 更新当前用户个人信息
+     * @author yue
+     * @date 2017年3月19日 下午2:58:07
+     * @param session
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/update")
+    @ResponseBody
+    public HaResponse update(HttpSession session, User user){
+    	User record = (User) session.getAttribute("loginUser");
+    	user.setId(record.getId());
+        userService.update(user);
+    	return HaResponse.sussess();
+    }
+    
     /**
      * @return
      * @Title: reLogin

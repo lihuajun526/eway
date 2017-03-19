@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/images/animate.min.css">   
+    <link rel="stylesheet"  href="/images/bootstrap.css">
+ <!--*************************bootstrap css end************************-->   
+    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="/images/wt_index.css"/>
+    <link rel="stylesheet" href="jquery/page.css"/>
+    <script type="text/javascript" src="jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="jquery/jquery.page.js"></script>
+</head>
+<body>
+<!--*************************头部************************-->
+<div class="g-top">
+   <div class="g-logo"></div>
+   <div class="g-link">
+      <ul>
+        <li class="on"><a href="#">首页</a></li>
+        <li><a href="#">项目</a></li>
+        <li><a href="#">投资人</a></li>
+        <li><a href="#">活动</a></li>
+      </ul>
+   </div>
+   <div class="g-login">
+      <ul>
+         <li class="on3"><a href="#"><img src="/images/wt-top3.png"/></a></li>
+         <li class="on2"><a href="#">创建项目</a></li>
+         <li class="on1"><a href="#">购买服务</a></li>
+      </ul>
+   </div>
+</div>
+<!--*************************banner图************************-->
+<div class="g-banner2"></div>
+<!--*************************main************************-->
+<div class="g-proj">
+<div class="g-conter">
+
+   <ul class="g-proj-sev">
+       <li><input type="text" class="g-proj-ipt" value="输入您要找的好项目"/></li>
+       <li><a onclick="#" class="g-proj-btn"></a></li>
+   </ul>
+   <div class="g-proj-one">
+   
+       <div class="g-proj-onew">
+               <div class="g-proj-onel">所属行业：</div>
+               <div class="g-proj-onec" id="industryAll" onclick="selectAll(this,'industry')">不限</div>
+               <div class="g-proj-oner">
+                  <ul id="industryView">
+                  </ul>
+               </div>
+       </div>
+       <div class="g-proj-onew">
+               <div class="g-proj-onel">所在区域：</div>
+               <div class="g-proj-onec" id="cityAll" onclick="selectAll(this,'city')">不限</div>
+               <div class="g-proj-oner">
+                  <ul id="cityView">
+                  </ul>
+
+               </div>
+       </div>
+       <div class="g-proj-onew">
+               <div class="g-proj-onel">偏好阶段：</div>
+               <div class="g-proj-onec" id="stageAll" onclick="selectAll(this,'stage')">不限</div>
+               <div class="g-proj-oner">
+                  <ul id="stageView">
+                  </ul>
+                  <a href="#" class="g-proj-oner-m">全部</a>
+                  <!--<a href="#" class="g-proj-oner-m2">全部</a> 改变箭头的代码-->
+               </div>
+       </div>
+       <div class="g-proj-onew">
+               <div class="g-proj-onel">人物身份：</div>
+               <div class="g-proj-onec" id="identityAll" onclick="selectAll(this,'identity')">不限</div>
+               <div class="g-proj-oner">
+                  <ul id="identityView">
+                  </ul>
+
+               </div>
+       </div>
+       
+   </div>
+   
+   <div class="g-people" >
+   <div id="bodyList"></div>
+        <div class="clear"></div>
+      <!--<a href="#" class="on5">&nbsp;</a>--></div>
+        <div class="tcdPageCode" style="text-align: center;"></div>
+   </div>
+   
+</div>
+</div>
+
+
+<!--*************************footer************************-->
+
+<div class="g-foot">
+   <div class="g-conter">
+       <div class="g-foot-l">
+          <div class="g-fl-t">
+             <span class="g-fl-tit"></span>
+             <h3>MUX倾力打造的矢量图标管理、交流平台。设计师将图标上传到Iconfont平台，用户可以自定义下载多种格式的icon，平台也可将图标。</h3>
+          </div>
+          <ul class="g-fl-lst">
+            <li><a href="#">服务条款</a></li>
+            <li><a href="#">服务条款</a></li>
+            <li><a href="#">服务条款</a></li>
+            <li><a href="#">服务条款</a></li>
+          </ul>
+          <div class="g-fl-Remarks">服务热线:020-32039118  /   粤ICP备14063324号  /  ©2</div>
+       </div>
+       <div class="g-foot-r">
+          <div class="g-fr-t">友情链接</div>
+          <ul class="g-fr-lst">
+            <li><a href="#">THX</a></li>
+            <li><a href="#">阿里妈妈MUX</a></li>
+            <li><a href="#">钱庄网</a></li>
+            <li><a href="#">网易财经</a></li>
+            <li><a href="#">21财经</a></li>
+            <li><a href="#">虎嗅</a></li>
+            <li><a href="#">36kr</a></li>
+            <li><a href="#">搜狐财经</a></li>
+            <li><a href="#">新浪网</a></li>
+          </ul>
+          <div class="g-fr-ewm">不错过任何一个好产品<span><img src="/images/wt-ewm.png"/></span></div>
+       </div>
+       
+       
+   </div>
+   
+</div>
+</body>
+<script type="text/javascript">
+var sendMessage = {};
+var pageSize = 1;
+$(function(){
+	$.ajax({  
+        url: '/classinfo/getTypeList' ,  
+        success: function (data) {  
+        	var result = data.data;
+        	for(var key in result){
+    			var view = result[key];
+    			var html = "";
+    			if(key == "21" || key == "44" || key == "20" || key == "61"){
+            		if(key == "21"){
+            			for(var i = 0;i < view.length;i ++){
+            				html += '<li onclick="changeShow(this,\'city\')" id="'+view[i].classinfoid+'"><a>'+view[i].cname+'</a></li>'
+            			}
+            			$("#cityView").html(html);
+            		}else if(key == "44"){
+            			for(var i = 0;i < view.length;i ++){
+            				html += '<li onclick="changeShow(this,\'stage\')" id="'+view[i].classinfoid+'"><a>'+view[i].cname+'</a></li>'
+            			}
+            			$("#stageView").html(html);
+            		}else if(key == "20"){
+            			for(var i = 0;i < view.length;i ++){
+            				html += '<li onclick="changeShow(this,\'industry\')" id="'+view[i].classinfoid+'"><a>'+view[i].cname+'</a></li>'
+            			}
+            			$("#industryView").html(html);
+            		}else if(key == "61"){
+            			for(var i = 0;i < view.length;i ++){
+            				html += '<li onclick="changeShow(this,\'identity\')" id="'+view[i].classinfoid+'"><a>'+view[i].cname+'</a></li>'
+            			}
+            			$("#identityView").html(html);
+            		}
+    			}
+        	}
+        }
+   });
+	addPage();
+})
+//点击选中与取消切换
+function changeShow(view,type){
+	$(view).parent().find(".on").removeClass("on");
+	$(view).addClass("on");
+	sendMessage[type+"Id"] = $(view).attr("id");
+	$("#"+type+"All").addClass("g-proj-onec-a");
+	$("#"+type+"All").removeClass("g-proj-onec");
+	addPage();
+}
+function selectAll(view,type){
+	$(view).addClass("g-proj-onec");
+	$(view).removeClass("g-proj-onec-a");
+	$("#"+type+"View").find(".on").removeClass("on");
+	sendMessage[type+"Id"] = null;
+	addPage();
+}
+function addPage(){
+	sendMessage.currentPage = 1;
+	sendMessage.pageSize = 0;
+	$.ajax({  
+        url: '/investor/listAll' ,  
+        data:sendMessage,
+        success: function (data) {  
+        	if(data.totalCount==0){
+				$('#bodyList').html("暂无记录");
+				$(".tcdPageCode").hide();
+			}else{
+				var pageCount;
+				pageCount = Math.ceil(data.totalCount/pageSize);
+				getList(1);
+				if(data.totalCount > pageSize){
+					$(".tcdPageCode").show();
+				}else{
+					$(".tcdPageCode").hide();
+				}
+				loadPage(pageCount);
+			}
+        }
+	});
+}
+function loadPage(pageCount){
+    $(".tcdPageCode").createPage({
+		pageCount:pageCount,
+		current:1,
+		backFn:function(p){
+			getList(p);
+		}
+	});
+}
+function getList(index){
+	sendMessage.currentPage = index;
+	sendMessage.pageSize = pageSize;
+	$.ajax({  
+        url: '/investor/listAll' ,  
+        data:sendMessage,
+        success: function (data) {  
+        	var result = data.data;
+        	var html = "";
+        	for(var i = 0;i < result.length;i ++){
+        		html += 
+        			'<div class="g-people-lst">' +
+		                '<span><img src="/images/bg-tzr-2.png" width="240" height="181"/></span>' +
+		                '<h1>'+result[i].trueName+'</h1>' +
+		                '<h5>'+result[i].companyName+' | '+result[i].companyRank+'</h5>' +
+		                '<ul class="g-people-lst-ul">' +
+		                   '<li class="on1">关注领域：</li>' +
+		                   '<li class="on2">';
+		                   var industryName = JSON.parse(result[i].industryName)
+		                   for(var j = 0;j < industryName.length;j ++){
+		                	   html += '<span>'+industryName[j]+'</span>';
+		                   }
+		        html +=   '</li>' +
+		                '</ul>' +
+		                '<ul class="g-people-lst-ul">' +
+		                   '<li class="on1">偏好投资：</li>' +
+		                   '<li class="on2">';
+			                var stageName = JSON.parse(result[i].stageName)
+			                for(var j = 0;j < stageName.length;j ++){
+			             	   html += '<span>'+stageName[j]+'</span>';
+			                }
+			     html +=   '</li> ' +
+		                '</ul>' +
+		                '<ul class="g-people-lst-ul">' +
+		                   '<li class="on1">个人介绍：</li>' +
+		                   '<li class="on2">'+result[i].personalProfile+'</li>' +
+		                '</ul>' +
+		                '<div class="g-people-lst-btn">' +
+		                   '<a href="#">沟通量(34)</a>' +
+		                   '<a href="#">综合评分(4.5星)</a>' +
+		                '</div>' +
+		          '</div>';
+        	}
+        	$("#bodyList").html(html);
+        }
+	});
+}
+</script>
+</html>

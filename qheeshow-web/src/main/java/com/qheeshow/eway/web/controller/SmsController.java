@@ -29,12 +29,15 @@ public class SmsController extends BaseController {
 
     @RequestMapping(value = "/get/{phone}", method = RequestMethod.GET)
     @ResponseBody
-    public String get(@PathVariable String phone, String type, HttpServletRequest request) {
+    public String get(@PathVariable String phone, String type,String openid, HttpServletRequest request) {
         User user = new User();
         user.setMobile(phone);
+        if(openid != null){
+            user.setOpenid(openid);
+        }
         Result<Boolean> result = new Result<>();
         if ("regist".equals(type) && userService.isRegist(user)) {
-            result.setMessage("该手机号已被注册");
+            result.setMessage("该手机号已被使用");
             return result.toString();
         }
         result.set("发送成功", true);

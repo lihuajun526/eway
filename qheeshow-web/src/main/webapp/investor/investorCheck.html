@@ -288,7 +288,7 @@ var sendMessage = {};	//要提交的信息
 var imgType = "";	//图片用处
 $(function(){
 	$.ajax({  
-        url: '/web/classinfo/getTypeList' ,  
+        url: '/classinfo/getTypeList' ,  
         success: function (data) {  
         	var result = data.data;
         	for(var key in result){
