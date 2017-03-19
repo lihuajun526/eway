@@ -792,7 +792,7 @@
         </if>
     </select>
 
-    <select id="listSuggest" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Project">
+    <select id="listSuggest" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectSuggest">
     select
     tb_a.id, tb_a.title,tb_a.demand
     FROM t_project tb_a INNER JOIN t_project_suggest tb_b ON tb_a.id = tb_b.projectid
@@ -801,8 +801,7 @@
     ORDER by tb_b.create_time DESC
     limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
-
-  <select id="listSuggestCount" resultMap="BaseResultMap"
+    <select id="listSuggestCount" resultMap="BaseResultMap"
             parameterType="com.qheeshow.eway.service.model.ProjectSuggest">
     select
     tb_a.id
@@ -810,5 +809,40 @@
     where
     tb_b.investorid = #{investorid,jdbcType=INTEGER}
   </select>
+
+    <select id="listFollow" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectFollow">
+        select
+        tb_a.id, tb_a.title,tb_a.demand
+        FROM t_project tb_a INNER JOIN t_project_follow tb_b ON tb_a.id = tb_b.projectid
+        where
+        tb_b.userid = #{userid,jdbcType=INTEGER}
+        ORDER by tb_b.create_time DESC
+        limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+    <select id="listFollowCount" resultMap="BaseResultMap"
+            parameterType="com.qheeshow.eway.service.model.ProjectFollow">
+        select
+        tb_a.id
+        FROM t_project tb_a INNER JOIN t_project_follow tb_b ON tb_a.id = tb_b.projectid
+        where
+        tb_b.userid = #{userid,jdbcType=INTEGER}
+    </select>
+    <select id="listAdviser" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectAdviser">
+        select
+        tb_a.id, tb_a.title,tb_a.demand
+        FROM t_project tb_a INNER JOIN t_project_adviser tb_b ON tb_a.id = tb_b.projectid
+        where
+        tb_b.userid = #{userid,jdbcType=INTEGER}
+        ORDER by tb_b.create_time DESC
+        limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+    <select id="listAdviserCount" resultMap="BaseResultMap"
+            parameterType="com.qheeshow.eway.service.model.ProjectAdviser">
+        select
+        tb_a.id
+        FROM t_project tb_a INNER JOIN t_project_adviser tb_b ON tb_a.id = tb_b.projectid
+        where
+        tb_b.userid = #{userid,jdbcType=INTEGER}
+    </select>
 
 </mapper>

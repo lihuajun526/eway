@@ -28,14 +28,8 @@ public interface ProjectService {
 
     Map<String, Object> listSuggest(ProjectSuggest projectSuggest);
 
-    Map<String, Object> listSuggestCount(ProjectSuggest projectSuggest);
-
     Map<String, Object> listFollow(ProjectFollow projectFollow);
 
-    Map<String, Object> listFollowCount(ProjectFollow projectFollow);
-
     Map<String, Object> listAdviser(ProjectAdviser projectAdviser);
-
-    Map<String, Object> listAdviserCount(ProjectAdviser projectAdviser);
 
 }

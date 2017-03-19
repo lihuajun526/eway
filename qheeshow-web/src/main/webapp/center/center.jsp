@@ -21,8 +21,8 @@
             <div class="g-mg-lone">
                 <ul class="g-mg-lonelst">
                     <li class="on1">
-                        <img src="images/bg-tzr.png" width="90" height="90"/>
-                        <a href="#" class="camera"><img src="images/wt-icon14.png" width="21" height="21"/></a>
+                        <img src="/images/bg-tzr.png" width="90" height="90"/>
+                        <a href="#" class="camera"><img src="/images/wt-icon14.png" width="21" height="21"/></a>
                     </li>
                     <li class="on2"><%=loginUser.getName()%>
                     </li>

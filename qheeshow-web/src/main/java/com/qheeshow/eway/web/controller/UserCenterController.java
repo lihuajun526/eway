@@ -46,7 +46,7 @@ public class UserCenterController extends BaseController {
                 project.setForcus(projectFollowService.list(project.getId()).size());
             }
         } else {//投资人
-            modelAndView.setViewName("center/investor_project_list");
+            modelAndView.setViewName("center/investor_project_" + type + "_list");
             Integer count = 0;
             Map<String, Object> map = new HashMap<>();
             if (type.intValue() == 1) {//平台推荐的项目
@@ -72,6 +72,7 @@ public class UserCenterController extends BaseController {
                 projects = (List<Project>) map.get("projects");
             }
             count = (Integer) map.get("count");
+            modelAndView.addObject("type", type);
             modelAndView.addObject("pageSize", pageSize);
             modelAndView.addObject("pageIndex", pageIndex);
             modelAndView.addObject("pageCount", count % pageSize == 0 ? count / pageSize : (count / pageSize + 1));
@@ -79,4 +80,6 @@ public class UserCenterController extends BaseController {
         modelAndView.addObject("projects", projects == null ? new ArrayList<>() : projects);
         return modelAndView;
     }
+
+
 }

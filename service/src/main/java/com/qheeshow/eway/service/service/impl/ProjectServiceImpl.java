@@ -1,9 +1,6 @@
 package com.qheeshow.eway.service.service.impl;
 
-import com.qheeshow.eway.service.dao.ProjectAdviserMapper;
-import com.qheeshow.eway.service.dao.ProjectFollowMapper;
 import com.qheeshow.eway.service.dao.ProjectMapper;
-import com.qheeshow.eway.service.dao.ProjectSuggestMapper;
 import com.qheeshow.eway.service.model.*;
 import com.qheeshow.eway.service.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +85,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Map<String, Object> listSuggest(ProjectSuggest projectSuggest) {
-
         Map<String, Object> map = new HashMap<>();
         List<Project> projects = projectMapper.listSuggest(projectSuggest);
         map.put("projects", projects);
@@ -97,27 +93,21 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Map<String, Object> listSuggestCount(ProjectSuggest projectSuggest) {
-        return null;
-    }
-
-    @Override
     public Map<String, Object> listFollow(ProjectFollow projectFollow) {
-        return null;
-    }
-
-    @Override
-    public Map<String, Object> listFollowCount(ProjectFollow projectFollow) {
-        return null;
+        Map<String, Object> map = new HashMap<>();
+        List<Project> projects = projectMapper.listFollow(projectFollow);
+        map.put("projects", projects);
+        map.put("count", projectMapper.listFollowCount(projectFollow).size());
+        return map;
     }
 
     @Override
     public Map<String, Object> listAdviser(ProjectAdviser projectAdviser) {
-        return null;
+        Map<String, Object> map = new HashMap<>();
+        List<Project> projects = projectMapper.listAdviser(projectAdviser);
+        map.put("projects", projects);
+        map.put("count", projectMapper.listAdviserCount(projectAdviser).size());
+        return map;
     }
 
-    @Override
-    public Map<String, Object> listAdviserCount(ProjectAdviser projectAdviser) {
-        return null;
-    }
 }

@@ -26,7 +26,8 @@ public class ProjectFollowServiceImpl implements ProjectFollowService {
     @Autowired
     private InvestorMapper investorMapper;
 
-    @Override public void follow(ProjectFollow projectFollow) throws CommonException {
+    @Override
+    public void follow(ProjectFollow projectFollow) throws CommonException {
 
         if (this.isFollow(projectFollow))
             throw new CommonException(ExceptionTypeEnum.Project_Follow_Exist_ERROR);
@@ -34,7 +35,8 @@ public class ProjectFollowServiceImpl implements ProjectFollowService {
         projectFollowMapper.insert(projectFollow);
     }
 
-    @Override public void unFollow(ProjectFollow projectFollow) {
+    @Override
+    public void unFollow(ProjectFollow projectFollow) {
         ProjectFollowExample example = new ProjectFollowExample();
         ProjectFollowExample.Criteria criteria = example.createCriteria();
         criteria.andUseridEqualTo(projectFollow.getUserid());
@@ -42,7 +44,8 @@ public class ProjectFollowServiceImpl implements ProjectFollowService {
         projectFollowMapper.deleteByExample(example);
     }
 
-    @Override public boolean isFollow(ProjectFollow projectFollow) {
+    @Override
+    public boolean isFollow(ProjectFollow projectFollow) {
         ProjectFollowExample example = new ProjectFollowExample();
         ProjectFollowExample.Criteria criteria = example.createCriteria();
         criteria.andUseridEqualTo(projectFollow.getUserid());
@@ -53,7 +56,8 @@ public class ProjectFollowServiceImpl implements ProjectFollowService {
         return false;
     }
 
-    @Override public List<Investor> list(Integer projectid) {
+    @Override
+    public List<Investor> list(Integer projectid) {
         ProjectFollowExample example = new ProjectFollowExample();
         ProjectFollowExample.Criteria criteria = example.createCriteria();
         criteria.andProjectidEqualTo(projectid);
@@ -62,6 +66,8 @@ public class ProjectFollowServiceImpl implements ProjectFollowService {
         for (ProjectFollow projectFollow : list) {
             ids.add(projectFollow.getUserid());
         }
+        if (ids.size() == 0)
+            return new ArrayList<Investor>();
         InvestorExample investorExample = new InvestorExample();
         InvestorExample.Criteria criteria1 = investorExample.createCriteria();
         criteria1.andUseridIn(ids);
