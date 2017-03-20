@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="/images/wt_index.css"/>
     <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="/js/util.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
@@ -73,7 +74,8 @@
     	href += "&response_type=code" +
     			"&scope=snsapi_login" +
     			"#wechat_redirect";
-    	location.href = href;
+//     	location.href = href;
+    	window.open(href, "newwindow", "height=550, width=600, top=200, left=400, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no");
     }
 </script>
 </html>
