@@ -1,16 +1,30 @@
 package com.qheeshow.eway.service.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
-/**
- * Created by lihuajun on 17-2-8.
- */
-public class OrderDetail extends BaseModel {
+public class OrderDetail {
+    private Integer id;
 
-    private Integer orderid;//订单id
-    private Integer goodsid;//商品id
-    private BigDecimal price;//商品价格
-    private Integer count;//数量
+    private Integer orderid;
+
+    private Integer goodsid;
+
+    private Integer count;
+
+    private BigDecimal price;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getOrderid() {
         return orderid;
@@ -42,5 +56,21 @@ public class OrderDetail extends BaseModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

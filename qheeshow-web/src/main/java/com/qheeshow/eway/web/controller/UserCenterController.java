@@ -1,9 +1,7 @@
 package com.qheeshow.eway.web.controller;
 
 import com.qheeshow.eway.service.model.*;
-import com.qheeshow.eway.service.service.ProjectFollowService;
-import com.qheeshow.eway.service.service.ProjectService;
-import com.qheeshow.eway.service.service.ProjectSuggestService;
+import com.qheeshow.eway.service.service.*;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +30,17 @@ public class UserCenterController extends BaseController {
     private ProjectFollowService projectFollowService;
     @Autowired
     private ProjectSuggestService projectSuggestService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private OrderDetailService orderDetailService;
+    @Autowired
+    private GoodsItemMapService goodsItemMapService;
+    @Autowired
+    private GoodsItemService goodsItemService;
+    @Autowired
+    private InvestorService investorService;
+
 
     @RequestMapping("/index")
     public String index() {
@@ -44,7 +53,7 @@ public class UserCenterController extends BaseController {
         User loginUser = (User) session.getAttribute("loginUser");
         List<Project> projects = null;
         ModelAndView modelAndView = new ModelAndView();
-        if (loginUser.getRoleid() < 4) {//创业者
+        if (loginUser.getRoleid() >= 20 && loginUser.getRoleid() < 30) {//创业者
             modelAndView.setViewName("center/user_project_list");
             projects = projectService.listByUser(loginUser.getId());
             for (Project project : projects) {
@@ -57,6 +66,7 @@ public class UserCenterController extends BaseController {
             if (type.intValue() == 1) {//平台推荐的项目
                 ProjectSuggest projectSuggest = new ProjectSuggest();
                 projectSuggest.setInvestorid(loginUser.getId());
+                projectSuggest.setStatus(0);
                 projectSuggest.setPageSize(pageSize);
                 projectSuggest.setStartRow((pageIndex - 1) * pageSize);
                 map = projectService.listSuggest(projectSuggest);
@@ -96,5 +106,58 @@ public class UserCenterController extends BaseController {
         projectSuggest.setInvestorid(loginUser.getId());
         projectSuggestService.del(projectSuggest);
         return result.toString();
+    }
+
+    @RequestMapping("/myservices/{projectid}")
+    public ModelAndView myServices(@PathVariable Integer projectid, HttpSession session) {
+        User loginUser = (User) session.getAttribute("loginUser");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("center/user_service_list");
+        List<Project> projects = null;
+        if (projectid.intValue() == 0) {
+            projects = projectService.listByUser(loginUser.getId());
+        }
+        modelAndView.addObject("projects", projects);
+        modelAndView.addObject("goodsItems", new ArrayList<GoodsItem>());
+        modelAndView.addObject("investors", new ArrayList<Investor>());
+        if (projects.isEmpty())
+            return modelAndView;
+        //查询为某个项目购买的服务
+        projectid = projects.get(0).getId();
+        modelAndView.addObject("projectid", projectid);
+        List<OrderDetail> orderDetails = orderDetailService.listByProject(projectid);
+        if (orderDetails.isEmpty())
+            return modelAndView;
+        Map<Integer, Integer> goodsCountMap = new HashMap<>();
+        for (OrderDetail orderDetail : orderDetails) {
+            Integer goodsid = orderDetail.getGoodsid();
+            Integer count = goodsCountMap.get(goodsid);
+            if (count == null) {
+                goodsCountMap.put(goodsid, orderDetail.getCount());
+            } else {
+                goodsCountMap.put(goodsid, count.intValue() + orderDetail.getCount().intValue());
+            }
+        }
+        Map<Integer, Integer> itemCountMap = new HashMap<>();
+        for (Map.Entry<Integer, Integer> entry : goodsCountMap.entrySet()) {
+            List<GoodsItemMap> goodsItemMaps = goodsItemMapService.listByGoods(entry.getKey());
+            for (GoodsItemMap goodsItemMap : goodsItemMaps) {
+                Integer itemid = goodsItemMap.getItemid();
+                Integer count = goodsItemMap.getCount();
+                if (count == null) {
+                    itemCountMap.put(itemid, goodsItemMap.getCount() * entry.getValue());
+                } else {
+                    itemCountMap.put(itemid, count.intValue() + goodsItemMap.getCount() * entry.getValue());
+                }
+            }
+        }
+        List<GoodsItem> goodsItems = goodsItemService.listByIds(itemCountMap.keySet());
+        for (GoodsItem goodsItem : goodsItems) {
+            goodsItem.setCount(itemCountMap.get(goodsItem.getId()));
+        }
+        List<Investor> investors = investorService.listSuggest(projectid);
+        modelAndView.addObject("goodsItems", goodsItems);
+        modelAndView.addObject("investors", investors);
+        return modelAndView;
     }
 }

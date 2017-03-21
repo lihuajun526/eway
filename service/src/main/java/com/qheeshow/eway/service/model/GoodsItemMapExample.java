@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ProjectSuggestExample {
+public class GoodsItemMapExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ProjectSuggestExample() {
+    public GoodsItemMapExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,183 +165,183 @@ public class ProjectSuggestExample {
             return (Criteria) this;
         }
 
-        public Criteria andProjectidIsNull() {
-            addCriterion("projectid is null");
+        public Criteria andGoodsidIsNull() {
+            addCriterion("goodsid is null");
             return (Criteria) this;
         }
 
-        public Criteria andProjectidIsNotNull() {
-            addCriterion("projectid is not null");
+        public Criteria andGoodsidIsNotNull() {
+            addCriterion("goodsid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andProjectidEqualTo(Integer value) {
-            addCriterion("projectid =", value, "projectid");
+        public Criteria andGoodsidEqualTo(Integer value) {
+            addCriterion("goodsid =", value, "goodsid");
             return (Criteria) this;
         }
 
-        public Criteria andProjectidNotEqualTo(Integer value) {
-            addCriterion("projectid <>", value, "projectid");
+        public Criteria andGoodsidNotEqualTo(Integer value) {
+            addCriterion("goodsid <>", value, "goodsid");
             return (Criteria) this;
         }
 
-        public Criteria andProjectidGreaterThan(Integer value) {
-            addCriterion("projectid >", value, "projectid");
+        public Criteria andGoodsidGreaterThan(Integer value) {
+            addCriterion("goodsid >", value, "goodsid");
             return (Criteria) this;
         }
 
-        public Criteria andProjectidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("projectid >=", value, "projectid");
+        public Criteria andGoodsidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("goodsid >=", value, "goodsid");
             return (Criteria) this;
         }
 
-        public Criteria andProjectidLessThan(Integer value) {
-            addCriterion("projectid <", value, "projectid");
+        public Criteria andGoodsidLessThan(Integer value) {
+            addCriterion("goodsid <", value, "goodsid");
             return (Criteria) this;
         }
 
-        public Criteria andProjectidLessThanOrEqualTo(Integer value) {
-            addCriterion("projectid <=", value, "projectid");
+        public Criteria andGoodsidLessThanOrEqualTo(Integer value) {
+            addCriterion("goodsid <=", value, "goodsid");
             return (Criteria) this;
         }
 
-        public Criteria andProjectidIn(List<Integer> values) {
-            addCriterion("projectid in", values, "projectid");
+        public Criteria andGoodsidIn(List<Integer> values) {
+            addCriterion("goodsid in", values, "goodsid");
             return (Criteria) this;
         }
 
-        public Criteria andProjectidNotIn(List<Integer> values) {
-            addCriterion("projectid not in", values, "projectid");
+        public Criteria andGoodsidNotIn(List<Integer> values) {
+            addCriterion("goodsid not in", values, "goodsid");
             return (Criteria) this;
         }
 
-        public Criteria andProjectidBetween(Integer value1, Integer value2) {
-            addCriterion("projectid between", value1, value2, "projectid");
+        public Criteria andGoodsidBetween(Integer value1, Integer value2) {
+            addCriterion("goodsid between", value1, value2, "goodsid");
             return (Criteria) this;
         }
 
-        public Criteria andProjectidNotBetween(Integer value1, Integer value2) {
-            addCriterion("projectid not between", value1, value2, "projectid");
+        public Criteria andGoodsidNotBetween(Integer value1, Integer value2) {
+            addCriterion("goodsid not between", value1, value2, "goodsid");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridIsNull() {
-            addCriterion("investorid is null");
+        public Criteria andItemidIsNull() {
+            addCriterion("itemid is null");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridIsNotNull() {
-            addCriterion("investorid is not null");
+        public Criteria andItemidIsNotNull() {
+            addCriterion("itemid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridEqualTo(Integer value) {
-            addCriterion("investorid =", value, "investorid");
+        public Criteria andItemidEqualTo(Integer value) {
+            addCriterion("itemid =", value, "itemid");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridNotEqualTo(Integer value) {
-            addCriterion("investorid <>", value, "investorid");
+        public Criteria andItemidNotEqualTo(Integer value) {
+            addCriterion("itemid <>", value, "itemid");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridGreaterThan(Integer value) {
-            addCriterion("investorid >", value, "investorid");
+        public Criteria andItemidGreaterThan(Integer value) {
+            addCriterion("itemid >", value, "itemid");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridGreaterThanOrEqualTo(Integer value) {
-            addCriterion("investorid >=", value, "investorid");
+        public Criteria andItemidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("itemid >=", value, "itemid");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridLessThan(Integer value) {
-            addCriterion("investorid <", value, "investorid");
+        public Criteria andItemidLessThan(Integer value) {
+            addCriterion("itemid <", value, "itemid");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridLessThanOrEqualTo(Integer value) {
-            addCriterion("investorid <=", value, "investorid");
+        public Criteria andItemidLessThanOrEqualTo(Integer value) {
+            addCriterion("itemid <=", value, "itemid");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridIn(List<Integer> values) {
-            addCriterion("investorid in", values, "investorid");
+        public Criteria andItemidIn(List<Integer> values) {
+            addCriterion("itemid in", values, "itemid");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridNotIn(List<Integer> values) {
-            addCriterion("investorid not in", values, "investorid");
+        public Criteria andItemidNotIn(List<Integer> values) {
+            addCriterion("itemid not in", values, "itemid");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridBetween(Integer value1, Integer value2) {
-            addCriterion("investorid between", value1, value2, "investorid");
+        public Criteria andItemidBetween(Integer value1, Integer value2) {
+            addCriterion("itemid between", value1, value2, "itemid");
             return (Criteria) this;
         }
 
-        public Criteria andInvestoridNotBetween(Integer value1, Integer value2) {
-            addCriterion("investorid not between", value1, value2, "investorid");
+        public Criteria andItemidNotBetween(Integer value1, Integer value2) {
+            addCriterion("itemid not between", value1, value2, "itemid");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNull() {
-            addCriterion("status is null");
+        public Criteria andCountIsNull() {
+            addCriterion("count is null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNotNull() {
-            addCriterion("status is not null");
+        public Criteria andCountIsNotNull() {
+            addCriterion("count is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Integer value) {
-            addCriterion("status =", value, "status");
+        public Criteria andCountEqualTo(Integer value) {
+            addCriterion("count =", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Integer value) {
-            addCriterion("status <>", value, "status");
+        public Criteria andCountNotEqualTo(Integer value) {
+            addCriterion("count <>", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Integer value) {
-            addCriterion("status >", value, "status");
+        public Criteria andCountGreaterThan(Integer value) {
+            addCriterion("count >", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("status >=", value, "status");
+        public Criteria andCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("count >=", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Integer value) {
-            addCriterion("status <", value, "status");
+        public Criteria andCountLessThan(Integer value) {
+            addCriterion("count <", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("status <=", value, "status");
+        public Criteria andCountLessThanOrEqualTo(Integer value) {
+            addCriterion("count <=", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Integer> values) {
-            addCriterion("status in", values, "status");
+        public Criteria andCountIn(List<Integer> values) {
+            addCriterion("count in", values, "count");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Integer> values) {
-            addCriterion("status not in", values, "status");
+        public Criteria andCountNotIn(List<Integer> values) {
+            addCriterion("count not in", values, "count");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Integer value1, Integer value2) {
-            addCriterion("status between", value1, value2, "status");
+        public Criteria andCountBetween(Integer value1, Integer value2) {
+            addCriterion("count between", value1, value2, "count");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("status not between", value1, value2, "status");
+        public Criteria andCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("count not between", value1, value2, "count");
             return (Criteria) this;
         }
 

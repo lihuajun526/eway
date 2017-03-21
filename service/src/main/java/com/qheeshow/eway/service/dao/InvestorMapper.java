@@ -27,4 +27,6 @@ public interface InvestorMapper {
     int updateByPrimaryKeySelective(Investor record);
 
     int updateByPrimaryKey(Investor record);
+
+    List<Investor> listSuggest(Integer projectid);
 }

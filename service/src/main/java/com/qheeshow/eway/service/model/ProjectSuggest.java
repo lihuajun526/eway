@@ -9,6 +9,8 @@ public class ProjectSuggest extends BaseModel{
 
     private Integer investorid;
 
+    private Integer status;
+
     private Date createTime;
 
     private Date updateTime;
@@ -35,6 +37,14 @@ public class ProjectSuggest extends BaseModel{
 
     public void setInvestorid(Integer investorid) {
         this.investorid = investorid;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {

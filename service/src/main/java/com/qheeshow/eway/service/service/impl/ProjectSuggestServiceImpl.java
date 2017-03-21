@@ -20,8 +20,13 @@ public class ProjectSuggestServiceImpl implements ProjectSuggestService {
     public void del(ProjectSuggest projectSuggest) {
         ProjectSuggestExample example = new ProjectSuggestExample();
         ProjectSuggestExample.Criteria criteria = example.createCriteria();
+
         criteria.andProjectidEqualTo(projectSuggest.getProjectid());
         criteria.andInvestoridEqualTo(projectSuggest.getInvestorid());
-        projectSuggestMapper.deleteByExample(example);
+
+        ProjectSuggest projectSuggest1 = new ProjectSuggest();
+        projectSuggest1.setStatus(1);
+
+        projectSuggestMapper.updateByExampleSelective(projectSuggest1, example);
     }
 }

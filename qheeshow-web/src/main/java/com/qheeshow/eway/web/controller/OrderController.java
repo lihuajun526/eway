@@ -1,5 +1,6 @@
 package com.qheeshow.eway.web.controller;
 
+import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.OrderService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -28,10 +31,13 @@ public class OrderController extends BaseController {
      */
     @RequestMapping("/place")
     @ResponseBody
-    public String place(Integer projectid, String orderStr) {
+    public String place(Integer projectid, String orderStr, HttpSession session) {
         //goodsid_count#goodsid_count#goodsid_count
+        User loginUser = (User) session.getAttribute("loginUser");
+
+
         Result result = new Result();
-        orderService.place(projectid, orderStr);
+        orderService.place(loginUser.getId(),projectid, orderStr);
         return result.toString();
     }
 

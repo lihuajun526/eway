@@ -2,12 +2,14 @@ package com.qheeshow.eway.service.model;
 
 import java.util.Date;
 
-public class ProjectSuggest {
+public class GoodsItemMap {
     private Integer id;
 
-    private Integer projectid;
+    private Integer goodsid;
 
-    private Integer investorid;
+    private Integer itemid;
+
+    private Integer count;
 
     private Date createTime;
 
@@ -21,20 +23,28 @@ public class ProjectSuggest {
         this.id = id;
     }
 
-    public Integer getProjectid() {
-        return projectid;
+    public Integer getGoodsid() {
+        return goodsid;
     }
 
-    public void setProjectid(Integer projectid) {
-        this.projectid = projectid;
+    public void setGoodsid(Integer goodsid) {
+        this.goodsid = goodsid;
     }
 
-    public Integer getInvestorid() {
-        return investorid;
+    public Integer getItemid() {
+        return itemid;
     }
 
-    public void setInvestorid(Integer investorid) {
-        this.investorid = investorid;
+    public void setItemid(Integer itemid) {
+        this.itemid = itemid;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     public Date getCreateTime() {

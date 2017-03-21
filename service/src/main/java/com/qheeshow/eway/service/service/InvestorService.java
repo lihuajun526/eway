@@ -20,5 +20,6 @@ public interface InvestorService {
 	public List<Investor> listAll(Investor investor,PageInfo pageInfo);
 
 	Investor get(Integer id);
-	
+
+	List<Investor> listSuggest(Integer projectid);
 }

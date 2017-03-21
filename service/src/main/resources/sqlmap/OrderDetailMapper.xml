@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qheeshow.eway.service.dao.ProjectSuggestMapper" >
-  <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.ProjectSuggest" >
+<mapper namespace="com.qheeshow.eway.service.dao.OrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.OrderDetail" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="projectid" property="projectid" jdbcType="INTEGER" />
-    <result column="investorid" property="investorid" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="orderid" property="orderid" jdbcType="INTEGER" />
+    <result column="goodsid" property="goodsid" jdbcType="INTEGER" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -68,16 +69,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, projectid, investorid, status, create_time, update_time
+    id, orderid, goodsid, count, price, create_time, update_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectSuggestExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.OrderDetailExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from t_project_suggest
+    from t_order_detail
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,41 +89,44 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from t_project_suggest
+    from t_order_detail
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_project_suggest
+    delete from t_order_detail
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.qheeshow.eway.service.model.ProjectSuggestExample" >
-    delete from t_project_suggest
+  <delete id="deleteByExample" parameterType="com.qheeshow.eway.service.model.OrderDetailExample" >
+    delete from t_order_detail
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.qheeshow.eway.service.model.ProjectSuggest" >
-    insert into t_project_suggest (id, projectid, investorid, 
-      status, create_time, update_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{projectid,jdbcType=INTEGER}, #{investorid,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" parameterType="com.qheeshow.eway.service.model.OrderDetail" >
+    insert into t_order_detail (id, orderid, goodsid, 
+      count, price, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, 
+      #{count,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.ProjectSuggest" >
-    insert into t_project_suggest
+  <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.OrderDetail" >
+    insert into t_order_detail
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="projectid != null" >
-        projectid,
+      <if test="orderid != null" >
+        orderid,
       </if>
-      <if test="investorid != null" >
-        investorid,
+      <if test="goodsid != null" >
+        goodsid,
       </if>
-      <if test="status != null" >
-        status,
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="price != null" >
+        price,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -135,14 +139,17 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="projectid != null" >
-        #{projectid,jdbcType=INTEGER},
+      <if test="orderid != null" >
+        #{orderid,jdbcType=INTEGER},
       </if>
-      <if test="investorid != null" >
-        #{investorid,jdbcType=INTEGER},
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -152,26 +159,29 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.qheeshow.eway.service.model.ProjectSuggestExample" resultType="java.lang.Integer" >
-    select count(*) from t_project_suggest
+  <select id="countByExample" parameterType="com.qheeshow.eway.service.model.OrderDetailExample" resultType="java.lang.Integer" >
+    select count(*) from t_order_detail
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_project_suggest
+    update t_order_detail
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.projectid != null" >
-        projectid = #{record.projectid,jdbcType=INTEGER},
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=INTEGER},
       </if>
-      <if test="record.investorid != null" >
-        investorid = #{record.investorid,jdbcType=INTEGER},
+      <if test="record.goodsid != null" >
+        goodsid = #{record.goodsid,jdbcType=INTEGER},
       </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
+      <if test="record.count != null" >
+        count = #{record.count,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -185,28 +195,32 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_project_suggest
+    update t_order_detail
     set id = #{record.id,jdbcType=INTEGER},
-      projectid = #{record.projectid,jdbcType=INTEGER},
-      investorid = #{record.investorid,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
+      orderid = #{record.orderid,jdbcType=INTEGER},
+      goodsid = #{record.goodsid,jdbcType=INTEGER},
+      count = #{record.count,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.ProjectSuggest" >
-    update t_project_suggest
+  <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.OrderDetail" >
+    update t_order_detail
     <set >
-      <if test="projectid != null" >
-        projectid = #{projectid,jdbcType=INTEGER},
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=INTEGER},
       </if>
-      <if test="investorid != null" >
-        investorid = #{investorid,jdbcType=INTEGER},
+      <if test="goodsid != null" >
+        goodsid = #{goodsid,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -217,13 +231,19 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.ProjectSuggest" >
-    update t_project_suggest
-    set projectid = #{projectid,jdbcType=INTEGER},
-      investorid = #{investorid,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.OrderDetail" >
+    update t_order_detail
+    set orderid = #{orderid,jdbcType=INTEGER},
+      goodsid = #{goodsid,jdbcType=INTEGER},
+      count = #{count,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="listByProject" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT tb_a.* FROM t_order_detail tb_a INNER JOIN t_order tb_b
+    ON tb_a.orderid=tb_b.id
+    WHERE tb_b.projectid=#{projectid,jdbcType=INTEGER}
+  </select>
 </mapper>

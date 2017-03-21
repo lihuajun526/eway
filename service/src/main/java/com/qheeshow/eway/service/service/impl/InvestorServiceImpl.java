@@ -64,35 +64,40 @@ public class InvestorServiceImpl implements InvestorService {
         List<Investor> investors = investorMapper.selectByExample(example);
         return investors;
     }
-    
+
     @Override
-    public List<Investor> listAll(Investor investor,PageInfo pageInfo) {
-    	InvestorExample example = new InvestorExample();
-    	InvestorExample.Criteria criteria = example.createCriteria();
-    	criteria.andStatusIn(new ArrayList<Integer>(Arrays.asList(2,3)));
-    	if(investor.getStageId() != null){
-    		criteria.andStageIdLike("%#" + investor.getStageId() + "#%");
-    	}
-    	if(investor.getCityId() != null){
-        	criteria.andCityIdLike("%#" + investor.getCityId() + "#%");
-    	}
-	    if(investor.getIndustryId() != null){
-	    	criteria.andIndustryIdLike("%#" + investor.getIndustryId() + "#%");
-	    }
-	    if(investor.getTrueName() != null){
-	    	criteria.andTrueNameLike("%" + investor.getTrueName() + "%");
-	    }
+    public List<Investor> listAll(Investor investor, PageInfo pageInfo) {
+        InvestorExample example = new InvestorExample();
+        InvestorExample.Criteria criteria = example.createCriteria();
+        criteria.andStatusIn(new ArrayList<Integer>(Arrays.asList(2, 3)));
+        if (investor.getStageId() != null) {
+            criteria.andStageIdLike("%#" + investor.getStageId() + "#%");
+        }
+        if (investor.getCityId() != null) {
+            criteria.andCityIdLike("%#" + investor.getCityId() + "#%");
+        }
+        if (investor.getIndustryId() != null) {
+            criteria.andIndustryIdLike("%#" + investor.getIndustryId() + "#%");
+        }
+        if (investor.getTrueName() != null) {
+            criteria.andTrueNameLike("%" + investor.getTrueName() + "%");
+        }
 //	    if(investor.getIdentityId() != null){
 //	    	criteria.andIdentityIdLike("%#" + investor.getIdentityId() + "#%");
 //	    }
-    	example.setOrderByClause("create_time");
-    	example.setPageInfo(pageInfo);
-    	List<Investor> investors = investorMapper.selectByExample(example);
-    	return investors;
+        example.setOrderByClause("create_time");
+        example.setPageInfo(pageInfo);
+        List<Investor> investors = investorMapper.selectByExample(example);
+        return investors;
     }
 
-    @Override public Investor get(Integer id) {
+    @Override
+    public Investor get(Integer id) {
         return investorMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public List<Investor> listSuggest(Integer projectid) {
+        return investorMapper.listSuggest(projectid);
+    }
 }

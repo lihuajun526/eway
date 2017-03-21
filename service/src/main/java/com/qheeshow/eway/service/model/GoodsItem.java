@@ -1,24 +1,21 @@
 package com.qheeshow.eway.service.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
-public class Order {
+public class GoodsItem {
     private Integer id;
 
-    private String orderNo;
+    private Integer type;
 
     private String title;
 
     private String content;
 
-    private Integer projectid;
+    private String remark;
 
-    private Integer userid;
+    private Integer orderNo;
 
-    private Integer status;
-
-    private BigDecimal price;
+    private Integer count;
 
     private Date createTime;
 
@@ -32,12 +29,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getOrderNo() {
-        return orderNo;
+    public Integer getType() {
+        return type;
     }
 
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo == null ? null : orderNo.trim();
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getTitle() {
@@ -56,36 +53,20 @@ public class Order {
         this.content = content == null ? null : content.trim();
     }
 
-    public Integer getProjectid() {
-        return projectid;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setProjectid(Integer projectid) {
-        this.projectid = projectid;
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getOrderNo() {
+        return orderNo;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setOrderNo(Integer orderNo) {
+        this.orderNo = orderNo;
     }
 
     public Date getCreateTime() {
@@ -102,5 +83,13 @@ public class Order {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

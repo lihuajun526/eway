@@ -56,16 +56,8 @@ public class StrUtil {
         return strs;
     }
 
-    public static void main(String[] args) {
-        try {
-            Timestamp d = new Timestamp(System.currentTimeMillis());
-            long time1 = d.getTime();
-            System.out.println(time1);
-            System.out.println(Long.toString(time1 / 1000));
-            System.out.println(StrUtil.sha1(
-                    "jsapi_ticket=bxLdikRXVbTPdHSM05e5u_H6X4LRoooANL2XioWz9Sq8gBvv3VdEtQNgqq73zbEeO6M0JagHQBPNA04vuRKssw&noncestr=Wm3WZYTPz0wzccnW&timestamp=1474190054&url=http://lihuajun526.xicp.net/integral/earn"));
-        } catch (DigestException e) {
-            e.printStackTrace();
-        }
+    public static String getOrderno() {
+        return String.valueOf(System.nanoTime());
     }
+
 }
