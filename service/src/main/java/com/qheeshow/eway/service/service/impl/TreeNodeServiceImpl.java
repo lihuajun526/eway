@@ -23,11 +23,11 @@ public class TreeNodeServiceImpl implements TreeNodeService {
     }
 
     @Override public int update(TreeNode treeNode) {
-        return 0;
+        return treeNodeMapper.updateByPrimaryKeySelective(treeNode);
     }
 
     @Override public TreeNode get(Integer id) {
-        return null;
+        return treeNodeMapper.selectByPrimaryKey(id);
     }
 
     @Override public List<TreeNode> listByParent(Integer parentid) {

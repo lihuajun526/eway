@@ -1,10 +1,7 @@
 package com.qheeshow.eway.web.controller;
 
 import com.qheeshow.eway.common.util.Config;
-import com.qheeshow.eway.service.model.CommonQa;
-import com.qheeshow.eway.service.model.Project;
-import com.qheeshow.eway.service.model.TeamMember;
-import com.qheeshow.eway.service.model.Xwcmclassinfo;
+import com.qheeshow.eway.service.model.*;
 import com.qheeshow.eway.service.service.CommonQaService;
 import com.qheeshow.eway.service.service.ProjectService;
 import com.qheeshow.eway.service.service.TeamMemberService;
@@ -134,9 +131,10 @@ public class ProjectController extends BaseController {
         }
         project.setTags(project.getTags().substring(0, project.getTags().length() - 1));
 
-        /*User loginUser = (User) httpSession.getAttribute("loginUser");
+        User loginUser = (User) httpSession.getAttribute("loginUser");
         project.setUserid(loginUser.getId());
-        project.setUsername(loginUser.getName());*/
+        project.setUsername(loginUser.getName());
+        project.setStatus(1);
 
         projectService.save(project);
         result.setData(project.getId());

@@ -41,7 +41,6 @@ public class UserCenterController extends BaseController {
     @Autowired
     private InvestorService investorService;
 
-
     @RequestMapping("/index")
     public String index() {
         return "center/center";

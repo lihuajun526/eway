@@ -31,7 +31,7 @@ public class ProjectController extends BaseController {
     public String list(@PathVariable Integer status) {
         ResultDg<List<Project>> resultDg = new ResultDg<>();
 
-        List<Project> list = projectService.listByStatus(null);
+        List<Project> list = projectService.listByStatus(status);
         resultDg.setTotal(list == null ? 0 : list.size());
         resultDg.setRows(list);
 

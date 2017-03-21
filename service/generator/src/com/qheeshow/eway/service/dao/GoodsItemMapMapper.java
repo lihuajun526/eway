@@ -27,5 +27,4 @@ public interface GoodsItemMapMapper {
     int updateByPrimaryKeySelective(GoodsItemMap record);
 
     int updateByPrimaryKey(GoodsItemMap record);
-
 }

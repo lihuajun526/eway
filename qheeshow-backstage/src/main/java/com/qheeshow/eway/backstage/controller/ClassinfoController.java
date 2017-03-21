@@ -3,7 +3,9 @@ package com.qheeshow.eway.backstage.controller;
 import com.qheeshow.eway.backstage.base.BaseController;
 import com.qheeshow.eway.backstage.base.Result;
 import com.qheeshow.eway.service.model.Classinfo;
+import com.qheeshow.eway.service.model.Xwcmclassinfo;
 import com.qheeshow.eway.service.service.ClassinfoService;
+import com.qheeshow.eway.service.service.XwcmclassinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +23,7 @@ import java.util.List;
 public class ClassinfoController extends BaseController {
 
     @Autowired
-    private ClassinfoService classinfoService;
+    private XwcmclassinfoService xwcmclassinfoService;
 
     /**
      * 通过rootid获得所有分类法
@@ -34,9 +36,9 @@ public class ClassinfoController extends BaseController {
 
         LOGGER.debug("rooid=" + rootid);
 
-        Result<List<Classinfo>> result = new Result<>();
+        Result<List<Xwcmclassinfo>> result = new Result<>();
 
-        List<Classinfo> list = classinfoService.listByRoot(rootid);
+        List<Xwcmclassinfo> list = xwcmclassinfoService.listByRoot(rootid);
         result.setData(list);
 
         return result.toString();
@@ -53,10 +55,10 @@ public class ClassinfoController extends BaseController {
 
         LOGGER.debug("classinfoid=" + id);
 
-        Result<Classinfo> result = new Result<>();
+        Result<Xwcmclassinfo> result = new Result<>();
 
-        Classinfo classinfo = classinfoService.get(id);
-        result.setData(classinfo);
+        Xwcmclassinfo xwcmclassinfo = xwcmclassinfoService.get(id);
+        result.setData(xwcmclassinfo);
 
         return result.toString();
     }

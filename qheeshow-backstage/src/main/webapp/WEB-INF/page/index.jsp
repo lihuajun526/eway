@@ -79,12 +79,12 @@
     }
     $('#tree').tree({
         onClick: function (node) {
-            loadPage('sys/document/document_list.html');
-            return;
+            /*loadPage('sys/document/document_list.html');
+            return;*/
             curNode = node;
             if (node.attributes == null)
                 return;
-            if (node.attributes.pageType == "crawlPoint") {
+            if (node.attributes.pageType == "project_list") {
                 loadPage('sys/project/project_list.html');
             } else if (node.attributes.pageType == "attacker") {
                 loadPage('rule/attacker.html');

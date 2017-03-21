@@ -11,9 +11,9 @@
 </div>
 <table id="datagrid"></table>
 <div id="w" class="easyui-window" title="项目详情" data-options="modal:true,closed:true,iconCls:'icon-save'"
-     style="width:600px;height:550px;padding:10px;">
-    <div class="easyui-tabs" style="width:500px;height:600px">
-        <div title="基本信息" style="padding:10px">
+     style="width:700px;height:600px;padding:5px;">
+    <div class="easyui-tabs" style="width:660px;height:600px">
+        <div title="基本信息" style="padding:5px">
             <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
             <input type="file" id="bpFile" name="bpFile" style="display: none;"/>
             <form id="baseForm">
@@ -23,7 +23,7 @@
                 <input type="hidden" id="bpName" name="bpName"/>
                 <table>
                     <tr>
-                        <td>LOGO</td>
+                        <td width="12%">LOGO</td>
                         <td>
                             <img id="logoImg" width="180" height="180" onclick="selectFile('logoFile');">
                             <input type="button" value="上传" onclick="uploadImage('logoFile','logoImg','logo')"/>
@@ -34,8 +34,24 @@
                         <td><input id="title" name="title"/></td>
                     </tr>
                     <tr>
-                        <td>一句话介绍</td>
-                        <td><textarea id="summary" name="summary"></textarea></td>
+                        <td>解决需求</td>
+                        <td><textarea id="demand" name="demand"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>项目亮点</td>
+                        <td><textarea id="highlights" name="highlights"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>项目标签</td>
+                        <td id="tags"></td>
+                    </tr>
+                    <tr>
+                        <td>项目视频</td>
+                        <td><input id="videoLink" name="videoLink"/></td>
+                    </tr>
+                    <tr>
+                        <td>项目详述</td>
+                        <td><textarea id="description" name="description"></textarea></td>
                     </tr>
                     <tr>
                         <td>所属行业</td>
@@ -82,7 +98,7 @@
                 </table>
             </form>
         </div>
-        <div title="项目信息" style="padding:10px">
+        <div title="项目信息" style="padding:5px">
             <form id="projectForm">
                 <table>
                     <tr>
@@ -107,11 +123,105 @@
                 </table>
             </form>
         </div>
-        <div title="团队信息" style="padding:10px">
+        <div title="团队信息" style="padding:5px">
             This is the help content.
         </div>
-        <div title="媒体报道" style="padding:10px">
-            This is the help content.
+        <div title="财务数据" style="padding:5px">
+            <table>
+                <tr>
+                    <td align="right">（2016年）主营收入</td>
+                    <td>
+                        <select>
+                            <option value="500万以下">500万以下</option>
+                            <option value="500~2000万">500~2000万</option>
+                            <option value="2000~5000万">2000~5000万</option>
+                            <option value="5000~10000万">5000~10000万</option>
+                            <option value="10000万以上">10000万以上</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">利润</td>
+                    <td>
+                        <select>
+                            <option value="100万以下">100万以下</option>
+                            <option value="100~500万">100~500万</option>
+                            <option value="500~1000万">500~1000万</option>
+                            <option value="1000~3000万">1000~3000万</option>
+                            <option value="3000万以上">3000万以上</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">总资产</td>
+                    <td>
+                        <select>
+                            <option value="1000万以下">1000万以下</option>
+                            <option value="1000~5000万">1000~5000万</option>
+                            <option value="5000~10000万">5000~10000万</option>
+                            <option value="10000万以上">10000万以上</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">净资产</td>
+                    <td>
+                        <select>
+                            <option value="500万以下">500万以下</option>
+                            <option value="500~2000万">500~2000万</option>
+                            <option value="2000~5000万">2000~5000万</option>
+                            <option value="5000万以上">5000万以上</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">（2016年）主营收入</td>
+                    <td>
+                        <select>
+                            <option value="500万以下">500万以下</option>
+                            <option value="500~2000万">500~2000万</option>
+                            <option value="2000~5000万">2000~5000万</option>
+                            <option value="5000~10000万">5000~10000万</option>
+                            <option value="10000万以上">10000万以上</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">利润</td>
+                    <td>
+                        <select>
+                            <option value="100万以下">100万以下</option>
+                            <option value="100~500万">100~500万</option>
+                            <option value="500~1000万">500~1000万</option>
+                            <option value="1000~3000万">1000~3000万</option>
+                            <option value="3000万以上">3000万以上</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">总资产</td>
+                    <td>
+                        <select>
+                            <option value="1000万以下">1000万以下</option>
+                            <option value="1000~5000万">1000~5000万</option>
+                            <option value="5000~10000万">5000~10000万</option>
+                            <option value="10000万以上">10000万以上</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">净资产</td>
+                    <td>
+                        <select>
+                            <option value="500万以下">500万以下</option>
+                            <option value="500~2000万">500~2000万</option>
+                            <option value="2000~5000万">2000~5000万</option>
+                            <option value="5000万以上">5000万以上</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td colspan="2"><input type="button" value="保存"/></td></tr>
+            </table>
         </div>
     </div>
 </div>
@@ -385,7 +495,7 @@
         var industry = $('#industry');
         industry.html("");
         for (i = 0; i < result.data.length; i++) {
-            industry.append("<option value='" + result.data[i].id + "'>" + result.data[i].name + "</option>");
+            industry.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
         }
     }, "json");
     //获得地域信息
@@ -397,7 +507,7 @@
         var area = $('#area');
         area.html("<option value='0'>请选择</option>");
         for (i = 0; i < result.data.length; i++) {
-            area.append("<option value='" + result.data[i].id + "'>" + result.data[i].name + "</option>");
+            area.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
         }
     }, "json");
     //获得融资额度信息
@@ -409,7 +519,19 @@
         var financingLimit = $('#financingLimit');
         financingLimit.html("<option value='0'>请选择</option>");
         for (i = 0; i < result.data.length; i++) {
-            financingLimit.append("<option value='" + result.data[i].id + "'>" + result.data[i].name + "</option>");
+            financingLimit.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+        }
+    }, "json");
+    //获得项目标签信息
+    $.get("/classinfo/list/root/" + classinfo_rootid_tag, function (result) {
+        if (result.code < 0) {
+            alert(result.message);
+            return;
+        }
+        var tags = $('#tags');
+        tags.html("");
+        for (i = 0; i < result.data.length; i++) {
+            tags.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
         }
     }, "json");
 </script>
