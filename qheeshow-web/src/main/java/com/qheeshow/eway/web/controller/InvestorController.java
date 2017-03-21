@@ -1,11 +1,16 @@
 package com.qheeshow.eway.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.qheeshow.eway.service.model.Project;
+import com.qheeshow.eway.web.base.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +28,7 @@ import com.qheeshow.eway.web.base.Result;
 
 @Controller
 @RequestMapping("/investor")
-public class InvestorController {
+public class InvestorController extends BaseController{
 
     @Autowired
     private InvestorService investorService;
@@ -119,7 +124,7 @@ public class InvestorController {
      * @author yue
      * @date 2017年3月5日 下午2:53:29
      */
-    @RequestMapping(value = "/list")
+    /*@RequestMapping(value = "/list")
     @ResponseBody
     public HaResponse list(Investor investor, HttpSession session) {
         List<Investor> investors = investorService.list(investor, session);
@@ -131,6 +136,66 @@ public class InvestorController {
     public HaResponse listAll(Investor investor,PageInfo pageInfo) {
     	List<Investor> investors = investorService.listAll(investor,pageInfo);
     	return HaResponse.sussess(investors).page(pageInfo);
+    }*/
+
+    /**
+     * 根据条件过滤项目
+     *
+     * @param type
+     * @param areaid
+     * @param financingLimit
+     * @param industry
+     * @param pageIndex
+     * @param keyword
+     * @return
+     */
+    @RequestMapping("/list/{type}/{areaid}/{financingLimit}/{industry}/{pageIndex}")
+    public ModelAndView listByCondition(@PathVariable Integer type, @PathVariable Integer areaid,
+                                        @PathVariable Integer financingLimit, @PathVariable Integer industry,
+                                        @PathVariable Integer pageIndex, String keyword) {
+
+        LOGGER.debug("根据条件过滤项目");
+
+        int pageSize = 2;
+        int recordCount = 0;
+
+        List<Project> projectList = new ArrayList<>();
+        /*if (StringUtils.isEmpty(keyword)) {
+            Map<String, Object> map = projectService.listByCondition(type, areaid, financingLimit, industry, pageIndex, pageSize);
+            projectList = (List<Project>) map.get("projects");
+            recordCount = (Integer) map.get("count");
+        } else
+            projectList = projectService.search(keyword);*/
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("project/projects");
+        modelAndView.addObject("projects", projectList);
+        modelAndView.addObject("pageSize", pageSize);
+        modelAndView.addObject("pageIndex", pageIndex);
+        modelAndView.addObject("pageCount", recordCount % pageSize == 0 ? recordCount / pageSize : (recordCount / pageSize + 1));
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/list")
+    public ModelAndView list() {
+        LOGGER.debug("根据条件过滤项目");
+
+        int areaRootid = Config.getInt("classinfo.rootid.area");
+        int financingLimitRootid = Config.getInt("classinfo.rootid.financing.limit");
+        int industryRootid = Config.getInt("classinfo.rootid.industry");
+
+        List<Xwcmclassinfo> industrys = xwcmclassinfoService.listByRoot(industryRootid);
+        List<Xwcmclassinfo> areas = xwcmclassinfoService.listByRoot(areaRootid);
+        List<Xwcmclassinfo> financingLimits = xwcmclassinfoService.listByRoot(financingLimitRootid);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("project/project_list");
+        modelAndView.addObject("areas", areas);
+        modelAndView.addObject("financingLimits", financingLimits);
+        modelAndView.addObject("industrys", industrys);
+
+        return modelAndView;
     }
 
 }

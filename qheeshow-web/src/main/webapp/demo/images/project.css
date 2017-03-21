@@ -262,6 +262,17 @@
 	font-size:15px;
 	line-height:26px;
 }
+.pro-six-janj-2{
+	position:absolute;
+	top:-15px;
+	left:480px;
+	width:293px;
+	color:#999999;
+	padding-top:25px;
+	margin-right:35px;
+	font-size:15px;
+	line-height:26px;
+}
 .group {
 	background:url(group.png) no-repeat left center;
 	text-align:left;
@@ -288,4 +299,54 @@
 	margin:0 25px 35px;
 	color:#FFFFFF;
 	font-size:16px;
+}
+
+.pro-lst1 {
+	background:url(wt-icon20.png) no-repeat;
+	width:154px;
+	height:155px;
+	text-align:center;
+	padding-top:30px;
+}
+.pro-lst1 li {
+	float:inherit;
+	font-size:14px;
+	color:#a9a9a9;
+}
+.pro-lst1 li.head {
+	margin-top:13px;
+}
+.pro-one-lst2 {
+	height:40px;
+	line-height:38px;
+	font-size:15px;
+}
+.pro-radio {
+	margin:3px 60px 0 10px;
+	color:#999999;
+}
+
+.pro-one-getyzm,.g-ove {
+	display:block;
+	position:absolute;
+	right:0;
+	top:5px;
+	background:#0097e1;
+	width:114px;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	font-size:16px;
+	border-radius:0 6px 6px 0;
+	font-size:16px;
+}
+.pro-one-getyzm a{
+color:#fff;
+}
+.g-ove {
+	background:#E3E9ED;
+	color:#000;
+}
+.g-ove a{
+color:#666;
 }

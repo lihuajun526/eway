@@ -14,12 +14,12 @@ public interface GoodsService {
 
     List<Goods> listByStatus(Integer status);
 
-    List<GoodsWithBLOBs> listAll();
+    List<Goods> listAll();
 
-    int save(GoodsWithBLOBs goods);
+    int save(Goods goods);
 
-    int update(GoodsWithBLOBs goods);
+    int update(Goods goods);
 
-    GoodsWithBLOBs selectByPrimaryKey(Integer id);
+    Goods selectByPrimaryKey(Integer id);
 
 }

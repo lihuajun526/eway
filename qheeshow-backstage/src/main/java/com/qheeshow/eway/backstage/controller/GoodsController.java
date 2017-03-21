@@ -41,7 +41,6 @@ public class GoodsController extends BaseController {
     public HaResponse saveOrUpdate(GoodsWithBLOBs goods,HttpSession session) {
     	session.setAttribute("userId", "1");
     	if(session.getAttribute("userId") != null){
-    		goods.setCreateUserId(Integer.parseInt(session.getAttribute("userId").toString()));
         	if(goods.getId() != null){
                 goodsService.update(goods);
         	}else{
@@ -66,7 +65,7 @@ public class GoodsController extends BaseController {
     @RequestMapping("/get")
     @ResponseBody
     public HaResponse get(Integer id) {
-    	GoodsWithBLOBs goods = goodsService.selectByPrimaryKey(id);
+    	Goods goods = goodsService.selectByPrimaryKey(id);
         return HaResponse.sussess(goods);
     }
 
@@ -81,7 +80,7 @@ public class GoodsController extends BaseController {
     @RequestMapping("/list")
     @ResponseBody
     public HaResponse list() {
-        List<GoodsWithBLOBs> list = goodsService.listAll();
+        List<Goods> list = goodsService.listAll();
         return HaResponse.sussess(list);
     }
 

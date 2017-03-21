@@ -2504,17 +2504,16 @@
 	opacity:0.5;
 	font-size:11px;
 	color:#333333;
-	width:55px;
+	width:60px;
 }
 .g-people-lst-ul li.on2 {
-	width:145px;
-	opacity:0.8;
-	font-size:11px;
+	width:140px;
+	font-size:12px;
 	text-align:left;
-}
-.g-people-lst-ul li.on2 span {
 	opacity:0.8;
 	color:#000000;
+}
+.g-people-lst-ul li.on2 span {
 	margin:0 3px;
 }
 .g-people-lst-btn {

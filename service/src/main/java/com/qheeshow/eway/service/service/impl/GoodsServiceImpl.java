@@ -1,15 +1,14 @@
 package com.qheeshow.eway.service.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.qheeshow.eway.service.dao.GoodsMapper;
 import com.qheeshow.eway.service.model.Goods;
 import com.qheeshow.eway.service.model.GoodsExample;
 import com.qheeshow.eway.service.model.GoodsWithBLOBs;
 import com.qheeshow.eway.service.service.GoodsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by lihuajun on 17-1-17.
@@ -35,28 +34,28 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<GoodsWithBLOBs> listAll() {
+    public List<Goods> listAll() {
         GoodsExample example = new GoodsExample();
-        example.setOrderByClause("order_num");
-        List<GoodsWithBLOBs> goods = goodsMapper.selectByExampleWithBLOBs(example);
+        example.setOrderByClause("order_no");
+        List<Goods> goods = goodsMapper.selectByExample(example);
         return goods;
     }
 
     @Override
-    public int save(GoodsWithBLOBs goods) {
+    public int save(Goods goods) {
         int result = goodsMapper.insert(goods);
         return result;
     }
 
     @Override
-    public int update(GoodsWithBLOBs goods) {
+    public int update(Goods goods) {
         int result = goodsMapper.updateByPrimaryKeySelective(goods);
         return result;
     }
 
     @Override
-    public GoodsWithBLOBs selectByPrimaryKey(Integer id) {
-        GoodsWithBLOBs goods = goodsMapper.selectByPrimaryKey(id);
+    public Goods selectByPrimaryKey(Integer id) {
+        Goods goods = goodsMapper.selectByPrimaryKey(id);
         return goods;
     }
 }
