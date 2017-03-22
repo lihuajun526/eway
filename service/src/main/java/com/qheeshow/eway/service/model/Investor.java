@@ -2,7 +2,7 @@ package com.qheeshow.eway.service.model;
 
 import java.util.Date;
 
-public class Investor {
+public class Investor extends BaseModel{
     private Integer id;
 
     private String photo;

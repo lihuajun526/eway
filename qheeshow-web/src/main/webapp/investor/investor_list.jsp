@@ -13,7 +13,6 @@
     <title><%=Config.get("app.name")%>--投资人</title>
     <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="/images/wt_index.css"/>
-    <link rel="stylesheet" href="/images/project.css"/>
     <script src="/jquery/jquery-1.11.1.js"></script>
     <script>
         var type = 0;//项目类型
@@ -57,74 +56,75 @@
 <div class="g-proj">
     <div class="g-conter">
         <ul class="g-proj-sev">
-            <li><input id="keyword" class="g-proj-ipt" placeholder="输入您要找的好项目"/></li>
+            <li><input type="text" class="g-proj-ipt" placeholder="输入您要找的投资人"/></li>
             <li><a href="#" class="g-proj-btn"></a></li>
         </ul>
         <div class="g-proj-one">
             <div class="g-proj-onew">
-                <div class="g-proj-onel">项目类型：</div>
-                <div class="g-proj-onec" onclick="setType(0);">不限</div>
+                <div class="g-proj-onel">所属行业：</div>
+                <div class="g-proj-onec">不限</div>
                 <div class="g-proj-oner">
                     <ul>
-                        <li><a onclick="setType(1);">平台推荐</a></li>
-                        <li><a onclick="setType(2);">机构关注</a></li>
-                        <li><a onclick="setType(3);">企业自荐</a></li>
+                        <li><a href="#">平台推荐</a></li>
+                        <li><a href="#">机构关注</a></li>
+                        <li><a href="#">企业自荐</a></li>
                     </ul>
                 </div>
             </div>
             <div class="g-proj-onew">
                 <div class="g-proj-onel">所在区域：</div>
-                <div class="g-proj-onec" onclick="setArea(0);">不限</div>
+                <div class="g-proj-onec-a">不限</div>
                 <div class="g-proj-oner">
                     <ul>
-                        <%
-                            for (Xwcmclassinfo area : areas) {
-                        %>
-                        <li><a onclick="setArea(<%=area.getClassinfoid() %>);"><%=area.getCname()%>
-                        </a></li>
-                        <%
-                            }
-                        %>
+                        <li><a href="#">上海</a></li>
+                        <li><a href="#">广州</a></li>
+                        <li><a href="#">深圳</a></li>
+                        <li><a href="#">杭州</a></li>
+                        <li class="on"><a href="#">福建</a></li>
+                        <li><a href="#">北京</a></li>
                     </ul>
+
                 </div>
             </div>
             <div class="g-proj-onew">
-                <div class="g-proj-onel">融资规模：</div>
-                <div class="g-proj-onec" onclick="setLimit(0);">不限</div>
+                <div class="g-proj-onel">偏好阶段：</div>
+                <div class="g-proj-onec">不限</div>
                 <div class="g-proj-oner">
                     <ul>
-                        <%
-                            for (Xwcmclassinfo financingLimit : financingLimits) {
-                        %>
-                        <li><a onclick="setLimit(<%=financingLimit.getClassinfoid() %>);"><%=financingLimit.getCname()%>
-                        </a></li>
-                        <%
-                            }
-                        %>
+                        <li><a href="#">50万-100万</a></li>
+                        <li><a href="#">100万-200万</a></li>
+                        <li><a href="#">200万-300万</a></li>
                     </ul>
+                    <a href="#" class="g-proj-oner-m">全部</a>
+                    <!--<a href="#" class="g-proj-oner-m2">全部</a> 改变箭头的代码-->
                 </div>
             </div>
             <div class="g-proj-onew">
-                <div class="g-proj-onel">所属行业：</div>
-                <div class="g-proj-onec" onclick="setIndustry(0);">不限</div>
+                <div class="g-proj-onel">人物身份：</div>
+                <div class="g-proj-onec">不限</div>
                 <div class="g-proj-oner">
                     <ul>
-                        <%
-                            for (Xwcmclassinfo industry : industrys) {
-                        %>
-                        <li><a onclick="setIndustry(<%=industry.getClassinfoid() %>);"><%=industry.getCname()%>
-                        </a></li>
-                        <%
-                            }
-                        %>
+                        <li><a href="#">电子商务</a></li>
+                        <li><a href="#">社交网络</a></li>
+                        <li><a href="#">智能硬件</a></li>
+                        <li><a href="#">消费生活</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="g-proj-onew">
+                <div class="g-proj-onel">分      类：</div>
+                <div class="g-proj-onec">不限</div>
+                <div class="g-proj-oner">
+                    <ul>
+                        <li><a href="#">投资类</a></li>
+                        <li><a href="#">咨询类</a></li>
+                        <li><a href="#">财务类</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div id="projects" class="g-proj-two"></div>
-        <script>
-            list();
-        </script>
+        <div id="investors" class="g-people"></div>
     </div>
 </div>
 <jsp:include page="../pub/foot.jsp" flush="true"/>

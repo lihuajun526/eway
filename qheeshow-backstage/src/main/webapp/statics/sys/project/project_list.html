@@ -9,13 +9,14 @@
     <a style="cursor: pointer" onclick="listByStatus(2)">审核通过</a>&nbsp;&nbsp;
     <a style="cursor: pointer" onclick="listByStatus(3)">审核未通过</a>
 </div>
-<table id="datagrid"></table>
+<table id="datagrid" data-options="rownumbers:true,singleSelect:false"></table>
 <div id="w" class="easyui-window" title="项目详情" data-options="modal:true,closed:true,iconCls:'icon-save'"
      style="width:700px;height:600px;padding:5px;">
     <div class="easyui-tabs" style="width:660px;height:600px">
         <div title="基本信息" style="padding:5px">
             <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
             <input type="file" id="bpFile" name="bpFile" style="display: none;"/>
+
             <form id="baseForm">
                 <input type="hidden" id="id" name="id"/>
                 <input type="hidden" id="logo" name="logo"/>
@@ -42,45 +43,8 @@
                         <td><textarea id="highlights" name="highlights"></textarea></td>
                     </tr>
                     <tr>
-                        <td>项目标签</td>
-                        <td id="tags"></td>
-                    </tr>
-                    <tr>
-                        <td>项目视频</td>
-                        <td><input id="videoLink" name="videoLink"/></td>
-                    </tr>
-                    <tr>
                         <td>项目详述</td>
                         <td><textarea id="description" name="description"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td>所属行业</td>
-                        <td>
-                            <select id="industry" name="industry"></select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>所在城市</td>
-                        <td>
-                            <select id="area" name="area"></select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>融资规模</td>
-                        <td>
-                            <select id="financingLimit" name="financingLimit"></select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>出让比例</td>
-                        <td>
-                            <input id="percent" name="percent"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>推荐人姓名</td>
-                        <td><input id="referee" name="referee"/>
-                        </td>
                     </tr>
                     <tr>
                         <td>商业计划书</td>
@@ -102,17 +66,36 @@
             <form id="projectForm">
                 <table>
                     <tr>
-                        <td>项目介绍</td>
-                        <td><textarea id="desc" name="desc"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td>宣传视频</td>
+                        <td width="12%">项目视频</td>
                         <td><input id="videoLink" name="videoLink"/>
                         </td>
                     </tr>
                     <tr>
-                        <td>产品网址</td>
-                        <td><input id="proLink" name="proLink"/>
+                        <td>项目标签</td>
+                        <td id="tags"></td>
+                    </tr>
+                    <tr>
+                        <td>所属行业</td>
+                        <td>
+                            <select id="industry" name="industry"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>所在城市</td>
+                        <td>
+                            <select id="area" name="area"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>融资规模</td>
+                        <td>
+                            <select id="financingLimit" name="financingLimit"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>融资阶段</td>
+                        <td>
+                            <select id="stages" name="stages"></select>
                         </td>
                     </tr>
                     <tr>
@@ -123,15 +106,13 @@
                 </table>
             </form>
         </div>
-        <div title="团队信息" style="padding:5px">
-            This is the help content.
-        </div>
+        <!--<div title="团队信息" style="padding:5px"></div>-->
         <div title="财务数据" style="padding:5px">
             <table>
                 <tr>
-                    <td align="right">（2016年）主营收入</td>
+                    <td align="right">（<span id="lastOne"></span>年）主营收入</td>
                     <td>
-                        <select>
+                        <select id="lastOne1">
                             <option value="500万以下">500万以下</option>
                             <option value="500~2000万">500~2000万</option>
                             <option value="2000~5000万">2000~5000万</option>
@@ -143,7 +124,7 @@
                 <tr>
                     <td align="right">利润</td>
                     <td>
-                        <select>
+                        <select id="lastOne2">
                             <option value="100万以下">100万以下</option>
                             <option value="100~500万">100~500万</option>
                             <option value="500~1000万">500~1000万</option>
@@ -155,7 +136,7 @@
                 <tr>
                     <td align="right">总资产</td>
                     <td>
-                        <select>
+                        <select id="lastOne3">
                             <option value="1000万以下">1000万以下</option>
                             <option value="1000~5000万">1000~5000万</option>
                             <option value="5000~10000万">5000~10000万</option>
@@ -166,7 +147,7 @@
                 <tr>
                     <td align="right">净资产</td>
                     <td>
-                        <select>
+                        <select id="lastOne4">
                             <option value="500万以下">500万以下</option>
                             <option value="500~2000万">500~2000万</option>
                             <option value="2000~5000万">2000~5000万</option>
@@ -175,9 +156,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right">（2016年）主营收入</td>
+                    <td align="right">（<span id="lastTwo"></span>年）主营收入</td>
                     <td>
-                        <select>
+                        <select id="lastTwo1">
                             <option value="500万以下">500万以下</option>
                             <option value="500~2000万">500~2000万</option>
                             <option value="2000~5000万">2000~5000万</option>
@@ -189,7 +170,7 @@
                 <tr>
                     <td align="right">利润</td>
                     <td>
-                        <select>
+                        <select id="lastTwo2">
                             <option value="100万以下">100万以下</option>
                             <option value="100~500万">100~500万</option>
                             <option value="500~1000万">500~1000万</option>
@@ -201,7 +182,7 @@
                 <tr>
                     <td align="right">总资产</td>
                     <td>
-                        <select>
+                        <select id="lastTwo3">
                             <option value="1000万以下">1000万以下</option>
                             <option value="1000~5000万">1000~5000万</option>
                             <option value="5000~10000万">5000~10000万</option>
@@ -212,7 +193,7 @@
                 <tr>
                     <td align="right">净资产</td>
                     <td>
-                        <select>
+                        <select id="lastTwo4">
                             <option value="500万以下">500万以下</option>
                             <option value="500~2000万">500~2000万</option>
                             <option value="2000~5000万">2000~5000万</option>
@@ -220,78 +201,46 @@
                         </select>
                     </td>
                 </tr>
-                <tr><td colspan="2"><input type="button" value="保存"/></td></tr>
+                <tr>
+                    <td colspan="2"><input type="button" value="保存"/></td>
+                </tr>
             </table>
         </div>
     </div>
 </div>
 <div id="investor" class="easyui-window" title="投资人列表" data-options="modal:true,closed:true,iconCls:'icon-save'"
      style="width:600px;height:550px;padding:10px;">
-    <div id="investors">
+    <!--<div id="investors">
         <span id="spanInvestor"><a onclick="delInvestor();">X</a>李华君</span>
-    </div>
+    </div>-->
     <table id="investorDatagrid"></table>
 </div>
 
 <script>
-    function listInvestor() {
+    function listInvestor(projectid) {
         var list = $('#investorDatagrid').datagrid({
             border: false,
             fitColumns: true,
-            singleSelect: true,
+            singleSelect: false,
             pagination: true,
-            url: '/project/list/' + status,
+            url: '/investor/list/suggest/' + projectid,
             columns: [[
                 {
-                    field: 'id', title: '编号', width: 3
+                    field: 'ck', title: '选择', width: 3, checkbox: true
                 },
                 {
-                    field: 'title', title: '项目名称', width: 18
+                    field: 'trueName', title: '投资人', width: 18
                 },
-                {
-                    field: 'username', title: '项目联系人', width: 8,
-                    formatter: function (value, rec) {
-                        var btn = "<a onclick='openUpdate(\'" + rec.id + "\')' href='javascript:void(0)'>" + rec.username + "</a>";
-                        return btn;
-                    }
-                },
-                {
-                    field: 'createTime', title: '日期', width: 8,
-                    formatter: function (value, rec) {
-                        return dateFormatter(new Date(rec.createTime));
-                    }
-                },
-                {
-                    field: 'opt', title: '操作', align: 'center',
-                    formatter: function (value, rec) {
-                        var btn = '<a class="editcls" onclick="openUpdate(\'' + rec.id + '\')" href="javascript:void(0)">问答管理</a>&nbsp&nbsp';
-                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">匹配投资人</a>&nbsp&nbsp';
-                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">编辑</a>&nbsp&nbsp';
-                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">发布</a>&nbsp&nbsp';
-                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">不通过</a>&nbsp&nbsp';
-                        return btn;
-                    }
-                }
             ]]
         });
-        var pager = list.datagrid('getPager');
-        pager.pagination({
-            buttons: [{
-                iconCls: 'icon-add',
-                handler: function () {
-                    //$("#id").val("0");
-                    //$("#projectForm")[0].reset();
-                    $('#w').window('open');
-                }
-            }]
-        });
+        $('#investor').window('open');
     }
 
     function listByStatus(status) {
         var list = $('#datagrid').datagrid({
             border: false,
             fitColumns: true,
-            singleSelect: true,
+            singleSelect: false,
             pagination: true,
             url: '/project/list/' + status,
             columns: [[
@@ -311,14 +260,14 @@
                 {
                     field: 'createTime', title: '日期', width: 8,
                     formatter: function (value, rec) {
-                        return dateFormatter(new Date(rec.createTime));
+                        return simpleDateFormatter(new Date(rec.createTime));
                     }
                 },
                 {
                     field: 'opt', title: '操作', align: 'center',
                     formatter: function (value, rec) {
                         var btn = '<a class="editcls" onclick="openUpdate(\'' + rec.id + '\')" href="javascript:void(0)">问答管理</a>&nbsp&nbsp';
-                        btn += '<a class="editcls" onclick="openUpdate(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">匹配投资人</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="listInvestor(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">匹配投资人</a>&nbsp&nbsp';
                         btn += '<a class="editcls" onclick="openUpdate(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">编辑</a>&nbsp&nbsp';
                         btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',2)" href="javascript:void(0)">发布</a>&nbsp&nbsp';
                         btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',3)" href="javascript:void(0)">不通过</a>&nbsp&nbsp';
@@ -399,6 +348,33 @@
                     $("#desc").val(data.desc);
                     $("#videoLink").val(data.videoLink);
                     $("#proLink").val(data.proLink);
+
+                    //2016:500万以下#100万以下#1000万以下#500万以下
+                    var d = new Date();
+                    var lastOne = data.lastOne;
+                    if (isEmpty(lastOne)) {
+                        $("#lastOne").html(d.getFullYear() - 1);
+                    } else {
+                        var strs1 = lastOne.split(":");
+                        $("#lastOne").html(strs1[0]);
+                        var strs2 = strs1[1].split("#");
+                        $("#lastOne1").val(strs2[0]);
+                        $("#lastOne2").val(strs2[1]);
+                        $("#lastOne3").val(strs2[2]);
+                        $("#lastOne4").val(strs2[3]);
+                    }
+                    var lastTwo = data.lastTwo;
+                    if (isEmpty(lastTwo)) {
+                        $("#lastTwo").html(d.getFullYear() - 2);
+                    } else {
+                        var strs1 = lastTwo.split(":");
+                        $("#lastTwo").html(strs1[0]);
+                        var strs2 = strs1[1].split("#");
+                        $("#lastTwo1").val(strs2[0]);
+                        $("#lastTwo2").val(strs2[1]);
+                        $("#lastTwo3").val(strs2[2]);
+                        $("#lastTwo4").val(strs2[3]);
+                    }
                     $('#w').window('open');
                 } else {
                     $.messager.alert('Info', "失败", 'info');
@@ -532,6 +508,18 @@
         tags.html("");
         for (i = 0; i < result.data.length; i++) {
             tags.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
+        }
+    }, "json");
+    //获得融资阶段信息
+    $.get("/classinfo/list/root/" + classinfo_rootid_stage, function (result) {
+        if (result.code < 0) {
+            alert(result.message);
+            return;
+        }
+        var stages = $('#stages');
+        stages.html("");
+        for (i = 0; i < result.data.length; i++) {
+            stages.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
         }
     }, "json");
 </script>

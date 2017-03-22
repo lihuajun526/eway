@@ -160,29 +160,32 @@
         </if>
     </delete>
     <insert id="insert" parameterType="com.qheeshow.eway.service.model.Project">
-    insert into t_project (id, title, demand, 
-      highlights, last_one, last_two, 
-      description, type, industry, 
-      industry_name, area, area_name, 
-      financing_limit, financing_limit_name, stage, 
-      stage_name, video_link, pro_link, 
-      userid, username, status, 
-      logo, tags, bp, bp_name, 
-      percent, referee, last_investment, 
-      last_stage, last_limit, create_time, 
-      update_time, content)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{demand,jdbcType=VARCHAR}, 
-      #{highlights,jdbcType=VARCHAR}, #{lastOne,jdbcType=VARCHAR}, #{lastTwo,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{industry,jdbcType=INTEGER}, 
-      #{industryName,jdbcType=VARCHAR}, #{area,jdbcType=INTEGER}, #{areaName,jdbcType=VARCHAR}, 
-      #{financingLimit,jdbcType=INTEGER}, #{financingLimitName,jdbcType=VARCHAR}, #{stage,jdbcType=INTEGER}, 
-      #{stageName,jdbcType=VARCHAR}, #{videoLink,jdbcType=VARCHAR}, #{proLink,jdbcType=VARCHAR}, 
-      #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{logo,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{bp,jdbcType=VARCHAR}, #{bpName,jdbcType=VARCHAR}, 
-      #{percent,jdbcType=INTEGER}, #{referee,jdbcType=VARCHAR}, #{lastInvestment,jdbcType=VARCHAR}, 
-      #{lastStage,jdbcType=VARCHAR}, #{lastLimit,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
-  </insert>
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        insert into t_project (id, title, demand,
+        highlights, last_one, last_two,
+        description, type, industry,
+        industry_name, area, area_name,
+        financing_limit, financing_limit_name, stage,
+        stage_name, video_link, pro_link,
+        userid, username, status,
+        logo, tags, bp, bp_name,
+        percent, referee, last_investment,
+        last_stage, last_limit, create_time,
+        update_time, content)
+        values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{demand,jdbcType=VARCHAR},
+        #{highlights,jdbcType=VARCHAR}, #{lastOne,jdbcType=VARCHAR}, #{lastTwo,jdbcType=VARCHAR},
+        #{description,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{industry,jdbcType=INTEGER},
+        #{industryName,jdbcType=VARCHAR}, #{area,jdbcType=INTEGER}, #{areaName,jdbcType=VARCHAR},
+        #{financingLimit,jdbcType=INTEGER}, #{financingLimitName,jdbcType=VARCHAR}, #{stage,jdbcType=INTEGER},
+        #{stageName,jdbcType=VARCHAR}, #{videoLink,jdbcType=VARCHAR}, #{proLink,jdbcType=VARCHAR},
+        #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+        #{logo,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{bp,jdbcType=VARCHAR}, #{bpName,jdbcType=VARCHAR},
+        #{percent,jdbcType=INTEGER}, #{referee,jdbcType=VARCHAR}, #{lastInvestment,jdbcType=VARCHAR},
+        #{lastStage,jdbcType=VARCHAR}, #{lastLimit,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+    </insert>
     <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Project">
         insert into t_project
         <trim prefix="(" suffix=")" suffixOverrides=",">

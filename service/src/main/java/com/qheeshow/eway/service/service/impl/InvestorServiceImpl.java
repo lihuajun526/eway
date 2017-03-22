@@ -1,11 +1,10 @@
 package com.qheeshow.eway.service.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
+import com.qheeshow.eway.common.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +13,7 @@ import com.qheeshow.eway.service.dao.InvestorMapper;
 import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.InvestorExample;
 import com.qheeshow.eway.service.service.InvestorService;
+import org.springframework.util.StringUtils;
 
 @Service
 public class InvestorServiceImpl implements InvestorService {
@@ -100,4 +100,53 @@ public class InvestorServiceImpl implements InvestorService {
     public List<Investor> listSuggest(Integer projectid) {
         return investorMapper.listSuggest(projectid);
     }
+
+    @Override
+    public int getCountByCondition(Investor investor) {
+        InvestorExample example = new InvestorExample();
+        InvestorExample.Criteria criteria = example.createCriteria();
+        if (!StringUtils.isEmpty(investor.getIndustryId()))
+            criteria.andIndustryIdLike(investor.getIndustryId());
+        if (!StringUtils.isEmpty(investor.getCityId()))
+            criteria.andCityIdLike(investor.getCityId());
+        if (!StringUtils.isEmpty(investor.getStageId()))
+            criteria.andStageIdLike(investor.getStageId());
+        if (!StringUtils.isEmpty(investor.getSinglePriceId()))
+            criteria.andSinglePriceIdEqualTo(investor.getSinglePriceId());
+        return investorMapper.countByExample(example);
+    }
+
+    @Override
+    public List<Investor> listByCondition(Investor investor) {
+        InvestorExample example = new InvestorExample();
+        InvestorExample.Criteria criteria = example.createCriteria();
+        if (!StringUtils.isEmpty(investor.getIndustryId()))
+            criteria.andIndustryIdLike(investor.getIndustryId());
+        if (!StringUtils.isEmpty(investor.getCityId()))
+            criteria.andCityIdLike(investor.getCityId());
+        if (!StringUtils.isEmpty(investor.getStageId()))
+            criteria.andStageIdLike(investor.getStageId());
+        if (!StringUtils.isEmpty(investor.getSinglePriceId()))
+            criteria.andSinglePriceIdEqualTo(investor.getSinglePriceId());
+        return investorMapper.selectByExample(example);
+    }
+
+    @Override
+    public Map<String, Object> listByCondition(String cityid, String industryid, String stageid, Integer pageIndex, Integer pageSize) {
+        Investor investor = new Investor();
+        if (!"0".equals(cityid))
+            investor.setCityId("#" + cityid + "#");
+        if (!"0".equals(industryid))
+            investor.setIndustryId("#" + industryid + "#");
+        if (!"0".equals(stageid))
+            investor.setStageId("#" + stageid + "#");
+        investor.setPageSize(pageSize);
+        investor.setStartRow((pageIndex - 1) * investor.getPageSize());
+        Map<String, Object> map = new HashMap<>();
+        map.put("investors", investorMapper.listByCondition(investor));
+        map.put("count", investorMapper.getCount(investor).size());
+        return map;
+    }
+
+
 }

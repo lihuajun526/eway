@@ -661,6 +661,41 @@
     <select id="listSuggest" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
-        FROM t_investor WHERE id IN(SELECT investorid FROM t_project_suggest WHERE projectid=#{projectid,jdbcType=INTEGER})
+        FROM t_investor WHERE id IN(SELECT investorid FROM t_project_suggest WHERE
+        projectid=#{projectid,jdbcType=INTEGER})
     </select>
+
+    <select id="listByCondition" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Investor">
+        select
+        <include refid="Base_Column_List"/>
+        from t_investor
+        where 1=1
+        <if test="cityId != null">
+            and city_id like CONCAT('%','${cityId}','%')
+        </if>
+        <if test="stageId != null">
+            and stage_id like CONCAT('%','${stageId}','%')
+        </if>
+        <if test="industryId != null">
+            and industry_id like CONCAT('%','${industryId}','%')
+        </if>
+        limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="getCount" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Project">
+        select
+        id
+        from t_investor
+        where 1=1
+        <if test="cityId != null">
+            and city_id like CONCAT('%','${cityId}','%')
+        </if>
+        <if test="stageId != null">
+            and stage_id like CONCAT('%','${stageId}','%')
+        </if>
+        <if test="industryId != null">
+            and industry_id like CONCAT('%','${industryId}','%')
+        </if>
+    </select>
+
 </mapper>

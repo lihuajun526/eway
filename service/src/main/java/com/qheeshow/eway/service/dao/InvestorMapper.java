@@ -29,4 +29,8 @@ public interface InvestorMapper {
     int updateByPrimaryKey(Investor record);
 
     List<Investor> listSuggest(Integer projectid);
+
+    List<Investor> listByCondition(Investor investor);
+
+    List<Investor> getCount(Investor investor);
 }
