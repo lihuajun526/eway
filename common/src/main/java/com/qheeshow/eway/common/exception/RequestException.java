@@ -11,6 +11,10 @@ public class RequestException extends Exception {
         this.url = url;
     }
 
+    public RequestException() {
+
+    }
+
     @Override
     public String getMessage() {
         return "request[" + url + "]error";

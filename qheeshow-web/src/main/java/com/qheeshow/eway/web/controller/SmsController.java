@@ -29,10 +29,10 @@ public class SmsController extends BaseController {
 
     @RequestMapping(value = "/get/{phone}", method = RequestMethod.GET)
     @ResponseBody
-    public String get(@PathVariable String phone, String type,String openid, HttpServletRequest request) {
+    public String get(@PathVariable String phone, String type, String openid, HttpServletRequest request) {
         User user = new User();
         user.setMobile(phone);
-        if(openid != null){
+        if (openid != null) {
             user.setOpenid(openid);
         }
         Result<Boolean> result = new Result<>();
@@ -53,7 +53,7 @@ public class SmsController extends BaseController {
         try {
             String smsCode = SmsSender.send(phone);
             session.setAttribute("lastTime", System.currentTimeMillis());
-            session.setAttribute(type + "_smsCode", smsCode);
+            session.setAttribute(phone + "_" + type + "_smsCode", smsCode);
             LOGGER.debug("验证码：" + smsCode);
         } catch (SendSMSException e) {
             LOGGER.error("获取短信验证码失败");

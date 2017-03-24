@@ -1,9 +1,9 @@
 package com.qheeshow.eway.service.service.impl;
 
-import com.qheeshow.eway.service.constant.ExceptionTypeEnum;
+import com.qheeshow.eway.common.constant.ExceptionTypeEnum;
+import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.service.dao.InvestorMapper;
 import com.qheeshow.eway.service.dao.ProjectFollowMapper;
-import com.qheeshow.eway.service.exception.CommonException;
 import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.InvestorExample;
 import com.qheeshow.eway.service.model.ProjectFollow;

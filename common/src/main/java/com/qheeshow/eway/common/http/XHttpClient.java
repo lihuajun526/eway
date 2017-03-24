@@ -48,13 +48,13 @@ public class XHttpClient {
         requestConfig = RequestConfig.custom()
                 // 从连接池获取连接的最大超时时间
                 .setConnectionRequestTimeout(Config.getInt("httpclient.request.timeout"))
-                // 建立连接的最大超时时间
+                        // 建立连接的最大超时时间
                 .setConnectTimeout(Config.getInt("httpclient.connect.timeout"))
-                // 数据传输处理的最大超时时间
+                        // 数据传输处理的最大超时时间
                 .setSocketTimeout(Config.getInt("httpclient.socket.timeout"))
-                // 设置代理
-                //.setProxy(new HttpHost(ProxyHost, ProxyPort))
-                // 什么意思
+                        // 设置代理
+                        //.setProxy(new HttpHost(ProxyHost, ProxyPort))
+                        // 什么意思
                 .setExpectContinueEnabled(false)
                 .build();
     }
@@ -78,6 +78,7 @@ public class XHttpClient {
             int statusCode = httpResponse.getStatusLine().getStatusCode();
             if (statusCode != HttpStatus.SC_OK) {
                 LOGGER.warn("请求{}返回{}", httpRequestBase.getURI().toString(), statusCode);
+                throw new RequestException();
             } else {
                 HttpEntity httpEntity = httpResponse.getEntity();
                 InputStream in = httpEntity.getContent();

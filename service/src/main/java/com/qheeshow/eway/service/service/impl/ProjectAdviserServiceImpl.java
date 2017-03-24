@@ -1,8 +1,9 @@
 package com.qheeshow.eway.service.service.impl;
 
+import com.qheeshow.eway.common.constant.ExceptionTypeEnum;
+import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.service.dao.InvestorMapper;
 import com.qheeshow.eway.service.dao.ProjectAdviserMapper;
-import com.qheeshow.eway.service.exception.CommonException;
 import com.qheeshow.eway.service.model.*;
 import com.qheeshow.eway.service.service.ProjectAdviserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.qheeshow.eway.service.constant.ExceptionTypeEnum.*;
 
 /**
  * Created by lihuajun on 17-2-8.
@@ -35,16 +35,16 @@ public class ProjectAdviserServiceImpl implements ProjectAdviserService {
         List<Investor> list = investorMapper.selectByExample(investorExample);
         Investor investor = list.size() > 0 ? list.get(0) : null;
         if (investor == null) {
-            throw new CommonException(Is_Not_Adviser_ERROR);
+            throw new CommonException(ExceptionTypeEnum.Is_Not_Adviser_ERROR);
         }
         if (investor.getStatus().intValue() != 3) {//尚未认证
-            throw new CommonException(Investor_Not_Auth_ERROR);
+            throw new CommonException(ExceptionTypeEnum.Investor_Not_Auth_ERROR);
         }
         if (isAdviser(projectAdviser)) {//如果已申请过,则抛异常
-            throw new CommonException(Project_Adviser_Apply_Exist_ERROR);
+            throw new CommonException(ExceptionTypeEnum.Project_Adviser_Apply_Exist_ERROR);
         }
         if (list(projectid).size() >= 10) {//顾问人数已满
-            throw new CommonException(Project_Adviser_Full_ERROR);
+            throw new CommonException(ExceptionTypeEnum.Project_Adviser_Full_ERROR);
         }
 
         projectAdviser.setStatus(1);

@@ -1,7 +1,7 @@
 package com.qheeshow.eway.service.service.impl;
 
-import com.qheeshow.eway.service.constant.ExceptionTypeEnum;
-import com.qheeshow.eway.service.exception.CommonException;
+import com.qheeshow.eway.common.constant.ExceptionTypeEnum;
+import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.UserFollowService;
 import org.springframework.stereotype.Service;

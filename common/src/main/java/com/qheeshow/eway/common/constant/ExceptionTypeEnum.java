@@ -1,4 +1,4 @@
-package com.qheeshow.eway.service.constant;
+package com.qheeshow.eway.common.constant;
 
 /**
  * @author: Zhou Xuanang
@@ -11,7 +11,9 @@ public enum ExceptionTypeEnum {
     User_Follow_Exist_ERROR("100002", "已关注投资人,不能重复关注"),
     Investor_Not_Auth_ERROR("100003", "投资人尚未认证"),
     Project_Adviser_Full_ERROR("100004", "顾问名额已满"),
-    Is_Not_Adviser_ERROR("100005", "非投资人"),;
+    Is_Not_Adviser_ERROR("100005", "非投资人"),
+    Get_Mixcom_No_ERROR("100006", "获得米糠小号失败"),
+    Bound_Mixcom_No_ERROR("100006", "绑定米糠小号失败"),;
 
     public final String code;
     public final String desc;

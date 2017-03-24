@@ -1,6 +1,10 @@
 package com.qheeshow.eway.common.util;
 
+import sun.misc.BASE64Encoder;
+
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 public class MD5Util {
@@ -53,18 +57,30 @@ public class MD5Util {
 	}
 	
 	public static void main(String[] args) {
-		HashMap<String,String> user = new HashMap<String,String>();
-		System.out.println(user.isEmpty());
-		String a = "浙江省";
-		byte[] aa = a.getBytes();
-		System.out.println(aa);
-		byte[] bb = aa;
-		String aaa = new String(bb);
-		System.out.println(aaa);
-		String b = "浙江2";
-		System.out.println(a.indexOf(b));
-		String str = MD5("123123");
-		System.out.println(str+"==="+MD5Validate("1",str));
-		
+
+		MessageDigest md5= null;
+		String sourceStr = "123";
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(sourceStr.getBytes());
+			byte b[] = md.digest();
+			int i;
+			StringBuffer buf = new StringBuffer("");
+			for (int offset = 0; offset < b.length; offset++) {
+				i = b[offset];
+				if (i < 0)
+					i += 256;
+				if (i < 16)
+					buf.append("0");
+				buf.append(Integer.toHexString(i));
+			}
+			String result = buf.toString();
+			System.out.println("MD5(" + sourceStr + ",32) = " + result);
+			System.out.println("MD5(" + sourceStr + ",16) = " + buf.toString().substring(8, 24));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+
 	}
 }

@@ -1,6 +1,6 @@
 package com.qheeshow.eway.web.controller;
 
-import com.qheeshow.eway.service.exception.CommonException;
+import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.ProjectAdviser;
 import com.qheeshow.eway.service.model.User;

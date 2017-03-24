@@ -60,4 +60,34 @@ public class StrUtil {
         return String.valueOf(System.nanoTime());
     }
 
+    public static String handle(String mobile) {
+        if (mobile.contains("86")) {
+            return mobile;
+        } else {
+            return "86" + mobile;
+        }
+    }
+
+    public static String md5(String str) {
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        md.update(str.getBytes());
+        byte b[] = md.digest();
+        int i;
+        StringBuffer buf = new StringBuffer("");
+        for (int offset = 0; offset < b.length; offset++) {
+            i = b[offset];
+            if (i < 0)
+                i += 256;
+            if (i < 16)
+                buf.append("0");
+            buf.append(Integer.toHexString(i));
+        }
+        return buf.toString();
+    }
+
 }

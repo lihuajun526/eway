@@ -1,6 +1,6 @@
 package com.qheeshow.eway.service.service;
 
-import com.qheeshow.eway.service.exception.CommonException;
+import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.service.model.User;
 
 import java.util.List;

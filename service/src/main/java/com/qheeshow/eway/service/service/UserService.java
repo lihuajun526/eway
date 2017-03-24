@@ -20,4 +20,6 @@ public interface UserService {
     
     public void update(User user);
 
+	User get(Integer id);
+
 }

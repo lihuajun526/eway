@@ -1,6 +1,7 @@
-package com.qheeshow.eway.service.exception;
+package com.qheeshow.eway.common.exception;
 
-import com.qheeshow.eway.service.constant.ExceptionTypeEnum;
+
+import com.qheeshow.eway.common.constant.ExceptionTypeEnum;
 
 /**
  * Created by lihuajun on 17-1-22.
