@@ -53,7 +53,7 @@ public class InvestorController extends BaseController {
         List<Xwcmclassinfo> areas = xwcmclassinfoService.listByRoot(classinfo_rootid_area);
         List<Xwcmclassinfo> financingLimits = xwcmclassinfoService.listByRoot(classinfo_rootid_financing_limit);
         List<Xwcmclassinfo> stages = xwcmclassinfoService.listByRoot(classinfo_rootid_stage);
-        List<Xwcmclassinfo> styles = xwcmclassinfoService.listByRoot(classinfo_rootid_stage);
+        List<Xwcmclassinfo> styles = xwcmclassinfoService.listByRoot(classinfo_rootid_style);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("industrys", industrys);

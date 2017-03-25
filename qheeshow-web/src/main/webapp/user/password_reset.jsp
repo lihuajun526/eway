@@ -1,7 +1,8 @@
+<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>梧桐E路--密码找回</title>
+    <title><%=Config.get("app.name")%>--密码重置</title>
     <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>

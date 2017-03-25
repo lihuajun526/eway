@@ -16,7 +16,7 @@
     <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp" flush="true"/>
+<jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
 <div class="pro-body">
     <input type="hidden" name="projectid" value="<%=project.getId()%>"/>
 

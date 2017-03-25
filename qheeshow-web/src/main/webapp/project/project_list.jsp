@@ -25,34 +25,49 @@
         function list() {
             $("#projects").load("/project/list/" + type + "/" + areaid + "/" + limitid + "/" + industryid + "/" + pageIndex + "?keyword=" + keyword);
         }
-        function setType(value) {
+        function setType(value, obj, id) {
             type = value;
             keyword = $("#keyword").val();
+            setCheck(value, obj, id);
             list();
         }
-        function setArea(value) {
+        function setArea(value, obj, id) {
             areaid = value;
             keyword = $("#keyword").val();
+            setCheck(value, obj, id);
             list();
         }
-        function setIndustry(value) {
+        function setIndustry(value, obj, id) {
             industryid = value;
             keyword = $("#keyword").val();
+            setCheck(value, obj, id);
             list();
         }
-        function setLimit(value) {
+        function setLimit(value, obj, id) {
             limitid = value;
             keyword = $("#keyword").val();
+            setCheck(value, obj, id);
             list();
         }
         function search() {
             keyword = $("#keyword").val();
             list();
         }
+        function setCheck(value, obj, id) {
+            if (value != 0) {
+                $(obj).parent().children('li').each(function () {
+                    $(this).removeClass("on");
+                });
+                $(obj).attr("class", "on");
+            } else
+                $("#" + id).children('li').each(function () {
+                    $(this).removeClass("on");
+                });
+        }
     </script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp" flush="true"/>
+<jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
 <div class="g-banner2"></div>
 <div class="g-proj">
     <div class="g-conter">
@@ -63,24 +78,24 @@
         <div class="g-proj-one">
             <div class="g-proj-onew">
                 <div class="g-proj-onel">项目类型：</div>
-                <div class="g-proj-onec" onclick="setType(0);">不限</div>
+                <div class="g-proj-onec" onclick="setType(0,this,'types');"><a>不限</a></div>
                 <div class="g-proj-oner">
-                    <ul>
-                        <li><a onclick="setType(1);">平台推荐</a></li>
-                        <li><a onclick="setType(2);">机构关注</a></li>
-                        <li><a onclick="setType(3);">企业自荐</a></li>
+                    <ul id="types">
+                        <li onclick="setType(1,this);"><a>平台推荐</a></li>
+                        <li onclick="setType(2,this);"><a>机构关注</a></li>
+                        <li onclick="setType(3,this);"><a>企业自荐</a></li>
                     </ul>
                 </div>
             </div>
             <div class="g-proj-onew">
                 <div class="g-proj-onel">所在区域：</div>
-                <div class="g-proj-onec" onclick="setArea(0);">不限</div>
+                <div class="g-proj-onec" onclick="setArea(0,this,'areas');"><a>不限</a></div>
                 <div class="g-proj-oner">
-                    <ul>
+                    <ul id="areas">
                         <%
                             for (Xwcmclassinfo area : areas) {
                         %>
-                        <li><a onclick="setArea(<%=area.getClassinfoid() %>);"><%=area.getCname()%>
+                        <li onclick="setArea(<%=area.getClassinfoid() %>,this);"><a><%=area.getCname()%>
                         </a></li>
                         <%
                             }
@@ -90,14 +105,15 @@
             </div>
             <div class="g-proj-onew">
                 <div class="g-proj-onel">融资规模：</div>
-                <div class="g-proj-onec" onclick="setLimit(0);">不限</div>
+                <div class="g-proj-onec" onclick="setLimit(0,this,'limits');"><a>不限</a></div>
                 <div class="g-proj-oner">
-                    <ul>
+                    <ul id="limits">
                         <%
                             for (Xwcmclassinfo financingLimit : financingLimits) {
                         %>
-                        <li><a onclick="setLimit(<%=financingLimit.getClassinfoid() %>);"><%=financingLimit.getCname()%>
-                        </a></li>
+                        <li onclick="setLimit(<%=financingLimit.getClassinfoid() %>,this);">
+                            <a><%=financingLimit.getCname()%>
+                            </a></li>
                         <%
                             }
                         %>
@@ -106,13 +122,13 @@
             </div>
             <div class="g-proj-onew">
                 <div class="g-proj-onel">所属行业：</div>
-                <div class="g-proj-onec" onclick="setIndustry(0);">不限</div>
+                <div class="g-proj-onec" onclick="setIndustry(0,this,'industrys');"><a>不限</a></div>
                 <div class="g-proj-oner">
-                    <ul>
+                    <ul id="industrys">
                         <%
                             for (Xwcmclassinfo industry : industrys) {
                         %>
-                        <li><a onclick="setIndustry(<%=industry.getClassinfoid() %>);"><%=industry.getCname()%>
+                        <li onclick="setIndustry(<%=industry.getClassinfoid() %>,this);"><a><%=industry.getCname()%>
                         </a></li>
                         <%
                             }

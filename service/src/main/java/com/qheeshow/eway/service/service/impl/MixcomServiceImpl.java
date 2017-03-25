@@ -8,12 +8,21 @@ import com.qheeshow.eway.common.exception.RequestException;
 import com.qheeshow.eway.common.http.XHttpClient;
 import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.common.util.StrUtil;
+import com.qheeshow.eway.service.dao.CallRecordMapper;
+import com.qheeshow.eway.service.model.BindMap;
+import com.qheeshow.eway.service.model.CallRecord;
+import com.qheeshow.eway.service.model.User;
+import com.qheeshow.eway.service.service.BindMapService;
 import com.qheeshow.eway.service.service.MixcomService;
+import com.qheeshow.eway.service.service.UserService;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -28,11 +37,18 @@ import java.util.List;
 public class MixcomServiceImpl implements MixcomService {
 
     private final String serverRoot = "http://api.mixcom.cn/v2";
+    @Autowired
+    private BindMapService bindMapService;
+    @Autowired
+    private CallRecordMapper callRecordMapper;
+    @Autowired
+    private UserService userService;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
     public String bound(String a, String b, int callTime) throws UnsupportedEncodingException, CommonException, RequestException {
-        a = StrUtil.handle(a);
-        b = StrUtil.handle(b);
+        a = StrUtil.handleAdd86(a);
+        b = StrUtil.handleAdd86(b);
         String appkey = Config.get("mixcom.appkey");
         long time = System.currentTimeMillis();
         //拉取小号
@@ -57,7 +73,29 @@ public class MixcomServiceImpl implements MixcomService {
         JSONObject jsonObject = JSONObject.parseObject(response);
         if (!"200".equals(jsonObject.getString("code")))
             throw new CommonException(ExceptionTypeEnum.Bound_Mixcom_No_ERROR);
-        return mixNo;
+        String bindId = jsonObject.getJSONObject("data").getString("subscriptionId");
+        BindMap bindMap = new BindMap();
+        bindMap.setBindId(bindId);
+        bindMap.setCalling(a);
+        bindMap.setCalled(b);
+        bindMapService.save(bindMap);
+        return StrUtil.handleDel86(mixNo);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
+    public void saveRecord(CallRecord callRecord) throws CommonException {
+        BindMap bindMap = bindMapService.getByBindId(callRecord.getBindId());
+        if (bindMap == null)
+            throw new CommonException(ExceptionTypeEnum.Bound_Map_Not_Exist_ERROR);
+        //保存通话记录
+        callRecordMapper.insert(callRecord);
+        //更新用户通话时长
+        User user = userService.getByMobile(callRecord.getCalling());
+        if (user == null)
+            throw new CommonException(ExceptionTypeEnum.Calling_Not_Exist_ERROR);
+        user.setCallTime(user.getCallTime().intValue() - Integer.valueOf(callRecord.getDuration()));
+        userService.update(user);
     }
 
     private String getMixNo(String a, String b) throws UnsupportedEncodingException, RequestException, CommonException {
@@ -75,8 +113,14 @@ public class MixcomServiceImpl implements MixcomService {
         httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
         String response = XHttpClient.doRequest(httpPost);
         JSONObject jsonObject = JSONObject.parseObject(response);
-        if (!"200".equals(jsonObject.getString("code")))
-            throw new CommonException(ExceptionTypeEnum.Get_Mixcom_No_ERROR);
+        String code = jsonObject.getString("code");
+        if (!"200".equals(code)) {
+            if (!"20468".equals(code)) {//无可用小号则解绑
+                throw new CommonException(ExceptionTypeEnum.Get_Mixcom_No_ERROR);
+            }
+
+        }
+
         JSONArray jsonArray = jsonObject.getJSONArray("data");
         return jsonArray.getJSONObject(0).getString("number");
     }

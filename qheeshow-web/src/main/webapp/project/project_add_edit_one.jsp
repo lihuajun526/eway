@@ -34,7 +34,7 @@
     <script src="/js/config.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp" flush="true"/>
+<jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
 <div class="pro-body">
     <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
     <input type="file" id="bpFile" name="bpFile" style="display: none;"/>

@@ -1,14 +1,19 @@
 package com.qheeshow.eway.web.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.qheeshow.eway.common.exception.CommonException;
+import com.qheeshow.eway.service.model.CallRecord;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.MixcomService;
 import com.qheeshow.eway.service.service.UserService;
 import com.qheeshow.eway.web.base.BaseController;
+import com.qheeshow.eway.web.base.MixcomResult;
 import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,6 +31,7 @@ public class MixcomController extends BaseController {
     private MixcomService mixcomService;
 
     @RequestMapping("/bound/{userid}")
+    @ResponseBody
     public String bound(@PathVariable Integer userid, HttpSession session) {
 
         Result<String> result = new Result<>();
@@ -42,7 +48,7 @@ public class MixcomController extends BaseController {
                 result.setMessage("您不能获得企业的联系方式");
                 return result.toString();
             }
-            if (loginUser.getCallTime().intValue() == 0) {
+            if (loginUser.getCallTime().intValue() <= 0) {
                 result.setMessage("您没有购买套餐或您的通话时长已用完，请购买套餐");
                 return result.toString();
             }
@@ -61,7 +67,8 @@ public class MixcomController extends BaseController {
             }
         }
         try {
-            mixcomService.bound(loginUser.getMobile(), user.getMobile(), loginUser.getCallTime());
+            String mixNo = mixcomService.bound(loginUser.getMobile(), user.getMobile(), loginUser.getCallTime());
+            result.setData(mixNo);
         } catch (Exception e) {
             LOGGER.error("error", e);
             result.setMessage("获取失败");
@@ -73,7 +80,29 @@ public class MixcomController extends BaseController {
 
 
     @RequestMapping("/receive")
+    @ResponseBody
     public String bound(HttpServletRequest request) {
-        return null;
+        MixcomResult result = new MixcomResult();
+        CallRecord callRecord = new CallRecord();
+        callRecord.setBindId(request.getParameter("BindID"));
+        callRecord.setCalling(request.getParameter("calling"));
+        callRecord.setCalled(request.getParameter("called"));
+        callRecord.setCallidentifier(request.getParameter("callIdentifier"));
+        callRecord.setDuration(request.getParameter("Duration"));
+        callRecord.setEvent(request.getParameter("event"));
+        callRecord.setReleaseReason(request.getParameter("ReleaseReason"));
+        callRecord.setStartTime(request.getParameter("StartTime"));
+        callRecord.setTimeStamp(request.getParameter("timeStamp"));
+        callRecord.setUniqueId(request.getParameter("UniqueId"));
+        callRecord.setVirtualNumber(request.getParameter("virtualNumber"));
+        try {
+            mixcomService.saveRecord(callRecord);
+        } catch (CommonException e) {
+            LOGGER.error("保存通话记录失败,code:" + e.getCode() + ",desc:" + e.getDesc());
+        }
+        result.setCode("200");
+        result.setMsg("成功接收");
+        result.setResult("成功");
+        return JSONObject.toJSONString(result);
     }
 }

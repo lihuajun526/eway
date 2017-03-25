@@ -22,4 +22,6 @@ public interface UserService {
 
 	User get(Integer id);
 
+	User getByMobile(String mobile);
+
 }

@@ -60,11 +60,19 @@ public class StrUtil {
         return String.valueOf(System.nanoTime());
     }
 
-    public static String handle(String mobile) {
+    public static String handleAdd86(String mobile) {
         if (mobile.contains("86")) {
             return mobile;
         } else {
             return "86" + mobile;
+        }
+    }
+
+    public static String handleDel86(String mobile) {
+        if (mobile.contains("86")) {
+            return mobile.replace("86", "");
+        } else {
+            return mobile;
         }
     }
 

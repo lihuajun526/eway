@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qheeshow.eway.service.dao.CallRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.CallRecord" >
+    <id column="unique_id" property="uniqueId" jdbcType="VARCHAR" />
+    <result column="bind_id" property="bindId" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="callIdentifier" property="callidentifier" jdbcType="VARCHAR" />
+    <result column="calling" property="calling" jdbcType="VARCHAR" />
+    <result column="called" property="called" jdbcType="VARCHAR" />
+    <result column="event" property="event" jdbcType="VARCHAR" />
+    <result column="duration" property="duration" jdbcType="VARCHAR" />
+    <result column="release_reason" property="releaseReason" jdbcType="VARCHAR" />
+    <result column="virtual_number" property="virtualNumber" jdbcType="VARCHAR" />
+    <result column="time_stamp" property="timeStamp" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    unique_id, bind_id, start_time, callIdentifier, calling, called, event, duration, 
+    release_reason, virtual_number, time_stamp
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.CallRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_call_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_call_record
+    where unique_id = #{uniqueId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_call_record
+    where unique_id = #{uniqueId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qheeshow.eway.service.model.CallRecordExample" >
+    delete from t_call_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qheeshow.eway.service.model.CallRecord" >
+    insert into t_call_record (unique_id, bind_id, start_time, 
+      callIdentifier, calling, called, 
+      event, duration, release_reason, 
+      virtual_number, time_stamp)
+    values (#{uniqueId,jdbcType=VARCHAR}, #{bindId,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
+      #{callidentifier,jdbcType=VARCHAR}, #{calling,jdbcType=VARCHAR}, #{called,jdbcType=VARCHAR}, 
+      #{event,jdbcType=VARCHAR}, #{duration,jdbcType=VARCHAR}, #{releaseReason,jdbcType=VARCHAR}, 
+      #{virtualNumber,jdbcType=VARCHAR}, #{timeStamp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.CallRecord" >
+    insert into t_call_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uniqueId != null" >
+        unique_id,
+      </if>
+      <if test="bindId != null" >
+        bind_id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="callidentifier != null" >
+        callIdentifier,
+      </if>
+      <if test="calling != null" >
+        calling,
+      </if>
+      <if test="called != null" >
+        called,
+      </if>
+      <if test="event != null" >
+        event,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="releaseReason != null" >
+        release_reason,
+      </if>
+      <if test="virtualNumber != null" >
+        virtual_number,
+      </if>
+      <if test="timeStamp != null" >
+        time_stamp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uniqueId != null" >
+        #{uniqueId,jdbcType=VARCHAR},
+      </if>
+      <if test="bindId != null" >
+        #{bindId,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="callidentifier != null" >
+        #{callidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="calling != null" >
+        #{calling,jdbcType=VARCHAR},
+      </if>
+      <if test="called != null" >
+        #{called,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null" >
+        #{event,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseReason != null" >
+        #{releaseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="virtualNumber != null" >
+        #{virtualNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="timeStamp != null" >
+        #{timeStamp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qheeshow.eway.service.model.CallRecordExample" resultType="java.lang.Integer" >
+    select count(*) from t_call_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_call_record
+    <set >
+      <if test="record.uniqueId != null" >
+        unique_id = #{record.uniqueId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bindId != null" >
+        bind_id = #{record.bindId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callidentifier != null" >
+        callIdentifier = #{record.callidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.calling != null" >
+        calling = #{record.calling,jdbcType=VARCHAR},
+      </if>
+      <if test="record.called != null" >
+        called = #{record.called,jdbcType=VARCHAR},
+      </if>
+      <if test="record.event != null" >
+        event = #{record.event,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duration != null" >
+        duration = #{record.duration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.releaseReason != null" >
+        release_reason = #{record.releaseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.virtualNumber != null" >
+        virtual_number = #{record.virtualNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeStamp != null" >
+        time_stamp = #{record.timeStamp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_call_record
+    set unique_id = #{record.uniqueId,jdbcType=VARCHAR},
+      bind_id = #{record.bindId,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=VARCHAR},
+      callIdentifier = #{record.callidentifier,jdbcType=VARCHAR},
+      calling = #{record.calling,jdbcType=VARCHAR},
+      called = #{record.called,jdbcType=VARCHAR},
+      event = #{record.event,jdbcType=VARCHAR},
+      duration = #{record.duration,jdbcType=VARCHAR},
+      release_reason = #{record.releaseReason,jdbcType=VARCHAR},
+      virtual_number = #{record.virtualNumber,jdbcType=VARCHAR},
+      time_stamp = #{record.timeStamp,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.CallRecord" >
+    update t_call_record
+    <set >
+      <if test="bindId != null" >
+        bind_id = #{bindId,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="callidentifier != null" >
+        callIdentifier = #{callidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="calling != null" >
+        calling = #{calling,jdbcType=VARCHAR},
+      </if>
+      <if test="called != null" >
+        called = #{called,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null" >
+        event = #{event,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseReason != null" >
+        release_reason = #{releaseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="virtualNumber != null" >
+        virtual_number = #{virtualNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="timeStamp != null" >
+        time_stamp = #{timeStamp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unique_id = #{uniqueId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.CallRecord" >
+    update t_call_record
+    set bind_id = #{bindId,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      callIdentifier = #{callidentifier,jdbcType=VARCHAR},
+      calling = #{calling,jdbcType=VARCHAR},
+      called = #{called,jdbcType=VARCHAR},
+      event = #{event,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=VARCHAR},
+      release_reason = #{releaseReason,jdbcType=VARCHAR},
+      virtual_number = #{virtualNumber,jdbcType=VARCHAR},
+      time_stamp = #{timeStamp,jdbcType=VARCHAR}
+    where unique_id = #{uniqueId,jdbcType=VARCHAR}
+  </update>
+</mapper>

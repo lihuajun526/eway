@@ -17,7 +17,7 @@
     <script src="/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp" flush="true"/>
+<jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
 <div class="g-proj">
     <div class="g-invest">
         <div class="g-proj-img"><img src="<%=project.getLogo()%>" width="200" height="200"/></div>

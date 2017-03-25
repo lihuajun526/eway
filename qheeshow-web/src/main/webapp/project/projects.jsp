@@ -7,10 +7,12 @@
     for (Project project : projects) {
 %>
 <div class="g-proj-twow">
-    <div class="g-proj-twol" style="cursor: pointer" onclick="openDetail(<%=project.getId()%>);"><img src="<%=project.getLogo()%>" width="80"
-                                                                              height="80"/></div>
-    <div class="g-proj-twoc" onclick="openDetail(<%=project.getId()%>);">
-        <div class="g-proj-twoc-t" style="cursor: pointer"><%=project.getTitle()%><span><%=project.getStageName()%></span></div>
+    <div class="g-proj-twol" style="cursor: pointer" onclick="openDetail(<%=project.getId()%>);"><img
+            src="<%=project.getLogo()%>" width="80"
+            height="80"/></div>
+    <div class="g-proj-twoc">
+        <div class="g-proj-twoc-t"><a onclick="openDetail(<%=project.getId()%>)"><%=project.getTitle()%>
+        </a><span><%=project.getStageName()%></span></div>
         <h3><a><%=project.getDemand() %>
         </a></h3>
     </div>
@@ -30,7 +32,7 @@
 %>
 <div class="i-Page">
     <%
-        int len = 200;
+        int len = 6;
         int index = (Integer) request.getAttribute("pageIndex");
         int start = index < len ? 1 : index - (len - 2);
         int pageCount = (Integer) request.getAttribute("pageCount");

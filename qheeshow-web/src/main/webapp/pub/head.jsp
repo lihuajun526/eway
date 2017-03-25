@@ -1,7 +1,10 @@
 <%@ page import="com.qheeshow.eway.service.model.User" %>
+<%@ page import="org.springframework.util.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     User loginUser = session.getAttribute("loginUser") == null ? null : (User) session.getAttribute("loginUser");
+    String flag = request.getParameter("flag");
+    flag = StringUtils.isEmpty(flag) ? "1" : flag;
 %>
 <html>
 <body>
@@ -9,10 +12,10 @@
     <div class="g-logo"></div>
     <div class="g-link">
         <ul>
-            <li class="on"><a href="/index">首页</a></li>
-            <li><a href="/project/list">项目</a></li>
-            <li><a href="#">投资人</a></li>
-            <li><a href="#">活动</a></li>
+            <li<%="1".equals(flag) ? " class='on'" : ""%>><a href="/index">首页</a></li>
+            <li<%="2".equals(flag) ? " class='on'" : ""%>><a href="/project/list">项目</a></li>
+            <li<%="3".equals(flag) ? " class='on'" : ""%>><a href="#">投资人</a></li>
+            <li<%="4".equals(flag) ? " class='on'" : ""%>><a href="#">活动</a></li>
         </ul>
     </div>
     <div class="g-login">

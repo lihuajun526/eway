@@ -1,6 +1,7 @@
 package com.qheeshow.eway.service.service;
 
 import com.qheeshow.eway.service.model.Activity;
+import com.qheeshow.eway.service.model.ActivitySign;
 
 import java.util.List;
 

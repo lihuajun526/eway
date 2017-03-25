@@ -15,7 +15,7 @@
 %>
 <html>
 <head>
-    <title><%=Config.get("app.name")%>--创建项目</title>
+    <title><%=Config.get("app.name")%>--投资人信息完善</title>
     <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="/images/wt_index.css"/>
     <link rel="stylesheet" href="/images/investor.css"/>
@@ -24,9 +24,9 @@
     <script src="/js/util.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp" flush="true"/>
+<jsp:include page="../pub/head.jsp?flag=3" flush="true"/>
 <div class="inv-body">
-    <input id="photoFile" type="file" multiple="multiple" onchange="doUpload()"/>
+    <input id="photoFile" name="photoFile" type="file" multiple="multiple" onchange="doUpload()" style="display: none;"/>
     <form id="baseForm">
         <input type="hidden" id="industrys_" name="industryId" value=""/>
         <input type="hidden" id="areas_" name="cityId" value=""/>
@@ -40,7 +40,7 @@
                     <li class="on2">
                         <a href="#">
                             <ul class="inv-lst1">
-                                <li><img id="photoImg" src="images/wt-icon19.png" width="58" height="58" onclick="selectFile('photoFile')"/></li>
+                                <li><img id="photoImg" src="/images/wt-icon19.png" width="58" height="58" onclick="selectFile('photoFile')"/></li>
                                 <li class="head">上传头像</li>
                             </ul>
                         </a>
@@ -59,7 +59,7 @@
                     <li class="on1">我 是：</li>
                     <li class="on2">
                         <ul class="inv-one-lst2">
-                            <li><input name="investorType" type="radio" value="1"></li>
+                            <li><input name="investorType" type="radio" value="1" checked></li>
                             <li class="inv-radio">个人投资者</li>
                             <li><input name="investorType" type="radio" value="2"></li>
                             <li class="inv-radio">机构投资者</li>
@@ -195,8 +195,8 @@
                         <div class="inv-two-ipt">
                             <a class="a1" onclick="selectLimit(0,'')">请选择</a>
                         </div>
-                        <div class="inv-menu-ico"></div>
-                        <ul class="inv-menu">
+                        <div class="inv-menu-ico" style="display: none;"></div>
+                        <ul class="inv-menu" style="display: none;">
                             <%
                                 for (Xwcmclassinfo financingLimit : financingLimits) {
                             %>

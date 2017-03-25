@@ -9,14 +9,14 @@
 %>
 <html>
 <head>
-    <title><%=Config.get("app.name")%>--创建项目</title>
+    <title><%=Config.get("app.name")%>--投资人信息完善</title>
     <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="/images/wt_index.css"/>
     <link rel="stylesheet" href="/images/investor.css"/>
     <script src="/jquery/ajaxfileupload.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp" flush="true"/>
+<jsp:include page="../pub/head.jsp?flag=3" flush="true"/>
 <div class="inv-body">
     <input id="businessCardPositiveFile" type="file" multiple="multiple" onchange="doUpload(1)"/>
     <input id="businessCardOppositeFile" type="file" multiple="multiple" onchange="doUpload(2)"/>

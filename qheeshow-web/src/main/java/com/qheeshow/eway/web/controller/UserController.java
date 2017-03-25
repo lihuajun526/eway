@@ -64,7 +64,7 @@ public class UserController extends BaseController {
             return result.toString();
         }
         HttpSession httpSession = request.getSession();
-        if (httpSession.getAttribute("regist_smsCode") == null) {
+        if (httpSession.getAttribute(user.getMobile() + "_regist_smsCode") == null) {
             result.set("短信验证码错误", false);
             return result.toString();
         }
