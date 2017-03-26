@@ -41,9 +41,9 @@
                 <ul class="g-mg-ltwolst">
                     <li style="cursor: pointer" onclick="menu(this,'/center/project/1/5/1');" class="on">项目管理</li>
                     <%
-                        if (loginUser.getRoleid() == 3) {
+                        if (loginUser.getRoleid() == 20) {
                     %>
-                    <li style="cursor: pointer" onclick="menu(this,'');">购买的服务</li>
+                    <li style="cursor: pointer" onclick="menu(this,'/center/myservices/0');">购买的服务</li>
                     <%
                         }
                     %>

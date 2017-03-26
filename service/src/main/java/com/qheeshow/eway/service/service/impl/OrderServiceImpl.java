@@ -30,6 +30,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
     public void place(Integer userid, Integer projectid, String orderStr) {
+        if (orderStr.indexOf("#") != -1) {
+            orderStr = orderStr.substring(0, orderStr.length() - 1);
+        }
         BigDecimal total = new BigDecimal(0);
         String[] orders = orderStr.split("#");
         for (String str : orders) {

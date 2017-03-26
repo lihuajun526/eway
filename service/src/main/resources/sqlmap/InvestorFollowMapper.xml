@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qheeshow.eway.service.dao.ActivitySignMapper" >
-  <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.ActivitySign" >
+<mapper namespace="com.qheeshow.eway.service.dao.InvestorFollowMapper" >
+  <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.InvestorFollow" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="investorid" property="investorid" jdbcType="INTEGER" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,16 +67,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, activity_id, userid, status
+    id, investorid, userid, create_time, update_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ActivitySignExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.InvestorFollowExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from t_activity_sign
+    from t_investor_follow
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,76 +87,85 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from t_activity_sign
+    from t_investor_follow
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_activity_sign
+    delete from t_investor_follow
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.qheeshow.eway.service.model.ActivitySignExample" >
-    delete from t_activity_sign
+  <delete id="deleteByExample" parameterType="com.qheeshow.eway.service.model.InvestorFollowExample" >
+    delete from t_investor_follow
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.qheeshow.eway.service.model.ActivitySign" >
-    insert into t_activity_sign (id, activity_id, userid, 
-      status)
-    values (#{id,jdbcType=INTEGER}, #{activityId,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.qheeshow.eway.service.model.InvestorFollow" >
+    insert into t_investor_follow (id, investorid, userid, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{investorid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.ActivitySign" >
-    insert into t_activity_sign
+  <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.InvestorFollow" >
+    insert into t_investor_follow
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="activityId != null" >
-        activity_id,
+      <if test="investorid != null" >
+        investorid,
       </if>
       <if test="userid != null" >
         userid,
       </if>
-      <if test="status != null" >
-        status,
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="activityId != null" >
-        #{activityId,jdbcType=INTEGER},
+      <if test="investorid != null" >
+        #{investorid,jdbcType=INTEGER},
       </if>
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.qheeshow.eway.service.model.ActivitySignExample" resultType="java.lang.Integer" >
-    select count(*) from t_activity_sign
+  <select id="countByExample" parameterType="com.qheeshow.eway.service.model.InvestorFollowExample" resultType="java.lang.Integer" >
+    select count(*) from t_investor_follow
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_activity_sign
+    update t_investor_follow
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.activityId != null" >
-        activity_id = #{record.activityId,jdbcType=INTEGER},
+      <if test="record.investorid != null" >
+        investorid = #{record.investorid,jdbcType=INTEGER},
       </if>
       <if test="record.userid != null" >
         userid = #{record.userid,jdbcType=INTEGER},
       </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -163,35 +173,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_activity_sign
+    update t_investor_follow
     set id = #{record.id,jdbcType=INTEGER},
-      activity_id = #{record.activityId,jdbcType=INTEGER},
+      investorid = #{record.investorid,jdbcType=INTEGER},
       userid = #{record.userid,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.ActivitySign" >
-    update t_activity_sign
+  <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.InvestorFollow" >
+    update t_investor_follow
     <set >
-      <if test="activityId != null" >
-        activity_id = #{activityId,jdbcType=INTEGER},
+      <if test="investorid != null" >
+        investorid = #{investorid,jdbcType=INTEGER},
       </if>
       <if test="userid != null" >
         userid = #{userid,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.ActivitySign" >
-    update t_activity_sign
-    set activity_id = #{activityId,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.InvestorFollow" >
+    update t_investor_follow
+    set investorid = #{investorid,jdbcType=INTEGER},
       userid = #{userid,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

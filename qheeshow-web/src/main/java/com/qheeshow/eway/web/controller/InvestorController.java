@@ -1,13 +1,16 @@
 package com.qheeshow.eway.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
-
-import com.qheeshow.eway.service.model.Project;
+import com.qheeshow.eway.common.util.Config;
+import com.qheeshow.eway.common.web.HaResponse;
+import com.qheeshow.eway.service.model.Investor;
+import com.qheeshow.eway.service.model.InvestorFollow;
+import com.qheeshow.eway.service.model.User;
+import com.qheeshow.eway.service.model.Xwcmclassinfo;
+import com.qheeshow.eway.service.service.InvestorFollowService;
+import com.qheeshow.eway.service.service.InvestorService;
+import com.qheeshow.eway.service.service.XwcmclassinfoService;
 import com.qheeshow.eway.web.base.BaseController;
+import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -16,15 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.qheeshow.eway.common.page.PageInfo;
-import com.qheeshow.eway.common.util.Config;
-import com.qheeshow.eway.common.web.HaResponse;
-import com.qheeshow.eway.service.model.Investor;
-import com.qheeshow.eway.service.model.User;
-import com.qheeshow.eway.service.model.Xwcmclassinfo;
-import com.qheeshow.eway.service.service.InvestorService;
-import com.qheeshow.eway.service.service.XwcmclassinfoService;
-import com.qheeshow.eway.web.base.Result;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/investor")
@@ -34,6 +32,8 @@ public class InvestorController extends BaseController {
     private InvestorService investorService;
     @Autowired
     private XwcmclassinfoService xwcmclassinfoService;
+    @Autowired
+    private InvestorFollowService investorFollowService;
 
     @RequestMapping("/{id}/add/edit/1")
     public ModelAndView addOrEditOne(@PathVariable Integer id) {
@@ -154,20 +154,66 @@ public class InvestorController extends BaseController {
         LOGGER.debug("根据条件过滤项目");
 
         int areaRootid = Config.getInt("classinfo.rootid.area");
-        int financingLimitRootid = Config.getInt("classinfo.rootid.financing.limit");
+        int stageRootid = Config.getInt("classinfo.rootid.stage");
         int industryRootid = Config.getInt("classinfo.rootid.industry");
 
         List<Xwcmclassinfo> industrys = xwcmclassinfoService.listByRoot(industryRootid);
         List<Xwcmclassinfo> areas = xwcmclassinfoService.listByRoot(areaRootid);
-        List<Xwcmclassinfo> financingLimits = xwcmclassinfoService.listByRoot(financingLimitRootid);
+        List<Xwcmclassinfo> stages = xwcmclassinfoService.listByRoot(stageRootid);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("project/project_list");
+        modelAndView.setViewName("investor/investor_list");
         modelAndView.addObject("areas", areas);
-        modelAndView.addObject("financingLimits", financingLimits);
+        modelAndView.addObject("stages", stages);
         modelAndView.addObject("industrys", industrys);
 
         return modelAndView;
+    }
+
+    @RequestMapping("/{id}")
+    public ModelAndView get(@PathVariable Integer id) {
+        Investor investor = investorService.get(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("investor/investor_detail");
+        modelAndView.addObject("investor", investor);
+        return modelAndView;
+    }
+
+    @RequestMapping("/follow/{investorid}")
+    @ResponseBody
+    public String follow(@PathVariable Integer investorid, HttpSession session) {
+
+        Result<Boolean> result = new Result<>();
+        result.setData(false);
+        Object o = session.getAttribute("loginUser");
+        if (o == null)
+            return result.toString();
+        User loginUser = (User) o;
+        InvestorFollow investorFollow = new InvestorFollow();
+        investorFollow.setUserid(loginUser.getId());
+        investorFollow.setInvestorid(investorid);
+        investorFollowService.save(investorFollow);
+
+        result.setData(true);
+        return result.toString();
+    }
+
+    @RequestMapping("/isfollow/{investorid}")
+    @ResponseBody
+    public String isfollow(@PathVariable Integer investorid, HttpSession session) {
+
+        Result<Boolean> result = new Result<>();
+        result.setData(false);
+        Object o = session.getAttribute("loginUser");
+        if (o == null)
+            return result.toString();
+        User loginUser = (User) o;
+        InvestorFollow investorFollow = new InvestorFollow();
+        investorFollow.setUserid(loginUser.getId());
+        investorFollow.setInvestorid(investorid);
+        Boolean isFollow = investorFollowService.isFollow(investorFollow);
+        result.setData(isFollow);
+        return result.toString();
     }
 
 }

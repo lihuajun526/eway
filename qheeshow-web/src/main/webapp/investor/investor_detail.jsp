@@ -1,13 +1,9 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page import="com.qheeshow.eway.service.model.Investor" %>
-<%@ page import="com.qheeshow.eway.service.model.Xwcmclassinfo" %>
-<%@ page import="java.util.List" %>
 <%@ page import="org.springframework.util.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Investor investor = (Investor) request.getAttribute("investor");
-
-
 %>
 <html>
 <head>
@@ -18,7 +14,7 @@
     <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp" flush="true"/>
+<jsp:include page="../pub/head.jsp?flag=3" flush="true"/>
 <div class="g-proj">
     <div class="g-invest">
         <div class="g-invest-img"><img src="<%=investor.getPhoto()%>" width="180" height="180"/></div>
@@ -45,7 +41,7 @@
                     }
                 %>
             </ul>
-            <a href="#" class="g-invest-focus">+关注</a>
+            <a id="follow_" class="g-invest-focus" onclick="follow(<%=investor.getId()%>)"></a>
             <ul class="g-invest-lst2">
                 <li><a href="#">投递项目</a></li>
                 <li><a href="#">查看联系方式</a></li>
@@ -63,13 +59,15 @@
                 <form id="commentForm">
                     <input type="hidden" id="tags" name="tags" value=""/>
                     <input type="hidden" id="star" name="star" value="0"/>
+                    <input type="hidden" id="investorid" name="investorid" value="<%=investor.getId()%>"/>
+
                     <div class="g-invest-two3">
                         <div class="g-invest-lonetit">评价 <span>/Profile</span></div>
                         <ul id="tags_" class="g-invest-lst3">
-                            <li onclick="setTag(this);">人脉大咖</li>
-                            <li onclick="setTag(this);">专业人士</li>
-                            <li onclick="setTag(this);">金融专家</li>
-                            <li onclick="setTag(this);">FA达人</li>
+                            <li onclick="setTag(this);" data="人脉大咖"><a>人脉大咖</a></li>
+                            <li onclick="setTag(this);" data="专业人士"><a>专业人士</a></li>
+                            <li onclick="setTag(this);" data="金融专家"><a>金融专家</a></li>
+                            <li onclick="setTag(this);" data="FA达人"><a>FA达人</a></li>
                         </ul>
                     </div>
                     <div class="g-invest-two">
@@ -87,11 +85,13 @@
                     <div class="g-invest-two1">
                         <div class="g-invest-twl">评论：</div>
                         <div class="g-invest-twr">
-                            <textarea name="content" class="g-invest-twrtex"></textarea>
+                            <textarea id="content" name="content" class="g-invest-twrtex"></textarea>
+
                             <div class="g-invest-twr-fb"><a onclick="saveComment();">发表评论</a></div>
                         </div>
                     </div>
                 </form>
+                <div class="g-invest-two2"></div>
                 <%--<div class="g-invest-two2">20条评论</div>
                 <div class="g-invest-tre">
                     <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
@@ -126,11 +126,11 @@
 <jsp:include page="../pub/foot.jsp" flush="true"/>
 </body>
 <script>
-    function setTag() {
-        if ($(this).attr("class") == "on") {
-            $(this).removeAttr("class");
+    function setTag(obj) {
+        if ($(obj).attr("class") == "on") {
+            $(obj).removeAttr("class");
         } else {
-            $(this).attr("class", "on");
+            $(obj).attr("class", "on");
         }
     }
     function setStar(v) {
@@ -143,6 +143,12 @@
         $("#star").val(v);
     }
     function saveComment() {
+        var tags = "";
+        $("#tags_").children('li').each(function () {
+            if ($(this).attr("class") == "on")
+                tags += $(this).attr("data") + "#";
+        });
+        $("#tags").val(tags);
         $.ajax({
             type: 'POST',
             url: '/comment/save',
@@ -155,9 +161,29 @@
                     alert(result.message);
                     return;
                 }
+                $("#content").val("");
                 alert("评论成功");
             }
         });
     }
+    function follow(investorid) {
+        if ("已关注" == $("#follow_").html())
+            return;
+        $.get("/investor/follow/" + investorid, function (result) {
+            if (result.data) {
+                $("#follow_").html("已关注");
+            } else {
+                alert("请先登录");
+            }
+        }, "json");
+    }
+    //是否已关注
+    $.get("/investor/isfollow/<%=investor.getId()%>", function (result) {
+        if (result.data) {
+            $("#follow_").html("已关注");
+        } else {
+            $("#follow_").html("+关注");
+        }
+    }, "json");
 </script>
 </html>

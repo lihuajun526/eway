@@ -26,12 +26,15 @@
 <body>
 <jsp:include page="../pub/head.jsp?flag=3" flush="true"/>
 <div class="inv-body">
-    <input id="photoFile" name="photoFile" type="file" multiple="multiple" onchange="doUpload()" style="display: none;"/>
+    <input id="photoFile" name="photoFile" type="file" multiple="multiple" onchange="doUpload()"
+           style="display: none;"/>
     <form id="baseForm">
         <input type="hidden" id="industrys_" name="industryId" value=""/>
         <input type="hidden" id="areas_" name="cityId" value=""/>
         <input type="hidden" id="stages_" name="stageId" value=""/>
         <input type="hidden" id="photo" name="photo" value=""/>
+        <input type="hidden" id="singlePriceId" name="singlePriceId" value="0"/>
+        <input type="hidden" id="styleId" name="styleId" value="0"/>
         <div class="inv-wap">
             <div class="inv-t">基本信息(1/2))</div>
             <div class="inv-one">
@@ -40,7 +43,8 @@
                     <li class="on2">
                         <a href="#">
                             <ul class="inv-lst1">
-                                <li><img id="photoImg" src="/images/wt-icon19.png" width="58" height="58" onclick="selectFile('photoFile')"/></li>
+                                <li><img id="photoImg" src="/images/wt-icon19.png" width="58" height="58"
+                                         onclick="selectFile('photoFile')"/></li>
                                 <li class="head">上传头像</li>
                             </ul>
                         </a>
@@ -162,8 +166,9 @@
                             <%
                                 for (Xwcmclassinfo industry : industrys) {
                             %>
-                            <li onclick="checkIndustry(this)" data="<%=industry.getClassinfoid()%>"><a><%=industry.getCname()%>
-                            </a></li>
+                            <li onclick="checkIndustry(this)" data="<%=industry.getClassinfoid()%>">
+                                <a><%=industry.getCname()%>
+                                </a></li>
                             <%
                                 }
                             %>
@@ -192,11 +197,12 @@
                 <ul class="inv-one-lst">
                     <li class="on1">单笔投资：</li>
                     <li class="on2">
-                        <div class="inv-two-ipt">
-                            <a class="a1" onclick="selectLimit(0,'')">请选择</a>
+                        <div class="inv-two-ipt" onclick="showMenu('limits');">
+                            <a id="limit" class="a1">请选择</a>
                         </div>
-                        <div class="inv-menu-ico" style="display: none;"></div>
-                        <ul class="inv-menu" style="display: none;">
+                        <div id="limits_" class="inv-menu-ico" style="display: none;"></div>
+                        <ul id="limits" class="inv-menu" style="display: none;">
+                            <li><a onclick="selectLimit(0,'');">请选择</a></li>
                             <%
                                 for (Xwcmclassinfo financingLimit : financingLimits) {
                             %>
@@ -215,11 +221,12 @@
                 <ul class="inv-one-lst">
                     <li class="on1">投资风格：</li>
                     <li class="on2">
-                        <div class="inv-two-ipt">
-                            <a class="a1" onclick="selectStyle(0,'');">请选择</a>
+                        <div class="inv-two-ipt" onclick="showMenu('styles');">
+                            <a id="style" class="a1">请选择</a>
                         </div>
-                        <div class="inv-menu-ico" style="display:none"></div>
-                        <ul class="inv-menu" style="display:none">
+                        <div id="styles_" class="inv-menu-ico" style="display:none"></div>
+                        <ul id="styles" class="inv-menu" style="display:none">
+                            <li><a onclick="selectStyle(0,'');">请选择</a></li>
                             <%
                                 for (Xwcmclassinfo style : styles) {
                             %>
@@ -263,27 +270,29 @@
 <script>
     //保存基本信息
     function saveBase() {
-        var industryIds = "";
+        var industryIds = "#";
         $("#industrys").children('li').each(function () {
             if ($(this).attr("class") == "on") {
-                industryIds += $(this).attr("data");
+                industryIds += $(this).attr("data") + "#";
             }
         });
         $("#industrys_").val(industryIds);
         var stageIds = "";
         $("#stages").children('li').each(function () {
             if ($(this).attr("class") == "on") {
-                industryIds += $(this).attr("data");
+                stageIds += $(this).attr("data") + "#";
             }
         });
         $("#stages_").val(stageIds);
         var areaIds = "";
         $("#areas").children('li').each(function () {
             if ($(this).attr("class") == "on") {
-                industryIds += $(this).attr("data");
+                areaIds += $(this).attr("data") + "#";
             }
         });
         $("#areas_").val(areaIds);
+        var singlePriceId = $("#singlePriceId").val();
+        var styleId = $("#styleId").val();
         if (isEmpty($("#photo").val())) {
             alert("请上传照片");
             return;
@@ -312,15 +321,15 @@
             alert("请选择投资领域");
             return;
         }
-        if (isEmpty(singlePriceId)) {
+        if (singlePriceId == 0) {
             alert("请选择单笔投资金额");
             return;
         }
-        if (isEmpty(styleId)) {
+        if (styleId == 0) {
             alert("请选择投资风格");
             return;
         }
-        if(isEmpty($("#personalProfile").val())){
+        if (isEmpty($("#personalProfile").val())) {
             alert("请填写个人简介");
             return;
         }
@@ -345,22 +354,29 @@
         $("#" + id).show();
         $("#" + id + "_").show();
     }
-
     function hideMenu() {
-        for (var i = 1; i <= 4; i++) {
-            $("#one" + i).hide();
-            $("#one" + i + "_").hide();
-            $("#two" + i).hide();
-            $("#two" + i + "_").hide();
-        }
+        $("#styles").hide();
+        $("#styles_").hide();
+        $("#limits").hide();
+        $("#limits_").hide();
     }
     function selectStyle(id, value) {
         $("#styleId").val(id);
         $("#style").val(value);
+        hideMenu();
+        if (id == 0)
+            $("#style").html("请选择");
+        else
+            $("#style").html(value);
     }
     function selectLimit(id, value) {
         $("#singlePriceId").val(id);
         $("#singlePrice").val(value);
+        hideMenu();
+        if (id == 0)
+            $("#limit").html("请选择");
+        else
+            $("#limit").html(value);
     }
     //上传图片
     function doUpload() {

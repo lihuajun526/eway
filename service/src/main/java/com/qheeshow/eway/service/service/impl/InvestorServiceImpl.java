@@ -23,8 +23,7 @@ public class InvestorServiceImpl implements InvestorService {
 
     @Override
     public void save(Investor investor) {
-        investorMapper.insertSelective(investor);
-        if (investor.getId().intValue() == 0) {
+        if (investor.getId() == null) {
             investor.setStatus(1);
             investorMapper.insert(investor);
         } else {

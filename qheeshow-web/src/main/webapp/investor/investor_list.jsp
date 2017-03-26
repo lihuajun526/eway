@@ -5,126 +5,124 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%
     List<Xwcmclassinfo> areas = (List<Xwcmclassinfo>) request.getAttribute("areas");
-    List<Xwcmclassinfo> financingLimits = (List<Xwcmclassinfo>) request.getAttribute("financingLimits");
     List<Xwcmclassinfo> industrys = (List<Xwcmclassinfo>) request.getAttribute("industrys");
+    List<Xwcmclassinfo> stages = (List<Xwcmclassinfo>) request.getAttribute("stages");
 %>
 <html>
 <head>
     <title><%=Config.get("app.name")%>--投资人</title>
+    <link rel="stylesheet" href="/images/animate.min.css">
+    <link rel="stylesheet" href="/images/bootstrap.css">
     <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="/images/wt_index.css"/>
     <script src="/jquery/jquery-1.11.1.js"></script>
     <script>
-        var type = 0;//项目类型
         var areaid = 0;//地区id
-        var industryid = 0;//产业id
-        var limitid = 0;//融资规模id
+        var industryid = 0;//行业id
+        var stageid = 0;//阶段id
         var keyword = "";
         var pageIndex = 1;
         function list() {
-            $("#projects").load("/project/list/" + type + "/" + areaid + "/" + limitid + "/" + industryid + "/" + pageIndex + "?keyword=" + keyword);
+            $("#investors").load("/investor/list/" + areaid + "/" + industryid + "/" + stageid + "/" + pageIndex + "?keyword=" + keyword);
         }
-        function setType(value) {
-            type = value;
-            keyword = $("#keyword").val();
-            list();
-        }
-        function setArea(value) {
+        function setArea(value, obj, id) {
             areaid = value;
             keyword = $("#keyword").val();
+            setCheck(value, obj, id);
             list();
         }
-        function setIndustry(value) {
+        function setIndustry(value, obj, id) {
             industryid = value;
             keyword = $("#keyword").val();
+            setCheck(value, obj, id);
             list();
         }
-        function setLimit(value) {
+        function setStage(value, obj, id) {
             limitid = value;
             keyword = $("#keyword").val();
+            setCheck(value, obj, id);
             list();
         }
         function search() {
             keyword = $("#keyword").val();
             list();
         }
+        function setCheck(value, obj, id) {
+            if (value != 0) {
+                $(obj).parent().children('li').each(function () {
+                    $(this).removeClass("on");
+                });
+                $(obj).attr("class", "on");
+            } else
+                $("#" + id).children('li').each(function () {
+                    $(this).removeClass("on");
+                });
+        }
     </script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp" flush="true"/>
+<jsp:include page="../pub/head.jsp?flag=3" flush="true"/>
 <div class="g-banner2"></div>
 <div class="g-proj">
     <div class="g-conter">
         <ul class="g-proj-sev">
-            <li><input type="text" class="g-proj-ipt" placeholder="输入您要找的投资人"/></li>
+            <li><input id="keyword" class="g-proj-ipt" placeholder="输入您要找的投资人"/></li>
             <li><a href="#" class="g-proj-btn"></a></li>
         </ul>
         <div class="g-proj-one">
             <div class="g-proj-onew">
-                <div class="g-proj-onel">所属行业：</div>
-                <div class="g-proj-onec">不限</div>
+                <div class="g-proj-onel">关注行业：</div>
+                <div class="g-proj-onec" onclick="setIndustry(0,this,'industrys');"><a>不限</a></div>
                 <div class="g-proj-oner">
-                    <ul>
-                        <li><a href="#">平台推荐</a></li>
-                        <li><a href="#">机构关注</a></li>
-                        <li><a href="#">企业自荐</a></li>
+                    <ul id="industrys">
+                        <%
+                            for (Xwcmclassinfo industry : industrys) {
+                        %>
+                        <li onclick="setIndustry(<%=industry.getClassinfoid() %>,this);"><a><%=industry.getCname()%>
+                        </a></li>
+                        <%
+                            }
+                        %>
                     </ul>
                 </div>
             </div>
             <div class="g-proj-onew">
                 <div class="g-proj-onel">所在区域：</div>
-                <div class="g-proj-onec-a">不限</div>
+                <div class="g-proj-onec" onclick="setArea(0,this,'areas');"><a>不限</a></div>
                 <div class="g-proj-oner">
-                    <ul>
-                        <li><a href="#">上海</a></li>
-                        <li><a href="#">广州</a></li>
-                        <li><a href="#">深圳</a></li>
-                        <li><a href="#">杭州</a></li>
-                        <li class="on"><a href="#">福建</a></li>
-                        <li><a href="#">北京</a></li>
+                    <ul id="areas">
+                        <%
+                            for (Xwcmclassinfo area : areas) {
+                        %>
+                        <li onclick="setArea(<%=area.getClassinfoid() %>,this);"><a><%=area.getCname()%>
+                        </a></li>
+                        <%
+                            }
+                        %>
                     </ul>
-
                 </div>
             </div>
             <div class="g-proj-onew">
                 <div class="g-proj-onel">偏好阶段：</div>
-                <div class="g-proj-onec">不限</div>
+                <div class="g-proj-onec" onclick="setStage(0,this,'stages');"><a>不限</a></div>
                 <div class="g-proj-oner">
-                    <ul>
-                        <li><a href="#">50万-100万</a></li>
-                        <li><a href="#">100万-200万</a></li>
-                        <li><a href="#">200万-300万</a></li>
-                    </ul>
-                    <a href="#" class="g-proj-oner-m">全部</a>
-                    <!--<a href="#" class="g-proj-oner-m2">全部</a> 改变箭头的代码-->
-                </div>
-            </div>
-            <div class="g-proj-onew">
-                <div class="g-proj-onel">人物身份：</div>
-                <div class="g-proj-onec">不限</div>
-                <div class="g-proj-oner">
-                    <ul>
-                        <li><a href="#">电子商务</a></li>
-                        <li><a href="#">社交网络</a></li>
-                        <li><a href="#">智能硬件</a></li>
-                        <li><a href="#">消费生活</a></li>
-                    </ul>
-
-                </div>
-            </div>
-            <div class="g-proj-onew">
-                <div class="g-proj-onel">分      类：</div>
-                <div class="g-proj-onec">不限</div>
-                <div class="g-proj-oner">
-                    <ul>
-                        <li><a href="#">投资类</a></li>
-                        <li><a href="#">咨询类</a></li>
-                        <li><a href="#">财务类</a></li>
+                    <ul id="stages">
+                        <%
+                            for (Xwcmclassinfo stage : stages) {
+                        %>
+                        <li onclick="setArea(<%=stage.getClassinfoid() %>,this);"><a><%=stage.getCname()%>
+                        </a></li>
+                        <%
+                            }
+                        %>
                     </ul>
                 </div>
             </div>
         </div>
         <div id="investors" class="g-people"></div>
+        <script>
+            list();
+        </script>
     </div>
 </div>
 <jsp:include page="../pub/foot.jsp" flush="true"/>

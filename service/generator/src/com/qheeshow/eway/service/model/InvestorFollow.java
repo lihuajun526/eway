@@ -2,14 +2,12 @@ package com.qheeshow.eway.service.model;
 
 import java.util.Date;
 
-public class BindMap {
+public class InvestorFollow {
     private Integer id;
 
-    private String bindId;
+    private Integer investorid;
 
-    private String calling;
-
-    private String called;
+    private Integer userid;
 
     private Date createTime;
 
@@ -23,28 +21,20 @@ public class BindMap {
         this.id = id;
     }
 
-    public String getBindId() {
-        return bindId;
+    public Integer getInvestorid() {
+        return investorid;
     }
 
-    public void setBindId(String bindId) {
-        this.bindId = bindId == null ? null : bindId.trim();
+    public void setInvestorid(Integer investorid) {
+        this.investorid = investorid;
     }
 
-    public String getCalling() {
-        return calling;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setCalling(String calling) {
-        this.calling = calling == null ? null : calling.trim();
-    }
-
-    public String getCalled() {
-        return called;
-    }
-
-    public void setCalled(String called) {
-        this.called = called == null ? null : called.trim();
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public Date getCreateTime() {

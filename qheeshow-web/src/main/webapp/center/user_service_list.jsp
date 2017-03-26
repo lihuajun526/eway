@@ -12,7 +12,8 @@
 <div class="g-mg-rwap">
     <ul class="g-mg-rtitlst">
         <%
-            for (Project project : projects) {
+            for (int i = 0; i < 4 && i < projects.size(); i++) {
+                Project project = projects.get(i);
                 if (projectid.intValue() == project.getId().intValue()) {
         %>
         <li class="on"><a><%=project.getTitle()%>

@@ -6,11 +6,6 @@
 <%
     List<Project> projects = (List<Project>) request.getAttribute("projects");
     User loginUser = session.getAttribute("loginUser") == null ? null : (User) session.getAttribute("loginUser");
-    String buyBtncls1 = (String) request.getAttribute("buyBtncls1");
-    String buyBtncls2 = (String) request.getAttribute("buyBtncls2");
-    String buyBtncls3 = (String) request.getAttribute("buyBtncls3");
-    String buyBtncls4 = (String) request.getAttribute("buyBtncls4");
-    Integer projectid = (Integer) request.getAttribute("projectid");
 %>
 <html>
 <head>
@@ -35,11 +30,9 @@
                 for (int i = 0; i < 4 && i < projects.size(); i++) {
                     Project project = projects.get(i);
                     String cls = "";
-                    if (projectid == 0 && i == 0) {
+                    if (i == 0)
                         cls = " class='on'";
-                    } else if (project.getId().intValue() == projectid) {
-                        cls = " class='on'";
-                    } else
+                    else
                         cls = "";
             %>
             <li<%=cls%> onclick="checkProject(this,<%=project.getId()%>);" style="cursor: pointer">
@@ -66,7 +59,7 @@
 
                 <h3>3个投资人／45分钟起</h3>
             </div>
-            <div id="buy1" class="<%=buyBtncls1%>"><a onclick="addGoods(1,1299);">购买</a></div>
+            <div id="buy1" class="g-purchase2"><a onclick="addGoods(1,1299);">购买</a></div>
         </div>
         <div class="g-pser-cnt">
             <h2>套餐二</h2>
@@ -80,7 +73,7 @@
 
                 <h3>2个投资人／30分钟起</h3>
             </div>
-            <div id="buy2" class="<%=buyBtncls2%>"><a onclick="addGoods(2,799);">购买</a></div>
+            <div id="buy2" class="g-purchase2"><a onclick="addGoods(2,799);">购买</a></div>
         </div>
         <div class="g-pser-cnt">
             <h2>套餐三</h2>
@@ -98,7 +91,7 @@
                     <li>投资人互动</li>
                 </ul>
             </div>
-            <div id="buy3" class="<%=buyBtncls3%>"><a onclick="addGoods(3,19900);">购买服务</a></div>
+            <div id="buy3" class="g-purchase3"><a onclick="addGoods(3,19900);">购买服务</a></div>
         </div>
         <div class="g-pser-cnt">
             <h2>套餐四</h2>
@@ -115,7 +108,7 @@
                     <li>投资人互动</li>
                 </ul>
             </div>
-            <div id="buy4" class="<%=buyBtncls4%>"><a onclick="addGoods(4,9900);">购买服务</a></div>
+            <div id="buy4" class="g-purchase3"><a onclick="addGoods(4,9900);">购买服务</a></div>
         </div>
         <div class="clear"></div>
         <div id="cart" class="g-pser-n">
@@ -157,7 +150,7 @@
                 </li>
             </ul>
             <div id="sumPrice" class="g-pser-n1"></div>
-            <div class="g-pser-n2"><a onclick="place();">立即支付</a></div>
+            <div class="g-pser-n2"><a href="#">立即支付</a></div>
         </div>
         <!--*************************选购套餐数量************************-->
     </div>
@@ -165,7 +158,7 @@
 <jsp:include page="../pub/foot.jsp" flush="true"/>
 </body>
 <script>
-    var projectid = <%=projects.size()>0?projects.get(0).getId():0%>;
+    var projectid = 0;
     var count1 = 0, count2 = 0, count3 = 0, count4 = 0;
     var kindCount = 0;
     var sumPrice = 0;
@@ -176,7 +169,6 @@
         });
         $(obj).attr("class", "on");
         projectid = id;
-        window.location.href = "/goods/list/" + projectid;
     }
 
     function addGoods(index, price) {
@@ -184,8 +176,6 @@
             window.location.href = "/user/login.jsp";
             return;
         }
-        if ("g-purchase2" == $("#buy" + index).attr("class"))
-            return;
         if (index == 1) {
             count1++;
             $("#counter1").html("X" + count1);
@@ -252,13 +242,28 @@
         draw();
     }
     function draw() {
-        if (count2 > 0)
+        //购买按钮
+        if (count3 > 0 || count4 > 0) {
+            $("#buy1").attr("class", "g-purchase");
+            if (count2 > 0)
+                $("#buy2").attr("class", "g-purchase2");
+            else
+                $("#buy2").attr("class", "g-purchase3");
+        } else {
+            $("#buy1").attr("class", "g-purchase2");
             $("#buy2").attr("class", "g-purchase2");
+        }
         if (count3 > 0)
             $("#buy3").attr("class", "g-purchase2");
+        else
+            $("#buy3").attr("class", "g-purchase3");
         if (count4 > 0)
             $("#buy4").attr("class", "g-purchase2");
+        else
+            $("#buy4").attr("class", "g-purchase3");
+
         $("#sumPrice").html("合计：￥" + sumPrice + "元");
+
         var sum = 0;
         var linkerCount = kindCount - 1;
         if (linkerCount >= 0)
@@ -306,10 +311,6 @@
             $("#goods4").hide();
     }
     draw();
-    function place() {
-        $.get("/order/place/" + projectid + "/" + count1 + "/" + count2 + "/" + count3 + "/" + count4, function (result) {
-            alert(result.message);
-        }, "json");
-    }
+
 </script>
 </html>

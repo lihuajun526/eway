@@ -83,6 +83,11 @@ public class MixcomServiceImpl implements MixcomService {
     }
 
     @Override
+    public String unBound() {
+        return null;
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
     public void saveRecord(CallRecord callRecord) throws CommonException {
         BindMap bindMap = bindMapService.getByBindId(callRecord.getBindId());
