@@ -2,7 +2,6 @@ package com.qheeshow.eway.service.service.impl;
 
 import com.qheeshow.eway.service.dao.ActivityMapper;
 import com.qheeshow.eway.service.model.Activity;
-import com.qheeshow.eway.service.model.ActivitySign;
 import com.qheeshow.eway.service.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

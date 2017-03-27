@@ -10,12 +10,8 @@
 %>
 <div class="g-people-lst">
     <span><img style="cursor: pointer" src="<%=investor.getPhoto()%>" width="240" height="181" onclick="openDetail(<%=investor.getId()%>);"/></span>
-
-    <h1><%=investor.getTrueName()%>
-    </h1>
-    <h5><%=investor.getCompanyName()%> | <%=investor.getCompanyRank()%>
-    </h5>
-
+    <h1><%=investor.getTrueName()%></h1>
+    <h5><%=investor.getCompanyName()%> | <%=investor.getCompanyRank()%></h5>
     <div class="g-people-lst-heg">
         <ul class="g-people-lst-ul">
             <li class="on1">关注领域：</li>
@@ -46,10 +42,10 @@
                 }
             %></li>
         </ul>
-        <div class="g-people-lst-btn">
-            <a href="#">沟通量(34)</a>
-            <a href="#">综合评分(4.5星)</a>
-        </div>
+    </div>
+    <div class="g-people-lst-btn">
+        <a href="#">沟通量(34)</a>
+        <a href="#">综合评分(4.5星)</a>
     </div>
 </div>
 <%

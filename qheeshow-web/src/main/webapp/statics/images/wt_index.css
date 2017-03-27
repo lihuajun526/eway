@@ -528,7 +528,7 @@
 	opacity: .5;
 	background-color: #000;
 }
-.g-pw1, .g-pw2 {
+.g-pw1, .g-pw2, .g-pw4 {
 	position:absolute;
 	z-index: 999;
 	top:210px;
@@ -542,10 +542,29 @@
 .g-pw2 {
 	height: 472px;
 }
+.g-pw4 {
+	height: 380px;
+}
 .g-pw1 h1, .g-pw2 h1 {
 	text-align:center;
 	font-size:24px;
 	margin-top:39px;
+}
+.g-pw4 h1 {
+	text-align:center;
+	font-size:24px;
+	margin-top:44px;
+	margin-bottom:42px;
+	color:#000000;
+	opacity:0.69;
+}
+.g-pw4-lst {
+	text-align:center;
+}
+.g-pw4-lst span {
+	display:block;
+	font-size:15px;
+	margin-top:30px;
 }
 .g-pw1 h3, .g-pw2 h3 {
 	width:130px;
@@ -690,11 +709,11 @@
 	margin-right:10px;
 }
 .g-proj-oner {
-	width:706px;
+	width:776px;
 	float:left;
 	padding:18px 0;
 	position:relative;
-	padding-right:80px;
+	padding-right:10px;
 }
 .g-proj-oner li {
 	float:left;
@@ -714,7 +733,7 @@
 }
 .g-proj-oner-m {
 	position:absolute;
-	right:-60px;
+	right:0px;
 	top:18px;
 	width:55px;
 	background:url(jt-down.png) no-repeat right center;
@@ -994,6 +1013,7 @@
 .g-lgin {
 	background:url(bg-sign.jpg) no-repeat center top;
 	overflow:hidden;
+	height:1035px;
 }
 .g-lgin-m {
 	width:550px;
@@ -1004,7 +1024,7 @@
 	overflow:hidden;
 }
 .g-lgin-t2 {
-	margin-top:152px;
+	margin-top:120px;
 }
 .g-lgin-t li {
 	float:left;
@@ -1029,11 +1049,7 @@
 	background:#ffffff;
 	border-radius:0 0 12px 12px;
 	padding-bottom:56px;
-	margin-bottom:320px;
 	overflow:hidden;
-}
-.g-lgin-cnt2 {
-	margin-bottom:140px;
 }
 .g-lgin-cnt3 {
 	border-radius:12px;
@@ -1871,6 +1887,12 @@
 	font-size:15px;
 	color:#000000;
 }
+.g-mg-rtit6 .ts {
+	opacity:0.5;
+	font-size:15px;
+	color:#000000;
+	margin-left:5px;
+}
 .g-mg-rtit3 a {
 	opacity:0.4;
 	font-size:13px;
@@ -2603,7 +2625,7 @@
 .g-actlst-cnt h1 a {
 	color:#000000;
 }
-.g-actlst-status {
+.g-actlst-status, .g-actlst-status-1 {
 	position:absolute;
 	right:20px;
 	top:19px;
@@ -2615,6 +2637,10 @@
 	color:#FFFFFF;
 	background:#0097e1;
 	font-size:10px;
+}
+.g-actlst-status-1 {
+	color:#FFFFFF;
+	background:#999999;
 }
 .g-actlst-cnt h3 {
 	padding-top:18px;
@@ -2700,7 +2726,7 @@
 	height:38px;
 	line-height:38px;
 }
-.g-actlst-btn1, .g-actlst-btn2 {
+.g-actlst-btn1, .g-actlst-btn2, .g-actlst-btn3 {
 	padding:0 20px;
 	text-align:center;
 	height:38px;
@@ -2710,12 +2736,15 @@
 	font-size:15px;
 	border-radius:3px;
 }
-.g-actlst-btn2 {
+.g-actlst-btn2, .g-actlst-btn3 {
 	height:36px;
 	line-height:34px;
 	background:#f9f9f9;
 	border:1px solid #f1f1f1;
 	color:#fe7b09;
+}
+.g-actlst-btn3 {
+	color:#999999;
 }
 .g-actlst-onelst2 li.on3 {
 	color:#666666;

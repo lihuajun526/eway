@@ -112,17 +112,15 @@ public class UserCenterController extends BaseController {
         User loginUser = (User) session.getAttribute("loginUser");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("center/user_service_list");
-        List<Project> projects = null;
-        if (projectid.intValue() == 0) {
-            projects = projectService.listByUser(loginUser.getId());
-        }
+        List<Project> projects = projectService.listByUser(loginUser.getId());
         modelAndView.addObject("projects", projects);
         modelAndView.addObject("goodsItems", new ArrayList<GoodsItem>());
         modelAndView.addObject("investors", new ArrayList<Investor>());
         if (projects.isEmpty())
             return modelAndView;
         //查询为某个项目购买的服务
-        projectid = projects.get(0).getId();
+        if (projectid.intValue() == 0)
+            projectid = projects.get(0).getId();
         modelAndView.addObject("projectid", projectid);
         List<OrderDetail> orderDetails = orderDetailService.listByProject(projectid);
         if (orderDetails.isEmpty())

@@ -316,6 +316,13 @@
 .pro-lst1 li.head {
 	margin-top:13px;
 }
+.pro-lst2{
+    background:url(wt-icon20.png) no-repeat;
+	width:154px;
+	height:155px;
+	text-align:center;
+	padding-top:12px;
+}
 .pro-one-lst2 {
 	height:40px;
 	line-height:38px;

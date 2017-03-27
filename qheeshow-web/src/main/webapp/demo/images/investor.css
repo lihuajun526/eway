@@ -232,13 +232,15 @@
 }
 .inv-one-span {
 	display:block;
-	background:url(wt-icon23.png) no-repeat left center;
-	padding-left:20px;
-	margin-bottom:5px;
 	font-size:15px;
-	color:#808080;
+	color:#000000;
+	opacity:0.5;
+	margin-bottom:5px;
 }
-
+.inv-one-span input{
+	margin-bottom:5px;
+	margin-right:5px;
+}
 
 .inv-fo-lst {
 	margin-top:12px;

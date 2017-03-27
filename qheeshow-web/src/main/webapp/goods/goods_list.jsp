@@ -32,20 +32,22 @@
         <div class="g-pser-t2"><span>温馨提示：</span>选择为您的一个项目购买服务</div>
         <ul class="g-pser-lst">
             <%
-                for (int i = 0; i < 4 && i < projects.size(); i++) {
-                    Project project = projects.get(i);
-                    String cls = "";
-                    if (projectid == 0 && i == 0) {
-                        cls = " class='on'";
-                    } else if (project.getId().intValue() == projectid) {
-                        cls = " class='on'";
-                    } else
-                        cls = "";
-            %>
-            <li<%=cls%> onclick="checkProject(this,<%=project.getId()%>);" style="cursor: pointer">
-                <a><%=project.getTitle()%>
-                </a></li>
-            <%
+                if(projects.size()==0){
+                    %><li class="on"><a href="/project/0/add/edit/1">请先创建项目</a></li><%
+                }else{
+                    for (int i = 0; i < 4 && i < projects.size(); i++) {
+                        Project project = projects.get(i);
+                        String cls = "";
+                        if (projectid == 0 && i == 0) {
+                            cls = " class='on'";
+                        } else if (project.getId().intValue() == projectid) {
+                            cls = " class='on'";
+                        } else
+                            cls = "";
+                        %><li<%=cls%> onclick="checkProject(this,<%=project.getId()%>);" style="cursor: pointer">
+            <a><%=project.getTitle()%>
+            </a></li><%
+                    }
                 }
             %>
         </ul>

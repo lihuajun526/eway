@@ -29,18 +29,24 @@ public class ActivityController extends BaseController {
     @Autowired
     private ActivitySignService activitySignService;
 
-    @RequestMapping("/list/{type}/{pageIndex}/{pageSize}")
+    @RequestMapping("/list/{activityClass}/{pageIndex}/{pageSize}")
     @ResponseBody
-    public String list(@PathVariable Integer activityClass, Integer pageIndex, Integer pageSize) {
+    public String list(@PathVariable Integer activityClass, @PathVariable Integer pageIndex, @PathVariable Integer pageSize) {
 
         Result<List<Activity>> result = new Result<>();
 
         Activity activity = new Activity();
-        activity.setActivityClass(activityClass);
+        if (activityClass.intValue() > 0)
+            activity.setActivityClass(activityClass);
         List<Activity> list = activityService.listByCodition(activity, pageIndex, pageSize);
         result.setData(list);
 
         return result.toString();
+    }
+
+    @RequestMapping("/list")
+    public String list() {
+        return "activity/activity_list";
     }
 
     @RequestMapping("/get/{id}")

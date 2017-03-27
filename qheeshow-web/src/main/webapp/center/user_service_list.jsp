@@ -21,7 +21,7 @@
         <%
         } else {
         %>
-        <li><a><%=project.getTitle()%>
+        <li style="cursor: pointer" onclick="load('/center/myservices/<%=project.getId()%>');"><a><%=project.getTitle()%>
         </a></li>
         <%
                 }

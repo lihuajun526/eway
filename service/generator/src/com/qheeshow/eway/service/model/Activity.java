@@ -3,7 +3,7 @@ package com.qheeshow.eway.service.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Activity extends BaseModel{
+public class Activity {
     private Integer id;
 
     private String logo;

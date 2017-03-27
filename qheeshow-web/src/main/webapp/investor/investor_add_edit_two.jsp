@@ -88,6 +88,10 @@
                         <span class="inv-one-span">本人承诺上述认证信息情况属实，如有不实，愿意承担相应责任。</span>
                         <span class="inv-one-span">本人已认真阅读《风险揭示书》，完全理解并认同全部内容。</span>
                     </li>
+                    <li class="on6">
+                        <span class="inv-one-span"><input type="checkbox" checked>本人承诺上述认证信息情况属实，如有不实，愿意承担相应责任。</span>
+                        <span class="inv-one-span"><input type="checkbox" checked>本人已认真阅读《风险揭示书》，完全理解并认同全部内容。</span>
+                    </li>
                 </ul>
             </div>
             <div class="inv-clear"></div>
