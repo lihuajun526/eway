@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/demo/demo.css">
+    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.min.js"></script>
+    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/statics/jquery/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="/statics/js/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/statics/js/config.js"></script>
+</head>
+<body>
+<input type="file" id="logoFile" name="logoFile" onchange="uploadLogo('logoFile','logoImg','logo')"
+       style="display: none;"/>
+<input type="file" id="bpFile" name="bpFile" onchange="uploadFile('bpFile')" style="display: none;"/>
+
+<form id="projectForm">
+    <input type="hidden" id="id" name="id"/>
+    <input type="hidden" id="logo" name="logo"/>
+    <input type="hidden" id="status" name="status" value="1"/>
+    <table>
+        <tbody>
+        <tr class="firstRow">
+            <td rowspan="3" colspan="1" style="word-break: break-all;">
+                <img id="logoImg" onclick="selectFile('logoFile');" title="点击添加图片" src="/statics/images/bg-new1.png"
+                     width="150" height="150"/>
+            </td>
+            <td style="word-break: break-all;">
+                &nbsp;项目名称：<input id="title" name="title" placeholder="项目名称"/>&nbsp;&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;">
+                &nbsp;项目视频：<input id="videoLink" name="videoLink" placeholder="输入项目视频网址"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="uploadBtn" onclick="selectFile('bpFile');" type="button" value="上传BP"/>&nbsp;<span
+                    id="bpShow"></span>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;">
+                &nbsp;所属行业：<select id="industry" name="industry"></select>&nbsp;&nbsp;
+                所在城市：<select id="area" name="area"></select>&nbsp;&nbsp;
+                融资规模：<select id="financingLimit" name="financingLimit"></select>&nbsp;&nbsp;
+                融资阶段：<select id="stages" name="stages"></select>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;text-align:center;height: 40px;">
+                解决需求：
+            </td>
+            <td>
+                <textarea cols="80" rows="2" id="demand" name="demand" placeholder="输入项目解决的实际需求"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;text-align:center;height: 40px;">
+                项目亮点：
+            </td>
+            <td>
+                <textarea cols="80" rows="2" id="highlights" name="highlights" placeholder="输入项目的亮点"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;text-align:center;height: 40px;">
+                项目详述：
+            </td>
+            <td>
+                <textarea cols="80" rows="5" id="description" name="description" placeholder="输入项目详述"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;text-align:center;height: 40px;">
+                项目标签：
+            </td>
+            <td>
+                <div id="tags" style="height: 40px;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;text-align:center;height: 40px;">
+                财务数据（<span id="lastOne"></span>年）：
+            </td>
+            <td>
+                主营收入：<select id="lastOne1">
+                <option value="500万以下">500万以下</option>
+                <option value="500~2000万">500~2000万</option>
+                <option value="2000~5000万">2000~5000万</option>
+                <option value="5000~10000万">5000~10000万</option>
+                <option value="10000万以上">10000万以上</option>
+            </select>&nbsp;&nbsp;
+                利润：<select id="lastOne2">
+                <option value="100万以下">100万以下</option>
+                <option value="100~500万">100~500万</option>
+                <option value="500~1000万">500~1000万</option>
+                <option value="1000~3000万">1000~3000万</option>
+                <option value="3000万以上">3000万以上</option>
+            </select>&nbsp;&nbsp;
+                总资产：<select id="lastOne3">
+                <option value="1000万以下">1000万以下</option>
+                <option value="1000~5000万">1000~5000万</option>
+                <option value="5000~10000万">5000~10000万</option>
+                <option value="10000万以上">10000万以上</option>
+            </select>&nbsp;&nbsp;
+                净资产：<select id="lastOne4">
+                <option value="500万以下">500万以下</option>
+                <option value="500~2000万">500~2000万</option>
+                <option value="2000~5000万">2000~5000万</option>
+                <option value="5000万以上">5000万以上</option>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;text-align:center;height: 40px;">
+                财务数据（<span id="lastTwo"></span>年）：
+            </td>
+            <td>
+                主营收入：<select id="lastTwo1">
+                <option value="500万以下">500万以下</option>
+                <option value="500~2000万">500~2000万</option>
+                <option value="2000~5000万">2000~5000万</option>
+                <option value="5000~10000万">5000~10000万</option>
+                <option value="10000万以上">10000万以上</option>
+            </select>&nbsp;&nbsp;
+                利润：<select id="lastTwo2">
+                <option value="100万以下">100万以下</option>
+                <option value="100~500万">100~500万</option>
+                <option value="500~1000万">500~1000万</option>
+                <option value="1000~3000万">1000~3000万</option>
+                <option value="3000万以上">3000万以上</option>
+            </select>&nbsp;&nbsp;
+                总资产：<select id="lastTwo3">
+                <option value="1000万以下">1000万以下</option>
+                <option value="1000~5000万">1000~5000万</option>
+                <option value="5000~10000万">5000~10000万</option>
+                <option value="10000万以上">10000万以上</option>
+            </select>&nbsp;&nbsp;
+                净资产：<select id="lastTwo4">
+                <option value="500万以下">500万以下</option>
+                <option value="500~2000万">500~2000万</option>
+                <option value="2000~5000万">2000~5000万</option>
+                <option value="5000万以上">5000万以上</option>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" rowspan="1" colspan="2" style="word-break: break-all;">
+                <input type="button" value="保存" onclick="add();"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+<script>
+    var d = new Date();
+    function validate() {
+        if (!$("#logo").val().length) {
+            alert("请上传项目logo");
+            return false;
+        }
+        if (!$("#title").val().length) {
+            alert("请输入项目标题");
+            return false;
+        }
+        if ($("#industry").val() == "0") {
+            alert("请选择行业");
+            return false;
+        }
+        if ($("#area").val() == "0") {
+            alert("请选择城市");
+            return false;
+        }
+        if ($("#financingLimit").val() == "0") {
+            alert("请选择融资规模");
+            return false;
+        }
+        if ($("#stage").val() == "0") {
+            alert("请选择项目阶段");
+            return false;
+        }
+        if (!$("#demand").val().length) {
+            alert("请输入项目解决的实际需求");
+            return false;
+        }
+        if (!$("#highlights").val().length) {
+            alert("请输入项目亮点");
+            return false;
+        }
+        if (!$("#description").val().length) {
+            alert("请输入项目详述");
+            return false;
+        }
+        return true;
+    }
+    function save() {
+        if (!validate())
+            return;
+        $.ajax({
+            url: '/activity/save',
+            type: 'post',
+            data: $('#activityForm').serialize(),
+            dataType: 'json',
+            success: function (result) {
+                if (result.success) {
+                    alert("保存成功");
+                    window.parent.loadList();
+                    window.parent.closeTab('添加活动');
+                } else {
+                    $.messager.alert('Info', "错误", 'info');
+                }
+            }
+        });
+    }
+    function selectFile(id) {
+        $('#' + id).click();
+    }
+    //上传logo
+    function uploadLogo(fileid, imgid, hiddenid) {
+        var file = $('#' + fileid);
+        if (!file || !file.val())
+            return;
+        var patn = /\.jpg$|\.jpeg$|\.png$|\.gif$/i;
+        if (!patn.test(file.val())) {
+            alert("请选择图片文件");
+            return;
+        }
+        $.ajaxFileUpload({
+                    url: '/image/upload', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId: fileid, //文件上传域的ID
+                    dataType: 'json', //返回值类型 一般设置为json
+                    success: function (result) {  //服务器成功响应处理函数
+                        if (result.code == -1) {
+                            alert(result.message);
+                            return;
+                        }
+                        $('#' + imgid).attr("src", result.data.path);
+                        $('#' + hiddenid).val(result.data.path);
+                    }
+                }
+        );
+    }
+    //上传文件
+    function uploadFile(fileid) {
+        var file = $('#' + fileid);
+        if (!file || !file.val())
+            return;
+        var patn = /\.pdf$|\.ppt$|\.pptx$/i;
+        if (!patn.test(file.val())) {
+            alert("文件类型不正确");
+            return;
+        }
+        $.ajaxFileUpload({
+                    url: '/file/upload', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId: fileid, //文件上传域的ID
+                    dataType: 'json', //返回值类型 一般设置为json
+                    success: function (result) {  //服务器成功响应处理函数
+                        if (result.code == -1) {
+                            alert(result.message);
+                            return;
+                        }
+                        $('#bpShow').html(result.data.name);
+                        $('#bpName').val(result.data.name);
+                        $('#bp').val(result.data.path);
+                    }
+                }
+        );
+    }
+    //获得行业信息
+    $.get("/classinfo/list/root/" + classinfo_rootid_industry, function (result) {
+        if (result.code < 0) {
+            alert(result.message);
+            return;
+        }
+        var industry = $('#industry');
+        industry.html("<option value='0'>请选择</option>");
+        for (i = 0; i < result.data.length; i++) {
+            industry.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+        }
+        //获得地域信息
+        $.get("/classinfo/list/root/" + classinfo_rootid_area, function (result) {
+            if (result.code < 0) {
+                alert(result.message);
+                return;
+            }
+            var area = $('#area');
+            area.html("<option value='0'>请选择</option>");
+            for (i = 0; i < result.data.length; i++) {
+                area.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+            }
+            //获得融资额度信息
+            $.get("/classinfo/list/root/" + classinfo_rootid_financing_limit, function (result) {
+                if (result.code < 0) {
+                    alert(result.message);
+                    return;
+                }
+                var financingLimit = $('#financingLimit');
+                financingLimit.html("<option value='0'>请选择</option>");
+                for (i = 0; i < result.data.length; i++) {
+                    financingLimit.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+                }
+                //获得项目标签信息
+                $.get("/classinfo/list/root/" + classinfo_rootid_tag, function (result) {
+                    if (result.code < 0) {
+                        alert(result.message);
+                        return;
+                    }
+                    var tags = $('#tags');
+                    tags.html("");
+                    for (i = 0; i < result.data.length; i++) {
+                        tags.append("<input type='checkbox' value='" + result.data[i].cname + "'/>" + result.data[i].cname + "&nbsp;");
+                    }
+                    //获得融资阶段信息
+                    $.get("/classinfo/list/root/" + classinfo_rootid_stage, function (result) {
+                        if (result.code < 0) {
+                            alert(result.message);
+                            return;
+                        }
+                        var stages = $('#stages');
+                        stages.html("<option value='0'>请选择</option>");
+                        for (i = 0; i < result.data.length; i++) {
+                            stages.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+                        }
+                        if (parent.projectid > 0) {
+                            $.get("/project/get/" + parent.projectid, function (result) {
+                                if (result.code != 0) {
+                                    alert("获取项目失败");
+                                    return;
+                                }
+                                var data = result.data;
+                                $("#id").val(data.id);
+                                $("#bp").val(data.bp);
+                                $("#bpName").val(data.bpName);
+                                $("#bpShow").html("<a href='" + data.bp + "'>" + data.bpName + "</a>");
+                                $("#logoImg").attr("src", data.logo);
+                                $("#title").val(data.title);
+                                $("#demand").val(data.demand);
+                                $("#highlights").val(data.highlights);
+                                $("#industry").val(data.industry);
+                                $("#area").val(data.area);
+                                $("#financingLimit").val(data.financingLimit);
+                                $("#stage").val(data.stage);
+                                $("#description").val(data.description);
+                                $("#videoLink").val(data.videoLink);
+                                //2016:500万以下#100万以下#1000万以下#500万以下
+                                var lastOne = data.lastOne;
+                                if (isEmpty(lastOne)) {
+                                    $("#lastOne").html(d.getFullYear() - 1);
+                                } else {
+                                    var strs1 = lastOne.split(":");
+                                    $("#lastOne").html(strs1[0]);
+                                    var strs2 = strs1[1].split("#");
+                                    $("#lastOne1").val(strs2[0]);
+                                    $("#lastOne2").val(strs2[1]);
+                                    $("#lastOne3").val(strs2[2]);
+                                    $("#lastOne4").val(strs2[3]);
+                                }
+                                var lastTwo = data.lastTwo;
+                                if (isEmpty(lastTwo)) {
+                                    $("#lastTwo").html(d.getFullYear() - 2);
+                                } else {
+                                    var strs1 = lastTwo.split(":");
+                                    $("#lastTwo").html(strs1[0]);
+                                    var strs2 = strs1[1].split("#");
+                                    $("#lastTwo1").val(strs2[0]);
+                                    $("#lastTwo2").val(strs2[1]);
+                                    $("#lastTwo3").val(strs2[2]);
+                                    $("#lastTwo4").val(strs2[3]);
+                                }
+                                if (!isEmpty(data.tags)) {
+                                    var tags = data.tags.split("#");
+                                    $("#tags").children('input').each(function () {
+                                        for (var i = 0; i < tags.length; i++) {
+                                            if ($(this).val() == tags[i])
+                                                $(this).attr("checked", "checked");
+                                        }
+                                    });
+                                }
+                            }, "json");
+                        } else {
+                            $("#lastOne").html(d.getFullYear() - 1);
+                            $("#lastTwo").html(d.getFullYear() - 2);
+                        }
+                    }, "json");
+                }, "json");
+            }, "json");
+        }, "json");
+    }, "json");
+</script>
+</body>
+</html>

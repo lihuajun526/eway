@@ -19,6 +19,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -35,6 +37,8 @@ import java.util.List;
  */
 @Service
 public class MixcomServiceImpl implements MixcomService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MixcomServiceImpl.class);
 
     private final String serverRoot = "http://api.mixcom.cn/v2";
     @Autowired
@@ -64,7 +68,7 @@ public class MixcomServiceImpl implements MixcomService {
         params.add(new BasicNameValuePair("aparty", a));
         params.add(new BasicNameValuePair("bparty", b));
         Calendar nowTime = Calendar.getInstance();
-        nowTime.add(Calendar.MINUTE, 30 + callTime);
+        nowTime.add(Calendar.MINUTE, 10);//绑定关系10分钟内有效
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         params.add(new BasicNameValuePair("endDate", sdf.format(nowTime.getTime())));
         httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
@@ -83,8 +87,32 @@ public class MixcomServiceImpl implements MixcomService {
     }
 
     @Override
-    public String unBound() {
-        return null;
+    public void unBound(String mixNo, String a, String b) throws CommonException {
+        String appkey = Config.get("mixcom.appkey");
+        String requestUrl = serverRoot + "/?m=interfaces&c=virt&a=index&act=unbindnumber&appkey=" + appkey;
+        long time = System.currentTimeMillis();
+        String sign = StrUtil.md5(appkey + "interfaces" + "virt" + "unbindnumber" + mixNo + Config.get("mixcom.appsecret") + time);
+        requestUrl += "&sign=" + sign + "&time=" + time;
+        HttpPost httpPost = new HttpPost(requestUrl);
+        //设置表单参数
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("virtualnumber", mixNo));
+        params.add(new BasicNameValuePair("aparty", a));
+        params.add(new BasicNameValuePair("bparty", b));
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
+            String response = XHttpClient.doRequest(httpPost);
+            //{code":"200","msg":"成功","data":""}
+            JSONObject jsonObject = JSONObject.parseObject(response);
+            if (!"200".equals(jsonObject.getString("code")))
+                throw new CommonException(ExceptionTypeEnum.UnBound_Mixcom_No_ERROR);
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error("error:", e);
+            throw new CommonException(ExceptionTypeEnum.UnBound_Mixcom_No_ERROR);
+        } catch (RequestException e) {
+            LOGGER.error("error:", e);
+            throw new CommonException(ExceptionTypeEnum.UnBound_Mixcom_No_ERROR);
+        }
     }
 
     @Override
@@ -101,6 +129,8 @@ public class MixcomServiceImpl implements MixcomService {
             throw new CommonException(ExceptionTypeEnum.Calling_Not_Exist_ERROR);
         user.setCallTime(user.getCallTime().intValue() - Integer.valueOf(callRecord.getDuration()));
         userService.update(user);
+        //解绑
+        this.unBound(callRecord.getVirtualNumber(), callRecord.getCalling(), callRecord.getCalled());
     }
 
     private String getMixNo(String a, String b) throws UnsupportedEncodingException, RequestException, CommonException {
@@ -120,12 +150,8 @@ public class MixcomServiceImpl implements MixcomService {
         JSONObject jsonObject = JSONObject.parseObject(response);
         String code = jsonObject.getString("code");
         if (!"200".equals(code)) {
-            if (!"20468".equals(code)) {//无可用小号则解绑
-                throw new CommonException(ExceptionTypeEnum.Get_Mixcom_No_ERROR);
-            }
-
+            throw new CommonException(ExceptionTypeEnum.Get_Mixcom_No_ERROR);
         }
-
         JSONArray jsonArray = jsonObject.getJSONArray("data");
         return jsonArray.getJSONObject(0).getString("number");
     }

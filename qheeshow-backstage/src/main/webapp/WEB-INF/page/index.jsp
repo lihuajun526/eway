@@ -84,8 +84,14 @@
             curNode = node;
             if (node.attributes == null)
                 return;
-            if (node.attributes.pageType == "project_list") {
-                loadPage('sys/project/project_list.html');
+            if (node.attributes.pageType == "project1_list") {
+                loadPage('sys/project/project1_list.html');
+            } else if (node.attributes.pageType == "project2_list") {
+                loadPage('sys/project/project2_list.html');
+            } else if (node.attributes.pageType == "project3_list") {
+                loadPage('sys/project/project3_list.html');
+            } else if (node.attributes.pageType == "project4_list") {
+                loadPage('sys/project/project4_list.html');
             } else if (node.attributes.pageType == "attacker") {
                 loadPage('rule/attacker.html');
             } else if (node.attributes.pageType == "qzoneCrawlPoint") {

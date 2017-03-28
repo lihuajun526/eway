@@ -81,7 +81,7 @@ public class MixcomController extends BaseController {
 
     @RequestMapping("/receive")
     @ResponseBody
-    public String bound(HttpServletRequest request) {
+    public String receive(HttpServletRequest request) {
         MixcomResult result = new MixcomResult();
         CallRecord callRecord = new CallRecord();
         callRecord.setBindId(request.getParameter("BindID"));

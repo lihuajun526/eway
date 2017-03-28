@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table id="datagrid" data-options="rownumbers:true,singleSelect:false"></table>
+<div id="investor" class="easyui-window" title="投资人列表" data-options="modal:true,closed:true,iconCls:'icon-save'"
+     style="width:600px;height:550px;padding:10px;">
+    <table id="investorDatagrid"></table>
+</div>
+<script>
+    var projectid = 0;
+    function listInvestor(projectid) {
+        var list = $('#investorDatagrid').datagrid({
+            border: false,
+            fitColumns: true,
+            singleSelect: false,
+            pagination: true,
+            url: '/investor/list/suggest/' + projectid,
+            columns: [[
+                {
+                    field: 'ck', title: '选择', width: 3, checkbox: true
+                },
+                {
+                    field: 'trueName', title: '投资人', width: 18
+                },
+            ]]
+        });
+        $('#investor').window('open');
+    }
+    function list() {
+        var list = $('#datagrid').datagrid({
+            border: false,
+            fitColumns: true,
+            singleSelect: false,
+            pagination: true,
+            url: '/project/list/1',
+            columns: [[
+                {
+                    field: 'id', title: '编号', width: 3
+                },
+                {
+                    field: 'title', title: '项目名称', width: 18,
+                    formatter: function (value, rec) {
+                        return "<a href='#' onclick='modify(" + rec.id + ")'>" + value + "</a>";
+                    }
+                },
+                {
+                    field: 'username', title: '项目联系人', width: 8,
+                    formatter: function (value, rec) {
+                        var btn = "<a onclick='openUpdate(\'" + rec.id + "\')' href='javascript:void(0)'>" + rec.username + "</a>";
+                        return btn;
+                    }
+                },
+                {
+                    field: 'createTime', title: '日期', width: 8,
+                    formatter: function (value, rec) {
+                        return simpleDateFormatter(new Date(rec.createTime));
+                    }
+                },
+                {
+                    field: 'opt', title: '操作', align: 'center',
+                    formatter: function (value, rec) {
+                        var btn = '<a class="editcls" onclick="openUpdate(\'' + rec.id + '\')" href="javascript:void(0)">问答管理</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="listInvestor(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">匹配投资人</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',2)" href="javascript:void(0)">发布</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',3)" href="javascript:void(0)">不通过</a>&nbsp&nbsp';
+                        return btn;
+                    }
+                }
+            ]]
+        });
+        var pager = list.datagrid('getPager');
+        pager.pagination({
+            buttons: [{
+                iconCls: 'icon-add',
+                handler: function () {
+                    projectid = 0;
+                    addTab("添加项目");
+                }
+            }]
+        });
+    }
+    function addTab(title) {
+        if ($('#tt').tabs('exists', title)) {
+            $('#tt').tabs('select', title);
+        } else {
+            var content = '<iframe scrolling="auto" frameborder="0"  src="/statics/sys/project/project_add_edit.html" style="width:100%;height:100%;"></iframe>';
+            $('#tt').tabs('add', {
+                title: title,
+                content: content,
+                closable: true
+            });
+        }
+    }
+    function modify(id) {
+        projectid = id;
+        addTab("编辑项目");
+    }
+    function closeTab(title) {
+        if ($('#tt').tabs('exists', title)) {
+            $('#tt').tabs('close', title);
+        }
+    }
+    //保存基本信息
+    function saveBase() {
+        $.ajax({
+            url: '/project/base/save',
+            type: 'post',
+            data: $('#baseForm').serialize(),
+            dataType: 'json',
+            success: function (result) {
+                if (result.code != 1) {
+                    $.messager.alert('Info', "保存失败", 'info');
+                } else {
+                    $('#datagrid').datagrid('reload');
+                }
+            }
+        });
+    }
+    //保存基本信息
+    function saveInfo() {
+        $.ajax({
+            url: '/info/save/' + projectid,
+            type: 'post',
+            data: $('#projectForm').serialize(),
+            dataType: 'json',
+            success: function (result) {
+                if (result.code != 1) {
+                    $.messager.alert('Info', "保存失败", 'info');
+                } else {
+                    $('#datagrid').datagrid('reload');
+                }
+            }
+        });
+    }
+
+    function updateStatus(id, status) {
+        if (status == 1)
+            status = 0;
+        else if (status == 0)
+            status = 1;
+        $.ajax({
+            url: '/project/' + id + '/' + status,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#datagrid').datagrid('reload');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+    list();
+</script>
+</body>
+</html>

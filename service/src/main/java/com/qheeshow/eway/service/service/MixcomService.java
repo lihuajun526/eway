@@ -13,7 +13,7 @@ public interface MixcomService {
 
     String bound(String a, String b, int time) throws UnsupportedEncodingException, CommonException, RequestException;
 
-    String unBound();
+    void unBound(String mixNo, String a, String b) throws CommonException;
 
     void saveRecord(CallRecord callRecord) throws CommonException;
 
