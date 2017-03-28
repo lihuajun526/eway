@@ -18,6 +18,9 @@
     <result column="latitude" property="latitude" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="cost" property="cost" jdbcType="DECIMAL" />
+    <result column="is_head" property="isHead" jdbcType="INTEGER" />
+    <result column="doc_status" property="docStatus" jdbcType="INTEGER" />
+    <result column="baidu_map" property="baiduMap" jdbcType="VARCHAR" />
     <result column="activity_class" property="activityClass" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -85,8 +88,8 @@
   </sql>
   <sql id="Base_Column_List" >
     id, logo, title, begin_time, end_time, summary, sign_end_time, address, limit_num, 
-    tel, sponsor, pv, longitude, latitude, status, cost, activity_class, create_time, 
-    update_time
+    tel, sponsor, pv, longitude, latitude, status, cost, is_head, doc_status, baidu_map, 
+    activity_class, create_time, update_time
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -147,6 +150,7 @@
       sign_end_time, address, limit_num, 
       tel, sponsor, pv, longitude, 
       latitude, status, cost, 
+      is_head, doc_status, baidu_map, 
       activity_class, create_time, update_time, 
       content)
     values (#{id,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
@@ -154,6 +158,7 @@
       #{signEndTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, #{limitNum,jdbcType=INTEGER}, 
       #{tel,jdbcType=VARCHAR}, #{sponsor,jdbcType=VARCHAR}, #{pv,jdbcType=INTEGER}, #{longitude,jdbcType=VARCHAR}, 
       #{latitude,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{cost,jdbcType=DECIMAL}, 
+      #{isHead,jdbcType=INTEGER}, #{docStatus,jdbcType=INTEGER}, #{baiduMap,jdbcType=VARCHAR}, 
       #{activityClass,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
@@ -207,6 +212,15 @@
       </if>
       <if test="cost != null" >
         cost,
+      </if>
+      <if test="isHead != null" >
+        is_head,
+      </if>
+      <if test="docStatus != null" >
+        doc_status,
+      </if>
+      <if test="baiduMap != null" >
+        baidu_map,
       </if>
       <if test="activityClass != null" >
         activity_class,
@@ -269,6 +283,15 @@
       </if>
       <if test="cost != null" >
         #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="isHead != null" >
+        #{isHead,jdbcType=INTEGER},
+      </if>
+      <if test="docStatus != null" >
+        #{docStatus,jdbcType=INTEGER},
+      </if>
+      <if test="baiduMap != null" >
+        #{baiduMap,jdbcType=VARCHAR},
       </if>
       <if test="activityClass != null" >
         #{activityClass,jdbcType=INTEGER},
@@ -341,6 +364,15 @@
       <if test="record.cost != null" >
         cost = #{record.cost,jdbcType=DECIMAL},
       </if>
+      <if test="record.isHead != null" >
+        is_head = #{record.isHead,jdbcType=INTEGER},
+      </if>
+      <if test="record.docStatus != null" >
+        doc_status = #{record.docStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.baiduMap != null" >
+        baidu_map = #{record.baiduMap,jdbcType=VARCHAR},
+      </if>
       <if test="record.activityClass != null" >
         activity_class = #{record.activityClass,jdbcType=INTEGER},
       </if>
@@ -376,6 +408,9 @@
       latitude = #{record.latitude,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       cost = #{record.cost,jdbcType=DECIMAL},
+      is_head = #{record.isHead,jdbcType=INTEGER},
+      doc_status = #{record.docStatus,jdbcType=INTEGER},
+      baidu_map = #{record.baiduMap,jdbcType=VARCHAR},
       activity_class = #{record.activityClass,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -402,6 +437,9 @@
       latitude = #{record.latitude,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       cost = #{record.cost,jdbcType=DECIMAL},
+      is_head = #{record.isHead,jdbcType=INTEGER},
+      doc_status = #{record.docStatus,jdbcType=INTEGER},
+      baidu_map = #{record.baiduMap,jdbcType=VARCHAR},
       activity_class = #{record.activityClass,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
@@ -457,6 +495,15 @@
       <if test="cost != null" >
         cost = #{cost,jdbcType=DECIMAL},
       </if>
+      <if test="isHead != null" >
+        is_head = #{isHead,jdbcType=INTEGER},
+      </if>
+      <if test="docStatus != null" >
+        doc_status = #{docStatus,jdbcType=INTEGER},
+      </if>
+      <if test="baiduMap != null" >
+        baidu_map = #{baiduMap,jdbcType=VARCHAR},
+      </if>
       <if test="activityClass != null" >
         activity_class = #{activityClass,jdbcType=INTEGER},
       </if>
@@ -489,6 +536,9 @@
       latitude = #{latitude,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       cost = #{cost,jdbcType=DECIMAL},
+      is_head = #{isHead,jdbcType=INTEGER},
+      doc_status = #{docStatus,jdbcType=INTEGER},
+      baidu_map = #{baiduMap,jdbcType=VARCHAR},
       activity_class = #{activityClass,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
@@ -512,6 +562,9 @@
       latitude = #{latitude,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       cost = #{cost,jdbcType=DECIMAL},
+      is_head = #{isHead,jdbcType=INTEGER},
+      doc_status = #{docStatus,jdbcType=INTEGER},
+      baidu_map = #{baiduMap,jdbcType=VARCHAR},
       activity_class = #{activityClass,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}

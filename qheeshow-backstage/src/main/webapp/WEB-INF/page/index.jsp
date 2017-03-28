@@ -80,7 +80,7 @@
     $('#tree').tree({
         onClick: function (node) {
             /*loadPage('sys/document/document_list.html');
-            return;*/
+             return;*/
             curNode = node;
             if (node.attributes == null)
                 return;
@@ -90,8 +90,16 @@
                 loadPage('rule/attacker.html');
             } else if (node.attributes.pageType == "qzoneCrawlPoint") {
                 loadPage('rule/qzone_crawl_point.html');
-            }else if (node.attributes.pageType == "activity") {
-                loadPage('sys/document/document_list.html');
+            } else if (node.attributes.pageType == "activity1") {
+                loadPage('sys/activity/activity1_list.html');
+            } else if (node.attributes.pageType == "activity2") {
+                loadPage('sys/activity/activity2_list.html');
+            } else if (node.attributes.pageType == "activity3") {
+                loadPage('sys/activity/activity3_list.html');
+            } else if (node.attributes.pageType == "activity4") {
+                loadPage('sys/activity/activity4_list.html');
+            } else if (node.attributes.pageType == "activity5") {
+                loadPage('sys/activity/activity5_list.html');
             }
         },
         onContextMenu: function (e, node) {

@@ -25,7 +25,7 @@
             <li class="on1">2017年3月28日 8:00-2017年3月28日 18:00</li>
             <li class="on2"><%=activity.getAddress()%></li>
             <li class="on3">限额<%=activity.getLimitNum()%>人</li>
-            <li class="on4"><span><img src="images/wt-icon26.png"/></span><span class="on5"><%=activity.getSponsor()%></span><span
+            <li class="on4"><span><img src="/images/wt-icon26.png"/></span><span class="on5"><%=activity.getSponsor()%></span><span
                     class="on6"><a href="#">联系主办方：<%=activity.getTel()%></a></span></li>
         </ul>
         <ul class="g-actlst-onelst2">
@@ -40,11 +40,11 @@
     </div>
     <div class="g-actlst-twor">
         <ul class="g-actlst-two-lst">
-            <li><a href="#"><img src="images/actlst-img2.jpg"/></a></li>
+            <li><a href="#"><img src="/images/actlst-img2.jpg"/></a></li>
         </ul>
-        <div class="g-actlst-two-tit">活动地址<a href="#">（查看大图）</a></div>
+        <div class="g-actlst-two-tit">活动地址</div>
         <ul class="g-actlst-two-lst">
-            <li><img src="images/actlst-img3.jpg"/></li>
+            <li><img src="<%=activity.getBaiduMap()%>"/></li>
         </ul>
     </div>
     <div class="clear"></div>

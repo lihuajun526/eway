@@ -88,7 +88,7 @@ public class BinaryUploader {
 				}
 			}
 			if (storageState.isSuccess()) {
-				storageState.putInfo("url", PathFormat.format("/backstage" + savePath));
+				storageState.putInfo("url", PathFormat.format(savePath));
 				storageState.putInfo("type", suffix);
 				storageState.putInfo("original", originFileName + suffix);
 			}

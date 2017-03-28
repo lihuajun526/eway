@@ -12,5 +12,9 @@ public interface ActivityService {
 
     List<Activity> listByCodition(Activity activity, Integer pageIndex, Integer pageSize);
 
+    List<Activity> listByClass(Integer cls);
+
     Activity get(Integer id);
+
+    void save(Activity activity);
 }

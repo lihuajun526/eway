@@ -36,6 +36,12 @@ public class Activity {
 
     private BigDecimal cost;
 
+    private Integer isHead;
+
+    private Integer docStatus;
+
+    private String baiduMap;
+
     private Integer activityClass;
 
     private Date createTime;
@@ -170,6 +176,30 @@ public class Activity {
 
     public void setCost(BigDecimal cost) {
         this.cost = cost;
+    }
+
+    public Integer getIsHead() {
+        return isHead;
+    }
+
+    public void setIsHead(Integer isHead) {
+        this.isHead = isHead;
+    }
+
+    public Integer getDocStatus() {
+        return docStatus;
+    }
+
+    public void setDocStatus(Integer docStatus) {
+        this.docStatus = docStatus;
+    }
+
+    public String getBaiduMap() {
+        return baiduMap;
+    }
+
+    public void setBaiduMap(String baiduMap) {
+        this.baiduMap = baiduMap == null ? null : baiduMap.trim();
     }
 
     public Integer getActivityClass() {

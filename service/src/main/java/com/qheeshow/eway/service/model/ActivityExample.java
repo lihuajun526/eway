@@ -1146,6 +1146,196 @@ public class ActivityExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsHeadIsNull() {
+            addCriterion("is_head is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHeadIsNotNull() {
+            addCriterion("is_head is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHeadEqualTo(Integer value) {
+            addCriterion("is_head =", value, "isHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHeadNotEqualTo(Integer value) {
+            addCriterion("is_head <>", value, "isHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHeadGreaterThan(Integer value) {
+            addCriterion("is_head >", value, "isHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHeadGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_head >=", value, "isHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHeadLessThan(Integer value) {
+            addCriterion("is_head <", value, "isHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHeadLessThanOrEqualTo(Integer value) {
+            addCriterion("is_head <=", value, "isHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHeadIn(List<Integer> values) {
+            addCriterion("is_head in", values, "isHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHeadNotIn(List<Integer> values) {
+            addCriterion("is_head not in", values, "isHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHeadBetween(Integer value1, Integer value2) {
+            addCriterion("is_head between", value1, value2, "isHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHeadNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_head not between", value1, value2, "isHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusIsNull() {
+            addCriterion("doc_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusIsNotNull() {
+            addCriterion("doc_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusEqualTo(Integer value) {
+            addCriterion("doc_status =", value, "docStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusNotEqualTo(Integer value) {
+            addCriterion("doc_status <>", value, "docStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusGreaterThan(Integer value) {
+            addCriterion("doc_status >", value, "docStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("doc_status >=", value, "docStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusLessThan(Integer value) {
+            addCriterion("doc_status <", value, "docStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("doc_status <=", value, "docStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusIn(List<Integer> values) {
+            addCriterion("doc_status in", values, "docStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusNotIn(List<Integer> values) {
+            addCriterion("doc_status not in", values, "docStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusBetween(Integer value1, Integer value2) {
+            addCriterion("doc_status between", value1, value2, "docStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDocStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("doc_status not between", value1, value2, "docStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapIsNull() {
+            addCriterion("baidu_map is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapIsNotNull() {
+            addCriterion("baidu_map is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapEqualTo(String value) {
+            addCriterion("baidu_map =", value, "baiduMap");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapNotEqualTo(String value) {
+            addCriterion("baidu_map <>", value, "baiduMap");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapGreaterThan(String value) {
+            addCriterion("baidu_map >", value, "baiduMap");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapGreaterThanOrEqualTo(String value) {
+            addCriterion("baidu_map >=", value, "baiduMap");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapLessThan(String value) {
+            addCriterion("baidu_map <", value, "baiduMap");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapLessThanOrEqualTo(String value) {
+            addCriterion("baidu_map <=", value, "baiduMap");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapLike(String value) {
+            addCriterion("baidu_map like", value, "baiduMap");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapNotLike(String value) {
+            addCriterion("baidu_map not like", value, "baiduMap");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapIn(List<String> values) {
+            addCriterion("baidu_map in", values, "baiduMap");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapNotIn(List<String> values) {
+            addCriterion("baidu_map not in", values, "baiduMap");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapBetween(String value1, String value2) {
+            addCriterion("baidu_map between", value1, value2, "baiduMap");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaiduMapNotBetween(String value1, String value2) {
+            addCriterion("baidu_map not between", value1, value2, "baiduMap");
+            return (Criteria) this;
+        }
+
         public Criteria andActivityClassIsNull() {
             addCriterion("activity_class is null");
             return (Criteria) this;

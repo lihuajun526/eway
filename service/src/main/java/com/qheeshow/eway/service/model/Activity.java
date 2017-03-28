@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Activity extends BaseModel{
-    private Integer id;
 
     private String logo;
 
@@ -36,21 +35,21 @@ public class Activity extends BaseModel{
 
     private BigDecimal cost;
 
+    private Integer isHead;
+
+    private Integer docStatus;
+
+    private String baiduMap;
+
     private Integer activityClass;
 
-    private Date createTime;
+    private String sBeginTime;
 
-    private Date updateTime;
+    private String sEndTime;
+
+    private String sSignEndTime;
 
     private String content;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getLogo() {
         return logo;
@@ -172,6 +171,30 @@ public class Activity extends BaseModel{
         this.cost = cost;
     }
 
+    public Integer getIsHead() {
+        return isHead;
+    }
+
+    public void setIsHead(Integer isHead) {
+        this.isHead = isHead;
+    }
+
+    public Integer getDocStatus() {
+        return docStatus;
+    }
+
+    public void setDocStatus(Integer docStatus) {
+        this.docStatus = docStatus;
+    }
+
+    public String getBaiduMap() {
+        return baiduMap;
+    }
+
+    public void setBaiduMap(String baiduMap) {
+        this.baiduMap = baiduMap == null ? null : baiduMap.trim();
+    }
+
     public Integer getActivityClass() {
         return activityClass;
     }
@@ -180,27 +203,35 @@ public class Activity extends BaseModel{
         this.activityClass = activityClass;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public String getsBeginTime() {
+        return sBeginTime;
+    }
+
+    public void setsBeginTime(String sBeginTime) {
+        this.sBeginTime = sBeginTime;
+    }
+
+    public String getsEndTime() {
+        return sEndTime;
+    }
+
+    public void setsEndTime(String sEndTime) {
+        this.sEndTime = sEndTime;
+    }
+
+    public String getsSignEndTime() {
+        return sSignEndTime;
+    }
+
+    public void setsSignEndTime(String sSignEndTime) {
+        this.sSignEndTime = sSignEndTime;
     }
 }
