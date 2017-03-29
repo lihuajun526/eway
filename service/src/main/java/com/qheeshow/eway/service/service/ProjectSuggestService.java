@@ -9,4 +9,8 @@ public interface ProjectSuggestService {
 
     void del(ProjectSuggest projectSuggest);
 
+    void save(ProjectSuggest projectSuggest);
+
+    void addSuggest(Integer projectid,String ids);
+
 }

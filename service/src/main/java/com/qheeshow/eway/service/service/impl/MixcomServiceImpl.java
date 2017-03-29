@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -127,7 +128,11 @@ public class MixcomServiceImpl implements MixcomService {
         User user = userService.getByMobile(callRecord.getCalling());
         if (user == null)
             throw new CommonException(ExceptionTypeEnum.Calling_Not_Exist_ERROR);
-        user.setCallTime(user.getCallTime().intValue() - Integer.valueOf(callRecord.getDuration()));
+        int duration = 0;
+        if (!StringUtils.isEmpty(callRecord.getDuration())) {
+            duration = Integer.valueOf(callRecord.getDuration());
+        }
+        user.setCallTime(user.getCallTime().intValue() - duration);
         userService.update(user);
         //解绑
         this.unBound(callRecord.getVirtualNumber(), callRecord.getCalling(), callRecord.getCalled());

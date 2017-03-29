@@ -1,9 +1,6 @@
 package com.qheeshow.eway.service.model;
 
-import java.util.Date;
-
 public class Project extends BaseModel{
-    private Integer id;
 
     private String title;
 
@@ -43,6 +40,8 @@ public class Project extends BaseModel{
 
     private String username;
 
+    private String mobile;
+
     private Integer status;
 
     private String logo;
@@ -63,10 +62,6 @@ public class Project extends BaseModel{
 
     private String lastLimit;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     private String content;
 
     private Integer forcus;
@@ -77,14 +72,6 @@ public class Project extends BaseModel{
 
     public void setForcus(Integer forcus) {
         this.forcus = forcus;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -319,27 +306,19 @@ public class Project extends BaseModel{
         this.lastLimit = lastLimit == null ? null : lastLimit.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

@@ -29,4 +29,10 @@ public class MixcomResult {
     public void setResult(String result) {
         this.result = result;
     }
+
+    public void set(String code, String mgs, String result) {
+        this.code = code;
+        this.msg = msg;
+        this.result = result;
+    }
 }

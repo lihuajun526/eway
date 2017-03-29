@@ -57,7 +57,7 @@
             fitColumns: true,
             singleSelect: false,
             pagination: true,
-            url: '/project/list/1',
+            url: '/project/list/3',
             columns: [[
                 {
                     field: 'id', title: '编号', width: 3
@@ -85,9 +85,7 @@
                     field: 'opt', title: '操作', align: 'center',
                     formatter: function (value, rec) {
                         var btn = '';
-                        btn += '<a class="editcls" onclick="listInvestor(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">推荐投资人</a>&nbsp&nbsp';
                         btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',2)" href="javascript:void(0)">通过</a>&nbsp&nbsp';
-                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',3)" href="javascript:void(0)">不通过</a>&nbsp&nbsp';
                         return btn;
                     }
                 }

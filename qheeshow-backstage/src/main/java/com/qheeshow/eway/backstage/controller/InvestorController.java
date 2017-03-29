@@ -37,7 +37,7 @@ public class InvestorController extends BaseController {
 
     @RequestMapping("/list/suggest/{projectid}")
     @ResponseBody
-    public String addOrEditOne(@PathVariable Integer projectid) {
+    public String listSuggest(@PathVariable Integer projectid) {
 
         ResultDg<List<Investor>> resultDg = new ResultDg<>();
         //推荐优先级：行业/城市/投资阶段/投资金额
@@ -60,11 +60,13 @@ public class InvestorController extends BaseController {
                 }
             }
         }
+
         List<Investor> list = investorService.listByCondition(query);
         if (list.size() > max) {
             list = list.subList(0, max);
         }
         resultDg.setRows(list);
+        resultDg.setTotal(list.size());
         return JSON.toJSONString(resultDg);
     }
 

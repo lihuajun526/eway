@@ -5,7 +5,11 @@ import com.qheeshow.eway.backstage.base.BaseController;
 import com.qheeshow.eway.backstage.base.Result;
 import com.qheeshow.eway.backstage.base.ResultDg;
 import com.qheeshow.eway.service.model.Project;
+import com.qheeshow.eway.service.model.ProjectSuggest;
+import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.ProjectService;
+import com.qheeshow.eway.service.service.ProjectSuggestService;
+import com.qheeshow.eway.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -25,6 +29,10 @@ public class ProjectController extends BaseController {
 
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ProjectSuggestService projectSuggestService;
 
     @RequestMapping("/list/{status}")
     @ResponseBody
@@ -44,6 +52,8 @@ public class ProjectController extends BaseController {
         Result<Project> result = new Result<>();
 
         Project project = projectService.get(id);
+        User user = userService.get(project.getUserid());
+        project.setMobile(user.getMobile());
 
         result.setData(project);
 
@@ -91,6 +101,36 @@ public class ProjectController extends BaseController {
     }
 
     /**
+     * 保存基本信息
+     *
+     * @param project
+     * @return
+     */
+    @RequestMapping("/save")
+    @ResponseBody
+    public String save(Project project) {
+
+        LOGGER.debug("保存项目信息");
+        Result result = new Result();
+
+        User user = userService.getByMobile(project.getMobile());
+        if (user == null) {
+            result.set(-1, "该手机号码不存在");
+            return result.toString();
+        }
+        project.setUserid(user.getId());
+        project.setUsername(user.getName());
+        if (!StringUtils.isEmpty(project.getTags())) {
+            if (project.getTags().indexOf("#") != -1) {
+                project.setTags(project.getTags().substring(0, project.getTags().length() - 1));
+            }
+        }
+        projectService.save(project);
+
+        return result.toString();
+    }
+
+    /**
      * 保存项目信息
      *
      * @param project
@@ -107,6 +147,20 @@ public class ProjectController extends BaseController {
 
         projectService.save(project);
 
+        return result.toString();
+    }
+
+    @RequestMapping("/investor/suggest/{projectid}")
+    @ResponseBody
+    public String suggestInvestor(@PathVariable Integer projectid, String ids) {
+
+        Result result = new Result<>();
+
+        if (projectid == null || projectid.intValue() == 0 || StringUtils.isEmpty(ids)) {
+            result.set(-1, "项目id为空或投资人为空");
+            return result.toString();
+        }
+        projectSuggestService.addSuggest(projectid, ids);
         return result.toString();
     }
 

@@ -21,6 +21,16 @@
     <input type="hidden" id="id" name="id"/>
     <input type="hidden" id="logo" name="logo"/>
     <input type="hidden" id="status" name="status" value="1"/>
+    <input type="hidden" id="tags" name="tags"/>
+    <input type="hidden" id="lastOne" name="lastOne"/>
+    <input type="hidden" id="lastTwo" name="lastTwo"/>
+    <input type="hidden" id="industryName" name="industryName"/>
+    <input type="hidden" id="areaName" name="areaName"/>
+    <input type="hidden" id="stageName" name="stageName"/>
+    <input type="hidden" id="financingLimitName" name="financingLimitName"/>
+    <input type="hidden" id="bp" name="bp"/>
+    <input type="hidden" id="bpName" name="bpName"/>
+    <input type="hidden" id="type" name="type" value="3"/>
     <table>
         <tbody>
         <tr class="firstRow">
@@ -30,6 +40,7 @@
             </td>
             <td style="word-break: break-all;">
                 &nbsp;项目名称：<input id="title" name="title" placeholder="项目名称"/>&nbsp;&nbsp;
+                用户手机号：<input id="mobile" name="mobile" placeholder="用户手机号"/>
             </td>
         </tr>
         <tr>
@@ -44,7 +55,7 @@
                 &nbsp;所属行业：<select id="industry" name="industry"></select>&nbsp;&nbsp;
                 所在城市：<select id="area" name="area"></select>&nbsp;&nbsp;
                 融资规模：<select id="financingLimit" name="financingLimit"></select>&nbsp;&nbsp;
-                融资阶段：<select id="stages" name="stages"></select>
+                融资阶段：<select id="stage" name="stage"></select>
             </td>
         </tr>
         <tr>
@@ -76,12 +87,12 @@
                 项目标签：
             </td>
             <td>
-                <div id="tags" style="height: 40px;"></div>
+                <div id="tags_" style="height: 40px;"></div>
             </td>
         </tr>
         <tr>
             <td style="word-break: break-all;text-align:center;height: 40px;">
-                财务数据（<span id="lastOne"></span>年）：
+                财务数据（<span id="lastOne_"></span>年）：
             </td>
             <td>
                 主营收入：<select id="lastOne1">
@@ -114,7 +125,7 @@
         </tr>
         <tr>
             <td style="word-break: break-all;text-align:center;height: 40px;">
-                财务数据（<span id="lastTwo"></span>年）：
+                财务数据（<span id="lastTwo_"></span>年）：
             </td>
             <td>
                 主营收入：<select id="lastTwo1">
@@ -147,7 +158,7 @@
         </tr>
         <tr>
             <td align="center" rowspan="1" colspan="2" style="word-break: break-all;">
-                <input type="button" value="保存" onclick="add();"/>
+                <input type="button" value="保存" onclick="save();"/>
             </td>
         </tr>
         </tbody>
@@ -158,6 +169,10 @@
     function validate() {
         if (!$("#logo").val().length) {
             alert("请上传项目logo");
+            return false;
+        }
+        if (!$("#mobile").val().length) {
+            alert("请填写用户手机号");
             return false;
         }
         if (!$("#title").val().length) {
@@ -192,23 +207,50 @@
             alert("请输入项目详述");
             return false;
         }
+        var counter = 0;
+        $("#tags_").children('input').each(function () {
+            if ($(this).attr("checked") == "checked") {
+                counter++;
+            }
+        });
+        if (counter == 0) {
+            alert("请选择项目标签");
+            return false;
+        }
+        if (counter > 5) {
+            alert("最多可选择5个项目标签");
+            return false;
+        }
         return true;
     }
     function save() {
         if (!validate())
             return;
+        var tags = "";
+        $("#tags_").children('input').each(function () {
+            if ($(this).attr("checked") == "checked") {
+                tags += $(this).val() + "#";
+            }
+        });
+        $("#tags").val(tags);
+        var lastOne = $("#lastOne_").html() + ":" + $("#lastOne1").val() + "#" + $("#lastOne2").val() + "#" + $("#lastOne3").val() + "#" + $("#lastOne4").val();
+        var lastTwo = $("#lastTwo_").html() + ":" + $("#lastTwo1").val() + "#" + $("#lastTwo2").val() + "#" + $("#lastTwo3").val() + "#" + $("#lastTwo4").val();
+        $("#lastOne").val(lastOne);
+        $("#lastTwo").val(lastTwo);
+        $("#industryName").val($("#industry").find('option:selected').text());
+        $("#areaName").val($("#area").find('option:selected').text());
+        $("#stageName").val($("#stage").find('option:selected').text());
+        $("#financingLimitName").val($("#financingLimit").find('option:selected').text());
         $.ajax({
-            url: '/activity/save',
+            url: '/project/save',
             type: 'post',
-            data: $('#activityForm').serialize(),
+            data: $('#projectForm').serialize(),
             dataType: 'json',
             success: function (result) {
-                if (result.success) {
-                    alert("保存成功");
-                    window.parent.loadList();
-                    window.parent.closeTab('添加活动');
+                if (result.code == 0) {
+                    $.messager.alert('Info', "保存成功", 'info');
                 } else {
-                    $.messager.alert('Info', "错误", 'info');
+                    $.messager.alert('Info', result.message, 'info');
                 }
             }
         });
@@ -264,7 +306,7 @@
                             alert(result.message);
                             return;
                         }
-                        $('#bpShow').html(result.data.name);
+                        $("#bpShow").html("<a href='" + result.data.path + "'>" + result.data.name + "</a>");
                         $('#bpName').val(result.data.name);
                         $('#bp').val(result.data.path);
                     }
@@ -310,7 +352,7 @@
                         alert(result.message);
                         return;
                     }
-                    var tags = $('#tags');
+                    var tags = $('#tags_');
                     tags.html("");
                     for (i = 0; i < result.data.length; i++) {
                         tags.append("<input type='checkbox' value='" + result.data[i].cname + "'/>" + result.data[i].cname + "&nbsp;");
@@ -321,10 +363,10 @@
                             alert(result.message);
                             return;
                         }
-                        var stages = $('#stages');
-                        stages.html("<option value='0'>请选择</option>");
+                        var stage = $('#stage');
+                        stage.html("<option value='0'>请选择</option>");
                         for (i = 0; i < result.data.length; i++) {
-                            stages.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+                            stage.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
                         }
                         if (parent.projectid > 0) {
                             $.get("/project/get/" + parent.projectid, function (result) {
@@ -338,6 +380,8 @@
                                 $("#bpName").val(data.bpName);
                                 $("#bpShow").html("<a href='" + data.bp + "'>" + data.bpName + "</a>");
                                 $("#logoImg").attr("src", data.logo);
+                                $("#logo").val(data.logo);
+                                $("#mobile").val(data.mobile);
                                 $("#title").val(data.title);
                                 $("#demand").val(data.demand);
                                 $("#highlights").val(data.highlights);
@@ -350,10 +394,10 @@
                                 //2016:500万以下#100万以下#1000万以下#500万以下
                                 var lastOne = data.lastOne;
                                 if (isEmpty(lastOne)) {
-                                    $("#lastOne").html(d.getFullYear() - 1);
+                                    $("#lastOne_").html(d.getFullYear() - 1);
                                 } else {
                                     var strs1 = lastOne.split(":");
-                                    $("#lastOne").html(strs1[0]);
+                                    $("#lastOne_").html(strs1[0]);
                                     var strs2 = strs1[1].split("#");
                                     $("#lastOne1").val(strs2[0]);
                                     $("#lastOne2").val(strs2[1]);
@@ -362,10 +406,10 @@
                                 }
                                 var lastTwo = data.lastTwo;
                                 if (isEmpty(lastTwo)) {
-                                    $("#lastTwo").html(d.getFullYear() - 2);
+                                    $("#lastTwo_").html(d.getFullYear() - 2);
                                 } else {
                                     var strs1 = lastTwo.split(":");
-                                    $("#lastTwo").html(strs1[0]);
+                                    $("#lastTwo_").html(strs1[0]);
                                     var strs2 = strs1[1].split("#");
                                     $("#lastTwo1").val(strs2[0]);
                                     $("#lastTwo2").val(strs2[1]);
@@ -374,7 +418,7 @@
                                 }
                                 if (!isEmpty(data.tags)) {
                                     var tags = data.tags.split("#");
-                                    $("#tags").children('input').each(function () {
+                                    $("#tags_").children('input').each(function () {
                                         for (var i = 0; i < tags.length; i++) {
                                             if ($(this).val() == tags[i])
                                                 $(this).attr("checked", "checked");
@@ -383,8 +427,8 @@
                                 }
                             }, "json");
                         } else {
-                            $("#lastOne").html(d.getFullYear() - 1);
-                            $("#lastTwo").html(d.getFullYear() - 2);
+                            $("#lastOne_").html(d.getFullYear() - 1);
+                            $("#lastTwo_").html(d.getFullYear() - 2);
                         }
                     }, "json");
                 }, "json");

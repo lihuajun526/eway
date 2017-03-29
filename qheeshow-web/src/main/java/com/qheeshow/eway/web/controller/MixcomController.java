@@ -11,6 +11,7 @@ import com.qheeshow.eway.web.base.MixcomResult;
 import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -85,10 +86,21 @@ public class MixcomController extends BaseController {
         MixcomResult result = new MixcomResult();
         CallRecord callRecord = new CallRecord();
         callRecord.setBindId(request.getParameter("BindID"));
+        if (StringUtils.isEmpty(callRecord.getBindId())) {
+            result.set("200", "成功接收", "成功");
+            LOGGER.info("未建立绑定");
+            return JSONObject.toJSONString(result);
+        }
+        callRecord.setDuration(request.getParameter("Duration"));
+        if (StringUtils.isEmpty(callRecord.getDuration())) {
+            result.set("200", "成功接收", "成功");
+            LOGGER.info("通话时长为空");
+            return JSONObject.toJSONString(result);
+        }
         callRecord.setCalling(request.getParameter("calling"));
         callRecord.setCalled(request.getParameter("called"));
         callRecord.setCallidentifier(request.getParameter("callIdentifier"));
-        callRecord.setDuration(request.getParameter("Duration"));
+
         callRecord.setEvent(request.getParameter("event"));
         callRecord.setReleaseReason(request.getParameter("ReleaseReason"));
         callRecord.setStartTime(request.getParameter("StartTime"));
@@ -100,9 +112,7 @@ public class MixcomController extends BaseController {
         } catch (CommonException e) {
             LOGGER.error("保存通话记录失败,code:" + e.getCode() + ",desc:" + e.getDesc());
         }
-        result.setCode("200");
-        result.setMsg("成功接收");
-        result.setResult("成功");
+        result.set("200", "成功接收", "成功");
         return JSONObject.toJSONString(result);
     }
 }
