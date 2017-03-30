@@ -164,4 +164,16 @@ public class ProjectController extends BaseController {
         return result.toString();
     }
 
+    @RequestMapping("/list/pay")
+    @ResponseBody
+    public String listPayProject() {
+        ResultDg<List<Project>> resultDg = new ResultDg<>();
+
+        List<Project> list = null;
+        resultDg.setTotal(list == null ? 0 : list.size());
+        resultDg.setRows(list);
+
+        return JSON.toJSONString(resultDg);
+    }
+
 }

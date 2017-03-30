@@ -17,4 +17,6 @@ public interface ActivityService {
     Activity get(Integer id);
 
     void save(Activity activity);
+
+    List<Activity> latest();
 }

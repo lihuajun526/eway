@@ -55,5 +55,13 @@ public class ActivityServiceImpl implements ActivityService {
         }
     }
 
+    /**
+     * 首页最新活动
+     * @return
+     */
+    @Override
+    public List<Activity> latest() {
+        return activityMapper.latest();
+    }
 
 }

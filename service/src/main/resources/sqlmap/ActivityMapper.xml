@@ -584,4 +584,11 @@
         ORDER by create_time DESC
         limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
+    <select id="latest" resultMap="BaseResultMap">
+        select
+        id,logo,title,summary
+        from t_activity
+        ORDER by create_time DESC
+        limit 0,3
+    </select>
 </mapper>

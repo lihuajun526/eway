@@ -1,63 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qheeshow.eway.service.dao.ProjectMapper">
-    <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.Project">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="title" property="title" jdbcType="VARCHAR"/>
-        <result column="demand" property="demand" jdbcType="VARCHAR"/>
-        <result column="highlights" property="highlights" jdbcType="VARCHAR"/>
-        <result column="last_one" property="lastOne" jdbcType="VARCHAR"/>
-        <result column="last_two" property="lastTwo" jdbcType="VARCHAR"/>
-        <result column="description" property="description" jdbcType="VARCHAR"/>
-        <result column="type" property="type" jdbcType="INTEGER"/>
-        <result column="industry" property="industry" jdbcType="INTEGER"/>
-        <result column="industry_name" property="industryName" jdbcType="VARCHAR"/>
-        <result column="area" property="area" jdbcType="INTEGER"/>
-        <result column="area_name" property="areaName" jdbcType="VARCHAR"/>
-        <result column="financing_limit" property="financingLimit" jdbcType="INTEGER"/>
-        <result column="financing_limit_name" property="financingLimitName" jdbcType="VARCHAR"/>
-        <result column="stage" property="stage" jdbcType="INTEGER"/>
-        <result column="stage_name" property="stageName" jdbcType="VARCHAR"/>
-        <result column="video_link" property="videoLink" jdbcType="VARCHAR"/>
-        <result column="pro_link" property="proLink" jdbcType="VARCHAR"/>
-        <result column="userid" property="userid" jdbcType="INTEGER"/>
-        <result column="username" property="username" jdbcType="VARCHAR"/>
-        <result column="status" property="status" jdbcType="INTEGER"/>
-        <result column="logo" property="logo" jdbcType="VARCHAR"/>
-        <result column="tags" property="tags" jdbcType="VARCHAR"/>
-        <result column="bp" property="bp" jdbcType="VARCHAR"/>
-        <result column="bp_name" property="bpName" jdbcType="VARCHAR"/>
-        <result column="percent" property="percent" jdbcType="INTEGER"/>
-        <result column="referee" property="referee" jdbcType="VARCHAR"/>
-        <result column="last_investment" property="lastInvestment" jdbcType="VARCHAR"/>
-        <result column="last_stage" property="lastStage" jdbcType="VARCHAR"/>
-        <result column="last_limit" property="lastLimit" jdbcType="VARCHAR"/>
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
-        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+<mapper namespace="com.qheeshow.eway.service.dao.ProjectMapper" >
+    <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.Project" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="demand" property="demand" jdbcType="VARCHAR" />
+        <result column="highlights" property="highlights" jdbcType="VARCHAR" />
+        <result column="last_one" property="lastOne" jdbcType="VARCHAR" />
+        <result column="last_two" property="lastTwo" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="industry" property="industry" jdbcType="INTEGER" />
+        <result column="industry_name" property="industryName" jdbcType="VARCHAR" />
+        <result column="area" property="area" jdbcType="INTEGER" />
+        <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+        <result column="financing_limit" property="financingLimit" jdbcType="INTEGER" />
+        <result column="financing_limit_name" property="financingLimitName" jdbcType="VARCHAR" />
+        <result column="stage" property="stage" jdbcType="INTEGER" />
+        <result column="stage_name" property="stageName" jdbcType="VARCHAR" />
+        <result column="video_link" property="videoLink" jdbcType="VARCHAR" />
+        <result column="pro_link" property="proLink" jdbcType="VARCHAR" />
+        <result column="userid" property="userid" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="logo" property="logo" jdbcType="VARCHAR" />
+        <result column="tags" property="tags" jdbcType="VARCHAR" />
+        <result column="bp" property="bp" jdbcType="VARCHAR" />
+        <result column="bp_name" property="bpName" jdbcType="VARCHAR" />
+        <result column="percent" property="percent" jdbcType="INTEGER" />
+        <result column="referee" property="referee" jdbcType="VARCHAR" />
+        <result column="last_investment" property="lastInvestment" jdbcType="VARCHAR" />
+        <result column="last_stage" property="lastStage" jdbcType="VARCHAR" />
+        <result column="last_limit" property="lastLimit" jdbcType="VARCHAR" />
+        <result column="recommend" property="recommend" jdbcType="INTEGER" />
+        <result column="focus" property="focus" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     </resultMap>
-    <resultMap id="ResultMapWithBLOBs" type="com.qheeshow.eway.service.model.Project" extends="BaseResultMap">
-        <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+    <resultMap id="ResultMapWithBLOBs" type="com.qheeshow.eway.service.model.Project" extends="BaseResultMap" >
+        <result column="content" property="content" jdbcType="LONGVARCHAR" />
     </resultMap>
-    <sql id="Example_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" suffix=")" prefixOverrides="and">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
                                     and ${criterion.condition}
                                 </when>
-                                <when test="criterion.singleValue">
+                                <when test="criterion.singleValue" >
                                     and ${criterion.condition} #{criterion.value}
                                 </when>
-                                <when test="criterion.betweenValue">
+                                <when test="criterion.betweenValue" >
                                     and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                                 </when>
-                                <when test="criterion.listValue">
+                                <when test="criterion.listValue" >
                                     and ${criterion.condition}
-                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
-                                             separator=",">
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -68,26 +69,25 @@
             </foreach>
         </where>
     </sql>
-    <sql id="Update_By_Example_Where_Clause">
-        <where>
-            <foreach collection="example.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" suffix=")" prefixOverrides="and">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
                                     and ${criterion.condition}
                                 </when>
-                                <when test="criterion.singleValue">
+                                <when test="criterion.singleValue" >
                                     and ${criterion.condition} #{criterion.value}
                                 </when>
-                                <when test="criterion.betweenValue">
+                                <when test="criterion.betweenValue" >
                                     and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                                 </when>
-                                <when test="criterion.listValue">
+                                <when test="criterion.listValue" >
                                     and ${criterion.condition}
-                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
-                                             separator=",">
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -98,71 +98,66 @@
             </foreach>
         </where>
     </sql>
-    <sql id="Base_Column_List">
-    id, title, demand, highlights, last_one, last_two, description, type, industry, industry_name, 
-    area, area_name, financing_limit, financing_limit_name, stage, stage_name, video_link, 
-    pro_link, userid, username, status, logo, tags, bp, bp_name, percent, referee, last_investment, 
-    last_stage, last_limit, create_time, update_time
-  </sql>
-    <sql id="Blob_Column_List">
-    content
-  </sql>
-    <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
-            parameterType="com.qheeshow.eway.service.model.ProjectExample">
+    <sql id="Base_Column_List" >
+        id, title, demand, highlights, last_one, last_two, description, type, industry, industry_name,
+        area, area_name, financing_limit, financing_limit_name, stage, stage_name, video_link,
+        pro_link, userid, username, status, logo, tags, bp, bp_name, percent, referee, last_investment,
+        last_stage, last_limit, recommend, focus, create_time, update_time
+    </sql>
+    <sql id="Blob_Column_List" >
+        content
+    </sql>
+    <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.qheeshow.eway.service.model.ProjectExample" >
         select
-        <if test="distinct">
+        <if test="distinct" >
             distinct
         </if>
         'true' as QUERYID,
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         ,
-        <include refid="Blob_Column_List"/>
+        <include refid="Blob_Column_List" />
         from t_project
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
-        <if test="orderByClause != null">
+        <if test="orderByClause != null" >
             order by ${orderByClause}
         </if>
     </select>
-    <select id="selectByExample" resultMap="BaseResultMap"
-            parameterType="com.qheeshow.eway.service.model.ProjectExample">
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectExample" >
         select
-        <if test="distinct">
+        <if test="distinct" >
             distinct
         </if>
         'true' as QUERYID,
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from t_project
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
-        <if test="orderByClause != null">
+        <if test="orderByClause != null" >
             order by ${orderByClause}
         </if>
     </select>
-    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         ,
-        <include refid="Blob_Column_List"/>
+        <include refid="Blob_Column_List" />
         from t_project
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_project
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-    <delete id="deleteByExample" parameterType="com.qheeshow.eway.service.model.ProjectExample">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
         delete from t_project
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.qheeshow.eway.service.model.ProjectExample" >
+        delete from t_project
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
     </delete>
-    <insert id="insert" parameterType="com.qheeshow.eway.service.model.Project">
-        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
-            SELECT LAST_INSERT_ID() AS id
-        </selectKey>
+    <insert id="insert" parameterType="com.qheeshow.eway.service.model.Project" >
         insert into t_project (id, title, demand,
         highlights, last_one, last_two,
         description, type, industry,
@@ -172,8 +167,9 @@
         userid, username, status,
         logo, tags, bp, bp_name,
         percent, referee, last_investment,
-        last_stage, last_limit, create_time,
-        update_time, content)
+        last_stage, last_limit, recommend,
+        focus, create_time, update_time,
+        content)
         values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{demand,jdbcType=VARCHAR},
         #{highlights,jdbcType=VARCHAR}, #{lastOne,jdbcType=VARCHAR}, #{lastTwo,jdbcType=VARCHAR},
         #{description,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{industry,jdbcType=INTEGER},
@@ -183,329 +179,347 @@
         #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
         #{logo,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{bp,jdbcType=VARCHAR}, #{bpName,jdbcType=VARCHAR},
         #{percent,jdbcType=INTEGER}, #{referee,jdbcType=VARCHAR}, #{lastInvestment,jdbcType=VARCHAR},
-        #{lastStage,jdbcType=VARCHAR}, #{lastLimit,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-        #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+        #{lastStage,jdbcType=VARCHAR}, #{lastLimit,jdbcType=VARCHAR}, #{recommend,jdbcType=INTEGER},
+        #{focus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+        #{content,jdbcType=LONGVARCHAR})
     </insert>
-    <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Project">
+    <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Project" >
         insert into t_project
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
                 id,
             </if>
-            <if test="title != null">
+            <if test="title != null" >
                 title,
             </if>
-            <if test="demand != null">
+            <if test="demand != null" >
                 demand,
             </if>
-            <if test="highlights != null">
+            <if test="highlights != null" >
                 highlights,
             </if>
-            <if test="lastOne != null">
+            <if test="lastOne != null" >
                 last_one,
             </if>
-            <if test="lastTwo != null">
+            <if test="lastTwo != null" >
                 last_two,
             </if>
-            <if test="description != null">
+            <if test="description != null" >
                 description,
             </if>
-            <if test="type != null">
+            <if test="type != null" >
                 type,
             </if>
-            <if test="industry != null">
+            <if test="industry != null" >
                 industry,
             </if>
-            <if test="industryName != null">
+            <if test="industryName != null" >
                 industry_name,
             </if>
-            <if test="area != null">
+            <if test="area != null" >
                 area,
             </if>
-            <if test="areaName != null">
+            <if test="areaName != null" >
                 area_name,
             </if>
-            <if test="financingLimit != null">
+            <if test="financingLimit != null" >
                 financing_limit,
             </if>
-            <if test="financingLimitName != null">
+            <if test="financingLimitName != null" >
                 financing_limit_name,
             </if>
-            <if test="stage != null">
+            <if test="stage != null" >
                 stage,
             </if>
-            <if test="stageName != null">
+            <if test="stageName != null" >
                 stage_name,
             </if>
-            <if test="videoLink != null">
+            <if test="videoLink != null" >
                 video_link,
             </if>
-            <if test="proLink != null">
+            <if test="proLink != null" >
                 pro_link,
             </if>
-            <if test="userid != null">
+            <if test="userid != null" >
                 userid,
             </if>
-            <if test="username != null">
+            <if test="username != null" >
                 username,
             </if>
-            <if test="status != null">
+            <if test="status != null" >
                 status,
             </if>
-            <if test="logo != null">
+            <if test="logo != null" >
                 logo,
             </if>
-            <if test="tags != null">
+            <if test="tags != null" >
                 tags,
             </if>
-            <if test="bp != null">
+            <if test="bp != null" >
                 bp,
             </if>
-            <if test="bpName != null">
+            <if test="bpName != null" >
                 bp_name,
             </if>
-            <if test="percent != null">
+            <if test="percent != null" >
                 percent,
             </if>
-            <if test="referee != null">
+            <if test="referee != null" >
                 referee,
             </if>
-            <if test="lastInvestment != null">
+            <if test="lastInvestment != null" >
                 last_investment,
             </if>
-            <if test="lastStage != null">
+            <if test="lastStage != null" >
                 last_stage,
             </if>
-            <if test="lastLimit != null">
+            <if test="lastLimit != null" >
                 last_limit,
             </if>
-            <if test="createTime != null">
+            <if test="recommend != null" >
+                recommend,
+            </if>
+            <if test="focus != null" >
+                focus,
+            </if>
+            <if test="createTime != null" >
                 create_time,
             </if>
-            <if test="updateTime != null">
+            <if test="updateTime != null" >
                 update_time,
             </if>
-            <if test="content != null">
+            <if test="content != null" >
                 content,
             </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="title != null">
+            <if test="title != null" >
                 #{title,jdbcType=VARCHAR},
             </if>
-            <if test="demand != null">
+            <if test="demand != null" >
                 #{demand,jdbcType=VARCHAR},
             </if>
-            <if test="highlights != null">
+            <if test="highlights != null" >
                 #{highlights,jdbcType=VARCHAR},
             </if>
-            <if test="lastOne != null">
+            <if test="lastOne != null" >
                 #{lastOne,jdbcType=VARCHAR},
             </if>
-            <if test="lastTwo != null">
+            <if test="lastTwo != null" >
                 #{lastTwo,jdbcType=VARCHAR},
             </if>
-            <if test="description != null">
+            <if test="description != null" >
                 #{description,jdbcType=VARCHAR},
             </if>
-            <if test="type != null">
+            <if test="type != null" >
                 #{type,jdbcType=INTEGER},
             </if>
-            <if test="industry != null">
+            <if test="industry != null" >
                 #{industry,jdbcType=INTEGER},
             </if>
-            <if test="industryName != null">
+            <if test="industryName != null" >
                 #{industryName,jdbcType=VARCHAR},
             </if>
-            <if test="area != null">
+            <if test="area != null" >
                 #{area,jdbcType=INTEGER},
             </if>
-            <if test="areaName != null">
+            <if test="areaName != null" >
                 #{areaName,jdbcType=VARCHAR},
             </if>
-            <if test="financingLimit != null">
+            <if test="financingLimit != null" >
                 #{financingLimit,jdbcType=INTEGER},
             </if>
-            <if test="financingLimitName != null">
+            <if test="financingLimitName != null" >
                 #{financingLimitName,jdbcType=VARCHAR},
             </if>
-            <if test="stage != null">
+            <if test="stage != null" >
                 #{stage,jdbcType=INTEGER},
             </if>
-            <if test="stageName != null">
+            <if test="stageName != null" >
                 #{stageName,jdbcType=VARCHAR},
             </if>
-            <if test="videoLink != null">
+            <if test="videoLink != null" >
                 #{videoLink,jdbcType=VARCHAR},
             </if>
-            <if test="proLink != null">
+            <if test="proLink != null" >
                 #{proLink,jdbcType=VARCHAR},
             </if>
-            <if test="userid != null">
+            <if test="userid != null" >
                 #{userid,jdbcType=INTEGER},
             </if>
-            <if test="username != null">
+            <if test="username != null" >
                 #{username,jdbcType=VARCHAR},
             </if>
-            <if test="status != null">
+            <if test="status != null" >
                 #{status,jdbcType=INTEGER},
             </if>
-            <if test="logo != null">
+            <if test="logo != null" >
                 #{logo,jdbcType=VARCHAR},
             </if>
-            <if test="tags != null">
+            <if test="tags != null" >
                 #{tags,jdbcType=VARCHAR},
             </if>
-            <if test="bp != null">
+            <if test="bp != null" >
                 #{bp,jdbcType=VARCHAR},
             </if>
-            <if test="bpName != null">
+            <if test="bpName != null" >
                 #{bpName,jdbcType=VARCHAR},
             </if>
-            <if test="percent != null">
+            <if test="percent != null" >
                 #{percent,jdbcType=INTEGER},
             </if>
-            <if test="referee != null">
+            <if test="referee != null" >
                 #{referee,jdbcType=VARCHAR},
             </if>
-            <if test="lastInvestment != null">
+            <if test="lastInvestment != null" >
                 #{lastInvestment,jdbcType=VARCHAR},
             </if>
-            <if test="lastStage != null">
+            <if test="lastStage != null" >
                 #{lastStage,jdbcType=VARCHAR},
             </if>
-            <if test="lastLimit != null">
+            <if test="lastLimit != null" >
                 #{lastLimit,jdbcType=VARCHAR},
             </if>
-            <if test="createTime != null">
+            <if test="recommend != null" >
+                #{recommend,jdbcType=INTEGER},
+            </if>
+            <if test="focus != null" >
+                #{focus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateTime != null">
+            <if test="updateTime != null" >
                 #{updateTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="content != null">
+            <if test="content != null" >
                 #{content,jdbcType=LONGVARCHAR},
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="com.qheeshow.eway.service.model.ProjectExample"
-            resultType="java.lang.Integer">
+    <select id="countByExample" parameterType="com.qheeshow.eway.service.model.ProjectExample" resultType="java.lang.Integer" >
         select count(*) from t_project
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
     </select>
-    <update id="updateByExampleSelective" parameterType="map">
+    <update id="updateByExampleSelective" parameterType="map" >
         update t_project
-        <set>
-            <if test="record.id != null">
+        <set >
+            <if test="record.id != null" >
                 id = #{record.id,jdbcType=INTEGER},
             </if>
-            <if test="record.title != null">
+            <if test="record.title != null" >
                 title = #{record.title,jdbcType=VARCHAR},
             </if>
-            <if test="record.demand != null">
+            <if test="record.demand != null" >
                 demand = #{record.demand,jdbcType=VARCHAR},
             </if>
-            <if test="record.highlights != null">
+            <if test="record.highlights != null" >
                 highlights = #{record.highlights,jdbcType=VARCHAR},
             </if>
-            <if test="record.lastOne != null">
+            <if test="record.lastOne != null" >
                 last_one = #{record.lastOne,jdbcType=VARCHAR},
             </if>
-            <if test="record.lastTwo != null">
+            <if test="record.lastTwo != null" >
                 last_two = #{record.lastTwo,jdbcType=VARCHAR},
             </if>
-            <if test="record.description != null">
+            <if test="record.description != null" >
                 description = #{record.description,jdbcType=VARCHAR},
             </if>
-            <if test="record.type != null">
+            <if test="record.type != null" >
                 type = #{record.type,jdbcType=INTEGER},
             </if>
-            <if test="record.industry != null">
+            <if test="record.industry != null" >
                 industry = #{record.industry,jdbcType=INTEGER},
             </if>
-            <if test="record.industryName != null">
+            <if test="record.industryName != null" >
                 industry_name = #{record.industryName,jdbcType=VARCHAR},
             </if>
-            <if test="record.area != null">
+            <if test="record.area != null" >
                 area = #{record.area,jdbcType=INTEGER},
             </if>
-            <if test="record.areaName != null">
+            <if test="record.areaName != null" >
                 area_name = #{record.areaName,jdbcType=VARCHAR},
             </if>
-            <if test="record.financingLimit != null">
+            <if test="record.financingLimit != null" >
                 financing_limit = #{record.financingLimit,jdbcType=INTEGER},
             </if>
-            <if test="record.financingLimitName != null">
+            <if test="record.financingLimitName != null" >
                 financing_limit_name = #{record.financingLimitName,jdbcType=VARCHAR},
             </if>
-            <if test="record.stage != null">
+            <if test="record.stage != null" >
                 stage = #{record.stage,jdbcType=INTEGER},
             </if>
-            <if test="record.stageName != null">
+            <if test="record.stageName != null" >
                 stage_name = #{record.stageName,jdbcType=VARCHAR},
             </if>
-            <if test="record.videoLink != null">
+            <if test="record.videoLink != null" >
                 video_link = #{record.videoLink,jdbcType=VARCHAR},
             </if>
-            <if test="record.proLink != null">
+            <if test="record.proLink != null" >
                 pro_link = #{record.proLink,jdbcType=VARCHAR},
             </if>
-            <if test="record.userid != null">
+            <if test="record.userid != null" >
                 userid = #{record.userid,jdbcType=INTEGER},
             </if>
-            <if test="record.username != null">
+            <if test="record.username != null" >
                 username = #{record.username,jdbcType=VARCHAR},
             </if>
-            <if test="record.status != null">
+            <if test="record.status != null" >
                 status = #{record.status,jdbcType=INTEGER},
             </if>
-            <if test="record.logo != null">
+            <if test="record.logo != null" >
                 logo = #{record.logo,jdbcType=VARCHAR},
             </if>
-            <if test="record.tags != null">
+            <if test="record.tags != null" >
                 tags = #{record.tags,jdbcType=VARCHAR},
             </if>
-            <if test="record.bp != null">
+            <if test="record.bp != null" >
                 bp = #{record.bp,jdbcType=VARCHAR},
             </if>
-            <if test="record.bpName != null">
+            <if test="record.bpName != null" >
                 bp_name = #{record.bpName,jdbcType=VARCHAR},
             </if>
-            <if test="record.percent != null">
+            <if test="record.percent != null" >
                 percent = #{record.percent,jdbcType=INTEGER},
             </if>
-            <if test="record.referee != null">
+            <if test="record.referee != null" >
                 referee = #{record.referee,jdbcType=VARCHAR},
             </if>
-            <if test="record.lastInvestment != null">
+            <if test="record.lastInvestment != null" >
                 last_investment = #{record.lastInvestment,jdbcType=VARCHAR},
             </if>
-            <if test="record.lastStage != null">
+            <if test="record.lastStage != null" >
                 last_stage = #{record.lastStage,jdbcType=VARCHAR},
             </if>
-            <if test="record.lastLimit != null">
+            <if test="record.lastLimit != null" >
                 last_limit = #{record.lastLimit,jdbcType=VARCHAR},
             </if>
-            <if test="record.createTime != null">
+            <if test="record.recommend != null" >
+                recommend = #{record.recommend,jdbcType=INTEGER},
+            </if>
+            <if test="record.focus != null" >
+                focus = #{record.focus,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null" >
                 create_time = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="record.updateTime != null">
+            <if test="record.updateTime != null" >
                 update_time = #{record.updateTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="record.content != null">
+            <if test="record.content != null" >
                 content = #{record.content,jdbcType=LONGVARCHAR},
             </if>
         </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByExampleWithBLOBs" parameterType="map">
+    <update id="updateByExampleWithBLOBs" parameterType="map" >
         update t_project
         set id = #{record.id,jdbcType=INTEGER},
         title = #{record.title,jdbcType=VARCHAR},
@@ -537,14 +551,16 @@
         last_investment = #{record.lastInvestment,jdbcType=VARCHAR},
         last_stage = #{record.lastStage,jdbcType=VARCHAR},
         last_limit = #{record.lastLimit,jdbcType=VARCHAR},
+        recommend = #{record.recommend,jdbcType=INTEGER},
+        focus = #{record.focus,jdbcType=INTEGER},
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
         content = #{record.content,jdbcType=LONGVARCHAR}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByExample" parameterType="map">
+    <update id="updateByExample" parameterType="map" >
         update t_project
         set id = #{record.id,jdbcType=INTEGER},
         title = #{record.title,jdbcType=VARCHAR},
@@ -576,186 +592,197 @@
         last_investment = #{record.lastInvestment,jdbcType=VARCHAR},
         last_stage = #{record.lastStage,jdbcType=VARCHAR},
         last_limit = #{record.lastLimit,jdbcType=VARCHAR},
+        recommend = #{record.recommend,jdbcType=INTEGER},
+        focus = #{record.focus,jdbcType=INTEGER},
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
         update_time = #{record.updateTime,jdbcType=TIMESTAMP}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.Project">
+    <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.Project" >
         update t_project
-        <set>
-            <if test="title != null">
+        <set >
+            <if test="title != null" >
                 title = #{title,jdbcType=VARCHAR},
             </if>
-            <if test="demand != null">
+            <if test="demand != null" >
                 demand = #{demand,jdbcType=VARCHAR},
             </if>
-            <if test="highlights != null">
+            <if test="highlights != null" >
                 highlights = #{highlights,jdbcType=VARCHAR},
             </if>
-            <if test="lastOne != null">
+            <if test="lastOne != null" >
                 last_one = #{lastOne,jdbcType=VARCHAR},
             </if>
-            <if test="lastTwo != null">
+            <if test="lastTwo != null" >
                 last_two = #{lastTwo,jdbcType=VARCHAR},
             </if>
-            <if test="description != null">
+            <if test="description != null" >
                 description = #{description,jdbcType=VARCHAR},
             </if>
-            <if test="type != null">
+            <if test="type != null" >
                 type = #{type,jdbcType=INTEGER},
             </if>
-            <if test="industry != null">
+            <if test="industry != null" >
                 industry = #{industry,jdbcType=INTEGER},
             </if>
-            <if test="industryName != null">
+            <if test="industryName != null" >
                 industry_name = #{industryName,jdbcType=VARCHAR},
             </if>
-            <if test="area != null">
+            <if test="area != null" >
                 area = #{area,jdbcType=INTEGER},
             </if>
-            <if test="areaName != null">
+            <if test="areaName != null" >
                 area_name = #{areaName,jdbcType=VARCHAR},
             </if>
-            <if test="financingLimit != null">
+            <if test="financingLimit != null" >
                 financing_limit = #{financingLimit,jdbcType=INTEGER},
             </if>
-            <if test="financingLimitName != null">
+            <if test="financingLimitName != null" >
                 financing_limit_name = #{financingLimitName,jdbcType=VARCHAR},
             </if>
-            <if test="stage != null">
+            <if test="stage != null" >
                 stage = #{stage,jdbcType=INTEGER},
             </if>
-            <if test="stageName != null">
+            <if test="stageName != null" >
                 stage_name = #{stageName,jdbcType=VARCHAR},
             </if>
-            <if test="videoLink != null">
+            <if test="videoLink != null" >
                 video_link = #{videoLink,jdbcType=VARCHAR},
             </if>
-            <if test="proLink != null">
+            <if test="proLink != null" >
                 pro_link = #{proLink,jdbcType=VARCHAR},
             </if>
-            <if test="userid != null">
+            <if test="userid != null" >
                 userid = #{userid,jdbcType=INTEGER},
             </if>
-            <if test="username != null">
+            <if test="username != null" >
                 username = #{username,jdbcType=VARCHAR},
             </if>
-            <if test="status != null">
+            <if test="status != null" >
                 status = #{status,jdbcType=INTEGER},
             </if>
-            <if test="logo != null">
+            <if test="logo != null" >
                 logo = #{logo,jdbcType=VARCHAR},
             </if>
-            <if test="tags != null">
+            <if test="tags != null" >
                 tags = #{tags,jdbcType=VARCHAR},
             </if>
-            <if test="bp != null">
+            <if test="bp != null" >
                 bp = #{bp,jdbcType=VARCHAR},
             </if>
-            <if test="bpName != null">
+            <if test="bpName != null" >
                 bp_name = #{bpName,jdbcType=VARCHAR},
             </if>
-            <if test="percent != null">
+            <if test="percent != null" >
                 percent = #{percent,jdbcType=INTEGER},
             </if>
-            <if test="referee != null">
+            <if test="referee != null" >
                 referee = #{referee,jdbcType=VARCHAR},
             </if>
-            <if test="lastInvestment != null">
+            <if test="lastInvestment != null" >
                 last_investment = #{lastInvestment,jdbcType=VARCHAR},
             </if>
-            <if test="lastStage != null">
+            <if test="lastStage != null" >
                 last_stage = #{lastStage,jdbcType=VARCHAR},
             </if>
-            <if test="lastLimit != null">
+            <if test="lastLimit != null" >
                 last_limit = #{lastLimit,jdbcType=VARCHAR},
             </if>
-            <if test="createTime != null">
+            <if test="recommend != null" >
+                recommend = #{recommend,jdbcType=INTEGER},
+            </if>
+            <if test="focus != null" >
+                focus = #{focus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateTime != null">
+            <if test="updateTime != null" >
                 update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="content != null">
+            <if test="content != null" >
                 content = #{content,jdbcType=LONGVARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qheeshow.eway.service.model.Project">
-    update t_project
-    set title = #{title,jdbcType=VARCHAR},
-      demand = #{demand,jdbcType=VARCHAR},
-      highlights = #{highlights,jdbcType=VARCHAR},
-      last_one = #{lastOne,jdbcType=VARCHAR},
-      last_two = #{lastTwo,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
-      industry = #{industry,jdbcType=INTEGER},
-      industry_name = #{industryName,jdbcType=VARCHAR},
-      area = #{area,jdbcType=INTEGER},
-      area_name = #{areaName,jdbcType=VARCHAR},
-      financing_limit = #{financingLimit,jdbcType=INTEGER},
-      financing_limit_name = #{financingLimitName,jdbcType=VARCHAR},
-      stage = #{stage,jdbcType=INTEGER},
-      stage_name = #{stageName,jdbcType=VARCHAR},
-      video_link = #{videoLink,jdbcType=VARCHAR},
-      pro_link = #{proLink,jdbcType=VARCHAR},
-      userid = #{userid,jdbcType=INTEGER},
-      username = #{username,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      logo = #{logo,jdbcType=VARCHAR},
-      tags = #{tags,jdbcType=VARCHAR},
-      bp = #{bp,jdbcType=VARCHAR},
-      bp_name = #{bpName,jdbcType=VARCHAR},
-      percent = #{percent,jdbcType=INTEGER},
-      referee = #{referee,jdbcType=VARCHAR},
-      last_investment = #{lastInvestment,jdbcType=VARCHAR},
-      last_stage = #{lastStage,jdbcType=VARCHAR},
-      last_limit = #{lastLimit,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-    <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.Project">
-    update t_project
-    set title = #{title,jdbcType=VARCHAR},
-      demand = #{demand,jdbcType=VARCHAR},
-      highlights = #{highlights,jdbcType=VARCHAR},
-      last_one = #{lastOne,jdbcType=VARCHAR},
-      last_two = #{lastTwo,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
-      industry = #{industry,jdbcType=INTEGER},
-      industry_name = #{industryName,jdbcType=VARCHAR},
-      area = #{area,jdbcType=INTEGER},
-      area_name = #{areaName,jdbcType=VARCHAR},
-      financing_limit = #{financingLimit,jdbcType=INTEGER},
-      financing_limit_name = #{financingLimitName,jdbcType=VARCHAR},
-      stage = #{stage,jdbcType=INTEGER},
-      stage_name = #{stageName,jdbcType=VARCHAR},
-      video_link = #{videoLink,jdbcType=VARCHAR},
-      pro_link = #{proLink,jdbcType=VARCHAR},
-      userid = #{userid,jdbcType=INTEGER},
-      username = #{username,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      logo = #{logo,jdbcType=VARCHAR},
-      tags = #{tags,jdbcType=VARCHAR},
-      bp = #{bp,jdbcType=VARCHAR},
-      bp_name = #{bpName,jdbcType=VARCHAR},
-      percent = #{percent,jdbcType=INTEGER},
-      referee = #{referee,jdbcType=VARCHAR},
-      last_investment = #{lastInvestment,jdbcType=VARCHAR},
-      last_stage = #{lastStage,jdbcType=VARCHAR},
-      last_limit = #{lastLimit,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qheeshow.eway.service.model.Project" >
+        update t_project
+        set title = #{title,jdbcType=VARCHAR},
+        demand = #{demand,jdbcType=VARCHAR},
+        highlights = #{highlights,jdbcType=VARCHAR},
+        last_one = #{lastOne,jdbcType=VARCHAR},
+        last_two = #{lastTwo,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR},
+        type = #{type,jdbcType=INTEGER},
+        industry = #{industry,jdbcType=INTEGER},
+        industry_name = #{industryName,jdbcType=VARCHAR},
+        area = #{area,jdbcType=INTEGER},
+        area_name = #{areaName,jdbcType=VARCHAR},
+        financing_limit = #{financingLimit,jdbcType=INTEGER},
+        financing_limit_name = #{financingLimitName,jdbcType=VARCHAR},
+        stage = #{stage,jdbcType=INTEGER},
+        stage_name = #{stageName,jdbcType=VARCHAR},
+        video_link = #{videoLink,jdbcType=VARCHAR},
+        pro_link = #{proLink,jdbcType=VARCHAR},
+        userid = #{userid,jdbcType=INTEGER},
+        username = #{username,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        logo = #{logo,jdbcType=VARCHAR},
+        tags = #{tags,jdbcType=VARCHAR},
+        bp = #{bp,jdbcType=VARCHAR},
+        bp_name = #{bpName,jdbcType=VARCHAR},
+        percent = #{percent,jdbcType=INTEGER},
+        referee = #{referee,jdbcType=VARCHAR},
+        last_investment = #{lastInvestment,jdbcType=VARCHAR},
+        last_stage = #{lastStage,jdbcType=VARCHAR},
+        last_limit = #{lastLimit,jdbcType=VARCHAR},
+        recommend = #{recommend,jdbcType=INTEGER},
+        focus = #{focus,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        content = #{content,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.Project" >
+        update t_project
+        set title = #{title,jdbcType=VARCHAR},
+        demand = #{demand,jdbcType=VARCHAR},
+        highlights = #{highlights,jdbcType=VARCHAR},
+        last_one = #{lastOne,jdbcType=VARCHAR},
+        last_two = #{lastTwo,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR},
+        type = #{type,jdbcType=INTEGER},
+        industry = #{industry,jdbcType=INTEGER},
+        industry_name = #{industryName,jdbcType=VARCHAR},
+        area = #{area,jdbcType=INTEGER},
+        area_name = #{areaName,jdbcType=VARCHAR},
+        financing_limit = #{financingLimit,jdbcType=INTEGER},
+        financing_limit_name = #{financingLimitName,jdbcType=VARCHAR},
+        stage = #{stage,jdbcType=INTEGER},
+        stage_name = #{stageName,jdbcType=VARCHAR},
+        video_link = #{videoLink,jdbcType=VARCHAR},
+        pro_link = #{proLink,jdbcType=VARCHAR},
+        userid = #{userid,jdbcType=INTEGER},
+        username = #{username,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        logo = #{logo,jdbcType=VARCHAR},
+        tags = #{tags,jdbcType=VARCHAR},
+        bp = #{bp,jdbcType=VARCHAR},
+        bp_name = #{bpName,jdbcType=VARCHAR},
+        percent = #{percent,jdbcType=INTEGER},
+        referee = #{referee,jdbcType=VARCHAR},
+        last_investment = #{lastInvestment,jdbcType=VARCHAR},
+        last_stage = #{lastStage,jdbcType=VARCHAR},
+        last_limit = #{lastLimit,jdbcType=VARCHAR},
+        recommend = #{recommend,jdbcType=INTEGER},
+        focus = #{focus,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <select id="listByCondition" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Project">
         select
         <include refid="Base_Column_List"/>
@@ -853,5 +880,4 @@
         where
         tb_b.userid = #{userid,jdbcType=INTEGER}
     </select>
-
 </mapper>

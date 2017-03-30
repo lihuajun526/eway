@@ -36,7 +36,7 @@
 <body>
 <jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
 <div class="pro-body">
-    <input type="file" id="logoFile" name="logoFile" style="display: none;"/>
+    <input type="file" id="logoFile" name="logoFile" style="display: none;" onchange="uploadImage('logoFile','logoImg','logo')"/>
     <input type="file" id="bpFile" name="bpFile" style="display: none;"/>
     <form id="baseForm">
         <input type="hidden" id="lastOne" name="lastOne" value="<%=curYear-1 %>:500万以下#100万以下#1000万以下#500万以下"/>
@@ -66,8 +66,6 @@
                         <img id="logoImg" onclick="selectFile('logoFile');" title="点击添加图片"
                              src="<%=(isNull|| StringUtils.isEmpty(project.getLogo()))?"/images/bg-new1.png":project.getLogo() %>"
                              class="oimg"/>
-                        <span><a href="#" class="on"
-                                 onclick="uploadImage('logoFile','logoImg','logo')">上传LOGO</a></span>
                     </li>
                     <li class="on3">支持png/jpg/jepg格式</li>
                 </ul>

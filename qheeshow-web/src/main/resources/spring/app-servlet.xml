@@ -17,6 +17,14 @@
         </mvc:interceptor>
     </mvc:interceptors>-->
 
+    <!--<mvc:interceptors>
+        &lt;!&ndash; 多个拦截器，顺序执行 &ndash;&gt;
+        <mvc:interceptor>
+            <mvc:mapping path="/**/auth"/>
+            <bean class="com.qheeshow.eway.web.util.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
+
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/"/>

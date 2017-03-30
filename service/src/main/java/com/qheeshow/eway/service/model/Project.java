@@ -64,14 +64,24 @@ public class Project extends BaseModel{
 
     private String content;
 
-    private Integer forcus;
+    private Integer focus;
 
-    public Integer getForcus() {
-        return forcus;
+    private Integer recommend;
+
+    public Integer getFocus() {
+        return focus;
     }
 
-    public void setForcus(Integer forcus) {
-        this.forcus = forcus;
+    public Integer getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(Integer recommend) {
+        this.recommend = recommend;
+    }
+
+    public void setFocus(Integer focus) {
+        this.focus = focus;
     }
 
     public String getTitle() {

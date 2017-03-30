@@ -37,4 +37,6 @@ public interface ActivityMapper {
     int updateByPrimaryKey(Activity record);
 
     List<Activity> listByCondition(Activity activity);
+
+    List<Activity> latest();
 }

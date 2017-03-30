@@ -178,8 +178,10 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/reLogin")
     @ResponseBody
-    public HaResponse reLogin() {
-        return HaResponse.fail("-1");
+    public String reLogin() {
+        Result result = new Result();
+        result.set(-1, "对不起，请先登录");
+        return result.toString();
     }
 
 }

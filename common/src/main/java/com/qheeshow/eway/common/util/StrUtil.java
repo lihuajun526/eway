@@ -52,7 +52,7 @@ public class StrUtil {
         StringBuffer sb1 = new StringBuffer(Config.get("filter." + fileType + ".storage.path"));
         StringBuffer sb2 = new StringBuffer(Config.get("filter." + fileType + ".web.path"));
         strs[0] = sb1.append(File.separator).append(sdf.format(date)).toString();
-        strs[1] = sb2.append(File.separator).append(sdf.format(date)).toString();
+        strs[1] = sb2.append("/").append(sdf.format(date)).toString();
         return strs;
     }
 
