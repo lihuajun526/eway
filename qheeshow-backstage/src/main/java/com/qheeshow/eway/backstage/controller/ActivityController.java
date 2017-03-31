@@ -12,11 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-6-14.
@@ -32,15 +32,17 @@ public class ActivityController extends BaseController {
 
     @RequestMapping("/list/{activityClass}")
     @ResponseBody
-    public String list(@PathVariable Integer activityClass) {
+    public String list(@PathVariable Integer activityClass, Integer page, Integer rows) {
 
         ResultDg<List<Activity>> resultDg = new ResultDg<>();
 
         Activity activity = new Activity();
         activity.setActivityClass(activityClass);
-        List<Activity> list = activityService.listByClass(activityClass);
-        resultDg.setTotal(list.size());
-        resultDg.setRows(list);
+        activity.setPageSize(rows);
+        activity.setStartRow(rows * (page - 1));
+        Map<String, Object> map = activityService.listByClassAndPage(activity);
+        resultDg.setTotal((Integer) map.get("count"));
+        resultDg.setRows((List<Activity>) map.get("activitys"));
 
         return JSON.toJSONString(resultDg);
     }

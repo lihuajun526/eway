@@ -17,10 +17,12 @@ public interface ProjectService {
 
     List<Project> listByStatus(Integer status);
 
+    Map<String,Object> listByStatusAndPage(Project project);
+
     Project get(Integer id);
 
     Map<String, Object> listByCondition(Integer type, Integer areaid,
-            Integer financingLimit, Integer industry, Integer pageIndex, Integer pageSize);
+                                        Integer financingLimit, Integer industry, Integer pageIndex, Integer pageSize);
 
     List<Project> search(String keyword);
 
@@ -31,5 +33,9 @@ public interface ProjectService {
     Map<String, Object> listFollow(ProjectFollow projectFollow);
 
     Map<String, Object> listAdviser(ProjectAdviser projectAdviser);
+
+    void recommendOrNot(Integer status, Integer projectid);
+
+    Map<String,Object> listPayProject(Project project);
 
 }

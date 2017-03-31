@@ -22,7 +22,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void save(Project project) {
 
-        if (project.getId().intValue() == 0) {
+        if (project.getId() == null) {
             project.setStatus(0);
             projectMapper.insert(project);
         } else {
@@ -37,6 +37,14 @@ public class ProjectServiceImpl implements ProjectService {
         ProjectExample.Criteria criteria = projectExample.createCriteria();
         criteria.andStatusEqualTo(status);
         return projectMapper.selectByExample(projectExample);
+    }
+
+    @Override
+    public Map<String, Object> listByStatusAndPage(Project project) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("projects", projectMapper.listByStatusAndPage(project));
+        map.put("count", projectMapper.countByStatusAndPage(project));
+        return map;
     }
 
     @Override
@@ -107,6 +115,24 @@ public class ProjectServiceImpl implements ProjectService {
         List<Project> projects = projectMapper.listAdviser(projectAdviser);
         map.put("projects", projects);
         map.put("count", projectMapper.listAdviserCount(projectAdviser).size());
+        return map;
+    }
+
+    @Override
+    public void recommendOrNot(Integer status, Integer projectid) {
+        Project project = new Project();
+        project.setId(projectid);
+        project.setRecommend(status);
+        projectMapper.updateByPrimaryKeySelective(project);
+    }
+
+    @Override
+    public Map<String, Object> listPayProject(Project project) {
+
+        Map<String, Object> map = new HashMap<>();
+        List<Project> projects = projectMapper.listPayProject(project);
+        map.put("projects", projects);
+        map.put("count", projectMapper.countPayProject(project));
         return map;
     }
 

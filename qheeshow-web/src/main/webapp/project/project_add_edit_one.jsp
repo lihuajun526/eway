@@ -36,12 +36,21 @@
 <body>
 <jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
 <div class="pro-body">
-    <input type="file" id="logoFile" name="logoFile" style="display: none;" onchange="uploadImage('logoFile','logoImg','logo')"/>
+    <input type="file" id="logoFile" name="logoFile" style="display: none;"
+           onchange="uploadImage('logoFile','logoImg','logo')"/>
     <input type="file" id="bpFile" name="bpFile" style="display: none;"/>
+
     <form id="baseForm">
         <input type="hidden" id="lastOne" name="lastOne" value="<%=curYear-1 %>:500万以下#100万以下#1000万以下#500万以下"/>
         <input type="hidden" id="lastTwo" name="lastTwo" value="<%=curYear-2 %>:500万以下#100万以下#1000万以下#500万以下"/>
-        <input type="hidden" id="id" name="id" value="<%=isNull?"0":project.getId()%>"/>
+        <%
+            if (isNull) {
+        %><input type="hidden" id="id" name="id"/><%
+    } else {
+    %><input type="hidden" id="id" name="id" value="<%=project.getId()%>"/><%
+        }
+    %>
+        <input type="hidden" id="id" name="id" value="<%=isNull?"":project.getId()%>"/>
         <input type="hidden" id="logo" name="logo" value="<%=isNull?"":project.getLogo()%>"/>
         <input type="hidden" id="bp" name="bp" value="<%=isNull?"":project.getBp()%>"/>
         <input type="hidden" id="bpName" name="bpName" value="<%=isNull?"":project.getBpName()%>"/>
@@ -57,6 +66,7 @@
         <input type="hidden" id="stageName" name="stageName" value="<%=isNull?"":project.getStageName()%>"/>
         <input type="hidden" name="type" value="3"/>
         <input type="hidden" id="tags" name="tags" value=""/>
+
         <div class="pro-wap">
             <div class="pro-t">项目信息(1/3)</div>
             <div class="pro-one">
@@ -611,7 +621,7 @@
         $("#tags").val(tags);
         $.ajax({
             type: 'POST',
-            url: '/project/base/save',
+            url: '/project/base/save/authj',
             cache: false,
             processData: false,
             data: $('#baseForm').serialize(),
@@ -621,7 +631,7 @@
                     alert(result.message);
                     return;
                 }
-                window.location.href = "/project/" + result.data + "/add/edit/2";
+                window.location.href = "/project/" + result.data + "/add/edit/2/auth";
             }
         });
     }

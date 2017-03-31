@@ -50,4 +50,12 @@ public interface ProjectMapper {
     List<Project> listAdviser(ProjectAdviser projectAdviser);
 
     List<Project> listAdviserCount(ProjectAdviser projectAdviser);
+
+    List<Project> listPayProject(Project project);
+
+    int countPayProject(Project project);
+
+    List<Project> listByStatusAndPage(Project project);
+
+    int countByStatusAndPage(Project project);
 }

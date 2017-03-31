@@ -56,7 +56,7 @@ public class UserCenterController extends BaseController {
             modelAndView.setViewName("center/user_project_list");
             projects = projectService.listByUser(loginUser.getId());
             for (Project project : projects) {
-                project.setFocus(projectFollowService.list(project.getId()).size());
+                project.setFollows(projectFollowService.list(project.getId()).size());
             }
         } else {//投资人
             modelAndView.setViewName("center/investor_project_" + type + "_list");

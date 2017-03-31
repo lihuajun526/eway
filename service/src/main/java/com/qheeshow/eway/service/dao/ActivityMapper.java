@@ -39,4 +39,8 @@ public interface ActivityMapper {
     List<Activity> listByCondition(Activity activity);
 
     List<Activity> latest();
+
+    List<Activity> listByClassAndPage(Activity activity);
+
+    Integer countByClassAndPage(Activity activity);
 }

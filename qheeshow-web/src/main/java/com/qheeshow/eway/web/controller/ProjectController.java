@@ -37,7 +37,7 @@ public class ProjectController extends BaseController {
     @Autowired
     private CommonQaService commonQaService;
 
-    @RequestMapping("/{id}/add/edit/1")
+    @RequestMapping("/{id}/add/edit/1/auth")
     public ModelAndView addOrEditOne(@PathVariable Integer id) {
 
         //项目所属行业rootid
@@ -69,7 +69,7 @@ public class ProjectController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping("/{id}/add/edit/2")
+    @RequestMapping("/{id}/add/edit/2/auth")
     public ModelAndView addOrEditTwo(@PathVariable Integer id) {
 
         List<TeamMember> members = teamMemberService.listByProject(id);
@@ -81,7 +81,7 @@ public class ProjectController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping("/{id}/add/edit/3")
+    @RequestMapping("/{id}/add/edit/3/auth")
     public ModelAndView addOrEditThree(@PathVariable Integer id) {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -97,7 +97,7 @@ public class ProjectController extends BaseController {
      * @param project
      * @return
      */
-    @RequestMapping("/base/save")
+    @RequestMapping("/base/save/authj")
     @ResponseBody
     public String saveBase(Project project, HttpSession httpSession) {
 
@@ -149,7 +149,7 @@ public class ProjectController extends BaseController {
      * @param teamMember
      * @return
      */
-    @RequestMapping("/team/save")
+    @RequestMapping("/team/save/authj")
     @ResponseBody
     public String saveTeam(TeamMember teamMember) {
 
@@ -158,7 +158,7 @@ public class ProjectController extends BaseController {
 
         teamMemberService.save(teamMember);
 
-        result.setData(teamMember.getId());
+        result.setData(teamMember.getProjectid());
 
         return result.toString();
     }
@@ -169,7 +169,7 @@ public class ProjectController extends BaseController {
      * @param project
      * @return
      */
-    @RequestMapping("/financing/save")
+    @RequestMapping("/financing/save/authj")
     @ResponseBody
     public String saveFinancing(Project project) {
 

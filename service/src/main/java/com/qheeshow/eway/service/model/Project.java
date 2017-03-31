@@ -68,6 +68,28 @@ public class Project extends BaseModel{
 
     private Integer recommend;
 
+    private Integer goodsid;
+
+    private String goodsName;
+
+    private Integer follows;//关注人数
+
+    public Integer getGoodsid() {
+        return goodsid;
+    }
+
+    public void setGoodsid(Integer goodsid) {
+        this.goodsid = goodsid;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
     public Integer getFocus() {
         return focus;
     }
@@ -330,5 +352,13 @@ public class Project extends BaseModel{
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public Integer getFollows() {
+        return follows;
+    }
+
+    public void setFollows(Integer follows) {
+        this.follows = follows;
     }
 }

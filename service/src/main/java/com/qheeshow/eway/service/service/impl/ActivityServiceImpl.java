@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 2017/3/24.
@@ -39,6 +41,15 @@ public class ActivityServiceImpl implements ActivityService {
         criteria.andIsHeadEqualTo(0);
 
         return activityMapper.selectByExample(example);
+    }
+
+    @Override
+    public Map<String, Object> listByClassAndPage(Activity activity) {
+        Map<String, Object> map = new HashMap<>();
+        List<Activity> activities = activityMapper.listByClassAndPage(activity);
+        map.put("activities", activities);
+        map.put("count", activityMapper.countByClassAndPage(activity));
+        return map;
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.qheeshow.eway.backstage.base.BaseController;
 import com.qheeshow.eway.backstage.base.Result;
 import com.qheeshow.eway.backstage.base.ResultDg;
 import com.qheeshow.eway.service.model.Project;
-import com.qheeshow.eway.service.model.ProjectSuggest;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.ProjectService;
 import com.qheeshow.eway.service.service.ProjectSuggestService;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-6-14.
@@ -36,12 +36,16 @@ public class ProjectController extends BaseController {
 
     @RequestMapping("/list/{status}")
     @ResponseBody
-    public String list(@PathVariable Integer status) {
+    public String list(@PathVariable Integer status, Integer page, Integer rows) {
         ResultDg<List<Project>> resultDg = new ResultDg<>();
 
-        List<Project> list = projectService.listByStatus(status);
-        resultDg.setTotal(list == null ? 0 : list.size());
-        resultDg.setRows(list);
+        Project project = new Project();
+        project.setStatus(status);
+        project.setPageSize(rows);
+        project.setStartRow(rows * (page - 1));
+        Map<String, Object> map = projectService.listByStatusAndPage(project);
+        resultDg.setTotal((Integer) map.get("count"));
+        resultDg.setRows((List<Project>) map.get("projects"));
 
         return JSON.toJSONString(resultDg);
     }
@@ -166,14 +170,35 @@ public class ProjectController extends BaseController {
 
     @RequestMapping("/list/pay")
     @ResponseBody
-    public String listPayProject() {
+    public String listPayProject(Integer page, Integer rows) {
         ResultDg<List<Project>> resultDg = new ResultDg<>();
 
-        List<Project> list = null;
-        resultDg.setTotal(list == null ? 0 : list.size());
-        resultDg.setRows(list);
+        Project project = new Project();
+        project.setPageSize(rows);
+        project.setStartRow(rows * (page - 1));
+        Map<String, Object> map = projectService.listPayProject(project);
+        resultDg.setTotal((Integer) map.get("count"));
+        resultDg.setRows((List<Project>) map.get("projects"));
 
         return JSON.toJSONString(resultDg);
+    }
+
+    /**
+     * 推荐或取消推荐
+     *
+     * @param status
+     * @param projectid
+     * @return
+     */
+    @RequestMapping("/recommend/{status}/{projectid}")
+    @ResponseBody
+    public String recommendOrNot(@PathVariable Integer status, @PathVariable Integer projectid) {
+
+        Result result = new Result();
+
+        projectService.recommendOrNot(status, projectid);
+
+        return result.toString();
     }
 
 }

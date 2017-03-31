@@ -85,6 +85,11 @@
                     field: 'opt', title: '操作', align: 'center',
                     formatter: function (value, rec) {
                         var btn = '<a class="editcls" onclick="openUpdate(\'' + rec.id + '\')" href="javascript:void(0)">问答管理</a>&nbsp&nbsp';
+                        if (rec.recommend == 0) {
+                            btn += '<a class="editcls" onclick="recommend(' + rec.id + ')" href="javascript:void(0)">推荐</a>&nbsp&nbsp';
+                        } else if (rec.recommend == 1) {
+                            btn += '<a class="editcls" onclick="unrecommend(' + rec.id + ')" href="javascript:void(0)">取消推荐</a>&nbsp&nbsp';
+                        }
                         btn += '<a class="editcls" onclick="listInvestor(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">推荐投资人</a>&nbsp&nbsp';
                         btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',3)" href="javascript:void(0)">不通过</a>&nbsp&nbsp';
                         return btn;
@@ -155,11 +160,31 @@
                 function (result) {
                     if (result.code != 0) {
                         $.messager.alert('Info', "失败", 'info');
-                    }else{
+                    } else {
                         $.messager.alert('Info', "推荐成功", 'info');
                         $('#investor').window('close');
                     }
                 }, "json");
+    }
+    function recommend(id) {
+        $.get("/project/recommend/1/" + id, function (result) {
+            if (result.code != 0) {
+                $.messager.alert('Info', "失败", 'info');
+            } else {
+                $.messager.alert('Info', "推荐成功", 'info');
+            }
+            $('#datagrid').datagrid('reload');
+        }, "json");
+    }
+    function unrecommend(id) {
+        $.get("/project/0/" + id, function (result) {
+            if (result.code != 0) {
+                $.messager.alert('Info', "失败", 'info');
+            } else {
+                $.messager.alert('Info', "成功取消", 'info');
+            }
+            $('#datagrid').datagrid('reload');
+        }, "json");
     }
     list();
 </script>

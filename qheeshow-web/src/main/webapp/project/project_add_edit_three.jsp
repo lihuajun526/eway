@@ -68,7 +68,7 @@
     function saveFinancing() {
         $.ajax({
             type: 'POST',
-            url: '/project/financing/save',
+            url: '/project/financing/save/authj',
             cache: false,
             processData: false,
             data: $('#financingForm').serialize(),

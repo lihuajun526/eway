@@ -27,19 +27,15 @@ public class AuthFilter implements Filter {
         HttpSession session = httpRequest.getSession();
         String url = httpRequest.getRequestURI();
         // 如果是不需要用户登录认证的服务或者用户已经进行登录认证并未过期，则放行
-        if (session.getAttribute("loginUser") != null || UrlFilterConfig.getInstance().matchExcludeUrl(httpRequest.getContextPath(), httpRequest.getServletPath())) {
+        if (url.indexOf("/auth") == -1 || session.getAttribute("loginUser") != null) {
             try {
                 chain.doFilter(request, response);
             } finally {
             }
         } else {
-
-
-            // 对于需要用户认证的服务，但是用户又没有认证或者已经过期，则需要重新认证
-            if (url.indexOf("json") != -1) {
-//				chain.doFilter(request, response);
+            if (url.indexOf("/authj") != -1) {
                 httpRequest.getRequestDispatcher("/user/reLogin.json").forward(httpRequest, httpResponse);
-            } else {
+            } else if (url.indexOf("/auth") != -1) {
                 httpResponse.sendRedirect(localLoginUrl);
             }
         }

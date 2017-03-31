@@ -28,12 +28,12 @@
             </a></li>
             <li class="on4"><a href="/center/index"><img src="/images/wt-top3.png" width="30" height="30"/></a></li>
             <li class="on1"><a href="/goods/list/0">购买服务</a></li>
-            <li class="on2"><a href="/project/0/add/edit/1">创建项目</a></li>
+            <li class="on2"><a href="/project/0/add/edit/1/auth">创建项目</a></li>
             <%
             } else {
             %>
             <li class="on1"><a href="/goods/list/0">购买服务</a></li>
-            <li class="on2"><a href="/project/0/add/edit/1">创建项目</a></li>
+            <li class="on2"><a href="/project/0/add/edit/1/auth">创建项目</a></li>
             <li class="on3"><a href="/user/login.jsp"><img src="/images/wt-top3.png"/></a></li>
             <%
                 }

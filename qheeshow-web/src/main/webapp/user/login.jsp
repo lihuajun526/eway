@@ -79,5 +79,10 @@
 //     	location.href = href;
         window.open(href, "newwindow", "height=550, width=600, top=200, left=400, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no");
     }
+    $('#password').keydown(function(e){
+        if(e.keyCode==13){
+            login();
+        }
+    });
 </script>
 </html>
