@@ -33,6 +33,7 @@
     <result column="last_stage" property="lastStage" jdbcType="VARCHAR" />
     <result column="last_limit" property="lastLimit" jdbcType="VARCHAR" />
     <result column="recommend" property="recommend" jdbcType="INTEGER" />
+    <result column="is_case" property="isCase" jdbcType="INTEGER" />
     <result column="focus" property="focus" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -102,7 +103,7 @@
     id, title, demand, highlights, last_one, last_two, description, type, industry, industry_name, 
     area, area_name, financing_limit, financing_limit_name, stage, stage_name, video_link, 
     pro_link, userid, username, status, logo, tags, bp, bp_name, percent, referee, last_investment, 
-    last_stage, last_limit, recommend, focus, create_time, update_time
+    last_stage, last_limit, recommend, is_case, focus, create_time, update_time
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -168,8 +169,8 @@
       logo, tags, bp, bp_name, 
       percent, referee, last_investment, 
       last_stage, last_limit, recommend, 
-      focus, create_time, update_time, 
-      content)
+      is_case, focus, create_time, 
+      update_time, content)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{demand,jdbcType=VARCHAR}, 
       #{highlights,jdbcType=VARCHAR}, #{lastOne,jdbcType=VARCHAR}, #{lastTwo,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{industry,jdbcType=INTEGER}, 
@@ -180,8 +181,8 @@
       #{logo,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{bp,jdbcType=VARCHAR}, #{bpName,jdbcType=VARCHAR}, 
       #{percent,jdbcType=INTEGER}, #{referee,jdbcType=VARCHAR}, #{lastInvestment,jdbcType=VARCHAR}, 
       #{lastStage,jdbcType=VARCHAR}, #{lastLimit,jdbcType=VARCHAR}, #{recommend,jdbcType=INTEGER}, 
-      #{focus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{isCase,jdbcType=INTEGER}, #{focus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Project" >
     insert into t_project
@@ -278,6 +279,9 @@
       </if>
       <if test="recommend != null" >
         recommend,
+      </if>
+      <if test="isCase != null" >
+        is_case,
       </if>
       <if test="focus != null" >
         focus,
@@ -385,6 +389,9 @@
       </if>
       <if test="recommend != null" >
         #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="isCase != null" >
+        #{isCase,jdbcType=INTEGER},
       </if>
       <if test="focus != null" >
         #{focus,jdbcType=INTEGER},
@@ -502,6 +509,9 @@
       <if test="record.recommend != null" >
         recommend = #{record.recommend,jdbcType=INTEGER},
       </if>
+      <if test="record.isCase != null" >
+        is_case = #{record.isCase,jdbcType=INTEGER},
+      </if>
       <if test="record.focus != null" >
         focus = #{record.focus,jdbcType=INTEGER},
       </if>
@@ -552,6 +562,7 @@
       last_stage = #{record.lastStage,jdbcType=VARCHAR},
       last_limit = #{record.lastLimit,jdbcType=VARCHAR},
       recommend = #{record.recommend,jdbcType=INTEGER},
+      is_case = #{record.isCase,jdbcType=INTEGER},
       focus = #{record.focus,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -593,6 +604,7 @@
       last_stage = #{record.lastStage,jdbcType=VARCHAR},
       last_limit = #{record.lastLimit,jdbcType=VARCHAR},
       recommend = #{record.recommend,jdbcType=INTEGER},
+      is_case = #{record.isCase,jdbcType=INTEGER},
       focus = #{record.focus,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
@@ -693,6 +705,9 @@
       <if test="recommend != null" >
         recommend = #{recommend,jdbcType=INTEGER},
       </if>
+      <if test="isCase != null" >
+        is_case = #{isCase,jdbcType=INTEGER},
+      </if>
       <if test="focus != null" >
         focus = #{focus,jdbcType=INTEGER},
       </if>
@@ -740,6 +755,7 @@
       last_stage = #{lastStage,jdbcType=VARCHAR},
       last_limit = #{lastLimit,jdbcType=VARCHAR},
       recommend = #{recommend,jdbcType=INTEGER},
+      is_case = #{isCase,jdbcType=INTEGER},
       focus = #{focus,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
@@ -778,6 +794,7 @@
       last_stage = #{lastStage,jdbcType=VARCHAR},
       last_limit = #{lastLimit,jdbcType=VARCHAR},
       recommend = #{recommend,jdbcType=INTEGER},
+      is_case = #{isCase,jdbcType=INTEGER},
       focus = #{focus,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}

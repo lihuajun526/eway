@@ -1,7 +1,11 @@
 package com.qheeshow.eway.web.controller;
 
 import com.qheeshow.eway.service.model.Activity;
+import com.qheeshow.eway.service.model.Investor;
+import com.qheeshow.eway.service.model.Project;
 import com.qheeshow.eway.service.service.ActivityService;
+import com.qheeshow.eway.service.service.InvestorService;
+import com.qheeshow.eway.service.service.ProjectService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,10 @@ public class IndexController extends BaseController {
 
     @Autowired
     private ActivityService activityService;
+    @Autowired
+    private ProjectService projectService;
+    @Autowired
+    private InvestorService investorService;
 
 
     @RequestMapping("/index")
@@ -37,11 +45,57 @@ public class IndexController extends BaseController {
     public String latest() {
         Result result = new Result();
 
-        List<Activity> list = activityService.latest();
+        List<Activity> list = activityService.latest(3);
         result.setData(list);
 
         return result.toString();
     }
 
+    /**
+     * 优秀项目推荐
+     *
+     * @return
+     */
+    @RequestMapping("/index/project/best/suggest")
+    @ResponseBody
+    public String bestSuggest() {
+        Result result = new Result();
 
+        List<Project> list = projectService.bestSuggest(6);
+        result.setData(list);
+
+        return result.toString();
+    }
+
+    /**
+     * 优秀案例
+     *
+     * @return
+     */
+    @RequestMapping("/index/project/best/case")
+    @ResponseBody
+    public String bestCase() {
+        Result result = new Result();
+
+        List<Project> list = projectService.bestCase(5);
+        result.setData(list);
+
+        return result.toString();
+    }
+
+    /**
+     * 优秀投资人
+     *
+     * @return
+     */
+    @RequestMapping("/index/investor/best")
+    @ResponseBody
+    public String bestInvestor() {
+        Result result = new Result();
+
+        List<Investor> list = investorService.bestInvestor(9);
+        result.setData(list);
+
+        return result.toString();
+    }
 }

@@ -21,5 +21,5 @@ public interface ActivityService {
 
     void save(Activity activity);
 
-    List<Activity> latest();
+    List<Activity> latest(Integer num);
 }

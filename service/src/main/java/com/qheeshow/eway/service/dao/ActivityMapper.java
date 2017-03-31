@@ -38,7 +38,7 @@ public interface ActivityMapper {
 
     List<Activity> listByCondition(Activity activity);
 
-    List<Activity> latest();
+    List<Activity> latest(Integer num);
 
     List<Activity> listByClassAndPage(Activity activity);
 

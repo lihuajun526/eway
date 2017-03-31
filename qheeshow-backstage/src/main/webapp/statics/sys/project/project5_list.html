@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table id="datagrid" data-options="rownumbers:true,singleSelect:false"></table>
+<script>
+    function list() {
+        var list = $('#datagrid').datagrid({
+            border: false,
+            fitColumns: true,
+            singleSelect: false,
+            pagination: true,
+            url: '/project/list/2',
+            columns: [[
+                {
+                    field: 'id', title: '编号', width: 3
+                },
+                {
+                    field: 'title', title: '项目名称', width: 18,
+                    formatter: function (value, rec) {
+                        return "<a href='#' onclick='modify(" + rec.id + ")'>" + value + "</a>";
+                    }
+                },
+                {
+                    field: 'username', title: '项目联系人', width: 8,
+                    formatter: function (value, rec) {
+                        var btn = "<a onclick='openUpdate(\'" + rec.id + "\')' href='javascript:void(0)'>" + rec.username + "</a>";
+                        return btn;
+                    }
+                },
+                {
+                    field: 'createTime', title: '日期', width: 8,
+                    formatter: function (value, rec) {
+                        return simpleDateFormatter(new Date(rec.createTime));
+                    }
+                },
+                {
+                    field: 'opt', title: '操作', align: 'center',
+                    formatter: function (value, rec) {
+                        var btn = '<a class="editcls" onclick="delCase(\'' + rec.id + '\')" href="javascript:void(0)">取消</a>&nbsp&nbsp';
+                        return btn;
+                    }
+                }
+            ]]
+        });
+    }
+    function delCase(id) {
+        $.ajax({
+            url: '/project/case/del/' + id,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#datagrid').datagrid('reload');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+    list();
+</script>
+</body>
+</html>

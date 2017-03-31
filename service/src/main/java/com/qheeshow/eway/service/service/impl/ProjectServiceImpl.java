@@ -136,4 +136,30 @@ public class ProjectServiceImpl implements ProjectService {
         return map;
     }
 
+    @Override
+    public List<Project> bestSuggest(Integer num) {
+        return projectMapper.bestSuggest(num);
+    }
+
+    @Override
+    public List<Project> bestCase(Integer num) {
+        return projectMapper.bestCase(num);
+    }
+
+    @Override
+    public void delCase(Integer projectid) {
+        Project project = new Project();
+        project.setId(projectid);
+        project.setIsCase(0);
+        projectMapper.updateByPrimaryKeySelective(project);
+    }
+
+    @Override
+    public void addCase(Integer projectid) {
+        Project project = new Project();
+        project.setId(projectid);
+        project.setIsCase(1);
+        projectMapper.updateByPrimaryKeySelective(project);
+    }
+
 }

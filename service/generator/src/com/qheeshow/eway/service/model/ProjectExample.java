@@ -2175,6 +2175,66 @@ public class ProjectExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsCaseIsNull() {
+            addCriterion("is_case is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsCaseIsNotNull() {
+            addCriterion("is_case is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsCaseEqualTo(Integer value) {
+            addCriterion("is_case =", value, "isCase");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsCaseNotEqualTo(Integer value) {
+            addCriterion("is_case <>", value, "isCase");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsCaseGreaterThan(Integer value) {
+            addCriterion("is_case >", value, "isCase");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsCaseGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_case >=", value, "isCase");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsCaseLessThan(Integer value) {
+            addCriterion("is_case <", value, "isCase");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsCaseLessThanOrEqualTo(Integer value) {
+            addCriterion("is_case <=", value, "isCase");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsCaseIn(List<Integer> values) {
+            addCriterion("is_case in", values, "isCase");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsCaseNotIn(List<Integer> values) {
+            addCriterion("is_case not in", values, "isCase");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsCaseBetween(Integer value1, Integer value2) {
+            addCriterion("is_case between", value1, value2, "isCase");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsCaseNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_case not between", value1, value2, "isCase");
+            return (Criteria) this;
+        }
+
         public Criteria andFocusIsNull() {
             addCriterion("focus is null");
             return (Criteria) this;

@@ -31,4 +31,6 @@ public interface InvestorService {
 
     Map<String, Object> listByCondition(String cityid,
                                         String industryid, String stageid, Integer pageIndex, Integer pageSize);
+
+    List<Investor> bestInvestor(Integer num);
 }

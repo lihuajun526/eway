@@ -74,6 +74,16 @@ public class Project extends BaseModel{
 
     private Integer follows;//关注人数
 
+    private Integer isCase;
+
+    public Integer getIsCase() {
+        return isCase;
+    }
+
+    public void setIsCase(Integer isCase) {
+        this.isCase = isCase;
+    }
+
     public Integer getGoodsid() {
         return goodsid;
     }

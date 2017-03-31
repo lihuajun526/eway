@@ -90,6 +90,7 @@
                         } else if (rec.recommend == 1) {
                             btn += '<a class="editcls" onclick="unrecommend(' + rec.id + ')" href="javascript:void(0)">取消推荐</a>&nbsp&nbsp';
                         }
+                        btn += '<a class="editcls" onclick="addCase(' + rec.id + ')" href="javascript:void(0)">优秀案例</a>&nbsp&nbsp';
                         btn += '<a class="editcls" onclick="listInvestor(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">推荐投资人</a>&nbsp&nbsp';
                         btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',3)" href="javascript:void(0)">不通过</a>&nbsp&nbsp';
                         return btn;
@@ -178,6 +179,17 @@
     }
     function unrecommend(id) {
         $.get("/project/0/" + id, function (result) {
+            if (result.code != 0) {
+                $.messager.alert('Info', "失败", 'info');
+            } else {
+                $.messager.alert('Info', "成功取消", 'info');
+            }
+            $('#datagrid').datagrid('reload');
+        }, "json");
+    }
+
+    function addCase(id) {
+        $.get("/project/case/add/" + id, function (result) {
             if (result.code != 0) {
                 $.messager.alert('Info', "失败", 'info');
             } else {

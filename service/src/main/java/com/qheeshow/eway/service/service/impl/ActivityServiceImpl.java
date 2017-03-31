@@ -68,11 +68,12 @@ public class ActivityServiceImpl implements ActivityService {
 
     /**
      * 首页最新活动
+     *
      * @return
      */
     @Override
-    public List<Activity> latest() {
-        return activityMapper.latest();
+    public List<Activity> latest(Integer num) {
+        return activityMapper.latest(num);
     }
 
 }

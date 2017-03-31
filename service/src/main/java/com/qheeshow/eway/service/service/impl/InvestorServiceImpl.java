@@ -19,7 +19,7 @@ import org.springframework.util.StringUtils;
 public class InvestorServiceImpl implements InvestorService {
 
     @Autowired
-    InvestorMapper investorMapper;
+    private InvestorMapper investorMapper;
 
     @Override
     public void save(Investor investor) {
@@ -145,6 +145,11 @@ public class InvestorServiceImpl implements InvestorService {
         map.put("investors", investorMapper.listByCondition(investor));
         map.put("count", investorMapper.getCount(investor).size());
         return map;
+    }
+
+    @Override
+    public List<Investor> bestInvestor(Integer num) {
+        return investorMapper.bestInvestor();
     }
 
 

@@ -65,6 +65,8 @@ public class Project {
 
     private Integer recommend;
 
+    private Integer isCase;
+
     private Integer focus;
 
     private Date createTime;
@@ -319,6 +321,14 @@ public class Project {
 
     public void setRecommend(Integer recommend) {
         this.recommend = recommend;
+    }
+
+    public Integer getIsCase() {
+        return isCase;
+    }
+
+    public void setIsCase(Integer isCase) {
+        this.isCase = isCase;
     }
 
     public Integer getFocus() {

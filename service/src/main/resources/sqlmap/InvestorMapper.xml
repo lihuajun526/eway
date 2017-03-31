@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qheeshow.eway.service.dao.InvestorMapper">
-    <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.Investor">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="photo" property="photo" jdbcType="VARCHAR"/>
-        <result column="true_name" property="trueName" jdbcType="VARCHAR"/>
-        <result column="investor_type" property="investorType" jdbcType="INTEGER"/>
-        <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
-        <result column="company_rank" property="companyRank" jdbcType="VARCHAR"/>
-        <result column="wechat_id" property="wechatId" jdbcType="VARCHAR"/>
-        <result column="city_id" property="cityId" jdbcType="VARCHAR"/>
-        <result column="city_name" property="cityName" jdbcType="VARCHAR"/>
-        <result column="stage_id" property="stageId" jdbcType="VARCHAR"/>
-        <result column="stage_name" property="stageName" jdbcType="VARCHAR"/>
-        <result column="industry_id" property="industryId" jdbcType="VARCHAR"/>
-        <result column="industry_name" property="industryName" jdbcType="VARCHAR"/>
-        <result column="single_price_id" property="singlePriceId" jdbcType="INTEGER"/>
-        <result column="single_price" property="singlePrice" jdbcType="VARCHAR"/>
-        <result column="style_id" property="styleId" jdbcType="INTEGER"/>
-        <result column="style" property="style" jdbcType="VARCHAR"/>
-        <result column="preference_id" property="preferenceId" jdbcType="INTEGER"/>
-        <result column="preference" property="preference" jdbcType="VARCHAR"/>
-        <result column="investor_case" property="investorCase" jdbcType="VARCHAR"/>
-        <result column="recommender" property="recommender" jdbcType="VARCHAR"/>
-        <result column="personal_profile" property="personalProfile" jdbcType="VARCHAR"/>
-        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
-        <result column="email" property="email" jdbcType="VARCHAR"/>
-        <result column="id_card" property="idCard" jdbcType="VARCHAR"/>
-        <result column="business_card_positive" property="businessCardPositive" jdbcType="VARCHAR"/>
-        <result column="business_card_opposite" property="businessCardOpposite" jdbcType="VARCHAR"/>
-        <result column="personal_assets_id" property="personalAssetsId" jdbcType="INTEGER"/>
-        <result column="personal_assets" property="personalAssets" jdbcType="VARCHAR"/>
-        <result column="status" property="status" jdbcType="INTEGER"/>
-        <result column="userid" property="userid" jdbcType="INTEGER"/>
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
-        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+<mapper namespace="com.qheeshow.eway.service.dao.InvestorMapper" >
+    <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.Investor" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="photo" property="photo" jdbcType="VARCHAR" />
+        <result column="true_name" property="trueName" jdbcType="VARCHAR" />
+        <result column="investor_type" property="investorType" jdbcType="INTEGER" />
+        <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+        <result column="company_rank" property="companyRank" jdbcType="VARCHAR" />
+        <result column="wechat_id" property="wechatId" jdbcType="VARCHAR" />
+        <result column="city_id" property="cityId" jdbcType="VARCHAR" />
+        <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+        <result column="stage_id" property="stageId" jdbcType="VARCHAR" />
+        <result column="stage_name" property="stageName" jdbcType="VARCHAR" />
+        <result column="industry_id" property="industryId" jdbcType="VARCHAR" />
+        <result column="industry_name" property="industryName" jdbcType="VARCHAR" />
+        <result column="single_price_id" property="singlePriceId" jdbcType="INTEGER" />
+        <result column="single_price" property="singlePrice" jdbcType="VARCHAR" />
+        <result column="style_id" property="styleId" jdbcType="INTEGER" />
+        <result column="style" property="style" jdbcType="VARCHAR" />
+        <result column="preference_id" property="preferenceId" jdbcType="INTEGER" />
+        <result column="preference" property="preference" jdbcType="VARCHAR" />
+        <result column="investor_case" property="investorCase" jdbcType="VARCHAR" />
+        <result column="recommender" property="recommender" jdbcType="VARCHAR" />
+        <result column="personal_profile" property="personalProfile" jdbcType="VARCHAR" />
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+        <result column="business_card_positive" property="businessCardPositive" jdbcType="VARCHAR" />
+        <result column="business_card_opposite" property="businessCardOpposite" jdbcType="VARCHAR" />
+        <result column="personal_assets_id" property="personalAssetsId" jdbcType="INTEGER" />
+        <result column="personal_assets" property="personalAssets" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="userid" property="userid" jdbcType="INTEGER" />
+        <result column="is_best" property="isBest" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     </resultMap>
-    <sql id="Example_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" suffix=")" prefixOverrides="and">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
                                     and ${criterion.condition}
                                 </when>
-                                <when test="criterion.singleValue">
+                                <when test="criterion.singleValue" >
                                     and ${criterion.condition} #{criterion.value}
                                 </when>
-                                <when test="criterion.betweenValue">
+                                <when test="criterion.betweenValue" >
                                     and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                                 </when>
-                                <when test="criterion.listValue">
+                                <when test="criterion.listValue" >
                                     and ${criterion.condition}
-                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
-                                             separator=",">
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -66,26 +66,25 @@
             </foreach>
         </where>
     </sql>
-    <sql id="Update_By_Example_Where_Clause">
-        <where>
-            <foreach collection="example.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" suffix=")" prefixOverrides="and">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
                                     and ${criterion.condition}
                                 </when>
-                                <when test="criterion.singleValue">
+                                <when test="criterion.singleValue" >
                                     and ${criterion.condition} #{criterion.value}
                                 </when>
-                                <when test="criterion.betweenValue">
+                                <when test="criterion.betweenValue" >
                                     and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                                 </when>
-                                <when test="criterion.listValue">
+                                <when test="criterion.listValue" >
                                     and ${criterion.condition}
-                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
-                                             separator=",">
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -96,49 +95,45 @@
             </foreach>
         </where>
     </sql>
-    <sql id="Base_Column_List">
-    id, photo, true_name, investor_type, company_name, company_rank, wechat_id, city_id, 
-    city_name, stage_id, stage_name, industry_id, industry_name, single_price_id, single_price, 
-    style_id, style, preference_id, preference, investor_case, recommender, personal_profile, 
-    mobile, email, id_card, business_card_positive, business_card_opposite, personal_assets_id, 
-    personal_assets, status, userid, create_time, update_time
-  </sql>
-    <select id="selectByExample" resultMap="BaseResultMap"
-            parameterType="com.qheeshow.eway.service.model.InvestorExample">
+    <sql id="Base_Column_List" >
+        id, photo, true_name, investor_type, company_name, company_rank, wechat_id, city_id,
+        city_name, stage_id, stage_name, industry_id, industry_name, single_price_id, single_price,
+        style_id, style, preference_id, preference, investor_case, recommender, personal_profile,
+        mobile, email, id_card, business_card_positive, business_card_opposite, personal_assets_id,
+        personal_assets, status, userid, is_best, create_time, update_time
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.InvestorExample" >
         select
-        <if test="distinct">
+        <if test="distinct" >
             distinct
         </if>
         'true' as QUERYID,
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from t_investor
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
-        <if test="orderByClause != null">
+        <if test="orderByClause != null" >
             order by ${orderByClause}
         </if>
     </select>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from t_investor
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_investor
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-    <delete id="deleteByExample" parameterType="com.qheeshow.eway.service.model.InvestorExample">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
         delete from t_investor
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.qheeshow.eway.service.model.InvestorExample" >
+        delete from t_investor
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
     </delete>
-    <insert id="insert" parameterType="com.qheeshow.eway.service.model.Investor">
-        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
-            SELECT LAST_INSERT_ID() AS id
-        </selectKey>
+    <insert id="insert" parameterType="com.qheeshow.eway.service.model.Investor" >
         insert into t_investor (id, photo, true_name,
         investor_type, company_name, company_rank,
         wechat_id, city_id, city_name,
@@ -149,8 +144,8 @@
         personal_profile, mobile, email,
         id_card, business_card_positive, business_card_opposite,
         personal_assets_id, personal_assets, status,
-        userid, create_time, update_time
-        )
+        userid, is_best, create_time,
+        update_time)
         values (#{id,jdbcType=INTEGER}, #{photo,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR},
         #{investorType,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{companyRank,jdbcType=VARCHAR},
         #{wechatId,jdbcType=VARCHAR}, #{cityId,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR},
@@ -161,329 +156,337 @@
         #{personalProfile,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
         #{idCard,jdbcType=VARCHAR}, #{businessCardPositive,jdbcType=VARCHAR}, #{businessCardOpposite,jdbcType=VARCHAR},
         #{personalAssetsId,jdbcType=INTEGER}, #{personalAssets,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
-        #{userid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-        )
+        #{userid,jdbcType=INTEGER}, #{isBest,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Investor">
+    <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Investor" >
         insert into t_investor
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
                 id,
             </if>
-            <if test="photo != null">
+            <if test="photo != null" >
                 photo,
             </if>
-            <if test="trueName != null">
+            <if test="trueName != null" >
                 true_name,
             </if>
-            <if test="investorType != null">
+            <if test="investorType != null" >
                 investor_type,
             </if>
-            <if test="companyName != null">
+            <if test="companyName != null" >
                 company_name,
             </if>
-            <if test="companyRank != null">
+            <if test="companyRank != null" >
                 company_rank,
             </if>
-            <if test="wechatId != null">
+            <if test="wechatId != null" >
                 wechat_id,
             </if>
-            <if test="cityId != null">
+            <if test="cityId != null" >
                 city_id,
             </if>
-            <if test="cityName != null">
+            <if test="cityName != null" >
                 city_name,
             </if>
-            <if test="stageId != null">
+            <if test="stageId != null" >
                 stage_id,
             </if>
-            <if test="stageName != null">
+            <if test="stageName != null" >
                 stage_name,
             </if>
-            <if test="industryId != null">
+            <if test="industryId != null" >
                 industry_id,
             </if>
-            <if test="industryName != null">
+            <if test="industryName != null" >
                 industry_name,
             </if>
-            <if test="singlePriceId != null">
+            <if test="singlePriceId != null" >
                 single_price_id,
             </if>
-            <if test="singlePrice != null">
+            <if test="singlePrice != null" >
                 single_price,
             </if>
-            <if test="styleId != null">
+            <if test="styleId != null" >
                 style_id,
             </if>
-            <if test="style != null">
+            <if test="style != null" >
                 style,
             </if>
-            <if test="preferenceId != null">
+            <if test="preferenceId != null" >
                 preference_id,
             </if>
-            <if test="preference != null">
+            <if test="preference != null" >
                 preference,
             </if>
-            <if test="investorCase != null">
+            <if test="investorCase != null" >
                 investor_case,
             </if>
-            <if test="recommender != null">
+            <if test="recommender != null" >
                 recommender,
             </if>
-            <if test="personalProfile != null">
+            <if test="personalProfile != null" >
                 personal_profile,
             </if>
-            <if test="mobile != null">
+            <if test="mobile != null" >
                 mobile,
             </if>
-            <if test="email != null">
+            <if test="email != null" >
                 email,
             </if>
-            <if test="idCard != null">
+            <if test="idCard != null" >
                 id_card,
             </if>
-            <if test="businessCardPositive != null">
+            <if test="businessCardPositive != null" >
                 business_card_positive,
             </if>
-            <if test="businessCardOpposite != null">
+            <if test="businessCardOpposite != null" >
                 business_card_opposite,
             </if>
-            <if test="personalAssetsId != null">
+            <if test="personalAssetsId != null" >
                 personal_assets_id,
             </if>
-            <if test="personalAssets != null">
+            <if test="personalAssets != null" >
                 personal_assets,
             </if>
-            <if test="status != null">
+            <if test="status != null" >
                 status,
             </if>
-            <if test="userid != null">
+            <if test="userid != null" >
                 userid,
             </if>
-            <if test="createTime != null">
+            <if test="isBest != null" >
+                is_best,
+            </if>
+            <if test="createTime != null" >
                 create_time,
             </if>
-            <if test="updateTime != null">
+            <if test="updateTime != null" >
                 update_time,
             </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="photo != null">
+            <if test="photo != null" >
                 #{photo,jdbcType=VARCHAR},
             </if>
-            <if test="trueName != null">
+            <if test="trueName != null" >
                 #{trueName,jdbcType=VARCHAR},
             </if>
-            <if test="investorType != null">
+            <if test="investorType != null" >
                 #{investorType,jdbcType=INTEGER},
             </if>
-            <if test="companyName != null">
+            <if test="companyName != null" >
                 #{companyName,jdbcType=VARCHAR},
             </if>
-            <if test="companyRank != null">
+            <if test="companyRank != null" >
                 #{companyRank,jdbcType=VARCHAR},
             </if>
-            <if test="wechatId != null">
+            <if test="wechatId != null" >
                 #{wechatId,jdbcType=VARCHAR},
             </if>
-            <if test="cityId != null">
+            <if test="cityId != null" >
                 #{cityId,jdbcType=VARCHAR},
             </if>
-            <if test="cityName != null">
+            <if test="cityName != null" >
                 #{cityName,jdbcType=VARCHAR},
             </if>
-            <if test="stageId != null">
+            <if test="stageId != null" >
                 #{stageId,jdbcType=VARCHAR},
             </if>
-            <if test="stageName != null">
+            <if test="stageName != null" >
                 #{stageName,jdbcType=VARCHAR},
             </if>
-            <if test="industryId != null">
+            <if test="industryId != null" >
                 #{industryId,jdbcType=VARCHAR},
             </if>
-            <if test="industryName != null">
+            <if test="industryName != null" >
                 #{industryName,jdbcType=VARCHAR},
             </if>
-            <if test="singlePriceId != null">
+            <if test="singlePriceId != null" >
                 #{singlePriceId,jdbcType=INTEGER},
             </if>
-            <if test="singlePrice != null">
+            <if test="singlePrice != null" >
                 #{singlePrice,jdbcType=VARCHAR},
             </if>
-            <if test="styleId != null">
+            <if test="styleId != null" >
                 #{styleId,jdbcType=INTEGER},
             </if>
-            <if test="style != null">
+            <if test="style != null" >
                 #{style,jdbcType=VARCHAR},
             </if>
-            <if test="preferenceId != null">
+            <if test="preferenceId != null" >
                 #{preferenceId,jdbcType=INTEGER},
             </if>
-            <if test="preference != null">
+            <if test="preference != null" >
                 #{preference,jdbcType=VARCHAR},
             </if>
-            <if test="investorCase != null">
+            <if test="investorCase != null" >
                 #{investorCase,jdbcType=VARCHAR},
             </if>
-            <if test="recommender != null">
+            <if test="recommender != null" >
                 #{recommender,jdbcType=VARCHAR},
             </if>
-            <if test="personalProfile != null">
+            <if test="personalProfile != null" >
                 #{personalProfile,jdbcType=VARCHAR},
             </if>
-            <if test="mobile != null">
+            <if test="mobile != null" >
                 #{mobile,jdbcType=VARCHAR},
             </if>
-            <if test="email != null">
+            <if test="email != null" >
                 #{email,jdbcType=VARCHAR},
             </if>
-            <if test="idCard != null">
+            <if test="idCard != null" >
                 #{idCard,jdbcType=VARCHAR},
             </if>
-            <if test="businessCardPositive != null">
+            <if test="businessCardPositive != null" >
                 #{businessCardPositive,jdbcType=VARCHAR},
             </if>
-            <if test="businessCardOpposite != null">
+            <if test="businessCardOpposite != null" >
                 #{businessCardOpposite,jdbcType=VARCHAR},
             </if>
-            <if test="personalAssetsId != null">
+            <if test="personalAssetsId != null" >
                 #{personalAssetsId,jdbcType=INTEGER},
             </if>
-            <if test="personalAssets != null">
+            <if test="personalAssets != null" >
                 #{personalAssets,jdbcType=VARCHAR},
             </if>
-            <if test="status != null">
+            <if test="status != null" >
                 #{status,jdbcType=INTEGER},
             </if>
-            <if test="userid != null">
+            <if test="userid != null" >
                 #{userid,jdbcType=INTEGER},
             </if>
-            <if test="createTime != null">
+            <if test="isBest != null" >
+                #{isBest,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateTime != null">
+            <if test="updateTime != null" >
                 #{updateTime,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="com.qheeshow.eway.service.model.InvestorExample"
-            resultType="java.lang.Integer">
+    <select id="countByExample" parameterType="com.qheeshow.eway.service.model.InvestorExample" resultType="java.lang.Integer" >
         select count(*) from t_investor
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
     </select>
-    <update id="updateByExampleSelective" parameterType="map">
+    <update id="updateByExampleSelective" parameterType="map" >
         update t_investor
-        <set>
-            <if test="record.id != null">
+        <set >
+            <if test="record.id != null" >
                 id = #{record.id,jdbcType=INTEGER},
             </if>
-            <if test="record.photo != null">
+            <if test="record.photo != null" >
                 photo = #{record.photo,jdbcType=VARCHAR},
             </if>
-            <if test="record.trueName != null">
+            <if test="record.trueName != null" >
                 true_name = #{record.trueName,jdbcType=VARCHAR},
             </if>
-            <if test="record.investorType != null">
+            <if test="record.investorType != null" >
                 investor_type = #{record.investorType,jdbcType=INTEGER},
             </if>
-            <if test="record.companyName != null">
+            <if test="record.companyName != null" >
                 company_name = #{record.companyName,jdbcType=VARCHAR},
             </if>
-            <if test="record.companyRank != null">
+            <if test="record.companyRank != null" >
                 company_rank = #{record.companyRank,jdbcType=VARCHAR},
             </if>
-            <if test="record.wechatId != null">
+            <if test="record.wechatId != null" >
                 wechat_id = #{record.wechatId,jdbcType=VARCHAR},
             </if>
-            <if test="record.cityId != null">
+            <if test="record.cityId != null" >
                 city_id = #{record.cityId,jdbcType=VARCHAR},
             </if>
-            <if test="record.cityName != null">
+            <if test="record.cityName != null" >
                 city_name = #{record.cityName,jdbcType=VARCHAR},
             </if>
-            <if test="record.stageId != null">
+            <if test="record.stageId != null" >
                 stage_id = #{record.stageId,jdbcType=VARCHAR},
             </if>
-            <if test="record.stageName != null">
+            <if test="record.stageName != null" >
                 stage_name = #{record.stageName,jdbcType=VARCHAR},
             </if>
-            <if test="record.industryId != null">
+            <if test="record.industryId != null" >
                 industry_id = #{record.industryId,jdbcType=VARCHAR},
             </if>
-            <if test="record.industryName != null">
+            <if test="record.industryName != null" >
                 industry_name = #{record.industryName,jdbcType=VARCHAR},
             </if>
-            <if test="record.singlePriceId != null">
+            <if test="record.singlePriceId != null" >
                 single_price_id = #{record.singlePriceId,jdbcType=INTEGER},
             </if>
-            <if test="record.singlePrice != null">
+            <if test="record.singlePrice != null" >
                 single_price = #{record.singlePrice,jdbcType=VARCHAR},
             </if>
-            <if test="record.styleId != null">
+            <if test="record.styleId != null" >
                 style_id = #{record.styleId,jdbcType=INTEGER},
             </if>
-            <if test="record.style != null">
+            <if test="record.style != null" >
                 style = #{record.style,jdbcType=VARCHAR},
             </if>
-            <if test="record.preferenceId != null">
+            <if test="record.preferenceId != null" >
                 preference_id = #{record.preferenceId,jdbcType=INTEGER},
             </if>
-            <if test="record.preference != null">
+            <if test="record.preference != null" >
                 preference = #{record.preference,jdbcType=VARCHAR},
             </if>
-            <if test="record.investorCase != null">
+            <if test="record.investorCase != null" >
                 investor_case = #{record.investorCase,jdbcType=VARCHAR},
             </if>
-            <if test="record.recommender != null">
+            <if test="record.recommender != null" >
                 recommender = #{record.recommender,jdbcType=VARCHAR},
             </if>
-            <if test="record.personalProfile != null">
+            <if test="record.personalProfile != null" >
                 personal_profile = #{record.personalProfile,jdbcType=VARCHAR},
             </if>
-            <if test="record.mobile != null">
+            <if test="record.mobile != null" >
                 mobile = #{record.mobile,jdbcType=VARCHAR},
             </if>
-            <if test="record.email != null">
+            <if test="record.email != null" >
                 email = #{record.email,jdbcType=VARCHAR},
             </if>
-            <if test="record.idCard != null">
+            <if test="record.idCard != null" >
                 id_card = #{record.idCard,jdbcType=VARCHAR},
             </if>
-            <if test="record.businessCardPositive != null">
+            <if test="record.businessCardPositive != null" >
                 business_card_positive = #{record.businessCardPositive,jdbcType=VARCHAR},
             </if>
-            <if test="record.businessCardOpposite != null">
+            <if test="record.businessCardOpposite != null" >
                 business_card_opposite = #{record.businessCardOpposite,jdbcType=VARCHAR},
             </if>
-            <if test="record.personalAssetsId != null">
+            <if test="record.personalAssetsId != null" >
                 personal_assets_id = #{record.personalAssetsId,jdbcType=INTEGER},
             </if>
-            <if test="record.personalAssets != null">
+            <if test="record.personalAssets != null" >
                 personal_assets = #{record.personalAssets,jdbcType=VARCHAR},
             </if>
-            <if test="record.status != null">
+            <if test="record.status != null" >
                 status = #{record.status,jdbcType=INTEGER},
             </if>
-            <if test="record.userid != null">
+            <if test="record.userid != null" >
                 userid = #{record.userid,jdbcType=INTEGER},
             </if>
-            <if test="record.createTime != null">
+            <if test="record.isBest != null" >
+                is_best = #{record.isBest,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null" >
                 create_time = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="record.updateTime != null">
+            <if test="record.updateTime != null" >
                 update_time = #{record.updateTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByExample" parameterType="map">
+    <update id="updateByExample" parameterType="map" >
         update t_investor
         set id = #{record.id,jdbcType=INTEGER},
         photo = #{record.photo,jdbcType=VARCHAR},
@@ -516,151 +519,155 @@
         personal_assets = #{record.personalAssets,jdbcType=VARCHAR},
         status = #{record.status,jdbcType=INTEGER},
         userid = #{record.userid,jdbcType=INTEGER},
+        is_best = #{record.isBest,jdbcType=INTEGER},
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
         update_time = #{record.updateTime,jdbcType=TIMESTAMP}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.Investor">
+    <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.Investor" >
         update t_investor
-        <set>
-            <if test="photo != null">
+        <set >
+            <if test="photo != null" >
                 photo = #{photo,jdbcType=VARCHAR},
             </if>
-            <if test="trueName != null">
+            <if test="trueName != null" >
                 true_name = #{trueName,jdbcType=VARCHAR},
             </if>
-            <if test="investorType != null">
+            <if test="investorType != null" >
                 investor_type = #{investorType,jdbcType=INTEGER},
             </if>
-            <if test="companyName != null">
+            <if test="companyName != null" >
                 company_name = #{companyName,jdbcType=VARCHAR},
             </if>
-            <if test="companyRank != null">
+            <if test="companyRank != null" >
                 company_rank = #{companyRank,jdbcType=VARCHAR},
             </if>
-            <if test="wechatId != null">
+            <if test="wechatId != null" >
                 wechat_id = #{wechatId,jdbcType=VARCHAR},
             </if>
-            <if test="cityId != null">
+            <if test="cityId != null" >
                 city_id = #{cityId,jdbcType=VARCHAR},
             </if>
-            <if test="cityName != null">
+            <if test="cityName != null" >
                 city_name = #{cityName,jdbcType=VARCHAR},
             </if>
-            <if test="stageId != null">
+            <if test="stageId != null" >
                 stage_id = #{stageId,jdbcType=VARCHAR},
             </if>
-            <if test="stageName != null">
+            <if test="stageName != null" >
                 stage_name = #{stageName,jdbcType=VARCHAR},
             </if>
-            <if test="industryId != null">
+            <if test="industryId != null" >
                 industry_id = #{industryId,jdbcType=VARCHAR},
             </if>
-            <if test="industryName != null">
+            <if test="industryName != null" >
                 industry_name = #{industryName,jdbcType=VARCHAR},
             </if>
-            <if test="singlePriceId != null">
+            <if test="singlePriceId != null" >
                 single_price_id = #{singlePriceId,jdbcType=INTEGER},
             </if>
-            <if test="singlePrice != null">
+            <if test="singlePrice != null" >
                 single_price = #{singlePrice,jdbcType=VARCHAR},
             </if>
-            <if test="styleId != null">
+            <if test="styleId != null" >
                 style_id = #{styleId,jdbcType=INTEGER},
             </if>
-            <if test="style != null">
+            <if test="style != null" >
                 style = #{style,jdbcType=VARCHAR},
             </if>
-            <if test="preferenceId != null">
+            <if test="preferenceId != null" >
                 preference_id = #{preferenceId,jdbcType=INTEGER},
             </if>
-            <if test="preference != null">
+            <if test="preference != null" >
                 preference = #{preference,jdbcType=VARCHAR},
             </if>
-            <if test="investorCase != null">
+            <if test="investorCase != null" >
                 investor_case = #{investorCase,jdbcType=VARCHAR},
             </if>
-            <if test="recommender != null">
+            <if test="recommender != null" >
                 recommender = #{recommender,jdbcType=VARCHAR},
             </if>
-            <if test="personalProfile != null">
+            <if test="personalProfile != null" >
                 personal_profile = #{personalProfile,jdbcType=VARCHAR},
             </if>
-            <if test="mobile != null">
+            <if test="mobile != null" >
                 mobile = #{mobile,jdbcType=VARCHAR},
             </if>
-            <if test="email != null">
+            <if test="email != null" >
                 email = #{email,jdbcType=VARCHAR},
             </if>
-            <if test="idCard != null">
+            <if test="idCard != null" >
                 id_card = #{idCard,jdbcType=VARCHAR},
             </if>
-            <if test="businessCardPositive != null">
+            <if test="businessCardPositive != null" >
                 business_card_positive = #{businessCardPositive,jdbcType=VARCHAR},
             </if>
-            <if test="businessCardOpposite != null">
+            <if test="businessCardOpposite != null" >
                 business_card_opposite = #{businessCardOpposite,jdbcType=VARCHAR},
             </if>
-            <if test="personalAssetsId != null">
+            <if test="personalAssetsId != null" >
                 personal_assets_id = #{personalAssetsId,jdbcType=INTEGER},
             </if>
-            <if test="personalAssets != null">
+            <if test="personalAssets != null" >
                 personal_assets = #{personalAssets,jdbcType=VARCHAR},
             </if>
-            <if test="status != null">
+            <if test="status != null" >
                 status = #{status,jdbcType=INTEGER},
             </if>
-            <if test="userid != null">
+            <if test="userid != null" >
                 userid = #{userid,jdbcType=INTEGER},
             </if>
-            <if test="createTime != null">
+            <if test="isBest != null" >
+                is_best = #{isBest,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateTime != null">
+            <if test="updateTime != null" >
                 update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.Investor">
-    update t_investor
-    set photo = #{photo,jdbcType=VARCHAR},
-      true_name = #{trueName,jdbcType=VARCHAR},
-      investor_type = #{investorType,jdbcType=INTEGER},
-      company_name = #{companyName,jdbcType=VARCHAR},
-      company_rank = #{companyRank,jdbcType=VARCHAR},
-      wechat_id = #{wechatId,jdbcType=VARCHAR},
-      city_id = #{cityId,jdbcType=VARCHAR},
-      city_name = #{cityName,jdbcType=VARCHAR},
-      stage_id = #{stageId,jdbcType=VARCHAR},
-      stage_name = #{stageName,jdbcType=VARCHAR},
-      industry_id = #{industryId,jdbcType=VARCHAR},
-      industry_name = #{industryName,jdbcType=VARCHAR},
-      single_price_id = #{singlePriceId,jdbcType=INTEGER},
-      single_price = #{singlePrice,jdbcType=VARCHAR},
-      style_id = #{styleId,jdbcType=INTEGER},
-      style = #{style,jdbcType=VARCHAR},
-      preference_id = #{preferenceId,jdbcType=INTEGER},
-      preference = #{preference,jdbcType=VARCHAR},
-      investor_case = #{investorCase,jdbcType=VARCHAR},
-      recommender = #{recommender,jdbcType=VARCHAR},
-      personal_profile = #{personalProfile,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      id_card = #{idCard,jdbcType=VARCHAR},
-      business_card_positive = #{businessCardPositive,jdbcType=VARCHAR},
-      business_card_opposite = #{businessCardOpposite,jdbcType=VARCHAR},
-      personal_assets_id = #{personalAssetsId,jdbcType=INTEGER},
-      personal_assets = #{personalAssets,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      userid = #{userid,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-
+    <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.Investor" >
+        update t_investor
+        set photo = #{photo,jdbcType=VARCHAR},
+        true_name = #{trueName,jdbcType=VARCHAR},
+        investor_type = #{investorType,jdbcType=INTEGER},
+        company_name = #{companyName,jdbcType=VARCHAR},
+        company_rank = #{companyRank,jdbcType=VARCHAR},
+        wechat_id = #{wechatId,jdbcType=VARCHAR},
+        city_id = #{cityId,jdbcType=VARCHAR},
+        city_name = #{cityName,jdbcType=VARCHAR},
+        stage_id = #{stageId,jdbcType=VARCHAR},
+        stage_name = #{stageName,jdbcType=VARCHAR},
+        industry_id = #{industryId,jdbcType=VARCHAR},
+        industry_name = #{industryName,jdbcType=VARCHAR},
+        single_price_id = #{singlePriceId,jdbcType=INTEGER},
+        single_price = #{singlePrice,jdbcType=VARCHAR},
+        style_id = #{styleId,jdbcType=INTEGER},
+        style = #{style,jdbcType=VARCHAR},
+        preference_id = #{preferenceId,jdbcType=INTEGER},
+        preference = #{preference,jdbcType=VARCHAR},
+        investor_case = #{investorCase,jdbcType=VARCHAR},
+        recommender = #{recommender,jdbcType=VARCHAR},
+        personal_profile = #{personalProfile,jdbcType=VARCHAR},
+        mobile = #{mobile,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        id_card = #{idCard,jdbcType=VARCHAR},
+        business_card_positive = #{businessCardPositive,jdbcType=VARCHAR},
+        business_card_opposite = #{businessCardOpposite,jdbcType=VARCHAR},
+        personal_assets_id = #{personalAssetsId,jdbcType=INTEGER},
+        personal_assets = #{personalAssets,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        userid = #{userid,jdbcType=INTEGER},
+        is_best = #{isBest,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <select id="listSuggest" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -701,4 +708,12 @@
         </if>
     </select>
 
+    <select id="bestInvestor" resultType="java.lang.Integer" parameterType="com.qheeshow.eway.service.model.Investor">
+        select
+        id,photo,true_name,company_name,company_rank,city_name,stage_name,industry_name,single_price
+        from t_investor
+        where is_best = 1
+        ORDER by create_time DESC
+        limit 0,#{num,jdbcType=INTEGER}
+    </select>
 </mapper>

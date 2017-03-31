@@ -33,4 +33,6 @@ public interface InvestorMapper {
     List<Investor> listByCondition(Investor investor);
 
     List<Investor> getCount(Investor investor);
+
+    List<Investor> bestInvestor(Integer num);
 }

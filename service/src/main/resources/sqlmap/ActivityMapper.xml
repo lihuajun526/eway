@@ -589,12 +589,12 @@
         ORDER by create_time DESC
         limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
-    <select id="latest" resultMap="BaseResultMap">
+    <select id="latest" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         id,logo,title,summary
         from t_activity
         ORDER by create_time DESC
-        limit 0,3
+        limit 0,#{num,jdbcType=INTEGER}
     </select>
     <select id="listByClassAndPage" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Activity">
         select

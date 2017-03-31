@@ -201,4 +201,38 @@ public class ProjectController extends BaseController {
         return result.toString();
     }
 
+    /**
+     * 取消优秀案例
+     *
+     * @param projectid
+     * @return
+     */
+    @RequestMapping("/case/del/{projectid}")
+    @ResponseBody
+    public String delCase(@PathVariable Integer projectid) {
+
+        Result result = new Result();
+
+        projectService.delCase(projectid);
+
+        return result.toString();
+    }
+
+    /**
+     * 设置为优秀案例
+     *
+     * @param projectid
+     * @return
+     */
+    @RequestMapping("/case/add/{projectid}")
+    @ResponseBody
+    public String addCase(@PathVariable Integer projectid) {
+
+        Result result = new Result();
+
+        projectService.addCase(projectid);
+
+        return result.toString();
+    }
+
 }

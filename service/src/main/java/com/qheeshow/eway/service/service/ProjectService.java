@@ -38,4 +38,12 @@ public interface ProjectService {
 
     Map<String,Object> listPayProject(Project project);
 
+    List<Project> bestSuggest(Integer num);
+
+    List<Project> bestCase(Integer num);
+
+    void delCase(Integer projectid);
+
+    void addCase(Integer projectid);
+
 }

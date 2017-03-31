@@ -58,4 +58,9 @@ public interface ProjectMapper {
     List<Project> listByStatusAndPage(Project project);
 
     int countByStatusAndPage(Project project);
+
+    List<Project> bestSuggest(Integer num);
+
+    List<Project> bestCase(Integer num);
+
 }
