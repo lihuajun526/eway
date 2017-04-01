@@ -29,6 +29,8 @@
                     <li class="on1"><input name="remind" type="checkbox" value="1"><span>记住密码</span></li>
                     <li class="on2"><a href="#">找回密码</a></li>
                 </ul>
+                <div class="clear"></div>
+                <div id="tips" class="g-noair2" style="display: none;">账号和密码不能为空</div>
                 <div class="g-pw-btnw"><input type="button" value="登  录" class="g-lgin-btn" onclick="login();"></div>
                 <div class="g-pw-weixin"><a onclick="weChatLogin()">微信快速登录</a></div>
             </div>
@@ -39,8 +41,12 @@
 </body>
 <script type="text/javascript">
     function login() {
-        if (!validate())
+        var mobile = $("#mobile").val();
+        var password = $("#password").val();
+        if (!mobile.length || !password.length) {
+            $("#tips").show();
             return;
+        }
         $.ajax({
             type: 'POST',
             dataType: 'json',
@@ -55,17 +61,6 @@
             }
         });
     }
-    function validate() {
-        var mobile = $("#mobile").val();
-        var password = $("#password").val();
-        if (!mobile.length) {
-            alert("用户名不能为空");
-            return false;
-        }
-        if (!password.length)
-            return false;
-        return true;
-    }
     function weChatLogin() {
 //     	var webAppId = "wx268fcfe924dcb171";
 //     	var resturUrl = "http://localhost:8080/weChat/getUserMessage.html";
@@ -79,8 +74,8 @@
 //     	location.href = href;
         window.open(href, "newwindow", "height=550, width=600, top=200, left=400, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no");
     }
-    $('#password').keydown(function(e){
-        if(e.keyCode==13){
+    $('#password').keydown(function (e) {
+        if (e.keyCode == 13) {
             login();
         }
     });

@@ -42,6 +42,7 @@
                                placeholder="请再次输入密码"/>
                     </li>
                 </ul>
+                <div id="tips" class="g-noair" style="display: none;"></div>
                 <div class="g-pw-btnw2"><input type="button" value="注 册" class="g-lgin-btn" onclick="regist();"></div>
             </div>
         </form>
@@ -57,7 +58,7 @@
             return;
         var mobile = $("#mobile").val();
         if (isEmpty(mobile)) {
-            alert("请填写手机号");
+            tip("请输入手机号");
             return;
         }
         $.get("/sms/get/" + mobile + "?type=regist", function (result) {
@@ -108,31 +109,39 @@
         var password = $("#password").val();
         var rePassword = $("#rePassword").val();
         if (!name.length) {
-            alert("请输入用户名");
+            tip("请输入用户名");
             return false;
         }
         if (!mobile.length) {
+            tip("请输入手机号");
             return false;
         }
         if (!email.length) {
+            tip("请输入邮箱");
             return false;
         }
         if (!smsCode.length) {
+            tip("请输入短信验证码");
             return false;
         }
         if (!password.length) {
+            tip("请输入密码");
             return false;
         }
         if (!rePassword.length) {
+            tip("请再次输入密码");
             return false;
         }
-        if (!/(^1[3|5|8][0-9]{9}$)/.test(mobile)) {
+        /*if (!/(^1[3|5|8][0-9]{9}$)/.test(mobile)) {
+            tip("请输入正确的手机号");
             return false;
-        }
+        }*/
         if (!/(^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)/.test(email)) {
+            tip("邮箱格式不正确");
             return false;
         }
         if (password != rePassword) {
+            tip("两次输入的密码不一致");
             return false;
         }
         return true;
@@ -146,6 +155,10 @@
             $("#counter").html("获取验证码");
         }
 
+    }
+    function tip(value){
+        $("#tips").html(value);
+        $("#tips").show();
     }
 </script>
 </html>

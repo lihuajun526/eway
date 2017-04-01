@@ -21,7 +21,7 @@
         </ul>
     </div>
 </div>
-<div class="g-tit1"><a class="on">最新活动</a><a href="/goods/list">优惠套餐</a></div>
+<div class="g-tit1"><a class="on">最新活动</a><a href="/goods/list/0">优惠套餐</a></div>
 <div class="g-cont">
     <ul class="g-one1" id="activitys"></ul>
 </div>
