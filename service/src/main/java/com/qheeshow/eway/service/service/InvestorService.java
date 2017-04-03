@@ -23,6 +23,8 @@ public interface InvestorService {
 
     Investor get(Integer id);
 
+    Investor getByUser(Integer userid);
+
     List<Investor> listSuggest(Integer projectid);
 
     int getCountByCondition(Investor investor);
@@ -36,11 +38,11 @@ public interface InvestorService {
 
     Map<String, Object> listByInvestor(Investor investor);
 
-    void updateStatus(Integer investorid,Integer status);
+    void updateStatus(Integer investorid, Integer status);
 
-    void updateAuth(Integer investorid,Integer authStatus);
+    void updateAuth(Integer userid, Integer investorid, Integer authStatus);
 
-    void setBest(Integer investorid,Integer isBest);
+    void setBest(Integer investorid, Integer isBest);
 
-    void setSign(Integer investorid, Integer isSign);
+    void setSign(Integer userid, Integer investorid, Integer isSign);
 }

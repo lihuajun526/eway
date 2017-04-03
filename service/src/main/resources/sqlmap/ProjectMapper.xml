@@ -159,6 +159,9 @@
         </if>
     </delete>
     <insert id="insert" parameterType="com.qheeshow.eway.service.model.Project" >
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
         insert into t_project (id, title, demand,
         highlights, last_one, last_two,
         description, type, industry,
@@ -846,20 +849,20 @@
         where
         tb_b.investorid = #{investorid,jdbcType=INTEGER}
         <if test="status != null">
-            and status =#{status,jdbcType=INTEGER}
+            and tb_b.status =#{status,jdbcType=INTEGER}
         </if>
         ORDER by tb_b.create_time DESC
         limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
-    <select id="listSuggestCount" resultMap="BaseResultMap"
+    <select id="listSuggestCount" resultType="java.lang.Integer"
             parameterType="com.qheeshow.eway.service.model.ProjectSuggest">
         select
-        tb_a.id
+        count(tb_a.id)
         FROM t_project tb_a INNER JOIN t_project_suggest tb_b ON tb_a.id = tb_b.projectid
         where
         tb_b.investorid = #{investorid,jdbcType=INTEGER}
         <if test="status != null">
-            and status =#{status,jdbcType=INTEGER}
+            and tb_b.status =#{status,jdbcType=INTEGER}
         </if>
     </select>
 
@@ -872,10 +875,10 @@
         ORDER by tb_b.create_time DESC
         limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
-    <select id="listFollowCount" resultMap="BaseResultMap"
+    <select id="listFollowCount" resultType="java.lang.Integer"
             parameterType="com.qheeshow.eway.service.model.ProjectFollow">
         select
-        tb_a.id
+        count(tb_a.id)
         FROM t_project tb_a INNER JOIN t_project_follow tb_b ON tb_a.id = tb_b.projectid
         where
         tb_b.userid = #{userid,jdbcType=INTEGER}
@@ -889,10 +892,10 @@
         ORDER by tb_b.create_time DESC
         limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
-    <select id="listAdviserCount" resultMap="BaseResultMap"
+    <select id="listAdviserCount" resultType="java.lang.Integer"
             parameterType="com.qheeshow.eway.service.model.ProjectAdviser">
         select
-        tb_a.id
+        count(tb_a.id)
         FROM t_project tb_a INNER JOIN t_project_adviser tb_b ON tb_a.id = tb_b.projectid
         where
         tb_b.userid = #{userid,jdbcType=INTEGER}

@@ -35,7 +35,7 @@ public class InvestorController extends BaseController {
     @Autowired
     private InvestorFollowService investorFollowService;
 
-    @RequestMapping("/{id}/add/edit/1")
+    @RequestMapping("/{id}/add/edit/1/auth")
     public ModelAndView addOrEditOne(@PathVariable Integer id) {
 
         //项目所属行业rootid
@@ -67,7 +67,7 @@ public class InvestorController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping("/{id}/add/edit/2")
+    @RequestMapping("/{id}/add/edit/2/auth")
     public ModelAndView addOrEditTwo(@PathVariable Integer id) {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -82,18 +82,64 @@ public class InvestorController extends BaseController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "/base/save")
+    @RequestMapping(value = "/base/save/authj")
     @ResponseBody
     public String saveBase(Investor investor, HttpSession session) {
         Result<Integer> result = new Result<>();
         User loginUser = (User) session.getAttribute("loginUser");
         investor.setUserid(loginUser.getId());
+
+        boolean isFirst = true;
+        StringBuffer citys = new StringBuffer();
+        for (String cityid : investor.getCityId().split("#")) {
+            if (StringUtils.isEmpty(cityid))
+                continue;
+            if (isFirst) {
+                isFirst = false;
+                citys.append(xwcmclassinfoService.get(Integer.parseInt(cityid)).getCname());
+                continue;
+            }
+            citys.append("#").append(xwcmclassinfoService.get(Integer.parseInt(cityid)).getCname());
+        }
+        isFirst = true;
+        StringBuffer stages = new StringBuffer();
+        for (String stageid : investor.getStageId().split("#")) {
+            if (StringUtils.isEmpty(stageid))
+                continue;
+            if (isFirst) {
+                isFirst = false;
+                stages.append(xwcmclassinfoService.get(Integer.parseInt(stageid)).getCname());
+                continue;
+            }
+            stages.append("#").append(xwcmclassinfoService.get(Integer.parseInt(stageid)).getCname());
+        }
+        isFirst = true;
+        StringBuffer industrys = new StringBuffer();
+        for (String industryid : investor.getIndustryId().split("#")) {
+            if (StringUtils.isEmpty(industryid))
+                continue;
+            if (isFirst) {
+                isFirst = false;
+                industrys.append(xwcmclassinfoService.get(Integer.parseInt(industryid)).getCname());
+                continue;
+            }
+            industrys.append("#").append(xwcmclassinfoService.get(Integer.parseInt(industryid)).getCname());
+        }
+        String singlePrice = xwcmclassinfoService.get(investor.getSinglePriceId()).getCname();
+        String style = xwcmclassinfoService.get(investor.getStyleId()).getCname();
+
+        investor.setCityName(citys.toString());
+        investor.setStageName(stages.toString());
+        investor.setIndustryName(industrys.toString());
+        investor.setSinglePrice(singlePrice);
+        investor.setStyle(style);
+
         investorService.save(investor);
         result.setData(investor.getId());
         return result.toString();
     }
 
-    @RequestMapping(value = "/auth/save")
+    @RequestMapping(value = "/auth/save/authj")
     @ResponseBody
     public String saveAuth(Investor investor) {
         Result result = new Result();

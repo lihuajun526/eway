@@ -34,9 +34,9 @@
                     field: 'opt', title: '操作', align: 'center',
                     formatter: function (value, rec) {
                         var btn = '';
-                        btn += '<a class="editcls" onclick="updateAuth(' + rec.id + ',3)" href="javascript:void(0)">认证不通过</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateAuth(' + rec.userid + ',' + rec.id + ',3)" href="javascript:void(0)">认证不通过</a>&nbsp&nbsp';
                         btn += '<a class="editcls" onclick="setBest(' + rec.id + ',1)" href="javascript:void(0)">推荐</a>&nbsp&nbsp';
-                        btn += '<a class="editcls" onclick="setSign(' + rec.id + ',1)" href="javascript:void(0)">签约</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="setSign(' + rec.userid + ',' + rec.id + ',1)" href="javascript:void(0)">签约</a>&nbsp&nbsp';
                         return btn;
                     }
                 }
@@ -64,9 +64,9 @@
             $('#tt').tabs('close', title);
         }
     }
-    function updateStatus(id, status) {
+    function updateStatus(userid, id, status) {
         $.ajax({
-            url: '/investor/' + id + '/' + status,
+            url: '/investor/' + userid + '/' + id + '/' + status,
             type: 'get',
             dataType: 'json',
             success: function (result) {
@@ -92,9 +92,9 @@
             }
         });
     }
-    function setSign(id, isSign) {
+    function setSign(userid, id, isSign) {
         $.ajax({
-            url: '/investor/sign/' + id + '/' + isSign,
+            url: '/investor/sign/' + userid + '/' + id + '/' + isSign,
             type: 'get',
             dataType: 'json',
             success: function (result) {

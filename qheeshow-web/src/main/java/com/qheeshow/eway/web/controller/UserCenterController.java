@@ -41,9 +41,14 @@ public class UserCenterController extends BaseController {
     @Autowired
     private InvestorService investorService;
 
-    @RequestMapping("/index")
-    public String index() {
-        return "center/center";
+    @RequestMapping("/index/auth")
+    public ModelAndView index(HttpSession session) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        User loginUser = (User)session.getAttribute("loginUser");
+        modelAndView.addObject("investor", investorService.getByUser(loginUser.getId()));
+        modelAndView.setViewName("center/center");
+        return modelAndView;
     }
 
     @RequestMapping("/project/{type}/{pageSize}/{pageIndex}")

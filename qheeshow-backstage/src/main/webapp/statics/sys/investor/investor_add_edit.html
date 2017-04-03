@@ -94,15 +94,14 @@
         </tr>
         <tr>
             <td style="word-break: break-all;">
-                <img id="businessCardPositive" src="/statics/images/bg-new1.png" width="250" height="150"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                <img id="businessCardOpposite" src="/statics/images/bg-new1.png" width="250" height="150"/>
+                手机号：<input id="mobile" name="mobile" placeholder="手机号"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                邮箱：<input id="email" name="email" placeholder="邮箱"/>
             </td>
         </tr>
         <tr>
             <td style="word-break: break-all;">
-                手机号：<input id="mobile" name="mobile" placeholder="手机号"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                邮箱：<input id="email" name="email" placeholder="邮箱"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                身份证号：<input id="idCard" name="idCard" placeholder="身份证号"/>
+                <img id="businessCardPositive" src="/statics/images/bg-new1.png" width="250" height="150"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                <img id="businessCardOpposite" src="/statics/images/bg-new1.png" width="250" height="150"/>
             </td>
         </tr>
         <tr>
@@ -115,7 +114,7 @@
     </table>
 </form>
 <script>
-    function closeTab(){
+    function closeTab() {
         parent.closeTab('编辑投资人');
     }
     function validate() {
@@ -219,7 +218,7 @@
                     stages.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
                 }
                 //获得单笔投资金额
-                $.get("/classinfo/list/root/" + classinfo_rootid_single, function (result) {
+                $.get("/classinfo/list/root/" + classinfo_rootid_financing_limit, function (result) {
                     if (result.code < 0) {
                         alert(result.message);
                         return;
@@ -227,7 +226,7 @@
                     var singles = $('#singlePriceId');
                     singles.html("");
                     for (var i = 0; i < result.data.length; i++) {
-                        singles.append("<option id='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+                        singles.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
                     }
                     //获得投资风格
                     $.get("/classinfo/list/root/" + classinfo_rootid_style, function (result) {
@@ -238,7 +237,7 @@
                         var styles = $('#styleId');
                         styles.html("");
                         for (var i = 0; i < result.data.length; i++) {
-                            styles.append("<option id='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+                            styles.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
                         }
                         if (parent.investorid == 0) {
                             return;
@@ -249,10 +248,28 @@
                                 return;
                             }
                             var data = result.data;
+                            $("#trueName").val(data.trueName);
+                            $("#photo").attr("src", data.photo);
+                            $("#investorType").val(data.investorType);
+                            $("#companyName").val(data.companyName);
+                            $("#companyRank").val(data.companyRank);
+                            $("#wechatId").val(data.wechatId);
+                            $("#singlePriceId").val(data.singlePriceId);
+                            $("#styleId").val(data.styleId);
+                            $("#recommender").val(data.recommender);
+                            $("#investorCase").val(data.investorCase);
+                            $("#personalProfile").val(data.personalProfile);
+                            $("#businessCardPositive").attr("src", data.businessCardPositive);
+                            $("#businessCardOpposite").attr("src", data.businessCardOpposite);
+                            $("#mobile").val(data.mobile);
+                            $("#email").val(data.email);
+                            $("#idCard").val(data.idCard);
                             if (!isEmpty(data.industryId)) {
                                 var indus = data.industryId.split("#");
                                 $("#industrys").children('input').each(function () {
                                     for (var i = 0; i < indus.length; i++) {
+                                        if (!indus[i].length)
+                                            continue;
                                         if ($(this).val() == indus[i])
                                             $(this).attr("checked", "checked");
                                     }
@@ -262,6 +279,8 @@
                                 var citys = data.cityId.split("#");
                                 $("#citys").children('input').each(function () {
                                     for (var i = 0; i < citys.length; i++) {
+                                        if (!citys[i].length)
+                                            continue;
                                         if ($(this).val() == citys[i])
                                             $(this).attr("checked", "checked");
                                     }
@@ -271,6 +290,8 @@
                                 var stages = data.stageId.split("#");
                                 $("#stages").children('input').each(function () {
                                     for (var i = 0; i < stages.length; i++) {
+                                        if (!stages[i].length)
+                                            continue;
                                         if ($(this).val() == stages[i])
                                             $(this).attr("checked", "checked");
                                     }

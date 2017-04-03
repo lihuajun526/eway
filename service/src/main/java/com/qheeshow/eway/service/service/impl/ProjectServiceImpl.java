@@ -96,7 +96,7 @@ public class ProjectServiceImpl implements ProjectService {
         Map<String, Object> map = new HashMap<>();
         List<Project> projects = projectMapper.listSuggest(projectSuggest);
         map.put("projects", projects);
-        map.put("count", projectMapper.listSuggestCount(projectSuggest).size());
+        map.put("count", projectMapper.listSuggestCount(projectSuggest));
         return map;
     }
 
@@ -105,7 +105,7 @@ public class ProjectServiceImpl implements ProjectService {
         Map<String, Object> map = new HashMap<>();
         List<Project> projects = projectMapper.listFollow(projectFollow);
         map.put("projects", projects);
-        map.put("count", projectMapper.listFollowCount(projectFollow).size());
+        map.put("count", projectMapper.listFollowCount(projectFollow));
         return map;
     }
 
@@ -114,7 +114,7 @@ public class ProjectServiceImpl implements ProjectService {
         Map<String, Object> map = new HashMap<>();
         List<Project> projects = projectMapper.listAdviser(projectAdviser);
         map.put("projects", projects);
-        map.put("count", projectMapper.listAdviserCount(projectAdviser).size());
+        map.put("count", projectMapper.listAdviserCount(projectAdviser));
         return map;
     }
 

@@ -27,7 +27,7 @@
                     <li onclick="setRole(30,this);"><a>投资人</a></li>
                 </ul>
                 <ul class="g-lgin-lst">
-                    <li><input value="李华君" id="name" name="name" type="text" class="g-lgin-ipt2" placeholder="请输入真实姓名"/>
+                    <li><input value="李华君" id="name" name="name" type="text" class="g-lgin-ipt2" placeholder="请务必填写真实姓名"/>
                     </li>
                     <li><input value="18857107000" id="mobile" name="mobile" type="text" class="g-lgin-ipt2"
                                placeholder="请输入手机号"/></li>

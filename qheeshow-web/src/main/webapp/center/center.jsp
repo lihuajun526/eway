@@ -3,7 +3,6 @@
 <%@ page import="com.qheeshow.eway.service.model.User" %>
 <%
     User loginUser = (User) session.getAttribute("loginUser");
-
 %>
 <html>
 <head lang="en">
@@ -29,9 +28,13 @@
                     <li class="on2"><%=loginUser.getName()%>
                     </li>
                     <%
-                        if (loginUser.getRoleid() == 4) {
+                        if (request.getAttribute("investor") == null) {
                     %>
-                    <li class="on3"><a href="/investor/<%=loginUser.getId()%>/add/edit/2">申请认证</a></li>
+                    <li class="on3"><a href="/investor/<%=loginUser.getId()%>/add/edit/1/auth">完善信息</a></li>
+                    <%
+                    } else if (loginUser.getRoleid() == 30) {
+                    %>
+                    <li class="on3"><a href="/investor/<%=loginUser.getId()%>/add/edit/2/auth">申请认证</a></li>
                     <%
                         }
                     %>

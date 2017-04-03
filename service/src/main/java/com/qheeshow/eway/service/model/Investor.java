@@ -382,4 +382,6 @@ public class Investor extends BaseModel {
     public void setIsSign(Integer isSign) {
         this.isSign = isSign;
     }
+
+
 }

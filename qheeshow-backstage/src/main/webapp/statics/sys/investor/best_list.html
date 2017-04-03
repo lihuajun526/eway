@@ -36,9 +36,9 @@
                         var btn = '';
                         btn += '<a class="editcls" onclick="setBest(' + rec.id + ',0)" href="javascript:void(0)">取消推荐</a>&nbsp&nbsp';
                         if (rec.isSign == 0)
-                            btn += '<a class="editcls" onclick="setSign(' + rec.id + ',1)" href="javascript:void(0)">签约</a>&nbsp&nbsp';
+                            btn += '<a class="editcls" onclick="setSign(' + rec.userid + ',' + rec.id + ',1)" href="javascript:void(0)">签约</a>&nbsp&nbsp';
                         else(rec.isSign == 1)
-                        btn += '<a class="editcls" onclick="setSign(' + rec.id + ',0)" href="javascript:void(0)">取消签约</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="setSign(' + rec.userid + ',' + rec.id + ',0)" href="javascript:void(0)">取消签约</a>&nbsp&nbsp';
                         return btn;
                     }
                 }
@@ -80,9 +80,9 @@
             }
         });
     }
-    function setSign(id, isSign) {
+    function setSign(userid, id, isSign) {
         $.ajax({
-            url: '/investor/sign/' + id + '/' + isSign,
+            url: '/investor/sign/' + userid + '/' + id + '/' + isSign,
             type: 'get',
             dataType: 'json',
             success: function (result) {

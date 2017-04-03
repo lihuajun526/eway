@@ -1,30 +1,36 @@
 package com.qheeshow.eway.service.service.impl;
 
-import java.util.*;
-
-import javax.servlet.http.HttpSession;
-
-import com.qheeshow.eway.common.util.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.qheeshow.eway.common.page.PageInfo;
 import com.qheeshow.eway.service.dao.InvestorMapper;
+import com.qheeshow.eway.service.dao.UserMapper;
 import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.InvestorExample;
+import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.InvestorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 @Service
 public class InvestorServiceImpl implements InvestorService {
 
     @Autowired
     private InvestorMapper investorMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public void save(Investor investor) {
         if (investor.getId() == null) {
             investor.setStatus(1);
+            investor.setAuthStatus(0);
+            investor.setIsSign(0);
+            investor.setIsBest(0);
             investorMapper.insert(investor);
         } else {
             investorMapper.updateByPrimaryKeySelective(investor);
@@ -93,6 +99,19 @@ public class InvestorServiceImpl implements InvestorService {
     @Override
     public Investor get(Integer id) {
         return investorMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Investor getByUser(Integer userid) {
+        InvestorExample example = new InvestorExample();
+        InvestorExample.Criteria criteria = example.createCriteria();
+        criteria.andUseridEqualTo(userid);
+
+        List<Investor> list = investorMapper.selectByExample(example);
+
+        if (list.size() == 0)
+            return null;
+        else return list.get(0);
     }
 
     @Override
@@ -172,12 +191,22 @@ public class InvestorServiceImpl implements InvestorService {
     }
 
     @Override
-    public void updateAuth(Integer investorid, Integer authStatus) {
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
+    public void updateAuth(Integer userid, Integer investorid, Integer authStatus) {
         Investor investor = new Investor();
         investor.setId(investorid);
         investor.setAuthStatus(authStatus);
 
         investorMapper.updateByPrimaryKeySelective(investor);
+
+        User user = new User();
+        user.setId(userid);
+        if (authStatus.intValue() == 2) {
+            user.setRoleid(31);
+        } else {
+            user.setRoleid(30);
+        }
+        userMapper.updateByPrimaryKey(user);
     }
 
     @Override
@@ -190,13 +219,21 @@ public class InvestorServiceImpl implements InvestorService {
     }
 
     @Override
-    public void setSign(Integer investorid, Integer isSign) {
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
+    public void setSign(Integer userid, Integer investorid, Integer isSign) {
         Investor investor = new Investor();
         investor.setId(investorid);
         investor.setIsSign(isSign);
 
         investorMapper.updateByPrimaryKeySelective(investor);
+
+        User user = new User();
+        user.setId(userid);
+        if (isSign.intValue() == 2) {
+            user.setRoleid(32);
+        } else {
+            user.setRoleid(31);
+        }
+        userMapper.updateByPrimaryKey(user);
     }
-
-
 }

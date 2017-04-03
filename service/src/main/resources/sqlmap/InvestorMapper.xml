@@ -136,6 +136,9 @@
         </if>
     </delete>
     <insert id="insert" parameterType="com.qheeshow.eway.service.model.Investor" >
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
         insert into t_investor (id, photo, true_name,
         investor_type, company_name, company_rank,
         wechat_id, city_id, city_name,
@@ -160,7 +163,7 @@
         #{idCard,jdbcType=VARCHAR}, #{businessCardPositive,jdbcType=VARCHAR}, #{businessCardOpposite,jdbcType=VARCHAR},
         #{personalAssetsId,jdbcType=INTEGER}, #{personalAssets,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
         #{authStatus,jdbcType=INTEGER}, #{isSign,jdbcType=INTEGER}, #{isBest,jdbcType=INTEGER},
-        #{userid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+        #{userid,jdbcType=INTEGER}, NOW(), NOW()
         )
     </insert>
     <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Investor" >

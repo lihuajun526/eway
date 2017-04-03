@@ -2,8 +2,10 @@
 <%@ page import="com.qheeshow.eway.service.model.Investor" %>
 <%@ page import="com.qheeshow.eway.service.model.Xwcmclassinfo" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.qheeshow.eway.service.model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    User loginUser = (User) session.getAttribute("loginUser");
     Object object = request.getAttribute("investor");
     Investor investor = object == null ? null : (Investor) object;
     boolean isNull = investor == null;
@@ -28,6 +30,7 @@
 <div class="inv-body">
     <input id="photoFile" name="photoFile" type="file" multiple="multiple" onchange="doUpload()"
            style="display: none;"/>
+
     <form id="baseForm">
         <input type="hidden" id="industrys_" name="industryId" value=""/>
         <input type="hidden" id="areas_" name="cityId" value=""/>
@@ -35,6 +38,8 @@
         <input type="hidden" id="photo" name="photo" value=""/>
         <input type="hidden" id="singlePriceId" name="singlePriceId" value="0"/>
         <input type="hidden" id="styleId" name="styleId" value="0"/>
+        <input type="hidden" name="trueName" value="<%=loginUser.getName()%>"/>
+
         <div class="inv-wap">
             <div class="inv-t">基本信息(1/2))</div>
             <div class="inv-one">
@@ -55,7 +60,8 @@
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">真实姓名：</li>
-                    <li class="on2"><input id="trueName" name="trueName" class="inv-one-ipt" placeholder="真实姓名"/></li>
+                    <li class="on2"><input class="inv-one-ipt"
+                                           value="<%=loginUser.getName()%>" readonly="readonly"/></li>
                 </ul>
             </div>
             <div class="inv-one">
@@ -277,14 +283,14 @@
             }
         });
         $("#industrys_").val(industryIds);
-        var stageIds = "";
+        var stageIds = "#";
         $("#stages").children('li').each(function () {
             if ($(this).attr("class") == "on") {
                 stageIds += $(this).attr("data") + "#";
             }
         });
         $("#stages_").val(stageIds);
-        var areaIds = "";
+        var areaIds = "#";
         $("#areas").children('li').each(function () {
             if ($(this).attr("class") == "on") {
                 areaIds += $(this).attr("data") + "#";
@@ -295,10 +301,6 @@
         var styleId = $("#styleId").val();
         if (isEmpty($("#photo").val())) {
             alert("请上传照片");
-            return;
-        }
-        if (isEmpty($("#trueName").val())) {
-            alert("请填写真实姓名");
             return;
         }
         if (isEmpty($("#companyName").val())) {
@@ -335,7 +337,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: '/investor/base/save',
+            url: '/investor/base/save/authj',
             cache: false,
             processData: false,
             data: $('#baseForm').serialize(),
@@ -345,7 +347,7 @@
                     alert(result.message);
                     return;
                 }
-                window.location.href = "/investor/" + result.data + "/add/edit/2";
+                window.location.href = "/investor/" + result.data + "/add/edit/2/auth";
             }
         });
     }

@@ -8,8 +8,6 @@ classinfo_rootid_financing_limit=31;
 classinfo_rootid_tag=1;
 //融资阶段
 classinfo_rootid_stage=44;
-//单笔投资金额
-classinfo_rootid_single=49
 //投资风格
 classinfo_rootid_style=57
 //项目根路径

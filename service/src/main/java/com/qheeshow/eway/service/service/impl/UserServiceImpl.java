@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void regist(User user) {
         user.setStatus(1);
+        user.setCallTime(0);
         try {
             user.setPassword(AESCryptoUtil.encrypt(user.getPassword()));
         } catch (CryptoException e) {

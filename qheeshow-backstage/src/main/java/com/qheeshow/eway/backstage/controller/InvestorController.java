@@ -96,13 +96,14 @@ public class InvestorController extends BaseController {
 
     /**
      * 认证
+     *
      * @param investorid
      * @param authStatus
      * @return
      */
-    @RequestMapping("/auth/{investorid}/{authStatus}")
+    @RequestMapping("/auth/{userid}/{investorid}/{authStatus}")
     @ResponseBody
-    public String updateAuth(@PathVariable Integer investorid, @PathVariable Integer authStatus) {
+    public String updateAuth(@PathVariable Integer userid, @PathVariable Integer investorid, @PathVariable Integer authStatus) {
 
         Result result = new Result();
 
@@ -114,6 +115,7 @@ public class InvestorController extends BaseController {
 
     /**
      * 推荐
+     *
      * @param investorid
      * @param isBest
      * @return
@@ -132,17 +134,18 @@ public class InvestorController extends BaseController {
 
     /**
      * 签约
+     *
      * @param investorid
      * @param isSign
      * @return
      */
-    @RequestMapping("/sign/{investorid}/{isSign}")
+    @RequestMapping("/sign/{userid}/{investorid}/{isSign}")
     @ResponseBody
-    public String sign(@PathVariable Integer investorid, @PathVariable Integer isSign) {
+    public String sign(@PathVariable Integer userid, @PathVariable Integer investorid, @PathVariable Integer isSign) {
 
         Result result = new Result();
 
-        investorService.setSign(investorid, isSign);
+        investorService.setSign(userid,investorid, isSign);
 
         return result.toString();
 

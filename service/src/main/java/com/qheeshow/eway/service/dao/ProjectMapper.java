@@ -41,15 +41,15 @@ public interface ProjectMapper {
 
     List<Project> listSuggest(ProjectSuggest projectSuggest);
 
-    List<Project> listSuggestCount(ProjectSuggest projectSuggest);
+    Integer listSuggestCount(ProjectSuggest projectSuggest);
 
     List<Project> listFollow(ProjectFollow projectFollow);
 
-    List<Project> listFollowCount(ProjectFollow projectFollow);
+    Integer listFollowCount(ProjectFollow projectFollow);
 
     List<Project> listAdviser(ProjectAdviser projectAdviser);
 
-    List<Project> listAdviserCount(ProjectAdviser projectAdviser);
+    Integer listAdviserCount(ProjectAdviser projectAdviser);
 
     List<Project> listPayProject(Project project);
 

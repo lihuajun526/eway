@@ -35,8 +35,8 @@
                     formatter: function (value, rec) {
                         var btn = '';
                         btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',3)" href="javascript:void(0)">审核不通过</a>&nbsp&nbsp';
-                        btn += '<a class="editcls" onclick="updateAuth(' + rec.id + ',2)" href="javascript:void(0)">认证通过</a>&nbsp&nbsp';
-                        btn += '<a class="editcls" onclick="updateAuth(' + rec.id + ',3)" href="javascript:void(0)">认证不通过</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateAuth(' + rec.userid + ',' + rec.id + ',2)" href="javascript:void(0)">认证通过</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateAuth(' + rec.userid + ',' + rec.id + ',3)" href="javascript:void(0)">认证不通过</a>&nbsp&nbsp';
                         return btn;
                     }
                 }
@@ -78,9 +78,9 @@
             }
         });
     }
-    function updateAuth(id, authStatus) {
+    function updateAuth(userid, id, authStatus) {
         $.ajax({
-            url: '/investor/auth/' + id + '/' + authStatus,
+            url: '/investor/auth/' + userid + '/' + id + '/' + authStatus,
             type: 'get',
             dataType: 'json',
             success: function (result) {
