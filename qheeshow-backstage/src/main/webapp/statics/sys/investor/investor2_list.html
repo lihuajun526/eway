@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table id="datagrid" data-options="rownumbers:true,singleSelect:false"></table>
+<script>
+    var investorid = 0;
+    function list() {
+        var list = $('#datagrid').datagrid({
+            border: false,
+            fitColumns: true,
+            singleSelect: false,
+            pagination: true,
+            url: '/investor/list?status=2&authStatus=0',
+            columns: [[
+                {
+                    field: 'id', title: '编号', width: 3
+                },
+                {
+                    field: 'title', title: '姓名', width: 18,
+                    formatter: function (value, rec) {
+                        return "<a href='#' onclick='modify(" + rec.id + ")'>" + value + "</a>";
+                    }
+                },
+                {
+                    field: 'createTime', title: '日期', width: 8,
+                    formatter: function (value, rec) {
+                        return simpleDateFormatter(new Date(rec.createTime));
+                    }
+                },
+                {
+                    field: 'opt', title: '操作', align: 'center',
+                    formatter: function (value, rec) {
+                        var btn = '';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',3)" href="javascript:void(0)">审核不通过</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateAuth(' + rec.id + ',2)" href="javascript:void(0)">认证通过</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateAuth(' + rec.id + ',3)" href="javascript:void(0)">认证不通过</a>&nbsp&nbsp';
+                        return btn;
+                    }
+                }
+            ]]
+        });
+    }
+    function addTab(title) {
+        if ($('#tt').tabs('exists', title)) {
+            $('#tt').tabs('select', title);
+        } else {
+            var content = '<iframe scrolling="auto" frameborder="0"  src="/statics/sys/investor/investor_add_edit.html" style="width:100%;height:100%;"></iframe>';
+            $('#tt').tabs('add', {
+                title: title,
+                content: content,
+                closable: true
+            });
+        }
+    }
+    function modify(id) {
+        investorid = id;
+        addTab("编辑投资人");
+    }
+    function closeTab(title) {
+        if ($('#tt').tabs('exists', title)) {
+            $('#tt').tabs('close', title);
+        }
+    }
+    function updateStatus(id, status) {
+        $.ajax({
+            url: '/investor/' + id + '/' + status,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#datagrid').datagrid('reload');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+    function updateAuth(id, authStatus) {
+        $.ajax({
+            url: '/investor/auth/' + id + '/' + authStatus,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#datagrid').datagrid('reload');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+    function setBest(id) {
+        $.get("/invest/best/" + id + "/1", function (result) {
+            if (result.code != 0) {
+                $.messager.alert('Info', "失败", 'info');
+            } else {
+                $.messager.alert('Info', "推荐成功", 'info');
+            }
+            $('#datagrid').datagrid('reload');
+        }, "json");
+    }
+    list();
+</script>
+</body>
+</html>

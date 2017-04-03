@@ -35,4 +35,8 @@ public interface InvestorMapper {
     List<Investor> getCount(Investor investor);
 
     List<Investor> bestInvestor(Integer num);
+
+    List<Investor> listByInvestor(Investor investor);
+
+    Integer countByInvestor(Investor investor);
 }

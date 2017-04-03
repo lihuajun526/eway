@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table id="datagrid" data-options="rownumbers:true,singleSelect:false"></table>
+<script>
+    var investorid = 0;
+    function list() {
+        var list = $('#datagrid').datagrid({
+            border: false,
+            fitColumns: true,
+            singleSelect: false,
+            pagination: true,
+            url: '/investor/list?authStatus=2&isBest=1',
+            columns: [[
+                {
+                    field: 'id', title: '编号', width: 3
+                },
+                {
+                    field: 'title', title: '姓名', width: 18,
+                    formatter: function (value, rec) {
+                        return "<a href='#' onclick='modify(" + rec.id + ")'>" + value + "</a>";
+                    }
+                },
+                {
+                    field: 'createTime', title: '日期', width: 8,
+                    formatter: function (value, rec) {
+                        return simpleDateFormatter(new Date(rec.createTime));
+                    }
+                },
+                {
+                    field: 'opt', title: '操作', align: 'center',
+                    formatter: function (value, rec) {
+                        var btn = '';
+                        btn += '<a class="editcls" onclick="setBest(' + rec.id + ',0)" href="javascript:void(0)">取消推荐</a>&nbsp&nbsp';
+                        if (rec.isSign == 0)
+                            btn += '<a class="editcls" onclick="setSign(' + rec.id + ',1)" href="javascript:void(0)">签约</a>&nbsp&nbsp';
+                        else(rec.isSign == 1)
+                        btn += '<a class="editcls" onclick="setSign(' + rec.id + ',0)" href="javascript:void(0)">取消签约</a>&nbsp&nbsp';
+                        return btn;
+                    }
+                }
+            ]]
+        });
+    }
+    function addTab(title) {
+        if ($('#tt').tabs('exists', title)) {
+            $('#tt').tabs('select', title);
+        } else {
+            var content = '<iframe scrolling="auto" frameborder="0"  src="/statics/sys/investor/investor_add_edit.html" style="width:100%;height:100%;"></iframe>';
+            $('#tt').tabs('add', {
+                title: title,
+                content: content,
+                closable: true
+            });
+        }
+    }
+    function modify(id) {
+        investorid = id;
+        addTab("编辑投资人");
+    }
+    function closeTab(title) {
+        if ($('#tt').tabs('exists', title)) {
+            $('#tt').tabs('close', title);
+        }
+    }
+    function setBest(id, isBest) {
+        $.ajax({
+            url: '/investor/best/' + id + '/' + isBest,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#datagrid').datagrid('reload');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+    function setSign(id, isSign) {
+        $.ajax({
+            url: '/investor/sign/' + id + '/' + isSign,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#datagrid').datagrid('reload');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+    list();
+</script>
+</body>
+</html>

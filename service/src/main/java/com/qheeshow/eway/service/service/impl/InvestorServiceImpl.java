@@ -149,7 +149,53 @@ public class InvestorServiceImpl implements InvestorService {
 
     @Override
     public List<Investor> bestInvestor(Integer num) {
-        return investorMapper.bestInvestor();
+        return investorMapper.bestInvestor(num);
+    }
+
+    @Override
+    public Map<String, Object> listByInvestor(Investor investor) {
+        List<Investor> list = investorMapper.listByInvestor(investor);
+        Integer count = investorMapper.countByInvestor(investor);
+        Map map = new HashMap<>();
+        map.put("investors", list);
+        map.put("count", count);
+        return map;
+    }
+
+    @Override
+    public void updateStatus(Integer investorid, Integer status) {
+        Investor investor = new Investor();
+        investor.setId(investorid);
+        investor.setStatus(status);
+
+        investorMapper.updateByPrimaryKeySelective(investor);
+    }
+
+    @Override
+    public void updateAuth(Integer investorid, Integer authStatus) {
+        Investor investor = new Investor();
+        investor.setId(investorid);
+        investor.setAuthStatus(authStatus);
+
+        investorMapper.updateByPrimaryKeySelective(investor);
+    }
+
+    @Override
+    public void setBest(Integer investorid, Integer isBest) {
+        Investor investor = new Investor();
+        investor.setId(investorid);
+        investor.setIsBest(isBest);
+
+        investorMapper.updateByPrimaryKeySelective(investor);
+    }
+
+    @Override
+    public void setSign(Integer investorid, Integer isSign) {
+        Investor investor = new Investor();
+        investor.setId(investorid);
+        investor.setIsSign(isSign);
+
+        investorMapper.updateByPrimaryKeySelective(investor);
     }
 
 

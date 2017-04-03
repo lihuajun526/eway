@@ -2,7 +2,7 @@ package com.qheeshow.eway.service.model;
 
 import java.util.Date;
 
-public class Investor extends BaseModel{
+public class Investor extends BaseModel {
     private Integer id;
 
     private String photo;
@@ -82,6 +82,12 @@ public class Investor extends BaseModel{
     private String personalAssets;
 
     private Integer status;
+
+    private Integer authStatus;
+
+    private Integer isSign;
+
+    private Integer isBest;
 
     private Integer userid;
 
@@ -351,5 +357,29 @@ public class Investor extends BaseModel{
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getIsBest() {
+        return isBest;
+    }
+
+    public void setIsBest(Integer isBest) {
+        this.isBest = isBest;
+    }
+
+    public Integer getAuthStatus() {
+        return authStatus;
+    }
+
+    public void setAuthStatus(Integer authStatus) {
+        this.authStatus = authStatus;
+    }
+
+    public Integer getIsSign() {
+        return isSign;
+    }
+
+    public void setIsSign(Integer isSign) {
+        this.isSign = isSign;
     }
 }

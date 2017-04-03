@@ -32,8 +32,10 @@
         <result column="personal_assets_id" property="personalAssetsId" jdbcType="INTEGER" />
         <result column="personal_assets" property="personalAssets" jdbcType="VARCHAR" />
         <result column="status" property="status" jdbcType="INTEGER" />
-        <result column="userid" property="userid" jdbcType="INTEGER" />
+        <result column="auth_status" property="authStatus" jdbcType="INTEGER" />
+        <result column="is_sign" property="isSign" jdbcType="INTEGER" />
         <result column="is_best" property="isBest" jdbcType="INTEGER" />
+        <result column="userid" property="userid" jdbcType="INTEGER" />
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     </resultMap>
@@ -100,7 +102,7 @@
         city_name, stage_id, stage_name, industry_id, industry_name, single_price_id, single_price,
         style_id, style, preference_id, preference, investor_case, recommender, personal_profile,
         mobile, email, id_card, business_card_positive, business_card_opposite, personal_assets_id,
-        personal_assets, status, userid, is_best, create_time, update_time
+        personal_assets, status, auth_status, is_sign, is_best, userid, create_time, update_time
     </sql>
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.InvestorExample" >
         select
@@ -144,8 +146,9 @@
         personal_profile, mobile, email,
         id_card, business_card_positive, business_card_opposite,
         personal_assets_id, personal_assets, status,
-        userid, is_best, create_time,
-        update_time)
+        auth_status, is_sign, is_best,
+        userid, create_time, update_time
+        )
         values (#{id,jdbcType=INTEGER}, #{photo,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR},
         #{investorType,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{companyRank,jdbcType=VARCHAR},
         #{wechatId,jdbcType=VARCHAR}, #{cityId,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR},
@@ -156,8 +159,9 @@
         #{personalProfile,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
         #{idCard,jdbcType=VARCHAR}, #{businessCardPositive,jdbcType=VARCHAR}, #{businessCardOpposite,jdbcType=VARCHAR},
         #{personalAssetsId,jdbcType=INTEGER}, #{personalAssets,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
-        #{userid,jdbcType=INTEGER}, #{isBest,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
-        #{updateTime,jdbcType=TIMESTAMP})
+        #{authStatus,jdbcType=INTEGER}, #{isSign,jdbcType=INTEGER}, #{isBest,jdbcType=INTEGER},
+        #{userid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+        )
     </insert>
     <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Investor" >
         insert into t_investor
@@ -252,11 +256,17 @@
             <if test="status != null" >
                 status,
             </if>
-            <if test="userid != null" >
-                userid,
+            <if test="authStatus != null" >
+                auth_status,
+            </if>
+            <if test="isSign != null" >
+                is_sign,
             </if>
             <if test="isBest != null" >
                 is_best,
+            </if>
+            <if test="userid != null" >
+                userid,
             </if>
             <if test="createTime != null" >
                 create_time,
@@ -356,11 +366,17 @@
             <if test="status != null" >
                 #{status,jdbcType=INTEGER},
             </if>
-            <if test="userid != null" >
-                #{userid,jdbcType=INTEGER},
+            <if test="authStatus != null" >
+                #{authStatus,jdbcType=INTEGER},
+            </if>
+            <if test="isSign != null" >
+                #{isSign,jdbcType=INTEGER},
             </if>
             <if test="isBest != null" >
                 #{isBest,jdbcType=INTEGER},
+            </if>
+            <if test="userid != null" >
+                #{userid,jdbcType=INTEGER},
             </if>
             <if test="createTime != null" >
                 #{createTime,jdbcType=TIMESTAMP},
@@ -469,11 +485,17 @@
             <if test="record.status != null" >
                 status = #{record.status,jdbcType=INTEGER},
             </if>
-            <if test="record.userid != null" >
-                userid = #{record.userid,jdbcType=INTEGER},
+            <if test="record.authStatus != null" >
+                auth_status = #{record.authStatus,jdbcType=INTEGER},
+            </if>
+            <if test="record.isSign != null" >
+                is_sign = #{record.isSign,jdbcType=INTEGER},
             </if>
             <if test="record.isBest != null" >
                 is_best = #{record.isBest,jdbcType=INTEGER},
+            </if>
+            <if test="record.userid != null" >
+                userid = #{record.userid,jdbcType=INTEGER},
             </if>
             <if test="record.createTime != null" >
                 create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -518,8 +540,10 @@
         personal_assets_id = #{record.personalAssetsId,jdbcType=INTEGER},
         personal_assets = #{record.personalAssets,jdbcType=VARCHAR},
         status = #{record.status,jdbcType=INTEGER},
-        userid = #{record.userid,jdbcType=INTEGER},
+        auth_status = #{record.authStatus,jdbcType=INTEGER},
+        is_sign = #{record.isSign,jdbcType=INTEGER},
         is_best = #{record.isBest,jdbcType=INTEGER},
+        userid = #{record.userid,jdbcType=INTEGER},
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
         update_time = #{record.updateTime,jdbcType=TIMESTAMP}
         <if test="_parameter != null" >
@@ -616,11 +640,17 @@
             <if test="status != null" >
                 status = #{status,jdbcType=INTEGER},
             </if>
-            <if test="userid != null" >
-                userid = #{userid,jdbcType=INTEGER},
+            <if test="authStatus != null" >
+                auth_status = #{authStatus,jdbcType=INTEGER},
+            </if>
+            <if test="isSign != null" >
+                is_sign = #{isSign,jdbcType=INTEGER},
             </if>
             <if test="isBest != null" >
                 is_best = #{isBest,jdbcType=INTEGER},
+            </if>
+            <if test="userid != null" >
+                userid = #{userid,jdbcType=INTEGER},
             </if>
             <if test="createTime != null" >
                 create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -662,12 +692,15 @@
         personal_assets_id = #{personalAssetsId,jdbcType=INTEGER},
         personal_assets = #{personalAssets,jdbcType=VARCHAR},
         status = #{status,jdbcType=INTEGER},
-        userid = #{userid,jdbcType=INTEGER},
+        auth_status = #{authStatus,jdbcType=INTEGER},
+        is_sign = #{isSign,jdbcType=INTEGER},
         is_best = #{isBest,jdbcType=INTEGER},
+        userid = #{userid,jdbcType=INTEGER},
         create_time = #{createTime,jdbcType=TIMESTAMP},
         update_time = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
     <select id="listSuggest" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -716,4 +749,45 @@
         ORDER by create_time DESC
         limit 0,#{num,jdbcType=INTEGER}
     </select>
+
+    <select id="listByInvestor" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Investor">
+        select
+        <include refid="Base_Column_List"/>
+        from t_investor
+        where 1=1
+        <if test="status != null">
+            and status = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="authStatus != null">
+            and auth_status = #{authStatus,jdbcType=INTEGER}
+        </if>
+        <if test="isBest != null">
+            and is_best = #{isBest,jdbcType=INTEGER}
+        </if>
+        <if test="isSign != null">
+            and is_sign = #{isSign,jdbcType=INTEGER}
+        </if>
+        ORDER by create_time DESC
+        limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="countByInvestor" resultType="java.lang.Integer" parameterType="com.qheeshow.eway.service.model.Investor">
+        select
+        count(id)
+        from t_investor
+        where 1=1
+        <if test="status != null">
+            and status = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="authStatus != null">
+            and auth_status = #{authStatus,jdbcType=INTEGER}
+        </if>
+        <if test="isBest != null">
+            and is_best = #{isBest,jdbcType=INTEGER}
+        </if>
+        <if test="isSign != null">
+            and is_sign = #{isSign,jdbcType=INTEGER}
+        </if>
+    </select>
+
 </mapper>

@@ -2135,63 +2135,123 @@ public class InvestorExample {
             return (Criteria) this;
         }
 
-        public Criteria andUseridIsNull() {
-            addCriterion("userid is null");
+        public Criteria andAuthStatusIsNull() {
+            addCriterion("auth_status is null");
             return (Criteria) this;
         }
 
-        public Criteria andUseridIsNotNull() {
-            addCriterion("userid is not null");
+        public Criteria andAuthStatusIsNotNull() {
+            addCriterion("auth_status is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUseridEqualTo(Integer value) {
-            addCriterion("userid =", value, "userid");
+        public Criteria andAuthStatusEqualTo(Integer value) {
+            addCriterion("auth_status =", value, "authStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotEqualTo(Integer value) {
-            addCriterion("userid <>", value, "userid");
+        public Criteria andAuthStatusNotEqualTo(Integer value) {
+            addCriterion("auth_status <>", value, "authStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUseridGreaterThan(Integer value) {
-            addCriterion("userid >", value, "userid");
+        public Criteria andAuthStatusGreaterThan(Integer value) {
+            addCriterion("auth_status >", value, "authStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUseridGreaterThanOrEqualTo(Integer value) {
-            addCriterion("userid >=", value, "userid");
+        public Criteria andAuthStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("auth_status >=", value, "authStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUseridLessThan(Integer value) {
-            addCriterion("userid <", value, "userid");
+        public Criteria andAuthStatusLessThan(Integer value) {
+            addCriterion("auth_status <", value, "authStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUseridLessThanOrEqualTo(Integer value) {
-            addCriterion("userid <=", value, "userid");
+        public Criteria andAuthStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("auth_status <=", value, "authStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUseridIn(List<Integer> values) {
-            addCriterion("userid in", values, "userid");
+        public Criteria andAuthStatusIn(List<Integer> values) {
+            addCriterion("auth_status in", values, "authStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotIn(List<Integer> values) {
-            addCriterion("userid not in", values, "userid");
+        public Criteria andAuthStatusNotIn(List<Integer> values) {
+            addCriterion("auth_status not in", values, "authStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUseridBetween(Integer value1, Integer value2) {
-            addCriterion("userid between", value1, value2, "userid");
+        public Criteria andAuthStatusBetween(Integer value1, Integer value2) {
+            addCriterion("auth_status between", value1, value2, "authStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotBetween(Integer value1, Integer value2) {
-            addCriterion("userid not between", value1, value2, "userid");
+        public Criteria andAuthStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("auth_status not between", value1, value2, "authStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignIsNull() {
+            addCriterion("is_sign is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignIsNotNull() {
+            addCriterion("is_sign is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignEqualTo(Integer value) {
+            addCriterion("is_sign =", value, "isSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignNotEqualTo(Integer value) {
+            addCriterion("is_sign <>", value, "isSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignGreaterThan(Integer value) {
+            addCriterion("is_sign >", value, "isSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_sign >=", value, "isSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignLessThan(Integer value) {
+            addCriterion("is_sign <", value, "isSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignLessThanOrEqualTo(Integer value) {
+            addCriterion("is_sign <=", value, "isSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignIn(List<Integer> values) {
+            addCriterion("is_sign in", values, "isSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignNotIn(List<Integer> values) {
+            addCriterion("is_sign not in", values, "isSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignBetween(Integer value1, Integer value2) {
+            addCriterion("is_sign between", value1, value2, "isSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSignNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_sign not between", value1, value2, "isSign");
             return (Criteria) this;
         }
 
@@ -2252,6 +2312,66 @@ public class InvestorExample {
 
         public Criteria andIsBestNotBetween(Integer value1, Integer value2) {
             addCriterion("is_best not between", value1, value2, "isBest");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridIsNull() {
+            addCriterion("userid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridIsNotNull() {
+            addCriterion("userid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridEqualTo(Integer value) {
+            addCriterion("userid =", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridNotEqualTo(Integer value) {
+            addCriterion("userid <>", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridGreaterThan(Integer value) {
+            addCriterion("userid >", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridGreaterThanOrEqualTo(Integer value) {
+            addCriterion("userid >=", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridLessThan(Integer value) {
+            addCriterion("userid <", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridLessThanOrEqualTo(Integer value) {
+            addCriterion("userid <=", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridIn(List<Integer> values) {
+            addCriterion("userid in", values, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridNotIn(List<Integer> values) {
+            addCriterion("userid not in", values, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridBetween(Integer value1, Integer value2) {
+            addCriterion("userid between", value1, value2, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridNotBetween(Integer value1, Integer value2) {
+            addCriterion("userid not between", value1, value2, "userid");
             return (Criteria) this;
         }
 

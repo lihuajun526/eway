@@ -106,6 +106,22 @@
                 loadPage('sys/activity/activity4_list.html');
             } else if (node.attributes.pageType == "activity5") {
                 loadPage('sys/activity/activity5_list.html');
+            } else if (node.attributes.pageType == "investor1_list") {
+                loadPage('sys/investor/investor1_list.html');
+            } else if (node.attributes.pageType == "investor2_list") {
+                loadPage('sys/investor/investor2_list.html');
+            } else if (node.attributes.pageType == "investor3_list") {
+                loadPage('sys/investor/investor3_list.html');
+            } else if (node.attributes.pageType == "auth1_list") {
+                loadPage('sys/investor/auth1_list.html');
+            } else if (node.attributes.pageType == "auth2_list") {
+                loadPage('sys/investor/auth2_list.html');
+            } else if (node.attributes.pageType == "auth3_list") {
+                loadPage('sys/investor/auth3_list.html');
+            } else if (node.attributes.pageType == "best_list") {
+                loadPage('sys/investor/best_list.html');
+            } else if (node.attributes.pageType == "sign_list") {
+                loadPage('sys/investor/sign_list.html');
             }
         },
         onContextMenu: function (e, node) {

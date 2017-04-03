@@ -33,4 +33,14 @@ public interface InvestorService {
                                         String industryid, String stageid, Integer pageIndex, Integer pageSize);
 
     List<Investor> bestInvestor(Integer num);
+
+    Map<String, Object> listByInvestor(Investor investor);
+
+    void updateStatus(Integer investorid,Integer status);
+
+    void updateAuth(Integer investorid,Integer authStatus);
+
+    void setBest(Integer investorid,Integer isBest);
+
+    void setSign(Integer investorid, Integer isSign);
 }

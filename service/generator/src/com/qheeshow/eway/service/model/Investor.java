@@ -63,9 +63,13 @@ public class Investor {
 
     private Integer status;
 
-    private Integer userid;
+    private Integer authStatus;
+
+    private Integer isSign;
 
     private Integer isBest;
+
+    private Integer userid;
 
     private Date createTime;
 
@@ -311,12 +315,20 @@ public class Investor {
         this.status = status;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getAuthStatus() {
+        return authStatus;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setAuthStatus(Integer authStatus) {
+        this.authStatus = authStatus;
+    }
+
+    public Integer getIsSign() {
+        return isSign;
+    }
+
+    public void setIsSign(Integer isSign) {
+        this.isSign = isSign;
     }
 
     public Integer getIsBest() {
@@ -325,6 +337,14 @@ public class Investor {
 
     public void setIsBest(Integer isBest) {
         this.isBest = isBest;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public Date getCreateTime() {

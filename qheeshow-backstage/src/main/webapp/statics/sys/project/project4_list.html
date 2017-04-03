@@ -124,10 +124,6 @@
         }
     }
     function updateStatus(id, status) {
-        if (status == 1)
-            status = 0;
-        else if (status == 0)
-            status = 1;
         $.ajax({
             url: '/project/' + id + '/' + status,
             type: 'get',

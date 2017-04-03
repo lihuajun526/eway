@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/demo/demo.css">
+    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.min.js"></script>
+    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/statics/jquery/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="/statics/js/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/statics/js/config.js"></script>
+</head>
+<body>
+<form id="investorForm">
+    <input type="hidden" id="id" name="id"/>
+    <input type="hidden" id="status" name="status"/>
+    <input type="hidden" id="industryId" name="industryId" value=""/>
+    <input type="hidden" id="cityId" name="cityId" value=""/>
+    <input type="hidden" id="stageId" name="stageId" value=""/>
+    <table>
+        <tbody>
+        <tr class="firstRow">
+            <td rowspan="3" colspan="1" style="word-break: break-all;">
+                <img id="photo" width="150" height="150"/>
+            </td>
+            <td style="word-break: break-all;">
+                &nbsp;真实姓名：<input id="trueName" name="trueName" placeholder="真实姓名"/>&nbsp;&nbsp;
+                投资人类型：
+                <select id="investorType" name="investorType">
+                    <option value="1">个人投资者</option>
+                    <option value="2">机构投资者</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;">
+                &nbsp;所在公司：<input id="companyName" name="companyName" placeholder="所在公司"/>&nbsp;&nbsp;
+                头衔：<input id="companyRank" name="companyRank" placeholder="头衔"/>&nbsp;&nbsp;
+                个人微信号：<input id="wechatId" name="wechatId" placeholder="个人微信号"/>&nbsp;&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;">
+                &nbsp;单笔投资：<select id="singlePriceId" name="singlePriceId"></select>&nbsp;&nbsp;
+                投资风格：<select id="styleId" name="styleId"></select>&nbsp;&nbsp;
+                推荐人：<input id="recommender" name="recommender" placeholder="推荐人"/>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;text-align:center;height: 40px;">
+                投资案例：
+            </td>
+            <td>
+                <textarea cols="80" rows="2" id="investorCase" name="investorCase" placeholder="投资案例"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;text-align:center;height: 40px;">
+                个人简介：
+            </td>
+            <td>
+                <textarea cols="80" rows="2" id="personalProfile" name="personalProfile" placeholder="个人简介"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;text-align:center;height: 40px;">
+                活跃城市：
+            </td>
+            <td>
+                <div id="citys"></div>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;text-align:center;height: 40px;">
+                投资阶段：
+            </td>
+            <td>
+                <div id="stages"></div>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;text-align:center;height: 40px;">
+                投资领域：
+            </td>
+            <td>
+                <div id="industrys"></div>
+            </td>
+        </tr>
+        <tr class="firstRow">
+            <td rowspan="3" colspan="1" style="word-break: break-all;text-align:center;">认证信息：</td>
+            <td style="word-break: break-all;height: 20px;"></td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;">
+                <img id="businessCardPositive" src="/statics/images/bg-new1.png" width="250" height="150"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                <img id="businessCardOpposite" src="/statics/images/bg-new1.png" width="250" height="150"/>
+            </td>
+        </tr>
+        <tr>
+            <td style="word-break: break-all;">
+                手机号：<input id="mobile" name="mobile" placeholder="手机号"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                邮箱：<input id="email" name="email" placeholder="邮箱"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                身份证号：<input id="idCard" name="idCard" placeholder="身份证号"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" rowspan="1" colspan="2" style="word-break: break-all;height: 50px;">
+                <input type="button" value="保存" onclick="save();"/>&nbsp;&nbsp;
+                <input type="button" value="关闭" onclick="closeTab();"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+<script>
+    function closeTab(){
+        parent.closeTab('编辑投资人');
+    }
+    function validate() {
+        if (!$("#trueName").val().length) {
+            alert("请输入真实姓名");
+            return false;
+        }
+        if (!$("#companyName").val().length) {
+            alert("请输入所在公司");
+            return false;
+        }
+        if (!$("#companyRank").val().length) {
+            alert("请输入头衔");
+            return false;
+        }
+        if (!$("#personalProfile").val().length) {
+            alert("请输入个人简介");
+            return false;
+        }
+        if (!$("#industryId").val().length) {
+            alert("请选择行业");
+            return false;
+        }
+        if (!$("#cityId").val().length) {
+            alert("请选择活跃城市");
+            return false;
+        }
+        if (!$("#stageId").val().length) {
+            alert("请选择投资阶段");
+            return false;
+        }
+        return true;
+    }
+    function save() {
+        var citys = "";
+        $("#citys").children('input').each(function () {
+            if ($(this).attr("checked") == "checked") {
+                citys += $(this).val() + "#";
+            }
+        });
+        $("#cityId").val(citys);
+        var stages = "";
+        $("#stages").children('input').each(function () {
+            if ($(this).attr("checked") == "checked") {
+                stages += $(this).val() + "#";
+            }
+        });
+        var industrys = "";
+        $("#industrys").children('input').each(function () {
+            if ($(this).attr("checked") == "checked") {
+                industrys += $(this).val() + "#";
+            }
+        });
+        if (!validate())
+            return;
+        $.ajax({
+            url: '/investor/save',
+            type: 'post',
+            data: $('#investorForm').serialize(),
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $.messager.alert('Info', "保存成功", 'info');
+                } else {
+                    $.messager.alert('Info', result.message, 'info');
+                }
+            }
+        });
+    }
+    //获得行业信息
+    $.get("/classinfo/list/root/" + classinfo_rootid_industry, function (result) {
+        if (result.code < 0) {
+            alert(result.message);
+            return;
+        }
+        var industrys = $('#industrys');
+        industrys.html("");
+        for (var i = 0; i < result.data.length; i++) {
+            industrys.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
+        }
+        //获得地域信息
+        $.get("/classinfo/list/root/" + classinfo_rootid_area, function (result) {
+            if (result.code < 0) {
+                alert(result.message);
+                return;
+            }
+            var citys = $('#citys');
+            citys.html("");
+            for (var i = 0; i < result.data.length; i++) {
+                citys.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
+            }
+            //获得融资阶段信息
+            $.get("/classinfo/list/root/" + classinfo_rootid_stage, function (result) {
+                if (result.code < 0) {
+                    alert(result.message);
+                    return;
+                }
+                var stages = $('#stages');
+                stages.html("");
+                for (var i = 0; i < result.data.length; i++) {
+                    stages.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
+                }
+                //获得单笔投资金额
+                $.get("/classinfo/list/root/" + classinfo_rootid_single, function (result) {
+                    if (result.code < 0) {
+                        alert(result.message);
+                        return;
+                    }
+                    var singles = $('#singlePriceId');
+                    singles.html("");
+                    for (var i = 0; i < result.data.length; i++) {
+                        singles.append("<option id='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+                    }
+                    //获得投资风格
+                    $.get("/classinfo/list/root/" + classinfo_rootid_style, function (result) {
+                        if (result.code < 0) {
+                            alert(result.message);
+                            return;
+                        }
+                        var styles = $('#styleId');
+                        styles.html("");
+                        for (var i = 0; i < result.data.length; i++) {
+                            styles.append("<option id='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+                        }
+                        if (parent.investorid == 0) {
+                            return;
+                        }
+                        $.get("/investor/get/" + parent.investorid, function (result) {
+                            if (result.code != 0) {
+                                alert("获取投资人信息失败");
+                                return;
+                            }
+                            var data = result.data;
+                            if (!isEmpty(data.industryId)) {
+                                var indus = data.industryId.split("#");
+                                $("#industrys").children('input').each(function () {
+                                    for (var i = 0; i < indus.length; i++) {
+                                        if ($(this).val() == indus[i])
+                                            $(this).attr("checked", "checked");
+                                    }
+                                });
+                            }
+                            if (!isEmpty(data.cityId)) {
+                                var citys = data.cityId.split("#");
+                                $("#citys").children('input').each(function () {
+                                    for (var i = 0; i < citys.length; i++) {
+                                        if ($(this).val() == citys[i])
+                                            $(this).attr("checked", "checked");
+                                    }
+                                });
+                            }
+                            if (!isEmpty(data.stageId)) {
+                                var stages = data.stageId.split("#");
+                                $("#stages").children('input').each(function () {
+                                    for (var i = 0; i < stages.length; i++) {
+                                        if ($(this).val() == stages[i])
+                                            $(this).attr("checked", "checked");
+                                    }
+                                });
+                            }
+                        }, "json");
+                    }, "json");
+                }, "json");
+            }, "json");
+        }, "json");
+    }, "json");
+</script>
+</body>
+</html>
