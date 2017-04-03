@@ -33,7 +33,7 @@
         <ul class="g-pser-lst">
             <%
                 if(projects.size()==0){
-                    %><li class="on"><a href="/project/0/add/edit/1">请先创建项目</a></li><%
+                    %><li class="on"><a href="/project/0/add/edit/1/auth">请先创建项目</a></li><%
                 }else{
                     for (int i = 0; i < 4 && i < projects.size(); i++) {
                         Project project = projects.get(i);

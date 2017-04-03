@@ -2,10 +2,8 @@ package com.qheeshow.eway.web.controller;
 
 import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.common.web.HaResponse;
-import com.qheeshow.eway.service.model.Investor;
-import com.qheeshow.eway.service.model.InvestorFollow;
-import com.qheeshow.eway.service.model.User;
-import com.qheeshow.eway.service.model.Xwcmclassinfo;
+import com.qheeshow.eway.service.model.*;
+import com.qheeshow.eway.service.service.CommentService;
 import com.qheeshow.eway.service.service.InvestorFollowService;
 import com.qheeshow.eway.service.service.InvestorService;
 import com.qheeshow.eway.service.service.XwcmclassinfoService;
@@ -21,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +33,8 @@ public class InvestorController extends BaseController {
     private XwcmclassinfoService xwcmclassinfoService;
     @Autowired
     private InvestorFollowService investorFollowService;
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping("/{id}/add/edit/1/auth")
     public ModelAndView addOrEditOne(@PathVariable Integer id) {
@@ -220,21 +221,44 @@ public class InvestorController extends BaseController {
     public ModelAndView get(@PathVariable Integer id) {
         Investor investor = investorService.get(id);
         ModelAndView modelAndView = new ModelAndView();
+
+        Map<String, Integer> tags = new HashMap<>();
+        List<Comment> list = commentService.listByInvestor(id);
+        for (Comment comment : list) {
+            String[] sTags = comment.getTags().split("#");
+            for (String sTag : sTags) {
+                Integer count = tags.get(sTag);
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count++;
+                }
+                tags.put(sTag, count);
+            }
+        }
+
         modelAndView.setViewName("investor/investor_detail");
+        modelAndView.addObject("tags", tags);
         modelAndView.addObject("investor", investor);
         return modelAndView;
     }
 
-    @RequestMapping("/follow/{investorid}")
+    @RequestMapping("/follow/{userid}/{investorid}")
     @ResponseBody
-    public String follow(@PathVariable Integer investorid, HttpSession session) {
+    public String follow(@PathVariable Integer userid, @PathVariable Integer investorid, HttpSession session) {
 
         Result<Boolean> result = new Result<>();
         result.setData(false);
         Object o = session.getAttribute("loginUser");
-        if (o == null)
+        if (o == null) {
+            result.setMessage("对不起，请登录");
             return result.toString();
+        }
         User loginUser = (User) o;
+        if (loginUser.getId().intValue() == userid.intValue()) {
+            result.setMessage("您不能关注自己");
+            return result.toString();
+        }
         InvestorFollow investorFollow = new InvestorFollow();
         investorFollow.setUserid(loginUser.getId());
         investorFollow.setInvestorid(investorid);

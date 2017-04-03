@@ -11,6 +11,7 @@
 <html>
 <head>
     <title><%=Config.get("app.name")%>--项目</title>
+    <link rel="stylesheet"  href="/images/bootstrap.css">
     <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="/images/wt_index.css"/>
     <link rel="stylesheet" href="/images/project.css"/>

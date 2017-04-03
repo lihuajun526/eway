@@ -36,9 +36,9 @@
         <ul class="g-people-lst-ul">
             <li class="on1">个人介绍：</li>
             <li class="on2"><%
-                String summary = investor.getSummary();
-                if (!StringUtils.isEmpty(summary)) {
-            %><%=summary.length() > 50 ? summary.substring(0, 50) : summary%><%
+                String personalProfile = investor.getPersonalProfile();
+                if (!StringUtils.isEmpty(personalProfile)) {
+            %><%=personalProfile.length() > 50 ? personalProfile.substring(0, 50) : personalProfile%><%
                 }
             %></li>
         </ul>

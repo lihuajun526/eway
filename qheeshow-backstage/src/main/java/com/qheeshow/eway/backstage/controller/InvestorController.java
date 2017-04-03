@@ -107,7 +107,7 @@ public class InvestorController extends BaseController {
 
         Result result = new Result();
 
-        investorService.updateAuth(investorid, authStatus);
+        investorService.updateAuth(userid, investorid, authStatus);
 
         return result.toString();
 
@@ -145,7 +145,7 @@ public class InvestorController extends BaseController {
 
         Result result = new Result();
 
-        investorService.setSign(userid,investorid, isSign);
+        investorService.setSign(userid, investorid, isSign);
 
         return result.toString();
 

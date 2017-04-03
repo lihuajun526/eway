@@ -34,7 +34,7 @@ public class AuthFilter implements Filter {
             }
         } else {
             if (url.indexOf("/authj") != -1) {
-                httpRequest.getRequestDispatcher("/user/reLogin.json").forward(httpRequest, httpResponse);
+                httpRequest.getRequestDispatcher("/user/reLogin").forward(httpRequest, httpResponse);
             } else if (url.indexOf("/auth") != -1) {
                 httpResponse.sendRedirect(localLoginUrl);
             }

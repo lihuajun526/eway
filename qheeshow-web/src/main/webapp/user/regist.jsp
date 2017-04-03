@@ -87,9 +87,9 @@
                 }
                 var roleid = $("#roleid").val();
                 if (roleid == 20) {
-                    window.location.href = "/project/0/add/edit/1";
+                    window.location.href = "/project/0/add/edit/1/auth";
                 } else if (roleid == 30) {
-                    window.location.href = "/investor/0/add/edit/1";
+                    window.location.href = "/investor/0/add/edit/1/auth";
                 }
             }
         });

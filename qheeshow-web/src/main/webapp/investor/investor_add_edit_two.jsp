@@ -1,11 +1,9 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page import="com.qheeshow.eway.service.model.Investor" %>
-<%@ page import="java.util.List" %>
+<%@ page import="org.springframework.util.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    Object object = request.getAttribute("investor");
-    Investor investor = object == null ? null : (Investor) object;
-    boolean isNull = investor == null;
+    Investor investor = (Investor) request.getAttribute("investor");
 %>
 <html>
 <head>
@@ -27,22 +25,28 @@
 
     <form id="authForm">
         <input type="hidden" name="id" value="<%=investor.getId()%>"/>
-        <input type="hidden" id="businessCardPositive" name="businessCardPositive" value=""/>
-        <input type="hidden" id="businessCardOpposite" name="businessCardOpposite" value=""/>
+        <input type="hidden" id="businessCardPositive" name="businessCardPositive"
+               value="<%=investor.getBusinessCardPositive()%>"/>
+        <input type="hidden" id="businessCardOpposite" name="businessCardOpposite"
+               value="<%=investor.getBusinessCardOpposite()%>"/>
 
         <div class="inv-wap">
             <div class="inv-t">认证信息(2/2)</div>
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">手机：</li>
-                    <li class="on2"><input id="mobile" name="mobile" class="inv-one-ipt" placeholder="输入手机号"/></li>
+                    <li class="on2"><input id="mobile" name="mobile" class="inv-one-ipt"
+                                           value="<%=StringUtils.isEmpty(investor.getMobile())?"":investor.getMobile()%>"
+                                           placeholder="输入手机号"/></li>
                     <li class="on3"></li>
                 </ul>
             </div>
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">邮箱：</li>
-                    <li class="on2"><input id="email" name="email" class="inv-one-ipt" placeholder="请输入邮箱"/></li>
+                    <li class="on2"><input id="email" name="email" class="inv-one-ipt"
+                                           value="<%=StringUtils.isEmpty(investor.getEmail())?"":investor.getEmail()%>"
+                                           placeholder="请输入邮箱"/></li>
                 </ul>
             </div>
             <div class="inv-one">
@@ -52,11 +56,15 @@
                         <ul class="inv-lst2">
                             <li class="inv-lst2-l">
                                 <span>
-                                    <img id="businessCardPositiveImg" src="/images/wt-icon19.png" width="58"
+                                    <img id="businessCardPositiveImg"
+                                         src="<%=StringUtils.isEmpty(investor.getBusinessCardPositive())?"/images/wt-icon19.png":investor.getBusinessCardPositive()%>"
+                                         width="58"
                                          height="58" onclick="selectFile('businessCardPositiveFile')"/>
                                 </span>
                                 <span class="head">名片正面（必要）</span></li>
-                            <li><span><img id="businessCardOppositeImg" src="/images/wt-icon19.png" width="58"
+                            <li><span><img id="businessCardOppositeImg"
+                                           src="<%=StringUtils.isEmpty(investor.getBusinessCardOpposite())?"/images/wt-icon19.png":investor.getBusinessCardOpposite()%>"
+                                           width="58"
                                            height="58" onclick="selectFile('businessCardOppositeFile')"/></span><span
                                     class="head">名片反面（选填）</span></li>
                         </ul>
@@ -86,7 +94,8 @@
                     <li class="on1"></li>
                     <li class="on6">
                         <span class="inv-one-span"><input name="" type="checkbox" checked>本人承诺上述认证信息情况属实，如有不实，愿意承担相应责任。</span>
-                        <span class="inv-one-span"><input name="" type="checkbox" checked>本人已认真阅读《风险揭示书》，完全理解并认同全部内容。</span>
+                        <span class="inv-one-span"><input name="" type="checkbox"
+                                                          checked>本人已认真阅读《风险揭示书》，完全理解并认同全部内容。</span>
                     </li>
                 </ul>
             </div>
@@ -149,6 +158,9 @@
                 window.location.href = "/index";
             }
         });
+    }
+    if (!<%=StringUtils.isEmpty(investor.getPersonalAssets())%>) {
+        $("input[name='personalAssets'][value='<%=investor.getPersonalAssets()%>']").attr("checked", true);
     }
 </script>
 </html>

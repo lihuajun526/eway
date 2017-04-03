@@ -23,6 +23,7 @@
     <result column="preference" property="preference" jdbcType="VARCHAR" />
     <result column="investor_case" property="investorCase" jdbcType="VARCHAR" />
     <result column="recommender" property="recommender" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
     <result column="personal_profile" property="personalProfile" jdbcType="VARCHAR" />
     <result column="mobile" property="mobile" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
@@ -100,9 +101,10 @@
   <sql id="Base_Column_List" >
     id, photo, true_name, investor_type, company_name, company_rank, wechat_id, city_id, 
     city_name, stage_id, stage_name, industry_id, industry_name, single_price_id, single_price, 
-    style_id, style, preference_id, preference, investor_case, recommender, personal_profile, 
-    mobile, email, id_card, business_card_positive, business_card_opposite, personal_assets_id, 
-    personal_assets, status, auth_status, is_sign, is_best, userid, create_time, update_time
+    style_id, style, preference_id, preference, investor_case, recommender, summary, 
+    personal_profile, mobile, email, id_card, business_card_positive, business_card_opposite, 
+    personal_assets_id, personal_assets, status, auth_status, is_sign, is_best, userid, 
+    create_time, update_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.InvestorExample" >
     select
@@ -143,12 +145,12 @@
       industry_name, single_price_id, single_price, 
       style_id, style, preference_id, 
       preference, investor_case, recommender, 
-      personal_profile, mobile, email, 
-      id_card, business_card_positive, business_card_opposite, 
-      personal_assets_id, personal_assets, status, 
-      auth_status, is_sign, is_best, 
-      userid, create_time, update_time
-      )
+      summary, personal_profile, mobile, 
+      email, id_card, business_card_positive, 
+      business_card_opposite, personal_assets_id, 
+      personal_assets, status, auth_status, 
+      is_sign, is_best, userid, 
+      create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{photo,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR}, 
       #{investorType,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{companyRank,jdbcType=VARCHAR}, 
       #{wechatId,jdbcType=VARCHAR}, #{cityId,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
@@ -156,12 +158,12 @@
       #{industryName,jdbcType=VARCHAR}, #{singlePriceId,jdbcType=INTEGER}, #{singlePrice,jdbcType=VARCHAR}, 
       #{styleId,jdbcType=INTEGER}, #{style,jdbcType=VARCHAR}, #{preferenceId,jdbcType=INTEGER}, 
       #{preference,jdbcType=VARCHAR}, #{investorCase,jdbcType=VARCHAR}, #{recommender,jdbcType=VARCHAR}, 
-      #{personalProfile,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{idCard,jdbcType=VARCHAR}, #{businessCardPositive,jdbcType=VARCHAR}, #{businessCardOpposite,jdbcType=VARCHAR}, 
-      #{personalAssetsId,jdbcType=INTEGER}, #{personalAssets,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{authStatus,jdbcType=INTEGER}, #{isSign,jdbcType=INTEGER}, #{isBest,jdbcType=INTEGER}, 
-      #{userid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{summary,jdbcType=VARCHAR}, #{personalProfile,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{businessCardPositive,jdbcType=VARCHAR}, 
+      #{businessCardOpposite,jdbcType=VARCHAR}, #{personalAssetsId,jdbcType=INTEGER}, 
+      #{personalAssets,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{authStatus,jdbcType=INTEGER}, 
+      #{isSign,jdbcType=INTEGER}, #{isBest,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Investor" >
     insert into t_investor
@@ -228,6 +230,9 @@
       </if>
       <if test="recommender != null" >
         recommender,
+      </if>
+      <if test="summary != null" >
+        summary,
       </if>
       <if test="personalProfile != null" >
         personal_profile,
@@ -338,6 +343,9 @@
       </if>
       <if test="recommender != null" >
         #{recommender,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
       </if>
       <if test="personalProfile != null" >
         #{personalProfile,jdbcType=VARCHAR},
@@ -458,6 +466,9 @@
       <if test="record.recommender != null" >
         recommender = #{record.recommender,jdbcType=VARCHAR},
       </if>
+      <if test="record.summary != null" >
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
       <if test="record.personalProfile != null" >
         personal_profile = #{record.personalProfile,jdbcType=VARCHAR},
       </if>
@@ -531,6 +542,7 @@
       preference = #{record.preference,jdbcType=VARCHAR},
       investor_case = #{record.investorCase,jdbcType=VARCHAR},
       recommender = #{record.recommender,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
       personal_profile = #{record.personalProfile,jdbcType=VARCHAR},
       mobile = #{record.mobile,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
@@ -613,6 +625,9 @@
       <if test="recommender != null" >
         recommender = #{recommender,jdbcType=VARCHAR},
       </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
       <if test="personalProfile != null" >
         personal_profile = #{personalProfile,jdbcType=VARCHAR},
       </if>
@@ -683,6 +698,7 @@
       preference = #{preference,jdbcType=VARCHAR},
       investor_case = #{investorCase,jdbcType=VARCHAR},
       recommender = #{recommender,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
       personal_profile = #{personalProfile,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},

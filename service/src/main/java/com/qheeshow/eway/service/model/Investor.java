@@ -41,6 +41,8 @@ public class Investor extends BaseModel {
 
     private String summary;
 
+    private String firstCity;
+
     public String getTags() {
         return tags;
     }
@@ -383,5 +385,11 @@ public class Investor extends BaseModel {
         this.isSign = isSign;
     }
 
+    public String getFirstCity() {
+        return firstCity;
+    }
 
+    public void setFirstCity(String firstCity) {
+        this.firstCity = firstCity;
+    }
 }

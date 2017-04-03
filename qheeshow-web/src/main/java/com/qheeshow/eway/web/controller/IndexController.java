@@ -6,6 +6,7 @@ import com.qheeshow.eway.service.model.Project;
 import com.qheeshow.eway.service.service.ActivityService;
 import com.qheeshow.eway.service.service.InvestorService;
 import com.qheeshow.eway.service.service.ProjectService;
+import com.qheeshow.eway.service.service.XwcmclassinfoService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ public class IndexController extends BaseController {
     private ProjectService projectService;
     @Autowired
     private InvestorService investorService;
-
 
     @RequestMapping("/index")
     public String index() {
@@ -94,6 +94,9 @@ public class IndexController extends BaseController {
         Result result = new Result();
 
         List<Investor> list = investorService.bestInvestor(9);
+        for (Investor investor : list) {
+            investor.setFirstCity(investor.getCityName().split("#")[0]);
+        }
         result.setData(list);
 
         return result.toString();

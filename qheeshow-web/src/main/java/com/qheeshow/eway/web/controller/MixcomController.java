@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  * Created by lihuajun on 16-6-14.
  */
 @Controller
-@RequestMapping("/auth/mixcom")
+@RequestMapping("/mixcom")
 public class MixcomController extends BaseController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class MixcomController extends BaseController {
     @Autowired
     private MixcomService mixcomService;
 
-    @RequestMapping("/bound/{userid}")
+    @RequestMapping("/bound/{userid}/authj")
     @ResponseBody
     public String bound(@PathVariable Integer userid, HttpSession session) {
 
@@ -44,6 +44,12 @@ public class MixcomController extends BaseController {
         }
         //角色：10超级管理员,11普通管理员,20创业者,30普通投资人,31认证投资人,32签约投资人
         User loginUser = (User) session.getAttribute("loginUser");
+
+        if (loginUser.getId().intValue() == userid.intValue()) {
+            result.setCode(0);
+            result.setData(loginUser.getMobile());
+            return result.toString();
+        }
         if (loginUser.getRoleid().intValue() == 20) {//企业/创业者
             if (user.getRoleid().intValue() == 20) {//企业/创业者
                 result.setMessage("您不能获得企业的联系方式");

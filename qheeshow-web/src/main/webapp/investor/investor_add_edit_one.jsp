@@ -3,6 +3,7 @@
 <%@ page import="com.qheeshow.eway.service.model.Xwcmclassinfo" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.qheeshow.eway.service.model.User" %>
+<%@ page import="org.springframework.util.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     User loginUser = (User) session.getAttribute("loginUser");
@@ -32,12 +33,14 @@
            style="display: none;"/>
 
     <form id="baseForm">
-        <input type="hidden" id="industrys_" name="industryId" value=""/>
-        <input type="hidden" id="areas_" name="cityId" value=""/>
-        <input type="hidden" id="stages_" name="stageId" value=""/>
-        <input type="hidden" id="photo" name="photo" value=""/>
-        <input type="hidden" id="singlePriceId" name="singlePriceId" value="0"/>
-        <input type="hidden" id="styleId" name="styleId" value="0"/>
+        <input type="hidden" id="industrys_" name="industryId"
+               value="<%=isNull?"":investor.getIndustryId()%>"/>
+        <input type="hidden" id="areas_" name="cityId" value="<%=isNull?"":investor.getCityId()%>"/>
+        <input type="hidden" id="stages_" name="stageId" value="<%=isNull?"":investor.getStageId()%>"/>
+        <input type="hidden" id="photo" name="photo" value="<%=isNull?"":investor.getPhoto()%>"/>
+        <input type="hidden" id="singlePriceId" name="singlePriceId"
+               value="<%=isNull?"":investor.getSinglePriceId()%>"/>
+        <input type="hidden" id="styleId" name="styleId" value="<%=isNull?"":investor.getStyleId()%>"/>
         <input type="hidden" name="trueName" value="<%=loginUser.getName()%>"/>
 
         <div class="inv-wap">
@@ -48,7 +51,9 @@
                     <li class="on2">
                         <a href="#">
                             <ul class="inv-lst1">
-                                <li><img id="photoImg" src="/images/wt-icon19.png" width="58" height="58"
+                                <li><img id="photoImg"
+                                         src="<%=isNull?"/images/wt-icon19.png":investor.getPhoto()%>"
+                                         width="58" height="58"
                                          onclick="selectFile('photoFile')"/></li>
                                 <li class="head">上传头像</li>
                             </ul>
@@ -83,8 +88,11 @@
                     <li class="on2">
                         <ul>
                             <li class="inv-c-name"><input id="companyName" name="companyName" class="inv-one-ipt1"
+                                                          value="<%=isNull?"":investor.getCompanyName()%>"
                                                           placeholder="公司名称"></li>
-                            <li><input id="companyRank" name="companyRank" class="inv-one-ipt1" placeholder="头衔"></li>
+                            <li><input id="companyRank" name="companyRank"
+                                       value="<%=isNull?"":investor.getCompanyRank()%>"
+                                       class="inv-one-ipt1" placeholder="头衔"></li>
                         </ul>
                     </li>
                     <li class="on3">很重要的信息</li>
@@ -93,7 +101,9 @@
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">个人微信<span>（选填）</span>:</li>
-                    <li class="on2"><input name="wechatId" class="inv-one-ipt1" placeholder="微信号"/></li>
+                    <li class="on2"><input name="wechatId" class="inv-one-ipt1"
+                                           value="<%=isNull?"":StringUtils.isEmpty(investor.getWechatId())?"":investor.getWechatId()%>"
+                                           placeholder="微信号"/></li>
                 </ul>
             </div>
             <div class="inv-one">
@@ -249,20 +259,34 @@
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">投资案例<span>（选填）</span>:</li>
-                    <li class="on2"><input name="investorCase" class="inv-one-ipt" placeholder="请输入投资案例"/></li>
+                    <li class="on2"><input name="investorCase" class="inv-one-ipt"
+                                           value="<%=isNull?"":StringUtils.isEmpty(investor.getInvestorCase())?"":investor.getInvestorCase()%>"
+                                           placeholder="请输入投资案例"/></li>
                 </ul>
             </div>
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">推荐人<span>（选填）</span>:</li>
-                    <li class="on2"><input name="recommender" class="inv-one-ipt" placeholder="请输入推荐人"/></li>
+                    <li class="on2"><input name="recommender" class="inv-one-ipt"
+                                           value="<%=isNull?"":StringUtils.isEmpty(investor.getRecommender())?"":investor.getRecommender()%>"
+                                           placeholder="请输入推荐人"/></li>
+                </ul>
+            </div>
+            <div class="inv-one">
+                <ul class="inv-one-lst">
+                    <li class="on1">一句话介绍:</li>
+                    <li class="on2"><textarea id="summary" name="summary" class="inv-one-tex" style="height: 80px;"
+                                              placeholder="一句话介绍自己"><%=isNull ? "" : StringUtils.isEmpty(investor.getSummary()) ? "" : investor.getSummary()%></textarea>
+                    </li>
+                    <li class="on3">&nbsp;</li>
                 </ul>
             </div>
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">个人简介:</li>
                     <li class="on2"><textarea id="personalProfile" name="personalProfile" class="inv-one-tex"
-                                              placeholder="包括教育经历,工作经验，创业经历，行业背景等内容"></textarea></li>
+                                              placeholder="包括教育经历,工作经验，创业经历，行业背景等内容"><%=isNull ? "" : StringUtils.isEmpty(investor.getPersonalProfile()) ? "" : investor.getPersonalProfile()%></textarea>
+                    </li>
                     <li class="on3">&nbsp;</li>
                 </ul>
             </div>
@@ -401,6 +425,10 @@
     }
     function selectFile(id) {
         $('#' + id).click();
+    }
+
+    if (!<%=isNull%>) {
+        $("input[name='investorType'][value='<%=isNull?"1":investor.getInvestorType()%>']").attr("checked", true);
     }
 </script>
 </html>

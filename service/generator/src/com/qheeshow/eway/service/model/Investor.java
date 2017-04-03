@@ -45,6 +45,8 @@ public class Investor {
 
     private String recommender;
 
+    private String summary;
+
     private String personalProfile;
 
     private String mobile;
@@ -241,6 +243,14 @@ public class Investor {
 
     public void setRecommender(String recommender) {
         this.recommender = recommender == null ? null : recommender.trim();
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary == null ? null : summary.trim();
     }
 
     public String getPersonalProfile() {

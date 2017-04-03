@@ -206,7 +206,7 @@ public class InvestorServiceImpl implements InvestorService {
         } else {
             user.setRoleid(30);
         }
-        userMapper.updateByPrimaryKey(user);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
@@ -234,6 +234,6 @@ public class InvestorServiceImpl implements InvestorService {
         } else {
             user.setRoleid(31);
         }
-        userMapper.updateByPrimaryKey(user);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 }

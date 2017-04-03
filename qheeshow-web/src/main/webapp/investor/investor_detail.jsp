@@ -1,9 +1,11 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page import="com.qheeshow.eway.service.model.Investor" %>
-<%@ page import="org.springframework.util.StringUtils" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Investor investor = (Investor) request.getAttribute("investor");
+    Map<String, Integer> tags = (HashMap<String, Integer>) request.getAttribute("tags");
 %>
 <html>
 <head>
@@ -24,27 +26,24 @@
             <div class="g-invest-t"><%=investor.getCompanyName()%>-<%=investor.getCompanyRank()%>
             </div>
             <div class="g-invest-onect">
-                <div class="on1">个人介绍：</div>
+                <div class="on1">个人简介：</div>
                 <div class="on2"><%=investor.getSummary()%>
                 </div>
             </div>
             <ul class="g-invest-lst">
                 <%
-                    if (!StringUtils.isEmpty(investor.getTags())) {
-                        String[] tags = investor.getTags().split("#");
-                        for (String tag : tags) {
-                            String[] strs = tag.split(":");
+                    for (String tag : tags.keySet()) {
                 %>
-                <li><a><%=strs[0]%>(<%=strs[1]%>)</a></li>
+                <li><a><%=tag%>(<%=tags.get(tag)%>)</a></li>
                 <%
-                        }
                     }
                 %>
             </ul>
-            <a id="follow_" class="g-invest-focus" onclick="follow(<%=investor.getId()%>)"></a>
+            <a id="follow_" class="g-invest-focus"
+               onclick="follow(<%=investor.getUserid()%>,<%=investor.getId()%>)"></a>
             <ul class="g-invest-lst2">
                 <li><a href="#">投递项目</a></li>
-                <li><a href="#">查看联系方式</a></li>
+                <li><a onclick="bound(<%=investor.getUserid()%>)">查看联系方式</a></li>
             </ul>
         </div>
     </div>
@@ -83,9 +82,10 @@
                         </div>
                     </div>
                     <div class="g-invest-two1">
-                        <div class="g-invest-twl">评论：</div>
+                        <div class="g-invest-twl">评论内容：</div>
                         <div class="g-invest-twr">
-                            <textarea id="content" name="content" class="g-invest-twrtex"></textarea>
+                            <textarea id="content" name="content" class="g-invest-twrtex"
+                                      placeholder=" 请输入评论内容"></textarea>
 
                             <div class="g-invest-twr-fb"><a onclick="saveComment();">发表评论</a></div>
                         </div>
@@ -149,9 +149,21 @@
                 tags += $(this).attr("data") + "#";
         });
         $("#tags").val(tags);
+        if (!tags.length) {
+            alert("请选择标签");
+            return;
+        }
+        if ($("#star").val() == "0") {
+            alert("请选择星级");
+            return;
+        }
+        if (!$("#content").val().length) {
+            alert("请输入评论内容");
+            return;
+        }
         $.ajax({
             type: 'POST',
-            url: '/comment/save',
+            url: '/comment/save/authj',
             cache: false,
             processData: false,
             data: $('#commentForm').serialize(),
@@ -166,14 +178,14 @@
             }
         });
     }
-    function follow(investorid) {
+    function follow(userid, investorid) {
         if ("已关注" == $("#follow_").html())
             return;
-        $.get("/investor/follow/" + investorid, function (result) {
+        $.get("/investor/follow/" + userid + "/" + investorid, function (result) {
             if (result.data) {
                 $("#follow_").html("已关注");
             } else {
-                alert("请先登录");
+                alert(result.message);
             }
         }, "json");
     }
@@ -185,5 +197,15 @@
             $("#follow_").html("+关注");
         }
     }, "json");
+
+    function bound(userid) {
+        $.get("/mixcom/bound/" + userid + "/authj", function (result) {
+            if (result.code < 0) {
+                alert(result.message);
+                return;
+            }
+            alert("<%=investor.getTrueName()%>的联系电话是：" + result.data + "，该电话10分钟内有效");
+        }, "json");
+    }
 </script>
 </html>

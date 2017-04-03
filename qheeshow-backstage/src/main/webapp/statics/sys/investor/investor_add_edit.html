@@ -106,7 +106,7 @@
         </tr>
         <tr>
             <td align="center" rowspan="1" colspan="2" style="word-break: break-all;height: 50px;">
-                <input type="button" value="保存" onclick="save();"/>&nbsp;&nbsp;
+                <!--<input type="button" value="保存" onclick="save();"/>&nbsp;&nbsp;-->
                 <input type="button" value="关闭" onclick="closeTab();"/>
             </td>
         </tr>
@@ -149,25 +149,27 @@
         return true;
     }
     function save() {
-        var citys = "";
+        var citys = "#";
         $("#citys").children('input').each(function () {
             if ($(this).attr("checked") == "checked") {
                 citys += $(this).val() + "#";
             }
         });
         $("#cityId").val(citys);
-        var stages = "";
+        var stages = "#";
         $("#stages").children('input').each(function () {
             if ($(this).attr("checked") == "checked") {
                 stages += $(this).val() + "#";
             }
         });
-        var industrys = "";
+        $("#stageId").val(stages);
+        var industrys = "#";
         $("#industrys").children('input').each(function () {
             if ($(this).attr("checked") == "checked") {
                 industrys += $(this).val() + "#";
             }
         });
+        $("#industryId").val(industrys);
         if (!validate())
             return;
         $.ajax({

@@ -36,6 +36,10 @@
                     %>
                     <li class="on3"><a href="/investor/<%=loginUser.getId()%>/add/edit/2/auth">申请认证</a></li>
                     <%
+                    } else {
+                    %>
+                    <li class="on3"><a href="/investor/<%=loginUser.getId()%>/add/edit/1/auth">修改信息</a></li>
+                    <%
                         }
                     %>
                 </ul>

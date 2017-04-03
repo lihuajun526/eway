@@ -91,7 +91,7 @@
             for (var i = 0; i < data.length; i++) {
                 var investor = data[i];
                 if (i == 0) {
-                    $("#first").html("<div class='g-fivesen-t'><img src='" + investor.photo + "' width='110' height='110'/></div><div class='g-fivesen-c'><div class='on1'><span class='name'>" + investor.trueName + "</span><span class='pt'>平台推荐</span></div><h2>" + investor.companyName + " | <span id='areas'></span></h2><h3><a href='#'>" + investor.summary + "</a></h3></div><div class='g-fivesen-r'><div class='on1'>感兴趣的</div><div class='on2'><span id='stages'></span><span>" + investor.singlePrice + "</span></div><ul id='indus' class='on3'></ul></div>");
+                    $("#first").html("<div class='g-fivesen-t'><a href='/investor/" + investor.id + "'><img src='" + investor.photo + "' width='110' height='110'/></a></div><div class='g-fivesen-c'><div class='on1'><span class='name'>" + investor.trueName + "</span><span class='pt'>平台推荐</span></div><h2>" + investor.companyName + " | <span>" + investor.firstCity + "</span></h2><h3><a>" + investor.summary + "</a></h3></div><div class='g-fivesen-r'><div class='on1'>感兴趣的</div><div class='on2'><span id='stages'></span><span>" + investor.singlePrice + "</span></div><ul id='indus' class='on3'></ul></div>");
                     var indus = "";
                     if (!isEmpty(investor.industryName)) {
                         indus = investor.industryName.split("#");
