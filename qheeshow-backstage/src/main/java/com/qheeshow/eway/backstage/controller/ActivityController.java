@@ -42,7 +42,7 @@ public class ActivityController extends BaseController {
         activity.setStartRow(rows * (page - 1));
         Map<String, Object> map = activityService.listByClassAndPage(activity);
         resultDg.setTotal((Integer) map.get("count"));
-        resultDg.setRows((List<Activity>) map.get("activitys"));
+        resultDg.setRows((List<Activity>) map.get("activities"));
 
         return JSON.toJSONString(resultDg);
     }

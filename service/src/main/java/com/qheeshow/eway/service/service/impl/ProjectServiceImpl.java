@@ -23,7 +23,7 @@ public class ProjectServiceImpl implements ProjectService {
     public void save(Project project) {
 
         if (project.getId() == null) {
-            project.setStatus(0);
+            project.setStatus(1);
             projectMapper.insert(project);
         } else {
             projectMapper.updateByPrimaryKeySelective(project);

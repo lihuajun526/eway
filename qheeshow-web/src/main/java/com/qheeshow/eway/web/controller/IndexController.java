@@ -46,6 +46,10 @@ public class IndexController extends BaseController {
         Result result = new Result();
 
         List<Activity> list = activityService.latest(3);
+        for (Activity activity : list) {
+            activity.setTitle(activity.getTitle().length()>13?activity.getTitle().substring(0,13):activity.getTitle());
+            activity.setSummary(activity.getSummary().length() > 40 ? activity.getSummary().substring(0, 40) : activity.getSummary());
+        }
         result.setData(list);
 
         return result.toString();

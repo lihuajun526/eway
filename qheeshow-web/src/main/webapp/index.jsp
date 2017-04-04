@@ -80,7 +80,7 @@
         }
     }, "json");
     function showCase(o) {
-        $("#bestCases").children('div').each(function () {
+        $("#bestCases").find('div').each(function () {
             $(this).removeAttr("class");
         });
         $(o).attr("class", "g-three-ov");
@@ -95,24 +95,24 @@
                     var indus = "";
                     if (!isEmpty(investor.industryName)) {
                         indus = investor.industryName.split("#");
-                        for (var i = 0; i < indus.length; i++) {
-                            $("#indus").append("<li><a>" + indus[i] + "</a></li>");
+                        for (var j = 0; j < indus.length; j++) {
+                            $("#indus").append("<li><a>" + indus[j] + "</a></li>");
                         }
                     }
                     var stages = "";
                     if (!isEmpty(investor.stageName)) {
                         stages = investor.stageName.split("#");
-                        for (var i = 0; i < stages.length; i++) {
-                            indus.append("<li><a>" + stages[i] + "</a></li>");
-                            if (i == 0) {
-                                $("#stages").append("" + stages[i] + " ");
+                        for (var m = 0; m < stages.length; m++) {
+                            $("#indus").append("<li><a>" + stages[m] + "</a></li>");
+                            if (m == 0) {
+                                $("#stages").append("" + stages[m] + " ");
                             } else {
-                                $("#stages").append("| " + stages[i] + "");
+                                $("#stages").append("| " + stages[m] + "");
                             }
                         }
                     }
                 } else {
-                    $("#investors").append("<a href='/investor/" + investor.id + "'><li><span><img src='" + investor.photo + "' width='240' height='181'/></span><h1>" + photo.trueName + "</h1><h5>" + investor.companyName + " | " + investor.companyRank + "</h5><h6><span id='area_" + investor.id + "'></span> | <span id='indus_" + investor.id + "'></span></h6></li></a>");
+                    $("#investors").append("<a href='/investor/" + investor.id + "'><li><span><img src='" + investor.photo + "' width='240' height='181'/></span><h1>" + investor.trueName + "</h1><h5>" + investor.companyName + " | " + investor.companyRank + "</h5><h6><span id='area_" + investor.id + "'></span> | <span id='indus_" + investor.id + "'></span></h6></li></a>");
                     var areas = "";
                     if (!isEmpty(investor.cityName)) {
                         areas = investor.cityName.split("#");
@@ -121,8 +121,8 @@
                     var indus = "";
                     if (!isEmpty(investor.industryName)) {
                         indus = investor.industryName.split("#");
-                        for (var i = 0; i < indus.length; i++) {
-                            $("#indus_" + investor.id).append(" " + indus[i]);
+                        for (var x = 0; x < indus.length; x++) {
+                            $("#indus_" + investor.id).append(" " + indus[x]);
                         }
                     }
                 }

@@ -135,6 +135,7 @@ public class ProjectController extends BaseController {
         project.setUserid(loginUser.getId());
         project.setUsername(loginUser.getName());
         project.setStatus(1);
+        project.setRecommend(0);
 
         projectService.save(project);
         result.setData(project.getId());
@@ -201,7 +202,7 @@ public class ProjectController extends BaseController {
 
         LOGGER.debug("根据条件过滤项目");
 
-        int pageSize = 2;
+        int pageSize = 10;
         int recordCount = 0;
 
         List<Project> projectList = new ArrayList<>();

@@ -39,6 +39,14 @@ public class ActivityController extends BaseController {
         if (activityClass.intValue() > 0)
             activity.setActivityClass(activityClass);
         List<Activity> list = activityService.listByCodition(activity, pageIndex, pageSize);
+
+        for (Activity acti : list) {
+            if (acti.getTitle().length() > 15)
+                acti.setTitle(acti.getTitle().substring(0, 15));
+            if (acti.getSummary().length() > 20)
+                acti.setSummary(acti.getSummary().substring(0, 20));
+        }
+
         result.setData(list);
 
         return result.toString();

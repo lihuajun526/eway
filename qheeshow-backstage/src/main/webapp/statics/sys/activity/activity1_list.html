@@ -31,7 +31,8 @@
                     formatter: function (value, rec) {
                         return dateFormatter(new Date(rec.beginTime));
                     }
-                }, {
+                },
+                {
                     field: 'status', title: '活动状态', width: 8,
                     formatter: function (value, rec) {
                         if (value == 1) {

@@ -930,11 +930,11 @@
         where status = #{status,jdbcType=INTEGER}
     </select>
 
-    <select id="bestSuggest" resultType="java.lang.Integer" parameterType="com.qheeshow.eway.service.model.Project">
+    <select id="bestSuggest" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Project">
         select
         id,logo,title,highlights,demand
         from t_project
-        where recommend = #{recommend,jdbcType=INTEGER}
+        where recommend = 1
         ORDER by create_time DESC
         limit 0,#{num,jdbcType=INTEGER}
     </select>

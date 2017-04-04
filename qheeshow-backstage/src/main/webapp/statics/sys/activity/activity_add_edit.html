@@ -166,7 +166,7 @@
             data: $('#activityForm').serialize(),
             dataType: 'json',
             success: function (result) {
-                if (result.success) {
+                if (result.data) {
                     alert("保存成功");
                     window.parent.loadList();
                     window.parent.closeTab('添加活动');

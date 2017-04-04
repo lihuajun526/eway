@@ -135,6 +135,8 @@ public class InvestorController extends BaseController {
         investor.setSinglePrice(singlePrice);
         investor.setStyle(style);
 
+        loginUser.setPhoto(investor.getPhoto());
+
         investorService.save(investor);
         result.setData(investor.getId());
         return result.toString();
@@ -178,7 +180,7 @@ public class InvestorController extends BaseController {
                                         @PathVariable String industryid, @PathVariable String stageid,
                                         @PathVariable Integer pageIndex, String keyword) {
         LOGGER.debug("根据条件过滤投资人");
-        int pageSize = 2;
+        int pageSize = 8;
         int recordCount = 0;
         List<Investor> investorList = new ArrayList<>();
         if (StringUtils.isEmpty(keyword)) {

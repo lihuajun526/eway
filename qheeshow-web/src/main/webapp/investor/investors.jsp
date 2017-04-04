@@ -9,16 +9,22 @@
     for (Investor investor : investors) {
 %>
 <div class="g-people-lst">
-    <span><img style="cursor: pointer" src="<%=investor.getPhoto()%>" width="240" height="181" onclick="openDetail(<%=investor.getId()%>);"/></span>
-    <h1><%=investor.getTrueName()%></h1>
-    <h5><%=investor.getCompanyName()%> | <%=investor.getCompanyRank()%></h5>
+    <span><img style="cursor: pointer" src="<%=investor.getPhoto()%>" width="240" height="181"
+               onclick="openDetail(<%=investor.getId()%>);"/></span>
+
+    <h1><%=investor.getTrueName()%>
+    </h1>
+    <h5><%=investor.getCompanyName()%> | <%=investor.getCompanyRank()%>
+    </h5>
+
     <div class="g-people-lst-heg">
         <ul class="g-people-lst-ul">
             <li class="on1">关注领域：</li>
             <li class="on2"><%
                 if (!StringUtils.isEmpty(investor.getIndustryName())) {
-                    for (String industry : investor.getIndustryName().split("#")) {
-            %><span><%=industry%></span><%
+                    String[] industrys = investor.getIndustryName().split("#");
+                    for (int i = 0; i < industrys.length && i < 2; i++) {
+            %><span><%=industrys[i]%></span><%
                     }
                 }
             %></li>
@@ -36,9 +42,9 @@
         <ul class="g-people-lst-ul">
             <li class="on1">个人介绍：</li>
             <li class="on2"><%
-                String personalProfile = investor.getPersonalProfile();
-                if (!StringUtils.isEmpty(personalProfile)) {
-            %><%=personalProfile.length() > 50 ? personalProfile.substring(0, 50) : personalProfile%><%
+                String summary = investor.getSummary();
+                if (!StringUtils.isEmpty(summary)) {
+            %><%=summary.length() > 40 ? summary.substring(0, 40) : summary%><%
                 }
             %></li>
         </ul>

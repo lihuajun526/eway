@@ -609,13 +609,11 @@
 
     <select id="countByClassAndPage" resultType="java.lang.Integer" parameterType="com.qheeshow.eway.service.model.Activity">
         select
-        <include refid="Base_Column_List"/>
+        count(id)
         from t_activity
         where activity_class = #{activityClass,jdbcType=INTEGER}
         and is_head = 0
         and doc_status not in(30)
-        order by create_time desc
-        limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
 
 </mapper>

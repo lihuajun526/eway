@@ -174,7 +174,7 @@
         }, "json");
     }
     function unrecommend(id) {
-        $.get("/project/0/" + id, function (result) {
+        $.get("/project/recommend/0/" + id, function (result) {
             if (result.code != 0) {
                 $.messager.alert('Info', "失败", 'info');
             } else {

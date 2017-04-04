@@ -224,7 +224,7 @@
                 var investors = result.data;
                 for (var i = 0; i < investors.length; i++) {
                     var investor = investors[i];
-                    $("#follows").append("<li><a href='#' target='_blank'><img src='" + investor.img + "' width='50' height='50'/><span>" + investor.trueName + "</span></a></li>");
+                    $("#follows").append("<li><a href='/investor/" + investor.id + "' target='_blank'><img src='" + investor.photo + "' width='50' height='50'/><span>" + investor.trueName + "</span></a></li>");
                 }
             }
         });
@@ -240,7 +240,7 @@
                 var investors = result.data;
                 for (var i = 0; i < investors.length; i++) {
                     var investor = investors[i];
-                    $("#advisers").append("<li><a href='#' target='_blank'><img src='" + investor.img + "' width='50' height='50'/><span>" + investor.trueName + "</span></a></li>");
+                    $("#advisers").append("<li><a href='/investor/" + investor.id + "' target='_blank'><img src='" + investor.photo + "' width='50' height='50'/><span>" + investor.trueName + "</span></a></li>");
                 }
             }
         });
@@ -263,5 +263,7 @@
             $("#apply").html("已申请专职顾问");
         }, "json");
     }
+    listAdvisers();
+    listFollows();
 </script>
 </html>
