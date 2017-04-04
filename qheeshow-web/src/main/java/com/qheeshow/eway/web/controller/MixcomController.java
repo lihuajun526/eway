@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.service.model.CallRecord;
 import com.qheeshow.eway.service.model.User;
+import com.qheeshow.eway.service.service.BindMapService;
 import com.qheeshow.eway.service.service.MixcomService;
 import com.qheeshow.eway.service.service.UserService;
 import com.qheeshow.eway.web.base.BaseController;
@@ -44,6 +45,7 @@ public class MixcomController extends BaseController {
         }
         //角色：10超级管理员,11普通管理员,20创业者,30普通投资人,31认证投资人,32签约投资人
         User loginUser = (User) session.getAttribute("loginUser");
+        loginUser = userService.get(loginUser.getId());
 
         if (loginUser.getId().intValue() == userid.intValue()) {
             result.setCode(0);

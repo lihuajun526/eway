@@ -12,19 +12,22 @@
             fitColumns: true,
             singleSelect: false,
             pagination: true,
-            url: '/project/list/2',
+            url: '/project/adviser/list/1',
             columns: [[
                 {
                     field: 'id', title: '编号', width: 3
                 },
                 {
-                    field: 'title', title: '项目名称', width: 18,
+                    field: 'trueName', title: '投资人', width: 18,
                     formatter: function (value, rec) {
-                        return "<a href='#' onclick='modify(" + rec.id + ")'>" + value + "</a>";
+                        return "<a href='" + root_path + "investor/" + rec.investorid + "' target='_blank'>" + value + "</a>";
                     }
                 },
                 {
-                    field: 'username', title: '项目联系人', width: 8
+                    field: 'title', title: '项目', width: 18,
+                    formatter: function (value, rec) {
+                        return "<a href='" + root_path + "project/" + rec.projectid + "' target='_blank'>" + value + "</a>";
+                    }
                 },
                 {
                     field: 'createTime', title: '日期', width: 8,
@@ -35,16 +38,18 @@
                 {
                     field: 'opt', title: '操作', align: 'center',
                     formatter: function (value, rec) {
-                        var btn = '<a class="editcls" onclick="delCase(\'' + rec.id + '\')" href="javascript:void(0)">取消</a>&nbsp&nbsp';
+                        var btn = '';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',2)" href="javascript:void(0)">通过</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',3)" href="javascript:void(0)">不通过</a>&nbsp&nbsp';
                         return btn;
                     }
                 }
             ]]
         });
     }
-    function delCase(id) {
+    function updateStatus(id, status) {
         $.ajax({
-            url: '/project/case/del/' + id,
+            url: '/project/adviser/status/update/' + id + '/' + status,
             type: 'get',
             dataType: 'json',
             success: function (result) {

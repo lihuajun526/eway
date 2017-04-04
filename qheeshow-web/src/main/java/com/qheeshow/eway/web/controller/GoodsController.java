@@ -43,8 +43,8 @@ public class GoodsController extends BaseController {
             projects = projectService.listByUser(loginUser.getId());
         }
         List<Goods> goodses = goodsService.listByStatus(1);
-        String buyBtncls1 = "g-purchase";
-        String buyBtncls2 = "g-purchase3";
+        String buyBtncls1 = "g-purchase2";
+        String buyBtncls2 = "g-purchase2";
         String buyBtncls3 = "g-purchase3";
         String buyBtncls4 = "g-purchase3";
         if (o != null) {//已登录
@@ -59,22 +59,33 @@ public class GoodsController extends BaseController {
                     project = projects.get(0);
                 else
                     project = projectService.get(projectid);
-                if (project.getStatus().intValue() == 1) {//新项目
+                /*if (project.getStatus().intValue() == 1) {//新项目
                     buyBtncls1 = "g-purchase2";
-                }
+                }*/
+                boolean buyed2 = false;
+                boolean buyed34 = false;
                 List<OrderDetail> orderDetails = orderDetailService.listByProject(project.getId());
                 for (OrderDetail orderDetail : orderDetails) {
                     if (orderDetail.getGoodsid().intValue() == 1) {
 
                     } else if (orderDetail.getGoodsid().intValue() == 2) {
-                        buyBtncls2 = "g-purchase2";
+                        buyed2 = true;
                     } else if (orderDetail.getGoodsid().intValue() == 3) {
+                        buyed34 = true;
+                        buyBtncls1 = "g-purchase";
                         buyBtncls3 = "g-purchase2";
                     } else if (orderDetail.getGoodsid().intValue() == 4) {
+                        buyed34 = true;
+                        buyBtncls1 = "g-purchase";
                         buyBtncls4 = "g-purchase2";
                     }
                 }
+                if (buyed34 && !buyed2)
+                    buyBtncls2 = "g-purchase3";
             }
+        } else {
+            buyBtncls1 = "g-purchase";
+            buyBtncls2 = "g-purchase3";
         }
         modelAndView.setViewName("goods/goods_list");
         modelAndView.addObject("projectid", projectid);

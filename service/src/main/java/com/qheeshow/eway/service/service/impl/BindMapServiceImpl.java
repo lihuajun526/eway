@@ -35,4 +35,9 @@ public class BindMapServiceImpl implements BindMapService {
     public void save(BindMap bindMap) {
         bindMapMapper.insert(bindMap);
     }
+
+    @Override
+    public List<BindMap> listBindRecord(BindMap bindMap) {
+        return bindMapMapper.listBindRecord(bindMap);
+    }
 }

@@ -13,6 +13,12 @@ public class ProjectAdviser extends BaseModel{
 
     private String description;
 
+    private String trueName;
+
+    private Integer investorid;
+
+    private String title;
+
     private Date createTime;
 
     private Date updateTime;
@@ -71,5 +77,29 @@ public class ProjectAdviser extends BaseModel{
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getTrueName() {
+        return trueName;
+    }
+
+    public void setTrueName(String trueName) {
+        this.trueName = trueName;
+    }
+
+    public Integer getInvestorid() {
+        return investorid;
+    }
+
+    public void setInvestorid(Integer investorid) {
+        this.investorid = investorid;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

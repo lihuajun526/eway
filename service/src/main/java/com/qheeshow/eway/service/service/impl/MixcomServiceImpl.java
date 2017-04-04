@@ -54,6 +54,15 @@ public class MixcomServiceImpl implements MixcomService {
     public String bound(String a, String b, int callTime) throws UnsupportedEncodingException, CommonException, RequestException {
         a = StrUtil.handleAdd86(a);
         b = StrUtil.handleAdd86(b);
+
+        //如果已经绑定且未解绑则返回
+        BindMap bindMap = new BindMap();
+        bindMap.setCalling(a);
+        bindMap.setCalled(b);
+        List<BindMap> list = bindMapService.listBindRecord(bindMap);
+        if (list.size() > 0)
+            return StrUtil.handleDel86(list.get(0).getMixnum());
+
         String appkey = Config.get("mixcom.appkey");
         long time = System.currentTimeMillis();
         //拉取小号
@@ -79,10 +88,8 @@ public class MixcomServiceImpl implements MixcomService {
         if (!"200".equals(jsonObject.getString("code")))
             throw new CommonException(ExceptionTypeEnum.Bound_Mixcom_No_ERROR);
         String bindId = jsonObject.getJSONObject("data").getString("subscriptionId");
-        BindMap bindMap = new BindMap();
         bindMap.setBindId(bindId);
-        bindMap.setCalling(a);
-        bindMap.setCalled(b);
+        bindMap.setMixnum(mixNo);
         bindMapService.save(bindMap);
         return StrUtil.handleDel86(mixNo);
     }

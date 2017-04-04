@@ -844,7 +844,7 @@
 
     <select id="listSuggest" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectSuggest">
         select
-        tb_a.id, tb_a.title,tb_a.demand
+        tb_a.id, tb_a.title,tb_a.demand,tb_a.logo
         FROM t_project tb_a INNER JOIN t_project_suggest tb_b ON tb_a.id = tb_b.projectid
         where
         tb_b.investorid = #{investorid,jdbcType=INTEGER}
@@ -868,7 +868,7 @@
 
     <select id="listFollow" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectFollow">
         select
-        tb_a.id, tb_a.title,tb_a.demand
+        tb_a.id, tb_a.title,tb_a.demand,tb_a.logo
         FROM t_project tb_a INNER JOIN t_project_follow tb_b ON tb_a.id = tb_b.projectid
         where
         tb_b.userid = #{userid,jdbcType=INTEGER}
@@ -885,7 +885,7 @@
     </select>
     <select id="listAdviser" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectAdviser">
         select
-        tb_a.id, tb_a.title,tb_a.demand
+        tb_a.id, tb_a.title,tb_a.demand,tb_a.logo
         FROM t_project tb_a INNER JOIN t_project_adviser tb_b ON tb_a.id = tb_b.projectid
         where
         tb_b.userid = #{userid,jdbcType=INTEGER}
@@ -920,14 +920,14 @@
         select
         <include refid="Base_Column_List"/>
         from t_project
-        where status = #{status,jdbcType=INTEGER} and is_case not in(1)
+        where status = #{status,jdbcType=INTEGER}
         order by create_time desc
         limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
     <select id="countByStatusAndPage" resultType="java.lang.Integer" parameterType="com.qheeshow.eway.service.model.Project">
         select count(id)
         from t_project
-        where status = #{status,jdbcType=INTEGER} and is_case not in(1)
+        where status = #{status,jdbcType=INTEGER}
     </select>
 
     <select id="bestSuggest" resultType="java.lang.Integer" parameterType="com.qheeshow.eway.service.model.Project">
@@ -939,7 +939,7 @@
         limit 0,#{num,jdbcType=INTEGER}
     </select>
 
-    <select id="bestCase" resultType="java.lang.Integer" parameterType="com.qheeshow.eway.service.model.Project">
+    <select id="bestCase" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Project">
         select
         id,logo,title,highlights,demand
         from t_project

@@ -122,6 +122,12 @@
                 loadPage('sys/investor/best_list.html');
             } else if (node.attributes.pageType == "sign_list") {
                 loadPage('sys/investor/sign_list.html');
+            } else if (node.attributes.pageType == "adviser1_list") {
+                loadPage('sys/adviser/adviser1_list.html');
+            } else if (node.attributes.pageType == "adviser2_list") {
+                loadPage('sys/adviser/adviser2_list.html');
+            } else if (node.attributes.pageType == "adviser3_list") {
+                loadPage('sys/adviser/adviser3_list.html');
             }
         },
         onContextMenu: function (e, node) {

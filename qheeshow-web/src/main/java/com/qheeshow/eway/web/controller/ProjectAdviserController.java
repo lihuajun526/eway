@@ -29,7 +29,7 @@ public class ProjectAdviserController extends BaseController {
     @Autowired
     private MessageService messageService;
 
-    @RequestMapping("/apply/{projectid}/")
+    @RequestMapping("/apply/{projectid}/authj")
     @ResponseBody
     public String apply(@PathVariable Integer projectid, HttpSession session) {
 
@@ -38,7 +38,7 @@ public class ProjectAdviserController extends BaseController {
         try {
             projectAdviserService.apply(projectid, loginUser.getId());
         } catch (CommonException e) {
-            result.set(-1, e.getCode());
+            result.set(-1, e.getDesc());
             return result.toString();
         }
 

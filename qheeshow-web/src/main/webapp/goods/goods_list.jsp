@@ -311,6 +311,7 @@
     function place() {
         $.get("/order/place/" + projectid + "/" + count1 + "/" + count2 + "/" + count3 + "/" + count4, function (result) {
             alert(result.message);
+            window.location.reload;
         }, "json");
     }
 </script>

@@ -184,4 +184,22 @@ public class UserController extends BaseController {
         return result.toString();
     }
 
+
+    @RequestMapping(value = "/photo/upload/authj")
+    @ResponseBody
+    public String uploadPhoto(String path, HttpSession session) {
+
+        Result result = new Result();
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        loginUser.setPhoto(path);
+
+        User user = new User();
+        user.setId(loginUser.getId());
+        user.setPhoto(path);
+
+        userService.update(user);
+        return result.toString();
+    }
+
 }

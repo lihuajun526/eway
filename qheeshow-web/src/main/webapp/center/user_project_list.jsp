@@ -29,7 +29,7 @@
             </ul>
         </li>
     </ul>
-    <a href="/project/<%=project.getId()%>/add/edit/1" target="_blank" class="g-mgen-1">编辑</a>
+    <a href="/project/<%=project.getId()%>/add/edit/1/auth" target="_blank" class="g-mgen-1">编辑</a>
 
     <div class="g-mgen-2">关注人数<span><%=project.getFollows()%></span></div>
 </div>

@@ -27,6 +27,4 @@ public interface BindMapMapper {
     int updateByPrimaryKeySelective(BindMap record);
 
     int updateByPrimaryKey(BindMap record);
-
-    List<BindMap> listBindRecord(BindMap bindMap);
 }

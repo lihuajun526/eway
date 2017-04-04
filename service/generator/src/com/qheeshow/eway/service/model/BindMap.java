@@ -17,14 +17,6 @@ public class BindMap {
 
     private Date updateTime;
 
-    public String getMixnum() {
-        return mixnum;
-    }
-
-    public void setMixnum(String mixnum) {
-        this.mixnum = mixnum;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -55,6 +47,14 @@ public class BindMap {
 
     public void setCalled(String called) {
         this.called = called == null ? null : called.trim();
+    }
+
+    public String getMixnum() {
+        return mixnum;
+    }
+
+    public void setMixnum(String mixnum) {
+        this.mixnum = mixnum == null ? null : mixnum.trim();
     }
 
     public Date getCreateTime() {

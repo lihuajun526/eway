@@ -2,7 +2,9 @@ package com.qheeshow.eway.service.dao;
 
 import com.qheeshow.eway.service.model.ProjectAdviser;
 import com.qheeshow.eway.service.model.ProjectAdviserExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ProjectAdviserMapper {
@@ -27,4 +29,8 @@ public interface ProjectAdviserMapper {
     int updateByPrimaryKeySelective(ProjectAdviser record);
 
     int updateByPrimaryKey(ProjectAdviser record);
+
+    List<ProjectAdviser> listByStatusAndPage(ProjectAdviser projectAdviser);
+
+    Integer countByStatusAndPage(ProjectAdviser projectAdviser);
 }

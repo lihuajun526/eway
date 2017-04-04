@@ -11,4 +11,4 @@ classinfo_rootid_stage=44;
 //投资风格
 classinfo_rootid_style=57
 //项目根路径
-//root_path="http://127.0.0.1:8092/index";
+root_path="http://127.0.0.1:8093/";

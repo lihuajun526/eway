@@ -26,7 +26,9 @@
             <li class="on5"><a
                     href="/center/index/auth"><%=StringUtils.isEmpty(loginUser.getName()) ? loginUser.getMobile() : loginUser.getName()%>
             </a></li>
-            <li class="on4"><a href="/center/index/auth"><img src="/images/wt-top3.png" width="30" height="30"/></a></li>
+            <li class="on4"><a href="/center/index/auth"><img
+                    src="<%=StringUtils.isEmpty(loginUser.getPhoto())?"/images/wt-top3.png":loginUser.getPhoto()%>" width="30"
+                    height="30"/></a></li>
             <li class="on1"><a href="/goods/list/0">购买服务</a></li>
             <li class="on2"><a href="/project/0/add/edit/1/auth">创建项目</a></li>
             <%

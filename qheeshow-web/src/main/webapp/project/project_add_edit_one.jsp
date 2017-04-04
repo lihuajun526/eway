@@ -51,6 +51,9 @@
         }
     %>
         <input type="hidden" id="id" name="id" value="<%=isNull?"":project.getId()%>"/>
+        <input type="hidden" name="status" value="1"/>
+        <input type="hidden" name="isCase" value="<%=isNull?"0":project.getIsCase()%>"/>
+        <input type="hidden" name="focus" value="<%=isNull?"0":project.getFocus()%>"/>
         <input type="hidden" id="logo" name="logo" value="<%=isNull?"":project.getLogo()%>"/>
         <input type="hidden" id="bp" name="bp" value="<%=isNull?"":project.getBp()%>"/>
         <input type="hidden" id="bpName" name="bpName" value="<%=isNull?"":project.getBpName()%>"/>

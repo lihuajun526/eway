@@ -11,7 +11,8 @@
 %>
 <html>
 <head>
-    <title><%=Config.get("app.name")%>--<%=project.getTitle()%></title>
+    <title><%=Config.get("app.name")%>--<%=project.getTitle()%>
+    </title>
     <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="/images/wt_index.css"/>
     <script src="/jquery/jquery-1.11.1.js"></script>
@@ -46,8 +47,8 @@
             </ul>
             <a id="follow" class="g-invest-focus" onclick="follow();"></a>
             <ul class="g-proj-lst3">
-                <li><a href="#">申请成为专职顾问</a></li>
-                <li><a href="#">查看联系方式</a></li>
+                <li><a id="apply" onclick="applyAdviser(<%=project.getId()%>);">申请成为专职顾问</a></li>
+                <li><a onclick="bound(<%=project.getUserid()%>)">查看联系方式</a></li>
             </ul>
             <div class="g-proj-ico2"></div>
         </div>
@@ -172,7 +173,8 @@
                     <%
                         for (CommonQa commonQa : commonQas) {
                     %>
-                    <li><span class="on1"></span><span><a href="#"><%=commonQa.getQuestion()%></a></span></li>
+                    <li><span class="on1"></span><span><a href="#"><%=commonQa.getQuestion()%>
+                    </a></span></li>
                     <%
                         }
                     %>
@@ -242,6 +244,24 @@
                 }
             }
         });
+    }
+    function bound(userid) {
+        $.get("/mixcom/bound/" + userid + "/authj", function (result) {
+            if (result.code < 0) {
+                alert(result.message);
+                return;
+            }
+            alert("项目负责人的联系电话是：" + result.data + "，该电话10分钟内有效");
+        }, "json");
+    }
+    function applyAdviser(projectid) {
+        $.get("/project/adviser/apply/" + projectid + "/authj", function (result) {
+            if (result.code < 0) {
+                alert(result.message);
+                return;
+            }
+            $("#apply").html("已申请专职顾问");
+        }, "json");
     }
 </script>
 </html>

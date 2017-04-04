@@ -4,8 +4,10 @@ import com.qheeshow.eway.common.util.StrUtil;
 import com.qheeshow.eway.service.dao.GoodsMapper;
 import com.qheeshow.eway.service.dao.OrderDetailMapper;
 import com.qheeshow.eway.service.dao.OrderMapper;
+import com.qheeshow.eway.service.dao.UserMapper;
 import com.qheeshow.eway.service.model.Order;
 import com.qheeshow.eway.service.model.OrderDetail;
+import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,8 @@ public class OrderServiceImpl implements OrderService {
     private GoodsMapper goodsMapper;
     @Autowired
     private OrderDetailMapper orderDetailMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
@@ -48,11 +52,18 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderNo(StrUtil.getOrderno());
         order.setPrice(total);
         orderMapper.insert(order);
+
+        User loginUser = userMapper.selectByPrimaryKey(userid);
+        Integer callTime = loginUser.getCallTime();
+
         //保存订单明细
         for (String str : orders) {
             String[] temp = str.split("_");
             Integer goodsid = Integer.valueOf(temp[0]);
             Integer count = Integer.valueOf(temp[1]);
+            if (goodsid.intValue() == 1) {
+                callTime += 45 * count;
+            }
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrderid(order.getId());
             orderDetail.setGoodsid(goodsid);
@@ -60,5 +71,10 @@ public class OrderServiceImpl implements OrderService {
             orderDetail.setCount(count);
             orderDetailMapper.insert(orderDetail);
         }
+        //更新通话时间
+        User user = new User();
+        user.setId(userid);
+        user.setCallTime(callTime);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 }

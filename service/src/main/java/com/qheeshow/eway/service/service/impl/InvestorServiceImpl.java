@@ -32,6 +32,11 @@ public class InvestorServiceImpl implements InvestorService {
             investor.setIsSign(0);
             investor.setIsBest(0);
             investorMapper.insert(investor);
+            //更新user中的photo
+            User user = new User();
+            user.setId(investor.getUserid());
+            user.setPhoto(investor.getPhoto());
+            userMapper.updateByPrimaryKeySelective(user);
         } else {
             investorMapper.updateByPrimaryKeySelective(investor);
         }
