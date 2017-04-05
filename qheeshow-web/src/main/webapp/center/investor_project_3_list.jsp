@@ -1,7 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.qheeshow.eway.service.model.Project" %>
+<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%
+    String appPath = Config.get("app.path");
     List<Project> projects = (List<Project>) request.getAttribute("projects");
 %>
 <div class="g-mg-rwap">
@@ -14,10 +16,10 @@
         for (Project project : projects) {
     %>
     <div class="g-invest-tre">
-        <div class="g-invest-treimg2"><a href="/project/<%=project.getId()%>" target="_blank"><img
+        <div class="g-invest-treimg2"><a href="<%=appPath%>/project/<%=project.getId()%>" target="_blank"><img
                 src="<%=project.getLogo()%>" width="80" height="80"/></a></div>
         <div class="g-invest-tre-r">
-            <div class="g-mg-rtit2"><a href="/project/<%=project.getId()%>" target="_blank"><%=project.getTitle()%>
+            <div class="g-mg-rtit2"><a href="<%=appPath%>/project/<%=project.getId()%>" target="_blank"><%=project.getTitle()%>
             </a></div>
             <div class="g-mg-rtit3"><a><%=project.getDemand()%>
             </a></div>
@@ -57,10 +59,9 @@
     function goto(index) {
         if (index <= 0 || index ><%=pageCount%>)
             return;
-        load("/center/project/3/1/" + index);
+        load("<%=appPath%>/center/project/3/1/" + index);
     }
     function setType(v) {
-        //project/{type}/{pageSize}/{pageIndex}
-        load("/center/project/" + v + "/1/1");
+        load("<%=appPath%>/center/project/" + v + "/1/1");
     }
 </script>

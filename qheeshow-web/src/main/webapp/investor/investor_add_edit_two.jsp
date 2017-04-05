@@ -3,17 +3,18 @@
 <%@ page import="org.springframework.util.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    String appPath = Config.get("app.path");
     Investor investor = (Investor) request.getAttribute("investor");
 %>
 <html>
 <head>
     <title><%=Config.get("app.name")%>--投资人信息完善</title>
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <link rel="stylesheet" href="/images/investor.css"/>
-    <script src="/jquery/jquery-1.11.1.js"></script>
-    <script src="/jquery/ajaxfileupload.js"></script>
-    <script src="/js/util.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/investor.css"/>
+    <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script src="<%=appPath%>/jquery/ajaxfileupload.js"></script>
+    <script src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp?flag=3" flush="true"/>
@@ -114,7 +115,7 @@
     //上传图片
     function doUpload(id) {
         $.ajaxFileUpload({
-                    url: '/image/upload', //用于文件上传的服务器端请求地址
+                    url: '<%=appPath%>/image/upload', //用于文件上传的服务器端请求地址
                     type: 'post',
                     secureuri: false, //是否需要安全协议，一般设置为false
                     fileElementId: id + 'File', //文件上传域的ID
@@ -145,7 +146,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: '/investor/auth/save/authj',
+            url: '<%=appPath%>/investor/auth/save/authj',
             cache: false,
             processData: false,
             data: $('#authForm').serialize(),
@@ -155,7 +156,7 @@
                     alert(result.message);
                     return;
                 }
-                window.location.href = "/index";
+                window.location.href = "<%=appPath%>/index";
             }
         });
     }

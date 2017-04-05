@@ -4,6 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.qheeshow.eway.service.model.User" %>
 <%
+    String appPath = Config.get("app.path");
     List<Project> projects = (List<Project>) request.getAttribute("projects");
     User loginUser = session.getAttribute("loginUser") == null ? null : (User) session.getAttribute("loginUser");
     String buyBtncls1 = (String) request.getAttribute("buyBtncls1");
@@ -15,10 +16,10 @@
 <html>
 <head>
     <title><%=Config.get("app.name")%>--优惠套餐</title>
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <link rel="stylesheet" href="/images/project.css"/>
-    <script src="/jquery/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/project.css"/>
+    <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
@@ -33,7 +34,7 @@
         <ul class="g-pser-lst">
             <%
                 if(projects.size()==0){
-                    %><li class="on"><a href="/project/0/add/edit/1/auth">请先创建项目</a></li><%
+                    %><li class="on"><a href="<%=appPath%>/project/0/add/edit/1/auth">请先创建项目</a></li><%
                 }else{
                     for (int i = 0; i < 4 && i < projects.size(); i++) {
                         Project project = projects.get(i);
@@ -161,7 +162,6 @@
             <div id="sumPrice" class="g-pser-n1"></div>
             <div class="g-pser-n2"><a onclick="place();">立即支付</a></div>
         </div>
-        <!--*************************选购套餐数量************************-->
     </div>
 </div>
 <jsp:include page="../pub/foot.jsp" flush="true"/>
@@ -178,12 +178,12 @@
         });
         $(obj).attr("class", "on");
         projectid = id;
-        window.location.href = "/goods/list/" + projectid;
+        window.location.href = "<%=appPath%>/goods/list/" + projectid;
     }
 
     function addGoods(index, price) {
         if (!isLogin) {
-            window.location.href = "/user/login.jsp";
+            window.location.href = "<%=appPath%>/user/login.jsp";
             return;
         }
         if ("g-purchase2" == $("#buy" + index).attr("class"))
@@ -309,7 +309,7 @@
     }
     draw();
     function place() {
-        $.get("/order/place/" + projectid + "/" + count1 + "/" + count2 + "/" + count3 + "/" + count4, function (result) {
+        $.get("<%=appPath%>/order/place/" + projectid + "/" + count1 + "/" + count2 + "/" + count3 + "/" + count4, function (result) {
             alert(result.message);
             window.location.reload;
         }, "json");

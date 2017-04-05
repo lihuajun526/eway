@@ -1,17 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
+<%
+    String appPath = Config.get("app.path");
+%>
 <html>
 <head>
     <title><%=Config.get("app.name")%>--活动</title>
-    <link rel="stylesheet" href="/images/animate.min.css">
-    <link rel="stylesheet" href="/images/bootstrap.css">
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <script src="/jquery/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/animate.min.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp?flag=4" flush="true"/>
-<div class="g-banner2"></div>
+<div class="g-banner4"></div>
 <div class="g-proj">
     <div class="g-actlst-tit">
         <ul>
@@ -40,7 +43,7 @@
             $(this).removeAttr("class");
         });
         $(obj).attr("class", "on");
-        $.get("/activity/list/" + type + "/" + pageIndex + "/6", function (result) {
+        $.get("<%=appPath%>/activity/list/" + type + "/" + pageIndex + "/6", function (result) {
             if (result.data.length < 6) {
                 $("#more").hide();
             } else
@@ -54,9 +57,9 @@
                     status = "已结束";
                 }
                 if (flag)
-                    $("#activitys").html("<div class='g-actlst-div'><div><a href='/activity/get/" + activity.id + "' target='_blank'><img src='" + activity.logo + "' width='326' height='186'/></a></div><div class='g-actlst-cnt'><h1><a href='/activity/get/" + activity.id + "' target='_blank'>" + activity.title + "</a></h1><span class='" + cls + "'>" + status + "</span><h3>" + activity.summary + "</h3></div></div>");
+                    $("#activitys").html("<div class='g-actlst-div'><div><a href='<%=appPath%>/activity/get/" + activity.id + "' target='_blank'><img src='" + activity.logo + "' width='326' height='186'/></a></div><div class='g-actlst-cnt'><h1><a href='<%=appPath%>/activity/get/" + activity.id + "' target='_blank'>" + activity.title + "</a></h1><span class='" + cls + "'>" + status + "</span><h3>" + activity.summary + "</h3></div></div>");
                 else
-                    $("#activitys").append("<div class='g-actlst-div'><div><a href='/activity/get/" + activity.id + "' target='_blank'><img src='" + activity.logo + "' width='326' height='186'/></a></div><div class='g-actlst-cnt'><h1><a href='/activity/get/" + activity.id + "' target='_blank'>" + activity.title + "</a></h1><span class='" + cls + "'>" + status + "</span><h3>" + activity.summary + "</h3></div></div>");
+                    $("#activitys").append("<div class='g-actlst-div'><div><a href='<%=appPath%>/activity/get/" + activity.id + "' target='_blank'><img src='" + activity.logo + "' width='326' height='186'/></a></div><div class='g-actlst-cnt'><h1><a href='<%=appPath%>/activity/get/" + activity.id + "' target='_blank'>" + activity.title + "</a></h1><span class='" + cls + "'>" + status + "</span><h3>" + activity.summary + "</h3></div></div>");
             }
         }, "json");
     }

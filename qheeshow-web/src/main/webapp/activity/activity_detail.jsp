@@ -2,21 +2,22 @@
 <%@ page import="com.qheeshow.eway.service.model.Activity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    String appPath = Config.get("app.path");
     Activity activity = (Activity) request.getAttribute("activity");
 %>
 <html>
 <head>
     <title><%=Config.get("app.name")%>--<%=activity.getTitle()%>
     </title>
-    <link rel="stylesheet" href="/images/animate.min.css">
-    <link rel="stylesheet"  href="/images/bootstrap.css">
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/animate.min.css">
+    <link rel="stylesheet"  href="<%=appPath%>/images/bootstrap.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp?flag=4" flush="true"/>
-<div class="g-banner2"></div>
+<div class="g-banner4"></div>
 <div class="g-conter">
     <div class="g-actlst-onel"><img src="<%=activity.getLogo()%>" width="440" height="250"/></div>
     <div class="g-actlst-oneer">
@@ -25,7 +26,7 @@
             <li class="on1">2017年3月28日 8:00-2017年3月28日 18:00</li>
             <li class="on2"><%=activity.getAddress()%></li>
             <li class="on3">限额<%=activity.getLimitNum()%>人</li>
-            <li class="on4"><span><img src="/images/wt-icon26.png"/></span><span class="on5"><%=activity.getSponsor()%></span><span
+            <li class="on4"><span><img src="<%=appPath%>/images/wt-icon26.png"/></span><span class="on5"><%=activity.getSponsor()%></span><span
                     class="on6"><a href="#">联系主办方：<%=activity.getTel()%></a></span></li>
         </ul>
         <ul class="g-actlst-onelst2">
@@ -40,7 +41,7 @@
     </div>
     <div class="g-actlst-twor">
         <ul class="g-actlst-two-lst">
-            <li><a href="#"><img src="/images/actlst-img2.jpg"/></a></li>
+            <li><a href="#"><img src="<%=appPath%>/images/actlst-img2.jpg"/></a></li>
         </ul>
         <div class="g-actlst-two-tit">活动地址</div>
         <ul class="g-actlst-two-lst">

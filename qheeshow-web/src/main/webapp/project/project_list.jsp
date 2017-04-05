@@ -4,6 +4,7 @@
 <%@ page import="com.qheeshow.eway.service.model.Xwcmclassinfo" %>
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%
+    String appPath = Config.get("app.path");
     List<Xwcmclassinfo> areas = (List<Xwcmclassinfo>) request.getAttribute("areas");
     List<Xwcmclassinfo> financingLimits = (List<Xwcmclassinfo>) request.getAttribute("financingLimits");
     List<Xwcmclassinfo> industrys = (List<Xwcmclassinfo>) request.getAttribute("industrys");
@@ -11,11 +12,11 @@
 <html>
 <head>
     <title><%=Config.get("app.name")%>--项目</title>
-    <link rel="stylesheet"  href="/images/bootstrap.css">
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <link rel="stylesheet" href="/images/project.css"/>
-    <script src="/jquery/jquery-1.11.1.js"></script>
+    <link rel="stylesheet"  href="<%=appPath%>/images/bootstrap.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/project.css"/>
+    <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
     <script>
         var type = 0;//项目类型
         var areaid = 0;//地区id
@@ -24,7 +25,7 @@
         var keyword = "";
         var pageIndex = 1;
         function list() {
-            $("#projects").load("/project/list/" + type + "/" + areaid + "/" + limitid + "/" + industryid + "/" + pageIndex + "?keyword=" + keyword);
+            $("#projects").load("<%=appPath%>/project/list/" + type + "/" + areaid + "/" + limitid + "/" + industryid + "/" + pageIndex + "?keyword=" + keyword);
         }
         function setType(value, obj, id) {
             type = value;

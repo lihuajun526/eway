@@ -4,6 +4,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    String appPath = Config.get("app.path");
     Investor investor = (Investor) request.getAttribute("investor");
     Map<String, Integer> tags = (HashMap<String, Integer>) request.getAttribute("tags");
 %>
@@ -11,9 +12,9 @@
 <head>
     <title><%=Config.get("app.name")%>--<%=investor.getTrueName()%>
     </title>
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp?flag=3" flush="true"/>
@@ -73,11 +74,11 @@
                         <div class="g-invest-twl">星级评价：</div>
                         <div class="g-invest-twr">
                             <ul>
-                                <li id="li1" onclick="setStar(1);"><img src="images/star-m.png"/></li>
-                                <li id="li2" onclick="setStar(2);"><img src="images/star-m.png"/></li>
-                                <li id="li3" onclick="setStar(3);"><img src="images/star-m.png"/></li>
-                                <li id="li4" onclick="setStar(4);"><img src="images/star-m.png"/></li>
-                                <li id="li5" onclick="setStar(5);"><img src="images/star-m.png"/></li>
+                                <li id="li1" onclick="setStar(1);"><img src="<%=appPath%>/images/star-m.png"/></li>
+                                <li id="li2" onclick="setStar(2);"><img src="<%=appPath%>/images/star-m.png"/></li>
+                                <li id="li3" onclick="setStar(3);"><img src="<%=appPath%>/images/star-m.png"/></li>
+                                <li id="li4" onclick="setStar(4);"><img src="<%=appPath%>/images/star-m.png"/></li>
+                                <li id="li5" onclick="setStar(5);"><img src="<%=appPath%>/images/star-m.png"/></li>
                             </ul>
                         </div>
                     </div>
@@ -136,9 +137,9 @@
     function setStar(v) {
         for (var i = 1; i <= 5; i++) {
             if (i <= v)
-                $("#li" + i).html("<img src='images/star-n.png'/>");
+                $("#li" + i).html("<img src='<%=appPath%>/images/star-n.png'/>");
             else
-                $("#li" + i).html("<img src='images/star-m.png'/>");
+                $("#li" + i).html("<img src='<%=appPath%>/images/star-m.png'/>");
         }
         $("#star").val(v);
     }
@@ -163,7 +164,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: '/comment/save/authj',
+            url: '<%=appPath%>/comment/save/authj',
             cache: false,
             processData: false,
             data: $('#commentForm').serialize(),
@@ -181,7 +182,7 @@
     function follow(userid, investorid) {
         if ("已关注" == $("#follow_").html())
             return;
-        $.get("/investor/follow/" + userid + "/" + investorid, function (result) {
+        $.get("<%=appPath%>/investor/follow/" + userid + "/" + investorid, function (result) {
             if (result.data) {
                 $("#follow_").html("已关注");
             } else {
@@ -190,7 +191,7 @@
         }, "json");
     }
     //是否已关注
-    $.get("/investor/isfollow/<%=investor.getId()%>", function (result) {
+    $.get("<%=appPath%>/investor/isfollow/<%=investor.getId()%>", function (result) {
         if (result.data) {
             $("#follow_").html("已关注");
         } else {
@@ -199,7 +200,7 @@
     }, "json");
 
     function bound(userid) {
-        $.get("/mixcom/bound/" + userid + "/authj", function (result) {
+        $.get("<%=appPath%>/mixcom/bound/" + userid + "/authj", function (result) {
             if (result.code < 0) {
                 alert(result.message);
                 return;

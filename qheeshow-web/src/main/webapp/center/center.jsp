@@ -3,18 +3,19 @@
 <%@ page import="com.qheeshow.eway.service.model.User" %>
 <%@ page import="org.springframework.util.StringUtils" %>
 <%
+    String appPath = Config.get("app.path");
     User loginUser = (User) session.getAttribute("loginUser");
 %>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title><%=Config.get("app.name")%>--个人中心</title>
-    <link rel="stylesheet" href="/images/animate.min.css">
-    <link rel="stylesheet" href="/images/bootstrap.css">
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <script src="/jquery/jquery-1.11.1.js"></script>
-    <script src="/jquery/ajaxfileupload.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/animate.min.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script src="<%=appPath%>/jquery/ajaxfileupload.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
@@ -29,10 +30,10 @@
                     <li class="on1">
                         <a onclick="selectFile('photoFile');">
                             <img id="photoImg"
-                                 src="<%=StringUtils.isEmpty(loginUser.getPhoto())?"/images/bg-new1.png":loginUser.getPhoto()%>"
+                                 src="<%=StringUtils.isEmpty(loginUser.getPhoto())?appPath+"/images/bg-new1.png":loginUser.getPhoto()%>"
                                  width="90" height="90"/>
                         </a>
-                        <a class="camera"><img src="/images/wt-icon14.png" width="21" height="21"/></a>
+                        <a class="camera"><img src="<%=appPath%>/images/wt-icon14.png" width="21" height="21"/></a>
                     </li>
                     <li class="on2"><%=loginUser.getName()%>
                     </li>
@@ -50,15 +51,15 @@
                     } else if (loginUser.getRoleid().intValue() >= 30 && loginUser.getRoleid().intValue() < 40) {//投资人
                         if (request.getAttribute("investor") == null) {
                     %>
-                    <li class="on3"><a href="/investor/<%=loginUser.getId()%>/add/edit/1/auth">完善信息</a></li>
+                    <li class="on3"><a href="<%=appPath%>/investor/<%=loginUser.getId()%>/add/edit/1/auth">完善信息</a></li>
                     <%
                     } else if (loginUser.getRoleid().intValue() == 30) {
                     %>
-                    <li class="on3"><a href="/investor/<%=loginUser.getId()%>/add/edit/2/auth">申请认证</a></li>
+                    <li class="on3"><a href="<%=appPath%>/investor/<%=loginUser.getId()%>/add/edit/2/auth">申请认证</a></li>
                     <%
                     } else {
                     %>
-                    <li class="on3"><a href="/investor/<%=loginUser.getId()%>/add/edit/1/auth">修改信息</a></li>
+                    <li class="on3"><a href="<%=appPath%>/investor/<%=loginUser.getId()%>/add/edit/1/auth">修改信息</a></li>
                     <%
                             }
                         }
@@ -67,15 +68,15 @@
             </div>
             <div class="g-mg-ltwo">
                 <ul class="g-mg-ltwolst">
-                    <li style="cursor: pointer" onclick="menu(this,'/center/project/1/5/1');" class="on">项目管理</li>
+                    <li style="cursor: pointer" onclick="menu(this,'<%=appPath%>/center/project/1/5/1');" class="on">项目管理</li>
                     <%
                         if (loginUser.getRoleid() == 20) {
                     %>
-                    <li style="cursor: pointer" onclick="menu(this,'/center/myservices/0');">购买的服务</li>
+                    <li style="cursor: pointer" onclick="menu(this,'<%=appPath%>/center/myservices/0');">购买的服务</li>
                     <%
                         }
                     %>
-                    <li style="cursor: pointer" onclick="menu(this,'/center/message/list/1/1/5');">消息</li>
+                    <li style="cursor: pointer" onclick="menu(this,'<%=appPath%>/center/message/list/1/1/5');">消息</li>
                     <li style="cursor: pointer" onclick="menu(this,'');">个人设置</li>
                 </ul>
             </div>
@@ -97,7 +98,7 @@
     function load(url) {
         $("#content").load(url);
     }
-    load("/center/project/1/1/1");
+    load("<%=appPath%>/center/project/1/1/1");
 
     function selectFile(id) {
         $('#' + id).click();
@@ -113,7 +114,7 @@
             return;
         }
         $.ajaxFileUpload({
-                    url: '/image/upload', //用于文件上传的服务器端请求地址
+                    url: '<%=appPath%>/image/upload', //用于文件上传的服务器端请求地址
                     type: 'post',
                     secureuri: false, //是否需要安全协议，一般设置为false
                     fileElementId: fileid, //文件上传域的ID
@@ -124,7 +125,7 @@
                             return;
                         }
                         $('#' + imgid).attr("src", result.data.path);
-                        $.get("/user/photo/upload/authj?path=" + result.data.path, function (result) {
+                        $.get("<%=appPath%>/user/photo/upload/authj?path=" + result.data.path, function (result) {
 
                         }, "json");
                     }

@@ -5,17 +5,18 @@
 <%@ page import="org.springframework.util.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    String appPath = Config.get("app.path");
     Project project = (Project) request.getAttribute("project");
     List<TeamMember> members = (List<TeamMember>) request.getAttribute("members");
 %>
 <html>
 <head>
     <title><%=Config.get("app.name")%>--创建项目</title>
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <link rel="stylesheet" href="/images/project.css"/>
-    <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
-    <script src="/jquery/ajaxfileupload.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/project.css"/>
+    <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script src="<%=appPath%>/jquery/ajaxfileupload.js"></script>
     <script>
         var flag = true;
     </script>
@@ -40,7 +41,8 @@
                 <ul class="pro-one-lst">
                     <li class="on1">个人头像</li>
                     <li class="on2">
-                        <div class="pro-lst2"><img id="photoImg_0" src="/images/bg-new1.png" onclick="selectFile(0);"
+                        <div class="pro-lst2"><img id="photoImg_0" src="<%=appPath%>/images/bg-new1.png"
+                                                   onclick="selectFile(0);"
                                                    title="点击上传照片" width="130" height="130"/></div>
                     </li>
                     <li class="on3">支持png/jpg/jepg格式</li>
@@ -93,7 +95,7 @@
                     <li class="on2">
                         <div class="pro-lst2">
                             <img id="photoImg_<%=member.getId()%>"
-                                 src="<%=StringUtils.isEmpty(member.getPhoto())?"/images/bg-new1.png":member.getPhoto()%>"
+                                 src="<%=StringUtils.isEmpty(member.getPhoto())?appPath+"/images/bg-new1.png":member.getPhoto()%>"
                                  onclick="selectFile(<%=member.getId()%>);" title="点击上传照片" width="130" height="130"/>
                         </div>
                     </li>
@@ -144,8 +146,8 @@
         <div class="group"><a onclick="addMember();">添加核心成员</a></div>
         <!--*************************下一步按钮************************-->
         <div class="pro-clear"></div>
-        <div class="pro-btn"><a href="/project/<%=project.getId() %>/add/edit/1/auth">上一步</a><a
-                href="/project/<%=project.getId() %>/add/edit/3/auth">下一步</a></div>
+        <div class="pro-btn"><a href="<%=appPath%>/project/<%=project.getId() %>/add/edit/1/auth">上一步</a><a
+                href="<%=appPath%>/project/<%=project.getId() %>/add/edit/3/auth">下一步</a></div>
     </div>
 </div>
 <jsp:include page="../pub/foot.jsp" flush="true"/>
@@ -155,7 +157,7 @@
     function saveTeam(obj) {
         $.ajax({
             type: 'POST',
-            url: '/project/team/save/authj',
+            url: '<%=appPath%>/project/team/save/authj',
             cache: false,
             processData: false,
             data: $(obj).parent().parent().serialize(),
@@ -175,7 +177,7 @@
             alert("请先保存团队信息");
             return;
         }
-        $("#members").load("/project/member_append.jsp?projectid=<%=project.getId()%>");
+        $("#members").load("<%=appPath%>/project/member_append.jsp?projectid=<%=project.getId()%>");
     }
     var imgid = null;
     var hiddenid = null;
@@ -190,7 +192,7 @@
             return;
         }
         $.ajaxFileUpload({
-                    url: '/image/upload', //用于文件上传的服务器端请求地址
+                    url: '<%=appPath%>/image/upload', //用于文件上传的服务器端请求地址
                     type: 'post',
                     secureuri: false, //是否需要安全协议，一般设置为false
                     fileElementId: 'photoFile', //文件上传域的ID

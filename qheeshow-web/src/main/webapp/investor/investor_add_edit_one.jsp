@@ -6,6 +6,7 @@
 <%@ page import="org.springframework.util.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    String appPath = Config.get("app.path");
     User loginUser = (User) session.getAttribute("loginUser");
     Object object = request.getAttribute("investor");
     Investor investor = object == null ? null : (Investor) object;
@@ -19,12 +20,12 @@
 <html>
 <head>
     <title><%=Config.get("app.name")%>--投资人信息完善</title>
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <link rel="stylesheet" href="/images/investor.css"/>
-    <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
-    <script src="/jquery/ajaxfileupload.js"></script>
-    <script src="/js/util.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/investor.css"/>
+    <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script src="<%=appPath%>/jquery/ajaxfileupload.js"></script>
+    <script src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp?flag=3" flush="true"/>
@@ -52,7 +53,7 @@
                         <a href="#">
                             <ul class="inv-lst1">
                                 <li><img id="photoImg"
-                                         src="<%=isNull?"/images/wt-icon19.png":investor.getPhoto()%>"
+                                         src="<%=isNull?appPath+"/images/wt-icon19.png":investor.getPhoto()%>"
                                          width="58" height="58"
                                          onclick="selectFile('photoFile')"/></li>
                                 <li class="head">上传头像</li>
@@ -361,7 +362,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: '/investor/base/save/authj',
+            url: '<%=appPath%>/investor/base/save/authj',
             cache: false,
             processData: false,
             data: $('#baseForm').serialize(),
@@ -371,7 +372,7 @@
                     alert(result.message);
                     return;
                 }
-                window.location.href = "/investor/" + result.data + "/add/edit/2/auth";
+                window.location.href = "<%=appPath%>/investor/" + result.data + "/add/edit/2/auth";
             }
         });
     }
@@ -407,7 +408,7 @@
     //上传图片
     function doUpload() {
         $.ajaxFileUpload({
-                    url: '/image/upload', //用于文件上传的服务器端请求地址
+                    url: '<%=appPath%>/image/upload', //用于文件上传的服务器端请求地址
                     type: 'post',
                     secureuri: false, //是否需要安全协议，一般设置为false
                     fileElementId: 'photoFile', //文件上传域的ID

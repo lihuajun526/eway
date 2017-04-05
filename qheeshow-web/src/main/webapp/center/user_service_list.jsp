@@ -3,7 +3,9 @@
 <%@ page import="com.qheeshow.eway.service.model.Project" %>
 <%@ page import="com.qheeshow.eway.service.model.GoodsItem" %>
 <%@ page import="com.qheeshow.eway.service.model.Investor" %>
+<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%
+    String appPath = Config.get("app.path");
     List<Project> projects = (List<Project>) request.getAttribute("projects");
     Integer projectid = (Integer) request.getAttribute("projectid");
     List<GoodsItem> goodsItems = (List<GoodsItem>) request.getAttribute("goodsItems");
@@ -21,7 +23,7 @@
         <%
         } else {
         %>
-        <li style="cursor: pointer" onclick="load('/center/myservices/<%=project.getId()%>');"><a><%=project.getTitle()%>
+        <li style="cursor: pointer" onclick="load('<%=appPath%>/center/myservices/<%=project.getId()%>');"><a><%=project.getTitle()%>
         </a></li>
         <%
                 }
@@ -54,7 +56,7 @@
                                 class="g-sev-post"><%=investor.getCompanyName()%><%=investor.getCompanyRank()%></span>
                         </li>
                         <li class="on3"></li>
-                        <li class="on4"><a href="/investor/detail?id=<%=investor.getId()%>" target="_blank">查看详情</a>
+                        <li class="on4"><a href="<%=appPath%>/investor/detail?id=<%=investor.getId()%>" target="_blank">查看详情</a>
                         </li>
                     </ul>
                 </li>

@@ -6,6 +6,7 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    String appPath = Config.get("app.path");
     Object object = request.getAttribute("project");
     Project project = object == null ? null : (Project) object;
     boolean isNull = project == null;
@@ -24,14 +25,12 @@
 <html>
 <head>
     <title><%=Config.get("app.name")%>--创建项目</title>
-    <!--*************************bootstrap css end************************-->
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <!--*************************创建项目的主链接************************-->
-    <link rel="stylesheet" href="/images/project.css"/>
-    <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
-    <script src="/jquery/ajaxfileupload.js"></script>
-    <script src="/js/config.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/project.css"/>
+    <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script src="<%=appPath%>/jquery/ajaxfileupload.js"></script>
+    <script src="<%=appPath%>/js/config.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
@@ -77,7 +76,7 @@
                     <li class="on1">项目LOGO</li>
                     <li class="on2">
                         <img id="logoImg" onclick="selectFile('logoFile');" title="点击添加图片"
-                             src="<%=(isNull|| StringUtils.isEmpty(project.getLogo()))?"/images/bg-new1.png":project.getLogo() %>"
+                             src="<%=(isNull|| StringUtils.isEmpty(project.getLogo()))?appPath+"/images/bg-new1.png":project.getLogo() %>"
                              class="oimg"/>
                     </li>
                     <li class="on3">支持png/jpg/jepg格式</li>
@@ -568,7 +567,7 @@
             return;
         }
         $.ajaxFileUpload({
-                    url: '/image/upload', //用于文件上传的服务器端请求地址
+                    url: '<%=appPath%>/image/upload', //用于文件上传的服务器端请求地址
                     type: 'post',
                     secureuri: false, //是否需要安全协议，一般设置为false
                     fileElementId: fileid, //文件上传域的ID
@@ -595,7 +594,7 @@
             return;
         }
         $.ajaxFileUpload({
-                    url: '/file/upload', //用于文件上传的服务器端请求地址
+                    url: '<%=appPath%>/file/upload', //用于文件上传的服务器端请求地址
                     type: 'post',
                     secureuri: false, //是否需要安全协议，一般设置为false
                     fileElementId: fileid, //文件上传域的ID
@@ -624,7 +623,7 @@
         $("#tags").val(tags);
         $.ajax({
             type: 'POST',
-            url: '/project/base/save/authj',
+            url: '<%=appPath%>/project/base/save/authj',
             cache: false,
             processData: false,
             data: $('#baseForm').serialize(),
@@ -634,7 +633,7 @@
                     alert(result.message);
                     return;
                 }
-                window.location.href = "/project/" + result.data + "/add/edit/2/auth";
+                window.location.href = "<%=appPath%>/project/" + result.data + "/add/edit/2/auth";
             }
         });
     }

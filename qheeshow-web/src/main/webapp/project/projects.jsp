@@ -1,7 +1,9 @@
 <%@ page import="com.qheeshow.eway.service.model.Project" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%
     List<Project> projects = (List<Project>) request.getAttribute("projects");
+    String appPath = Config.get("app.path");
 %>
 <%
     for (Project project : projects) {
@@ -64,6 +66,6 @@
         list();
     }
     function openDetail(id) {
-        window.open("/project/" + id);
+        window.open("<%=appPath%>/project/" + id);
     }
 </script>

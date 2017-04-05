@@ -2,10 +2,10 @@
 <%@ page import="com.qheeshow.eway.service.model.Investor" %>
 <%@ page import="org.springframework.util.StringUtils" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%
+    String appPath = Config.get("app.path");
     List<Investor> investors = (List<Investor>) request.getAttribute("investors");
-%>
-<%
     for (Investor investor : investors) {
 %>
 <div class="g-people-lst">
@@ -92,6 +92,6 @@
         list();
     }
     function openDetail(id) {
-        window.open("/investor/" + id);
+        window.open("<%=appPath%>/investor/" + id);
     }
 </script>

@@ -1,21 +1,24 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String appPath = Config.get("app.path");
+%>
 <html>
 <head>
     <title><%=Config.get("app.name")%>--注册</title>
-    <link rel="stylesheet" href="/images/animate.min.css">
-    <link rel="stylesheet" href="/images/bootstrap.css">
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="/js/util.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/animate.min.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
 <div class="g-lgin">
     <div class="g-lgin-m">
         <ul class="g-lgin-t g-lgin-t2">
-            <li class="on2"><a href="/user/login.jsp">登录</a></li>
+            <li class="on2"><a href="login.jsp">登录</a></li>
             <li class="on1"><a>注册</a></li>
         </ul>
         <form id="registForm">
@@ -27,18 +30,18 @@
                     <li onclick="setRole(30,this);"><a>投资人</a></li>
                 </ul>
                 <ul class="g-lgin-lst">
-                    <li><input value="李华君" id="name" name="name" type="text" class="g-lgin-ipt2" placeholder="请务必填写真实姓名"/>
+                    <li><input id="name" name="name" type="text" class="g-lgin-ipt2" placeholder="请务必填写真实姓名"/>
                     </li>
-                    <li><input value="18857107000" id="mobile" name="mobile" type="text" class="g-lgin-ipt2"
+                    <li><input id="mobile" name="mobile" type="text" class="g-lgin-ipt2"
                                placeholder="请输入手机号"/></li>
-                    <li><input value="515182557@qq.com" id="email" name="email" type="text" class="g-lgin-ipt2"
+                    <li><input id="email" name="email" type="text" class="g-lgin-ipt2"
                                placeholder="请输入邮箱"/></li>
-                    <li><input value="1234" id="smsCode" name="smsCode" type="text" class="g-lgin-ipt2"
+                    <li><input id="smsCode" name="smsCode" type="text" class="g-lgin-ipt2"
                                placeholder="请输入短信验证码"/><span><a id="counter" onclick="getSmsCode();">获取验证码</a></span>
                     </li>
-                    <li><input value="password" id="password" name="password" type="password" class="g-lgin-ipt2"
+                    <li><input id="password" name="password" type="password" class="g-lgin-ipt2"
                                placeholder="请输入密码"/></li>
-                    <li><input value="password" id="rePassword" name="rePassword" type="password" class="g-lgin-ipt2"
+                    <li><input id="rePassword" name="rePassword" type="password" class="g-lgin-ipt2"
                                placeholder="请再次输入密码"/>
                     </li>
                 </ul>
@@ -61,7 +64,7 @@
             tip("请输入手机号");
             return;
         }
-        $.get("/sms/get/" + mobile + "?type=regist", function (result) {
+        $.get("<%=appPath%>/sms/get/" + mobile + "?type=regist", function (result) {
             if (result.data) {
                 alert("发送成功");
                 $("#counter").parent().attr("class", "g-ove");
@@ -78,7 +81,7 @@
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/user/regist',
+            url: '<%=appPath%>/user/regist',
             data: $('#registForm').serialize(),
             success: function (result) {
                 if (!result.data) {
@@ -87,9 +90,9 @@
                 }
                 var roleid = $("#roleid").val();
                 if (roleid == 20) {
-                    window.location.href = "/project/0/add/edit/1/auth";
+                    window.location.href = "<%=appPath%>/project/0/add/edit/1/auth";
                 } else if (roleid == 30) {
-                    window.location.href = "/investor/0/add/edit/1/auth";
+                    window.location.href = "<%=appPath%>/investor/0/add/edit/1/auth";
                 }
             }
         });

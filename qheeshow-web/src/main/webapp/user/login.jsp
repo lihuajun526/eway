@@ -1,14 +1,17 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String appPath = Config.get("app.path");
+%>
 <html>
 <head>
     <title><%=Config.get("app.name")%>--登录</title>
-    <link rel="stylesheet" href="/images/animate.min.css">
-    <link rel="stylesheet" href="/images/bootstrap.css">
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="/js/util.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/animate.min.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
@@ -17,7 +20,7 @@
         <div class="g-lgin-m">
             <ul class="g-lgin-t">
                 <li class="on1"><a>登录</a></li>
-                <li class="on2"><a href="./regist.jsp" style="text-decoration:none">注册</a></li>
+                <li class="on2"><a href="regist.jsp" style="text-decoration:none">注册</a></li>
             </ul>
             <div class="g-lgin-cnt">
                 <ul class="g-lgin-lst">
@@ -50,14 +53,14 @@
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/user/login',
+            url: '<%=appPath%>/user/login',
             data: $('#loginForm').serialize(),
             success: function (result) {
                 if (!result.success) {
                     alert(result.data);
                     return;
                 }
-                window.location.href = "/index";
+                window.location.href = "<%=appPath%>/index";
             }
         });
     }

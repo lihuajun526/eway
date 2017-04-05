@@ -1,5 +1,7 @@
+<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    String appPath = Config.get("app.path");
     String projectid = request.getParameter("projectid");
 %>
 <form>
@@ -11,7 +13,7 @@
         <ul class="pro-one-lst">
             <li class="on1">个人头像</li>
             <li class="on2">
-                <div class="pro-lst2"><img id="photoImg_0" src="/images/bg-new1.png" onclick="selectFile(0);"
+                <div class="pro-lst2"><img id="photoImg_0" src="<%=appPath%>/images/bg-new1.png" onclick="selectFile(0);"
                                            title="点击上传照片" width="130" height="130"/></div>
             </li>
             <li class="on3">支持png/jpg/jepg格式</li>

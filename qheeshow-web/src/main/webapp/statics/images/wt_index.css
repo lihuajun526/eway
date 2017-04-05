@@ -642,6 +642,14 @@
 	height:304px;
 	background:url(bg-banner2.png) no-repeat center top;
 }
+.g-banner3 {
+	height:304px;
+	background:url(bg-banner3.png) no-repeat center top;
+}
+.g-banner4 {
+	height:304px;
+	background:url(bg-banner4.png) no-repeat center top;
+}
 .g-proj {
 	background:#f9f9f9;
 	overflow:hidden;

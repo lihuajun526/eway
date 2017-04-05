@@ -5,6 +5,7 @@
 <%@ page import="com.qheeshow.eway.service.model.CommonQa" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    String appPath = Config.get("app.path");
     Project project = (Project) request.getAttribute("project");
     List<TeamMember> members = (List<TeamMember>) request.getAttribute("members");
     List<CommonQa> commonQas = (List<CommonQa>) request.getAttribute("commonQas");
@@ -13,9 +14,9 @@
 <head>
     <title><%=Config.get("app.name")%>--<%=project.getTitle()%>
     </title>
-    <link rel="stylesheet" href="/images/global_v2.0.0.css"/>
-    <link rel="stylesheet" href="/images/wt_index.css"/>
-    <script src="/jquery/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
+    <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
@@ -189,7 +190,7 @@
 <script>
     $.ajax({
         type: 'GET',
-        url: '/project/isfollow/<%=project.getId() %>',
+        url: '<%=appPath%>/project/isfollow/<%=project.getId() %>',
         dataType: 'json',
         success: function (result) {
             if (!result.data) {
@@ -202,7 +203,7 @@
     function follow() {
         $.ajax({
             type: 'GET',
-            url: '/project/follow/<%=project.getId() %>',
+            url: '<%=appPath%>/project/follow/<%=project.getId() %>',
             dataType: 'json',
             success: function (result) {
                 if (result.code == 0) {
@@ -216,7 +217,7 @@
     function listFollows() {
         $.ajax({
             type: 'GET',
-            url: '/project/follow/list/<%=project.getId() %>',
+            url: '<%=appPath%>/project/follow/list/<%=project.getId() %>',
             dataType: 'json',
             success: function (result) {
                 if (result.code < 0)
@@ -224,7 +225,7 @@
                 var investors = result.data;
                 for (var i = 0; i < investors.length; i++) {
                     var investor = investors[i];
-                    $("#follows").append("<li><a href='/investor/" + investor.id + "' target='_blank'><img src='" + investor.photo + "' width='50' height='50'/><span>" + investor.trueName + "</span></a></li>");
+                    $("#follows").append("<li><a href='<%=appPath%>/investor/" + investor.id + "' target='_blank'><img src='" + investor.photo + "' width='50' height='50'/><span>" + investor.trueName + "</span></a></li>");
                 }
             }
         });
@@ -232,7 +233,7 @@
     function listAdvisers() {
         $.ajax({
             type: 'GET',
-            url: '/project/adviser/list/<%=project.getId() %>',
+            url: '<%=appPath%>/project/adviser/list/<%=project.getId() %>',
             dataType: 'json',
             success: function (result) {
                 if (result.code < 0)
@@ -240,13 +241,13 @@
                 var investors = result.data;
                 for (var i = 0; i < investors.length; i++) {
                     var investor = investors[i];
-                    $("#advisers").append("<li><a href='/investor/" + investor.id + "' target='_blank'><img src='" + investor.photo + "' width='50' height='50'/><span>" + investor.trueName + "</span></a></li>");
+                    $("#advisers").append("<li><a href='<%=appPath%>/investor/" + investor.id + "' target='_blank'><img src='" + investor.photo + "' width='50' height='50'/><span>" + investor.trueName + "</span></a></li>");
                 }
             }
         });
     }
     function bound(userid) {
-        $.get("/mixcom/bound/" + userid + "/authj", function (result) {
+        $.get("<%=appPath%>/mixcom/bound/" + userid + "/authj", function (result) {
             if (result.code < 0) {
                 alert(result.message);
                 return;
@@ -255,7 +256,7 @@
         }, "json");
     }
     function applyAdviser(projectid) {
-        $.get("/project/adviser/apply/" + projectid + "/authj", function (result) {
+        $.get("<%=appPath%>/project/adviser/apply/" + projectid + "/authj", function (result) {
             if (result.code < 0) {
                 alert(result.message);
                 return;

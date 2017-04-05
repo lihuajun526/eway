@@ -1,9 +1,12 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String appPath = Config.get("app.path");
+%>
 <html>
 <head>
     <title><%=Config.get("app.name")%>--密码重置</title>
-    <script type="text/javascript" src="/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp" flush="true"/>
@@ -35,14 +38,14 @@
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/user/password/reset',
+            url: '<%=appPath%>/user/password/reset',
             data: $('#resetPwdForm').serialize(),
             success: function (result) {
                 if (!result.data) {
                     alert(result.message);
                     return;
                 }
-                window.location.href = "/index";
+                window.location.href = "<%=appPath%>/index";
             }
         });
     }
