@@ -5,6 +5,7 @@
 %>
 <html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--密码重置</title>
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>

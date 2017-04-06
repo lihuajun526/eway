@@ -9,6 +9,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--个人中心</title>
     <link rel="stylesheet" href="<%=appPath%>/images/animate.min.css">
     <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">

@@ -6,6 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>
     </title>
     <link rel="stylesheet" href="<%=appPath%>/images/animate.min.css">

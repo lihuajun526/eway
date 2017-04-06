@@ -5,6 +5,7 @@
 %>
 <html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--登录</title>
     <link rel="stylesheet" href="<%=appPath%>/images/animate.min.css">
     <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">

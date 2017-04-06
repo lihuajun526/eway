@@ -12,6 +12,7 @@
 %>
 <html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--<%=project.getTitle()%>
     </title>
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
