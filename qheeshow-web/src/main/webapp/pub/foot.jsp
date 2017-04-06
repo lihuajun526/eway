@@ -33,5 +33,11 @@
     </div>
   </div>
 </div>
+<script type="text/javascript" src="/web/js/placeholder.min.js"></script>
+<script>
+  $(function() {
+    $('input, textarea').placeholder();
+  });
+</script>
 </body>
 </html>
