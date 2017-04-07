@@ -1080,6 +1080,7 @@
 	border-radius:6px;
 	width:420px;
 	height:56px;
+	line-height:56px;
 	margin-top:32px;
 	padding-left:20px;
 	opacity:0.4;
@@ -1203,7 +1204,7 @@
 	background:#fefefe;
 	border:1px solid #f4f4f4;
 	width:998px;
- *min-height:300px;
+	*min-height:300px;
 	margin:0 auto;
 	overflow:hidden;
 	margin-top:10px;
@@ -1662,7 +1663,7 @@
 	border-radius:4px;
 	width:600px;
 	height:117px;
- *height:85px;
+	*height:85px;
 	margin:10px 0;
 	padding-bottom:30px;
 }
@@ -1942,7 +1943,7 @@
 	margin-bottom:12px;
 	background:#FFFFFF;
 	width:248px;
-*width:198px;
+	*width:198px;
 	height:274px;
 	padding:40px 25px 0;
 	text-align:center;
