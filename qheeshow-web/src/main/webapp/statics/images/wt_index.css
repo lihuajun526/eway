@@ -119,11 +119,13 @@
 	line-height:38px;
 	color:#000;
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	margin:0 35px;
 }
 .g-tit1 a.on {
 	color:#0097e1;
 	opacity:1.0;
+	filter: alpha(opacity=100);
 	border-bottom:2px solid #0097e1;
 }
 .g-cont {
@@ -153,6 +155,7 @@
 	line-height:22px;
 	color:#000000;
 	opacity:0.4;
+	filter: alpha(opacity=40);
 	font-size:13px;
 }
 .g-one1 .icon {
@@ -175,6 +178,7 @@
 .g-two-t2 {
 	color:#000;
 	opacity:0.3;
+	filter: alpha(opacity=30);
 	text-align:center;
 	padding-bottom:30px;
 }
@@ -210,6 +214,7 @@
 	font-size:13px;
 	color:#000000;
 	opacity:0.3;
+	filter: alpha(opacity=30);
 	width:169px;
 	margin:0 auto;
 	line-height:20px;
@@ -224,6 +229,7 @@
 	font-size:13px;
 	color:#000000;
 	opacity:0.69;
+	filter: alpha(opacity=69);
 }
 .g-two2 .on5 .tit {
 	float:left;
@@ -284,6 +290,7 @@
 	padding-bottom:40px;
 	font-size:14px;
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	color:#000000;
 }
 .g-three1 li .on4, .g-three1 li .on5 {
@@ -380,6 +387,7 @@
 .g-fivesen-c h2 {
 	padding:8px 0;
 	opacity:0.6;
+	filter: alpha(opacity=60);
 	color:#000000;
 }
 .g-fivesen-c h3 {
@@ -390,6 +398,7 @@
 .g-fivesen-c h3 a, .g-fivesen-r .on3 li a {
 	color:#000000;
 	opacity:0.3;
+	filter: alpha(opacity=30);
 }
 .g-fivesen-r .on1 {
 	font-size:24px;
@@ -397,6 +406,7 @@
 }
 .g-fivesen-r .on2 span {
 	opacity:0.4;
+	filter: alpha(opacity=40);
 	font-size:15px;
 	color:#000000;
 	display:block;
@@ -439,11 +449,13 @@
 	line-height:33px;
 	margin-bottom:10px;
 	opacity:0.3;
+	filter: alpha(opacity=30);
 	font-size:11px;
 	color:#000000;
 }
 .g-lst1 li h6 {
 	opacity:0.6;
+	filter: alpha(opacity=60);
 	font-size:11px;
 	color:#000000;
 }
@@ -455,6 +467,7 @@
 }
 .g-more2 a {
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	color:#000000;
 }
 /* foot star */
@@ -525,7 +538,8 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	opacity: .5;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
 	background-color: #000;
 }
 .g-pw1, .g-pw2, .g-pw4 {
@@ -557,6 +571,7 @@
 	margin-bottom:42px;
 	color:#000000;
 	opacity:0.69;
+	filter: alpha(opacity=69);
 }
 .g-pw4-lst {
 	text-align:center;
@@ -591,6 +606,7 @@
 	height:56px;
 	line-height:56px;
 	opacity:0.4;
+	filter: alpha(opacity=40);
 	font-size:16px;
 	color:#000000;
 }
@@ -618,6 +634,7 @@
 }
 .g-pw2-m2 {
 	opacity:0.3;
+	filter: alpha(opacity=30);
 	font-size:15px;
 	color:#000000;
 	text-align:center;
@@ -729,6 +746,7 @@
 }
 .g-proj-oner li a, .g-proj-oner-m, .g-proj-oner-m2, .g-proj-onec-a {
 	opacity:0.8;
+	filter: alpha(opacity=80);
 	font-size:16px;
 	color:#4c4062;
 }
@@ -800,6 +818,7 @@
 }
 .g-proj-twoc h3, .g-proj-twoc h3 a {
 	opacity:0.6;
+	filter: alpha(opacity=60);
 	color:#2a2437;
 }
 .g-proj-twor li {
@@ -816,6 +835,7 @@
 }
 .g-proj-twor li a {
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	font-size:15px;
 	color:#000000;
 }
@@ -957,6 +977,7 @@
 }
 .g-pser-cntont h3 {
 	opacity:0.3;
+	filter: alpha(opacity=30);
 	font-size:16px;
 	color:#000000;
 }
@@ -1084,6 +1105,7 @@
 	margin-top:32px;
 	padding-left:20px;
 	opacity:0.4;
+	filter: alpha(opacity=40);
 	font-size:16px;
 	color:#000000;
 }
@@ -1146,6 +1168,7 @@
 }
 .g-lgin-lst3 li, .g-lgin-lst3 li a {
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	color:#000000;
 }
 .g-lgin-lst3 li.on {
@@ -1155,6 +1178,7 @@
 .g-lgin-lst3 li.on a {
 	color:#FFFFFF;
 	opacity:1;
+	filter: alpha(opacity=100);
 }
 .g-lgin-ipt2 {
 	margin-top:15px;
@@ -1232,6 +1256,7 @@
 }
 .g-invest-t {
 	opacity:0.3;
+	filter: alpha(opacity=30);
 	font-size:16px;
 	color:#000000;
 	height:32px;
@@ -1240,6 +1265,7 @@
 .g-invest-onect div {
 	float:left;
 	opacity:0.6;
+	filter: alpha(opacity=60);
 	font-size:16px;
 	color:#000000;
 	line-height:30px;
@@ -1362,6 +1388,7 @@
 }
 .g-invest-rt {
 	opacity:0.6;
+	filter: alpha(opacity=60);
 	font-size:15px;
 	color:#000000;
 	height:45px;
@@ -1371,6 +1398,7 @@
 }
 .g-invest-rt2 {
 	opacity:0.6;
+	filter: alpha(opacity=60);
 	font-size:18px;
 	color:#000000;
 	height:45px;
@@ -1396,6 +1424,7 @@
 }
 .g-invest-rlst li span.on2 {
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	font-size:13px;
 	color:#000000;
 }
@@ -1409,6 +1438,7 @@
 .g-invest-rlst li span.on3 a {
 	color:#000000;
 	opacity:0.3;
+	filter: alpha(opacity=30);
 }
 .g-invest-rmore {
 	height:36px;
@@ -1418,6 +1448,7 @@
 }
 .g-invest-rmore a {
 	opacity:0.9;
+	filter: alpha(opacity=90);
 	color:#000000;
 	padding-right:18px;
 	background:url(jt-down.png) no-repeat right center;
@@ -1438,6 +1469,7 @@
 }
 .g-invest-lst3 li, .g-invest-lst3 li a {
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	color:#000000;
 }
 .g-invest-lst3 li.on {
@@ -1447,6 +1479,7 @@
 .g-invest-lst3 li.on a {
 	color:#FFFFFF;
 	opacity:1
+	filter: alpha(opacity=100);
 }
 .g-invest-two, .g-invest-two1 {
 	overflow:hidden;
@@ -1454,6 +1487,7 @@
 .g-invest-twl {
 	width:85px;
 	opacity:0.4;
+	filter: alpha(opacity=40);
 	font-size:16px;
 	color:#000000;
 	margin:10px 0;
@@ -1523,11 +1557,13 @@
 }
 .g-invest-tre-rt span.on1 {
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	font-size:13px;
 	color:#000000;
 }
 .g-invest-tre-rt span.on2 {
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	font-size:13px;
 	color:#7f7f7f;
 }
@@ -1539,6 +1575,7 @@
 }
 .g-invest-tre-rcn, .g-invest-tre-rcnt a {
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	color:#000000;
 }
 /******项目详情*****/
@@ -1597,6 +1634,7 @@
 }
 .g-proj-lonetit6, .g-proj-lonetit2, .g-proj-lonetit4 {
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	font-size:20px;
 	color:#000000;
 	height:60px;
@@ -1618,11 +1656,13 @@
 	font-size:16px;
 	margin:5px 20px;
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	color:#000000;
 }
 .g-proj-titlst li.on-bp {
 	font-size:20px;
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	font-size:20px;
 	color:#000000;
 }
@@ -1631,6 +1671,7 @@
 	right:20px;
 	top:32px;
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	font-size:16px;
 	color:#000000;
 }
@@ -1703,6 +1744,7 @@
 	margin:5px 0;
 	padding-left:10px;
 	opacity:0.3;
+	filter: alpha(opacity=30);
 	font-size:15px;
 	color:#000000;
 }
@@ -1766,6 +1808,7 @@
 	height:35px;
 	line-height:35px;
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	font-size:13px;
 	color:#000000;
 }
@@ -1839,6 +1882,7 @@
 }
 .g-mg-ltwolst li a {
 	opacity:0.9;
+	filter: alpha(opacity=90);
 	color:#000000;
 }
 .g-mg-rwap {
@@ -1872,6 +1916,7 @@
 }
 .g-mg-rtitlst li.on1 a {
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	color:#000000;
 }
 .g-invest-treimg2 {
@@ -1893,17 +1938,20 @@
 	right:35px;
 	top:4px;
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	font-size:15px;
 	color:#000000;
 }
 .g-mg-rtit6 .ts {
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	font-size:15px;
 	color:#000000;
 	margin-left:5px;
 }
 .g-mg-rtit3 a {
 	opacity:0.4;
+	filter: alpha(opacity=40);
 	font-size:13px;
 	color:#2a2437;
 }
@@ -2009,6 +2057,7 @@
 }
 .g-mgen-lst1 li a {
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	color:#000000;
 }
 .g-mgen .on4 {
@@ -2017,6 +2066,7 @@
 }
 .g-mgen .on5 {
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	font-size:13px;
 	color:#000000;
 }
@@ -2043,6 +2093,7 @@
 .g-mg-account li.on1 {
 	width:125px;
 	opacity:0.3;
+	filter: alpha(opacity=30);
 	font-size:16px;
 	color:#000000;
 }
@@ -2073,6 +2124,7 @@
 }
 .g-mg-account-bg li.on1 {
 	opacity:0.69;
+	filter: alpha(opacity=69);
 	color:#000000;
 }
 .g-mg-account-ipt {
@@ -2179,15 +2231,18 @@
 	margin:0 5px;
 	font-size:11px;
 	opacity:0.3;
+	filter: alpha(opacity=30);
 }
 .g-sev-post {
 	font-size:11px;
 	opacity:0.3;
+	filter: alpha(opacity=30);
 	color:#000000;
 }
 .g-sev-ov li.on3 {
 	font-size:11px;
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	color:#000000;
 	margin-top:-25px;
 }
@@ -2237,6 +2292,7 @@
 	line-height:42px;
 	display:inline-block;
 	opacity:0.8;
+	filter: alpha(opacity=80);
 	font-size:15px;
 	color:#000000;
 }
@@ -2246,6 +2302,7 @@
 	height:42px;
 	line-height:42px;
 	opacity:0.98;
+	filter: alpha(opacity=98);
 	color:#cccccc;
 }
 .g-pser-nlst2 {
@@ -2313,6 +2370,7 @@
 }
 .g-read-lst li a {
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	font-size:16px;
 	color:#000000;
 }
@@ -2334,6 +2392,7 @@
 }
 .g-read-cnt p {
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	font-size:16px;
 	color:#000000;
 	line-height:35px;
@@ -2348,6 +2407,7 @@
 	height:44px;
 	line-height:40px;
 	opacity:0.8;
+	filter: alpha(opacity=80);
 	font-size:20px;
 	color:#000000;
 	text-align:center;
@@ -2382,6 +2442,7 @@
 .g-date-time span {
 	display:inline-block;
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	font-size:13px;
 	color:#000;
 }
@@ -2519,6 +2580,7 @@
 	line-height:33px;
 	margin-bottom:10px;
 	opacity:0.3;
+	filter: alpha(opacity=30);
 	font-size:11px;
 	color:#000000;
 }
@@ -2536,6 +2598,7 @@
 }
 .g-people-lst-ul li.on1 {
 	opacity:0.5;
+	filter: alpha(opacity=50);
 	font-size:11px;
 	color:#333333;
 	width:60px;
@@ -2545,6 +2608,7 @@
 	font-size:12px;
 	text-align:left;
 	opacity:0.8;
+	filter: alpha(opacity=80);
 	color:#000000;
 }
 .g-people-lst-ul li.on2 span {
@@ -2585,6 +2649,7 @@
 .g-actlst-tit li a {
 	color:#000000;
 	opacity:0.6;
+	filter: alpha(opacity=60);
 }
 .g-actlst-tit li.on {
 	background:#0097e1;
@@ -2601,6 +2666,7 @@
 .g-actlst-tit li.on a {
 	color:#FFFFFF;
 	opacity:1.0;
+	filter: alpha(opacity=100);
 }
 .g-actlst-piece {
 	width:1008px;
