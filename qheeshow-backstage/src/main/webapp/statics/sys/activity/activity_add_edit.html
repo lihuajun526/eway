@@ -2,17 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/demo/demo.css">
-    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.min.js"></script>
-    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="/statics/jquery/ajaxfileupload.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/statics/js/config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/statics/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/statics/ueditor/ueditor.all.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/statics/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.4.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.4.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.4.5/demo/demo.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.4.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../../jquery/ajaxfileupload.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../js/config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../ueditor/lang/zh-cn/zh-cn.js"></script>
 </head>
 <body>
 <input type="file" id="logoFile" name="logoFile" onchange="doUpload('logoFile','logoImg','logo')"
@@ -34,7 +34,7 @@
         <tbody>
         <tr class="firstRow">
             <td rowspan="3" colspan="1" style="word-break: break-all;">
-                <img id="logoImg" onclick="selectFile('logoFile');" title="点击添加图片" src="/statics/images/bg-new1.png"
+                <img id="logoImg" onclick="selectFile('logoFile');" title="点击添加图片" src="../../images/bg-new1.png"
                      width="150" height="150"/>
             </td>
             <td style="word-break: break-all;">
@@ -161,7 +161,7 @@
         if (!validate())
             return;
         $.ajax({
-            url: '/activity/save',
+            url: appPath + '/activity/save',
             type: 'post',
             data: $('#activityForm').serialize(),
             dataType: 'json',
@@ -198,7 +198,7 @@
             return;
         }
         $.ajaxFileUpload({
-                    url: '/image/upload', //用于文件上传的服务器端请求地址
+                    url: appPath + '/image/upload', //用于文件上传的服务器端请求地址
                     type: 'post',
                     secureuri: false, //是否需要安全协议，一般设置为false
                     fileElementId: fileid, //文件上传域的ID
@@ -216,7 +216,7 @@
     }
     ue.ready(function () {
         if (parent.activityid > 0) {
-            $.get("/activity/get/" + parent.activityid, function (result) {
+            $.get(appPath + "/activity/get/" + parent.activityid, function (result) {
                 if (result.code != 0) {
                     alert("获取活动失败");
                     return;

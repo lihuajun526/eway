@@ -19,7 +19,7 @@
 <div class="g-proj">
     <div class="g-actlst-tit">
         <ul>
-            <li id="all" class="on" onclick="listActivity(0,this);"><a>全部</a><span></span></li>
+            <li id="all" class="on" onclick="listActivity(0,this,true);"><a>全部</a><span></span></li>
             <li onclick="listActivity(1,this,true);"><a>常规金融培训会议</a></li>
             <li onclick="listActivity(2,this,true);"><a>常规路演活动</a></li>
             <li onclick="listActivity(3,this,true);"><a>精品项目路演会</a></li>
@@ -31,7 +31,7 @@
         <div class="g-actlst-wap">
             <div id="activitys"></div>
             <div class="clear"></div>
-            <div id="more" class="g-actlst-more"><a onclick="listActivity();">查看更多</a></div>
+            <div id="more" class="g-actlst-more"><a onclick="more();">查看更多</a></div>
         </div>
     </div>
 </div>
@@ -39,7 +39,13 @@
 </body>
 <script>
     var pageIndex = 1;
+    var activityClass = 0;
+    var activityObj = null;
     function listActivity(type, obj, flag) {
+        if (activityClass != type)
+            pageIndex = 1;
+        activityClass = type;
+        activityObj = obj;
         $(obj).parent().children('li').each(function () {
             $(this).removeAttr("class");
         });
@@ -47,8 +53,11 @@
         $.get("<%=appPath%>/activity/list/" + type + "/" + pageIndex + "/6", function (result) {
             if (result.data.length < 6) {
                 $("#more").hide();
-            } else
+            } else{
+                $("#more").show();
                 pageIndex++;
+            }
+            var sData = "";
             for (var i = 0; i < result.data.length; i++) {
                 var activity = result.data[i];
                 var cls = "g-actlst-status";
@@ -57,13 +66,17 @@
                     cls = "g-actlst-status-1";
                     status = "已结束";
                 }
-                if (flag)
-                    $("#activitys").html("<div class='g-actlst-div'><div><a href='<%=appPath%>/activity/get/" + activity.id + "' target='_blank'><img src='" + activity.logo + "' width='326' height='186'/></a></div><div class='g-actlst-cnt'><h1><a href='<%=appPath%>/activity/get/" + activity.id + "' target='_blank'>" + activity.title + "</a></h1><span class='" + cls + "'>" + status + "</span><h3>" + activity.summary + "</h3></div></div>");
-                else
-                    $("#activitys").append("<div class='g-actlst-div'><div><a href='<%=appPath%>/activity/get/" + activity.id + "' target='_blank'><img src='" + activity.logo + "' width='326' height='186'/></a></div><div class='g-actlst-cnt'><h1><a href='<%=appPath%>/activity/get/" + activity.id + "' target='_blank'>" + activity.title + "</a></h1><span class='" + cls + "'>" + status + "</span><h3>" + activity.summary + "</h3></div></div>");
+                sData += "<div class='g-actlst-div'><div><a href='<%=appPath%>/activity/get/" + activity.id + "' target='_blank'><img src='" + activity.logo + "' width='326' height='186'/></a></div><div class='g-actlst-cnt'><h1><a href='<%=appPath%>/activity/get/" + activity.id + "' target='_blank'>" + activity.title + "</a></h1><span class='" + cls + "'>" + status + "</span><h3>" + activity.summary + "</h3></div></div>";
             }
+            if (flag)
+                $("#activitys").html(sData);
+            else
+                $("#activitys").append(sData);
         }, "json");
     }
     $("#all").click();
+    function more() {
+        listActivity(activityClass, activityObj, false);
+    }
 </script>
 </html>

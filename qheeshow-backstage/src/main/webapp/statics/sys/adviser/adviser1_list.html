@@ -12,7 +12,7 @@
             fitColumns: true,
             singleSelect: false,
             pagination: true,
-            url: '/project/adviser/list/1',
+            url: appPath + '/project/adviser/list/1',
             columns: [[
                 {
                     field: 'id', title: '编号', width: 3
@@ -20,13 +20,13 @@
                 {
                     field: 'trueName', title: '投资人', width: 18,
                     formatter: function (value, rec) {
-                        return "<a href='" + root_path + "investor/" + rec.investorid + "' target='_blank'>" + value + "</a>";
+                        return "<a href='" + appPath + "/investor/" + rec.investorid + "' target='_blank'>" + value + "</a>";
                     }
                 },
                 {
                     field: 'title', title: '项目', width: 18,
                     formatter: function (value, rec) {
-                        return "<a href='" + root_path + "project/" + rec.projectid + "' target='_blank'>" + value + "</a>";
+                        return "<a href='" + appPath + "/project/" + rec.projectid + "' target='_blank'>" + value + "</a>";
                     }
                 },
                 {
@@ -49,7 +49,7 @@
     }
     function updateStatus(id, status) {
         $.ajax({
-            url: '/project/adviser/status/update/' + id + '/' + status,
+            url: appPath + '/project/adviser/status/update/' + id + '/' + status,
             type: 'get',
             dataType: 'json',
             success: function (result) {

@@ -162,4 +162,22 @@ public class UserCenterController extends BaseController {
         modelAndView.addObject("investors", investors);
         return modelAndView;
     }
+
+    /**
+     * 个人设置
+     * @param projectid
+     * @param session
+     * @return
+     */
+    @RequestMapping("/setting")
+    @ResponseBody
+    public String setting(@PathVariable Integer projectid, HttpSession session) {
+        Result result = new Result();
+        User loginUser = (User) session.getAttribute("loginUser");
+        ProjectSuggest projectSuggest = new ProjectSuggest();
+        projectSuggest.setProjectid(projectid);
+        projectSuggest.setInvestorid(loginUser.getId());
+        projectSuggestService.del(projectSuggest);
+        return result.toString();
+    }
 }

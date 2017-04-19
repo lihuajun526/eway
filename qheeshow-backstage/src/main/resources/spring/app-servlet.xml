@@ -3,7 +3,15 @@
        xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:resources mapping="/statics/**" location="/statics/"/>
+    <mvc:resources mapping="data/**" location="/statics/data/"/>
+    <mvc:resources mapping="images/**" location="/statics/images/"/>
+    <mvc:resources mapping="jquery/**" location="/statics/jquery/"/>
+    <mvc:resources mapping="jquery-easyui-1.4.5/**" location="/statics/jquery-easyui-1.4.5/"/>
+    <mvc:resources mapping="js/**" location="/statics/js/"/>
+    <mvc:resources mapping="rule/**" location="/statics/rule/"/>
+    <mvc:resources mapping="sys/**" location="/statics/sys/"/>
+    <mvc:resources mapping="ueditor/**" location="/statics/ueditor/"/>
+    <mvc:resources mapping="upload/**" location="/statics/upload/"/>
 
     <!--<mvc:interceptors>
         <mvc:interceptor>

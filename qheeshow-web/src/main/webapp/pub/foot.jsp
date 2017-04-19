@@ -1,4 +1,8 @@
+<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  String appPath = Config.get("app.path");
+%>
 <html>
 <body>
 <div class="g-foot">
@@ -29,11 +33,11 @@
         <li><a href="#">搜狐财经</a></li>
         <li><a href="#">新浪网</a></li>
       </ul>
-      <div class="g-fr-ewm">不错过任何一个好产品<span><img src="/web/images/wt-ewm.png"/></span></div>
+      <div class="g-fr-ewm">不错过任何一个好产品<span><img src="<%=appPath%>/images/wt-ewm.png"/></span></div>
     </div>
   </div>
 </div>
-<script type="text/javascript" src="/web/js/placeholder.min.js"></script>
+<script type="text/javascript" src="<%=appPath%>/js/placeholder.min.js"></script>
 <script>
   $(function() {
     $('input, textarea').placeholder();

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
     <script type="text/javascript" src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
@@ -42,7 +43,6 @@
     </div>
 
 </div>
-
 <div class="g-mbg2">
 
     <h1 class="g-two-t">优秀案例</h1>
@@ -122,7 +122,7 @@
                     var areas = "";
                     if (!isEmpty(investor.cityName)) {
                         areas = investor.cityName.split("#");
-                        $("#area_" + investor.id).html(areas[0] + " |");
+                        $("#area_" + investor.id).html(areas[0]);
                     }
                     var indus = "";
                     if (!isEmpty(investor.industryName)) {
@@ -136,5 +136,7 @@
         }, "json");
     }
     listbest();
+    //$("#modal").modal("show");
+    xalert("这里是提示");
 </script>
 </html>

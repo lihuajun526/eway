@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>qheeshow-backstage</artifactId>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
@@ -40,9 +41,14 @@
             <version>20160810</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
     <build>
-        <finalName>backstage</finalName>
+        <finalName>mgr</finalName>
         <resources>
             <resource>
                 <directory>src/main/filters/${env}</directory>

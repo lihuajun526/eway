@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.qheeshow.eway.common.exception.CryptoException;
+import com.qheeshow.eway.common.util.AESCryptoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -197,6 +198,58 @@ public class UserController extends BaseController {
         User user = new User();
         user.setId(loginUser.getId());
         user.setPhoto(path);
+
+        userService.update(user);
+        return result.toString();
+    }
+
+    @RequestMapping(value = "/name/modify/authj")
+    @ResponseBody
+    public String modifyName(String name, HttpSession session) {
+
+        Result result = new Result();
+
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        User user = new User();
+        user.setName(name);
+        user.setId(loginUser.getId());
+
+        loginUser.setName(name);
+
+        userService.update(user);
+        return result.toString();
+    }
+
+    @RequestMapping(value = "/email/modify/authj")
+    @ResponseBody
+    public String modifyEmail(String email, HttpSession session) {
+
+        Result result = new Result();
+
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        User user = new User();
+        user.setEmail(email);
+        user.setId(loginUser.getId());
+
+        loginUser.setEmail(email);
+
+        userService.update(user);
+        return result.toString();
+    }
+
+    @RequestMapping(value = "/password/modify/authj")
+    @ResponseBody
+    public String modifyPwd(String password, HttpSession session) throws CryptoException {
+
+        Result result = new Result();
+
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        User user = new User();
+        user.setPassword(AESCryptoUtil.encrypt(password));
+        user.setId(loginUser.getId());
 
         userService.update(user);
         return result.toString();

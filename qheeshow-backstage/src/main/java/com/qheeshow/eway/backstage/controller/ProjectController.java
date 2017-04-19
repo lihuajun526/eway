@@ -235,4 +235,17 @@ public class ProjectController extends BaseController {
         return result.toString();
     }
 
+    @RequestMapping("/type/{projectid}/{type}")
+    @ResponseBody
+    public String setType(@PathVariable Integer projectid, @PathVariable Integer type) {
+        Result result = new Result();
+        Project project = new Project();
+        project.setId(projectid);
+        project.setType(type);
+
+        projectService.save(project);
+
+        return result.toString();
+    }
+
 }

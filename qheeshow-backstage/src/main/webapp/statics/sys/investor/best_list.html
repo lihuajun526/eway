@@ -13,7 +13,7 @@
             fitColumns: true,
             singleSelect: false,
             pagination: true,
-            url: '/investor/list?authStatus=2&isBest=1',
+            url: appPath + '/investor/list?authStatus=2&isBest=1',
             columns: [[
                 {
                     field: 'id', title: '编号', width: 3
@@ -49,7 +49,7 @@
         if ($('#tt').tabs('exists', title)) {
             $('#tt').tabs('select', title);
         } else {
-            var content = '<iframe scrolling="auto" frameborder="0"  src="/statics/sys/investor/investor_add_edit.html" style="width:100%;height:100%;"></iframe>';
+            var content = '<iframe scrolling="auto" frameborder="0"  src="' + appPath + '/sys/investor/investor_add_edit.html" style="width:100%;height:100%;"></iframe>';
             $('#tt').tabs('add', {
                 title: title,
                 content: content,
@@ -68,7 +68,7 @@
     }
     function setBest(id, isBest) {
         $.ajax({
-            url: '/investor/best/' + id + '/' + isBest,
+            url: appPath + '/investor/best/' + id + '/' + isBest,
             type: 'get',
             dataType: 'json',
             success: function (result) {
@@ -82,7 +82,7 @@
     }
     function setSign(userid, id, isSign) {
         $.ajax({
-            url: '/investor/sign/' + userid + '/' + id + '/' + isSign,
+            url: appPath + '/investor/sign/' + userid + '/' + id + '/' + isSign,
             type: 'get',
             dataType: 'json',
             success: function (result) {

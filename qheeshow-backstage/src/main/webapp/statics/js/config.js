@@ -1,3 +1,4 @@
+appPath = "";
 //项目所属行业rootid
 classinfo_rootid_industry=20;
 //项目所属地域rootid
@@ -10,5 +11,3 @@ classinfo_rootid_tag=1;
 classinfo_rootid_stage=44;
 //投资风格
 classinfo_rootid_style=57
-//项目根路径
-root_path="http://127.0.0.1:8093/";

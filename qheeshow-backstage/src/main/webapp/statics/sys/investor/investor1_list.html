@@ -13,7 +13,7 @@
             fitColumns: true,
             singleSelect: false,
             pagination: true,
-            url: '/investor/list?status=1&authStatus=0',
+            url: appPath + '/investor/list?status=1&authStatus=0',
             columns: [[
                 {
                     field: 'id', title: '编号', width: 3
@@ -46,7 +46,7 @@
         if ($('#tt').tabs('exists', title)) {
             $('#tt').tabs('select', title);
         } else {
-            var content = '<iframe scrolling="auto" frameborder="0"  src="/statics/sys/investor/investor_add_edit.html" style="width:100%;height:100%;"></iframe>';
+            var content = '<iframe scrolling="auto" frameborder="0"  src="' + appPath + '/sys/investor/investor_add_edit.html" style="width:100%;height:100%;"></iframe>';
             $('#tt').tabs('add', {
                 title: title,
                 content: content,
@@ -65,7 +65,7 @@
     }
     function updateStatus(id, status) {
         $.ajax({
-            url: '/investor/' + id + '/' + status,
+            url: appPath + '/investor/' + id + '/' + status,
             type: 'get',
             dataType: 'json',
             success: function (result) {

@@ -10,8 +10,8 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!-- 数据库链接URL、用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/eway"
-                        userId="root" password="root">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://119.23.39.149:3306/eway"
+                        userId="root" password="Qhee@db">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
@@ -31,7 +31,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
-	   <table tableName="t_bind_map" domainObjectName="BindMap" enableCountByExample="true"
+	   <table tableName="t_common_qa" domainObjectName="CommonQa" enableCountByExample="true"
 	   enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
 	   selectByExampleQueryId="true"/>
 

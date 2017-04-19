@@ -1,7 +1,6 @@
 package com.qheeshow.eway.backstage.util.ueditor.upload;
 
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -10,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.qheeshow.eway.common.util.Config;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
@@ -25,85 +25,85 @@ import com.qheeshow.eway.common.util.ImageCompressUtil;
 
 public class BinaryUploader {
 
-	public static final State save(HttpServletRequest request,
-			Map<String, Object> conf) {
-		FileItemStream fileStream = null;
-		boolean isAjaxUpload = request.getHeader( "X_Requested_With" ) != null;
+    public static final State save(HttpServletRequest request,
+                                   Map<String, Object> conf) {
+        FileItemStream fileStream = null;
+        boolean isAjaxUpload = request.getHeader("X_Requested_With") != null;
 
-		if (!ServletFileUpload.isMultipartContent(request)) {
-			return new BaseState(false, AppInfo.NOT_MULTIPART_CONTENT);
-		}
-
-		ServletFileUpload upload = new ServletFileUpload(
-				new DiskFileItemFactory());
-
-        if ( isAjaxUpload ) {
-            upload.setHeaderEncoding( "UTF-8" );
+        if (!ServletFileUpload.isMultipartContent(request)) {
+            return new BaseState(false, AppInfo.NOT_MULTIPART_CONTENT);
         }
 
-		try {
-			FileItemIterator iterator = upload.getItemIterator(request);
+        ServletFileUpload upload = new ServletFileUpload(
+                new DiskFileItemFactory());
 
-			while (iterator.hasNext()) {
-				fileStream = iterator.next();
+        if (isAjaxUpload) {
+            upload.setHeaderEncoding("UTF-8");
+        }
 
-				if (!fileStream.isFormField())
-					break;
-				fileStream = null;
-			}
+        try {
+            FileItemIterator iterator = upload.getItemIterator(request);
 
-			if (fileStream == null) {
-				return new BaseState(false, AppInfo.NOTFOUND_UPLOAD_DATA);
-			}
+            while (iterator.hasNext()) {
+                fileStream = iterator.next();
 
-			String savePath = (String) conf.get("savePath");
-			String originFileName = fileStream.getName();
-			String suffix = FileType.getSuffixByFilename(originFileName);
+                if (!fileStream.isFormField())
+                    break;
+                fileStream = null;
+            }
 
-			originFileName = originFileName.substring(0,
-					originFileName.length() - suffix.length());
-			savePath = savePath + suffix;
+            if (fileStream == null) {
+                return new BaseState(false, AppInfo.NOTFOUND_UPLOAD_DATA);
+            }
 
-			long maxSize = ((Long) conf.get("maxSize")).longValue();
+            String savePath = (String) conf.get("savePath");
+            String originFileName = fileStream.getName();
+            String suffix = FileType.getSuffixByFilename(originFileName);
 
-			if (!validType(suffix, (String[]) conf.get("allowFiles"))) {
-				return new BaseState(false, AppInfo.NOT_ALLOW_FILE_TYPE);
-			}
+            originFileName = originFileName.substring(0,
+                    originFileName.length() - suffix.length());
+            savePath = savePath + suffix;
 
-			savePath = PathFormat.parse(savePath, originFileName);
+            long maxSize = ((Long) conf.get("maxSize")).longValue();
 
-			String physicalPath = (String) conf.get("rootPath") + savePath;
+            if (!validType(suffix, (String[]) conf.get("allowFiles"))) {
+                return new BaseState(false, AppInfo.NOT_ALLOW_FILE_TYPE);
+            }
 
-			InputStream is = fileStream.openStream();
-			State storageState = StorageManager.saveFileByInputStream(is,
-					physicalPath, maxSize);
-			is.close();
-			//若是图片则生成等比例压缩图
-			if(physicalPath.indexOf("/statics/upload/image") > 0){
-				try {
-					ImageCompressUtil.saveMinPhoto(physicalPath, physicalPath.replace("/statics/upload/image", "/statics/upload/imageMin"), 128, 1);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (storageState.isSuccess()) {
-				storageState.putInfo("url", PathFormat.format(savePath));
-				storageState.putInfo("type", suffix);
-				storageState.putInfo("original", originFileName + suffix);
-			}
+            savePath = PathFormat.parse(savePath, originFileName);
 
-			return storageState;
-		} catch (FileUploadException e) {
-			return new BaseState(false, AppInfo.PARSE_REQUEST_ERROR);
-		} catch (IOException e) {
-		}
-		return new BaseState(false, AppInfo.IO_ERROR);
-	}
+            String physicalPath = (String) conf.get("rootPath") + savePath;
 
-	private static boolean validType(String type, String[] allowTypes) {
-		List<String> list = Arrays.asList(allowTypes);
+            InputStream is = fileStream.openStream();
+            State storageState = StorageManager.saveFileByInputStream(is,
+                    physicalPath, maxSize);
+            is.close();
+            //若是图片则生成等比例压缩图
+            /*if (physicalPath.indexOf("/statics/upload/image") > 0) {
+                try {
+                    ImageCompressUtil.saveMinPhoto(physicalPath, physicalPath.replace("/statics/upload/image", "/statics/upload/imageMin"), 128, 1);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }*/
+            if (storageState.isSuccess()) {
+                storageState.putInfo("url", Config.get("app.path") + PathFormat.format(savePath).replace("/statics", ""));
+                storageState.putInfo("type", suffix);
+                storageState.putInfo("original", originFileName + suffix);
+            }
 
-		return list.contains(type);
-	}
+            return storageState;
+        } catch (FileUploadException e) {
+            return new BaseState(false, AppInfo.PARSE_REQUEST_ERROR);
+        } catch (IOException e) {
+        }
+        return new BaseState(false, AppInfo.IO_ERROR);
+    }
+
+    private static boolean validType(String type, String[] allowTypes) {
+        List<String> list = Arrays.asList(allowTypes);
+
+        return list.contains(type);
+    }
 }

@@ -12,7 +12,7 @@
             fitColumns: true,
             singleSelect: false,
             pagination: true,
-            url: '/project/list/2',
+            url: appPath + '/project/list/2',
             columns: [[
                 {
                     field: 'id', title: '编号', width: 3
@@ -44,7 +44,7 @@
     }
     function delCase(id) {
         $.ajax({
-            url: '/project/case/del/' + id,
+            url: appPath + '/project/case/del/' + id,
             type: 'get',
             dataType: 'json',
             success: function (result) {

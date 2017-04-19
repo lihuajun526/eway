@@ -7,7 +7,9 @@ import com.qheeshow.eway.service.service.CommonQaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 17-3-13.
@@ -18,7 +20,28 @@ public class CommonQaServiceImpl implements CommonQaService {
     @Autowired
     private CommonQaMapper commonQaMapper;
 
-    @Override public List<CommonQa> list() {
+    @Override
+    public List<CommonQa> list() {
         return commonQaMapper.selectByExample(new CommonQaExample());
+    }
+
+    @Override
+    public Map<String, Object> listByPage(CommonQa commonQa, Integer pageIndex) {
+
+        commonQa.setStartRow((pageIndex - 1) * commonQa.getPageSize());
+        Map<String, Object> map = new HashMap<>();
+        map.put("commonQas", commonQaMapper.listByPage(commonQa));
+        map.put("count", commonQaMapper.countByPage(commonQa));
+        return map;
+    }
+
+    @Override
+    public CommonQa get(Integer id) {
+        return commonQaMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void save(CommonQa commonQa) {
+        commonQaMapper.insert(commonQa);
     }
 }

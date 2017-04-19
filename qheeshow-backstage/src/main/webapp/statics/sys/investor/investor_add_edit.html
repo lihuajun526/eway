@@ -2,15 +2,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/demo/demo.css">
-    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.min.js"></script>
-    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="/statics/jquery/ajaxfileupload.js"></script>
-    <script type="text/javascript" src="/statics/js/common.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/statics/js/config.js"></script>
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-1.4.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-1.4.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-1.4.5/demo/demo.css">
+    <script type="text/javascript" src="jquery-easyui-1.4.5/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="jquery-easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="jquery/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/config.js"></script>
 </head>
 <body>
 <form id="investorForm">
@@ -100,8 +100,8 @@
         </tr>
         <tr>
             <td style="word-break: break-all;">
-                <img id="businessCardPositive" src="/statics/images/bg-new1.png" width="250" height="150"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                <img id="businessCardOpposite" src="/statics/images/bg-new1.png" width="250" height="150"/>
+                <img id="businessCardPositive" src="../../images/bg-new1.png" width="250" height="150"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                <img id="businessCardOpposite" src="../../images/bg-new1.png" width="250" height="150"/>
             </td>
         </tr>
         <tr>
@@ -173,7 +173,7 @@
         if (!validate())
             return;
         $.ajax({
-            url: '/investor/save',
+            url: appPath + '/investor/save',
             type: 'post',
             data: $('#investorForm').serialize(),
             dataType: 'json',
@@ -187,7 +187,7 @@
         });
     }
     //获得行业信息
-    $.get("/classinfo/list/root/" + classinfo_rootid_industry, function (result) {
+    $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_industry, function (result) {
         if (result.code < 0) {
             alert(result.message);
             return;
@@ -198,7 +198,7 @@
             industrys.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
         }
         //获得地域信息
-        $.get("/classinfo/list/root/" + classinfo_rootid_area, function (result) {
+        $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_area, function (result) {
             if (result.code < 0) {
                 alert(result.message);
                 return;
@@ -209,7 +209,7 @@
                 citys.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
             }
             //获得融资阶段信息
-            $.get("/classinfo/list/root/" + classinfo_rootid_stage, function (result) {
+            $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_stage, function (result) {
                 if (result.code < 0) {
                     alert(result.message);
                     return;
@@ -220,7 +220,7 @@
                     stages.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
                 }
                 //获得单笔投资金额
-                $.get("/classinfo/list/root/" + classinfo_rootid_financing_limit, function (result) {
+                $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_financing_limit, function (result) {
                     if (result.code < 0) {
                         alert(result.message);
                         return;
@@ -231,7 +231,7 @@
                         singles.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
                     }
                     //获得投资风格
-                    $.get("/classinfo/list/root/" + classinfo_rootid_style, function (result) {
+                    $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_style, function (result) {
                         if (result.code < 0) {
                             alert(result.message);
                             return;
@@ -244,7 +244,7 @@
                         if (parent.investorid == 0) {
                             return;
                         }
-                        $.get("/investor/get/" + parent.investorid, function (result) {
+                        $.get(appPath + "/investor/get/" + parent.investorid, function (result) {
                             if (result.code != 0) {
                                 alert("获取投资人信息失败");
                                 return;

@@ -15,9 +15,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--<%=project.getTitle()%>
     </title>
+    <link rel="stylesheet" href="<%=appPath%>/images/animate.min.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
 </head>
 <body>
 <jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
@@ -60,18 +63,23 @@
         <div class="g-invest-l">
             <div class="g-invest-lone3">
                 <ul class="g-proj-titlst">
-                    <li><a href="#">项目简介</a></li>
-                    <li><a href="#">团队介绍</a></li>
-                    <li><a href="#">项目亮点</a></li>
-                    <li><a href="#">项目BP</a></li>
+                    <li><a href="#1F">项目亮点</a></li>
+                    <li><a href="#2F">项目简介</a></li>
+                    <li><a href="#3F">团队介绍</a></li>
+                    <li><a href="#4F">项目BP</a></li>
                 </ul>
             </div>
-            <div class="g-invest-lone">
+            <div id="1F" class="g-invest-lone">
+                <div class="g-proj-lonetit6">项目亮点</div>
+                <div class="g-invest-lonect"><%=project.getHighlights()%>
+                </div>
+            </div>
+            <div id="2F" class="g-invest-lone">
                 <div class="g-proj-lonetit6">项目简介</div>
                 <div class="g-invest-lonect"><%=project.getDescription()%>
                 </div>
             </div>
-            <div class="g-invest-lone2">
+            <div id="3F" class="g-invest-lone2">
                 <div class="g-proj-lonetit2">团队介绍</div>
                 <%
                     for (TeamMember member : members) {
@@ -90,74 +98,13 @@
                     }
                 %>
             </div>
-            <div class="g-invest-lone">
-                <div class="g-proj-lonetit6">项目亮点</div>
-                <div class="g-invest-lonect"><%=project.getHighlights()%>
-                </div>
-            </div>
-            <div class="g-invest-lone3">
+            <div id="4F" class="g-invest-lone3">
                 <ul class="g-proj-titlst">
                     <li class="on-bp">项目BP</li>
                 </ul>
                 <a href="#" class="g-proj-more">登录查看商业计划书</a>
             </div>
-            <%--<div class="g-invest-lone2">
-                <div class="g-proj-lonetit4">提问互动<span>20条评论</span></div>
-
-                <!--提问-->
-                <div class="g-invest-tre">
-                    <div class="g-invest-tre-r">
-                        <div class="g-proj-texwap"><textarea name="" cols="" rows="" class="g-proj-textarea"></textarea>
-                            <div class="g-proj-texcru">还可以输入<span>150</span>个字</div>
-                        </div>
-                        <div class="g-proj-texbtn">请先登录<a href="#" class="on2">提问</a></div>
-                    </div>
-                </div>
-                <!------>
-                <div class="g-invest-tre">
-                    <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
-                    <div class="g-invest-tre-r">
-                        <div class="g-invest-tre-rt"><span class="on1">宋仲基</span><span class="on2">今天 17:09</span></div>
-                        <div class="g-invest-tre-rcnt"><a
-                                href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a>
-                        </div>
-                        <div class="g-proj-reply"><a href="#">回复</a></div>
-                    </div>
-                </div>
-                <div class="g-invest-tre">
-                    <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
-                    <div class="g-invest-tre-r">
-                        <div class="g-invest-tre-rt"><span class="on1">宋仲基</span><span class="on2">今天 17:09</span></div>
-                        <div class="g-invest-tre-rcnt"><a
-                                href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a>
-                        </div>
-                        <div class="g-proj-reply"><a href="#">回复</a></div>
-                        <div class="g-proj-texwap"><textarea name="" cols="" rows="" class="g-proj-textarea"></textarea>
-
-                            <div class="g-proj-texcru">还可以输入<span>150</span>个字</div>
-                        </div>
-                        <div class="g-proj-texbtn"><a href="#" class="on1">取消</a><a href="#" class="on2">回复</a></div>
-
-                    </div>
-                </div>
-                <div class="g-invest-tre">
-                    <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
-                    <div class="g-invest-tre-r">
-                        <div class="g-invest-tre-rt"><span class="on1">宋仲基</span><span class="on2">今天 17:09</span></div>
-                        <div class="g-proj-subtitle">@宋积 您的项目太棒了，我要投资。</div>
-                        <div class="g-invest-tre-rcnt"><a
-                                href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a>
-                        </div>
-                        <div class="g-proj-reply"><a href="#">回复</a></div>
-                    </div>
-                </div>
-                <div class="i-Page"><a href="#" class="on1">&nbsp;</a><!--<a href="#" class="on4">&nbsp;</a>当前位置及鼠标经过箭头效果-->
-                    <a
-                            href="#">1</a> <a href="#" class="on">2</a> <a href="#">3</a> <a href="#"
-                                                                                             class="on3">...</a> <a
-                            href="#" class="on2">&nbsp;</a>
-                    <!--<a href="#" class="on5">&nbsp;</a>--></div>
-            </div>--%>
+            <div id="qas" class="g-invest-lone2"></div>
         </div>
         <!--*************************right star************************-->
         <div class="g-invest-r">
@@ -267,5 +214,20 @@
     }
     listAdvisers();
     listFollows();
+    $("#qas").load("<%=appPath%>/qa/list/<%=project.getId()%>/1");
+    function q1111(){alert("dfasd");
+        /*$.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '<%=appPath%>/qa/q',
+            data: $('#qaForm').serialize(),
+            success: function (result) {
+                if (result.code == -1) {
+                    alert(result.message);
+                    return;
+                }
+            }
+        });*/
+    }
 </script>
 </html>

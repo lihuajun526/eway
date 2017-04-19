@@ -3,8 +3,16 @@
 <mapper namespace="com.qheeshow.eway.service.dao.CommonQaMapper" >
   <resultMap id="BaseResultMap" type="com.qheeshow.eway.service.model.CommonQa" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="parentid" property="parentid" jdbcType="INTEGER" />
+    <result column="projectid" property="projectid" jdbcType="INTEGER" />
     <result column="question" property="question" jdbcType="VARCHAR" />
-    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="q_userid" property="qUserid" jdbcType="INTEGER" />
+    <result column="q_name" property="qName" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -67,7 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, question, answer, create_time, update_time
+    id, parentid, projectid, question, content, q_userid, q_name, userid, name, photo,
+    status, create_time, update_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.CommonQaExample" >
     select
@@ -85,7 +94,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_common_qa
     where id = #{id,jdbcType=INTEGER}
@@ -101,10 +110,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.qheeshow.eway.service.model.CommonQa" >
-    insert into t_common_qa (id, question, answer, 
-      create_time, update_time)
-    values (#{id,jdbcType=INTEGER}, #{question,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    insert into t_common_qa (id, parentid, projectid,
+    question, content, q_userid,
+    q_name, userid, name,
+    photo, status, create_time,
+    update_time)
+    values (#{id,jdbcType=INTEGER}, #{parentid,jdbcType=INTEGER}, #{projectid,jdbcType=INTEGER},
+    #{question,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{qUserid,jdbcType=INTEGER},
+    #{qName,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+    #{photo,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+    #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.CommonQa" >
     insert into t_common_qa
@@ -112,11 +127,35 @@
       <if test="id != null" >
         id,
       </if>
+      <if test="parentid != null" >
+        parentid,
+      </if>
+      <if test="projectid != null" >
+        projectid,
+      </if>
       <if test="question != null" >
         question,
       </if>
-      <if test="answer != null" >
-        answer,
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="qUserid != null" >
+        q_userid,
+      </if>
+      <if test="qName != null" >
+        q_name,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="status != null" >
+        status,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -129,11 +168,35 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="projectid != null" >
+        #{projectid,jdbcType=INTEGER},
+      </if>
       <if test="question != null" >
         #{question,jdbcType=VARCHAR},
       </if>
-      <if test="answer != null" >
-        #{answer,jdbcType=VARCHAR},
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="qUserid != null" >
+        #{qUserid,jdbcType=INTEGER},
+      </if>
+      <if test="qName != null" >
+        #{qName,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -155,11 +218,35 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.parentid != null" >
+        parentid = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectid != null" >
+        projectid = #{record.projectid,jdbcType=INTEGER},
+      </if>
       <if test="record.question != null" >
         question = #{record.question,jdbcType=VARCHAR},
       </if>
-      <if test="record.answer != null" >
-        answer = #{record.answer,jdbcType=VARCHAR},
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qUserid != null" >
+        q_userid = #{record.qUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.qName != null" >
+        q_name = #{record.qName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo != null" >
+        photo = #{record.photo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -175,10 +262,18 @@
   <update id="updateByExample" parameterType="map" >
     update t_common_qa
     set id = #{record.id,jdbcType=INTEGER},
-      question = #{record.question,jdbcType=VARCHAR},
-      answer = #{record.answer,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    parentid = #{record.parentid,jdbcType=INTEGER},
+    projectid = #{record.projectid,jdbcType=INTEGER},
+    question = #{record.question,jdbcType=VARCHAR},
+    content = #{record.content,jdbcType=VARCHAR},
+    q_userid = #{record.qUserid,jdbcType=INTEGER},
+    q_name = #{record.qName,jdbcType=VARCHAR},
+    userid = #{record.userid,jdbcType=INTEGER},
+    name = #{record.name,jdbcType=VARCHAR},
+    photo = #{record.photo,jdbcType=VARCHAR},
+    status = #{record.status,jdbcType=INTEGER},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP},
+    update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -186,11 +281,35 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.qheeshow.eway.service.model.CommonQa" >
     update t_common_qa
     <set >
+      <if test="parentid != null" >
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="projectid != null" >
+        projectid = #{projectid,jdbcType=INTEGER},
+      </if>
       <if test="question != null" >
         question = #{question,jdbcType=VARCHAR},
       </if>
-      <if test="answer != null" >
-        answer = #{answer,jdbcType=VARCHAR},
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="qUserid != null" >
+        q_userid = #{qUserid,jdbcType=INTEGER},
+      </if>
+      <if test="qName != null" >
+        q_name = #{qName,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -203,10 +322,33 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.CommonQa" >
     update t_common_qa
-    set question = #{question,jdbcType=VARCHAR},
-      answer = #{answer,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    set parentid = #{parentid,jdbcType=INTEGER},
+    projectid = #{projectid,jdbcType=INTEGER},
+    question = #{question,jdbcType=VARCHAR},
+    content = #{content,jdbcType=VARCHAR},
+    q_userid = #{qUserid,jdbcType=INTEGER},
+    q_name = #{qName,jdbcType=VARCHAR},
+    userid = #{userid,jdbcType=INTEGER},
+    name = #{name,jdbcType=VARCHAR},
+    photo = #{photo,jdbcType=VARCHAR},
+    status = #{status,jdbcType=INTEGER},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="listByPage" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.CommonQa">
+    select
+    <include refid="Base_Column_List"/>
+    from t_common_qa
+    where status = 1 and projectid = #{projectid,jdbcType=INTEGER}
+    order by create_time desc
+    limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="countByPage" resultType="java.lang.Integer" parameterType="com.qheeshow.eway.service.model.CommonQa">
+    select
+    count(*)
+    from t_common_qa
+    where status = 1 and projectid = #{projectid,jdbcType=INTEGER}
+  </select>
 </mapper>

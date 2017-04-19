@@ -15,7 +15,7 @@
             fitColumns: true,
             singleSelect: true,
             pagination: true,
-            url: '/activity/list/1',
+            url: appPath + '/activity/list/1',
             columns: [[
                 {
                     field: 'id', title: '编号', width: 3
@@ -71,7 +71,7 @@
         if ($('#tt').tabs('exists', title)) {
             $('#tt').tabs('select', title);
         } else {
-            var content = '<iframe scrolling="auto" frameborder="0"  src="/statics/sys/activity/activity_add_edit.html" style="width:100%;height:100%;"></iframe>';
+            var content = '<iframe scrolling="auto" frameborder="0"  src="' + appPath + '/sys/activity/activity_add_edit.html" style="width:100%;height:100%;"></iframe>';
             $('#tt').tabs('add', {
                 title: title,
                 content: content,
@@ -89,12 +89,12 @@
         addTab("编辑活动");
     }
     function updateStatus(activityid, status) {
-        $.get("/activity/status/update/" + activityid + "/" + status, function (result) {
+        $.get(appPath + "/activity/status/update/" + activityid + "/" + status, function (result) {
             $('#datagrid').datagrid('reload');
         });
     }
     function isHead(id) {
-        $.get("/activity/head/" + id + "/1", function (result) {
+        $.get(appPath + "/activity/head/" + id + "/1", function (result) {
             $('#datagrid').datagrid('reload');
         });
     }

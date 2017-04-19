@@ -69,7 +69,9 @@
             </div>
             <div class="g-mg-ltwo">
                 <ul class="g-mg-ltwolst">
-                    <li style="cursor: pointer" onclick="menu(this,'<%=appPath%>/center/project/1/5/1');" class="on">项目管理</li>
+                    <li style="cursor: pointer" onclick="menu(this,'<%=appPath%>/center/project/1/5/1');" class="on">
+                        项目管理
+                    </li>
                     <%
                         if (loginUser.getRoleid() == 20) {
                     %>
@@ -78,7 +80,7 @@
                         }
                     %>
                     <li style="cursor: pointer" onclick="menu(this,'<%=appPath%>/center/message/list/1/1/5');">消息</li>
-                    <li style="cursor: pointer" onclick="menu(this,'');">个人设置</li>
+                    <li style="cursor: pointer" onclick="menu(this,'<%=appPath%>/center/user_setting.jsp');">个人设置</li>
                 </ul>
             </div>
         </div>
@@ -132,6 +134,102 @@
                     }
                 }
         );
+    }
+    function modifyName(obj) {
+        if ("修改" == $(obj).val()) {
+            $(obj).val("确定");
+            $("#name_").hide();
+            $("#name").show();
+            $("#name").focus();
+        } else if ("确定" == $(obj).val()) {
+            var name = $("#name").val();
+            if (!name.length) {
+                alert("真实姓名不能为空");
+                return;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<%=appPath%>/user/name/modify/authj",
+                data: {'name': name},
+                success: function (result) {
+                    if (result.code == -1) {
+                        alert(result.message);
+                        return;
+                    }
+                    $(obj).val("修改");
+                    $("#name").hide();
+                    $("#name_").html(name);
+                    $("#name_").show();
+                },
+                dataType: "json"
+            });
+        }
+    }
+
+    function modifyEmail(obj) {
+        if ("修改" == $(obj).val()) {
+            $(obj).val("确定");
+            $("#email_").hide();
+            $("#email").show();
+            $("#email").focus();
+        } else if ("确定" == $(obj).val()) {
+            var email = $("#email").val();
+            if (!email.length) {
+                alert("email不能为空");
+                return;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<%=appPath%>/user/email/modify/authj",
+                data: {'email': email},
+                success: function (result) {
+                    if (result.code == -1) {
+                        alert(result.message);
+                        return;
+                    }
+                    $(obj).val("修改");
+                    $("#email").hide();
+                    $("#email_").html(email);
+                    $("#email_").show();
+                },
+                dataType: "json"
+            });
+        }
+    }
+
+    function modifyPwd(obj) {
+        if ("修改" == $(obj).val()) {
+            $(obj).val("确定");
+            $("#password_").hide();
+            $("#password").show();
+            $("#password").focus();
+        } else if ("确定" == $(obj).val()) {
+            var password = $("#password").val();
+            if (!password.length) {
+                alert("密码不能为空");
+                return;
+            }
+            if (password.length < 8) {
+                alert("密码至少8位");
+                return;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<%=appPath%>/user/password/modify/authj",
+                data: {'password': password},
+                success: function (result) {
+                    if (result.code == -1) {
+                        alert(result.message);
+                        return;
+                    }
+                    $(obj).val("修改");
+                    $("#password").hide();
+                    $("#password_").html("********");
+                    $("#password_").show();
+                },
+                dataType: "json"
+            });
+        }
     }
 </script>
 </html>

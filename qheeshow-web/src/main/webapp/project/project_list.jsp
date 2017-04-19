@@ -85,7 +85,7 @@
                 <div class="g-proj-oner">
                     <ul id="types">
                         <li onclick="setType(1,this);"><a>平台推荐</a></li>
-                        <li onclick="setType(2,this);"><a>机构关注</a></li>
+                        <li onclick="setType(2,this);"><a>机构推荐</a></li>
                         <li onclick="setType(3,this);"><a>企业自荐</a></li>
                     </ul>
                 </div>

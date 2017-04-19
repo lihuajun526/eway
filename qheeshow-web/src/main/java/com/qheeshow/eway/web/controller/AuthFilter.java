@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.common.util.UrlFilterConfig;
 
 public class AuthFilter implements Filter {
@@ -34,9 +35,9 @@ public class AuthFilter implements Filter {
             }
         } else {
             if (url.indexOf("/authj") != -1) {
-                httpRequest.getRequestDispatcher("/web/user/reLogin").forward(httpRequest, httpResponse);
+                httpRequest.getRequestDispatcher(Config.get("app.path") + "/user/reLogin").forward(httpRequest, httpResponse);
             } else if (url.indexOf("/auth") != -1) {
-                httpResponse.sendRedirect(localLoginUrl);
+                httpResponse.sendRedirect(Config.get("app.path") + localLoginUrl);
             }
         }
     }

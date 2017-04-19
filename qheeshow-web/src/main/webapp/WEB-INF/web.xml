@@ -30,7 +30,7 @@
         <filter-class>com.qheeshow.eway.web.controller.AuthFilter</filter-class>
         <init-param>
             <param-name>localLoginUrl</param-name>
-            <param-value>/web/user/login.jsp</param-value>
+            <param-value>/user/login.jsp</param-value>
         </init-param>
     </filter>
     <filter-mapping>

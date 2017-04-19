@@ -27,7 +27,7 @@
             fitColumns: true,
             singleSelect: false,
             pagination: true,
-            url: '/investor/list/suggest/' + id,
+            url: appPath + '/investor/list/suggest/' + id,
             columns: [[
                 {
                     field: 'id', title: '编号', width: 1
@@ -57,13 +57,13 @@
             fitColumns: true,
             singleSelect: false,
             pagination: true,
-            url: '/project/list/2',
+            url: appPath + '/project/list/2',
             columns: [[
                 {
                     field: 'id', title: '编号', width: 3
                 },
                 {
-                    field: 'title', title: '项目名称', width: 18,
+                    field: 'title', title: '项目名称', width: 12,
                     formatter: function (value, rec) {
                         return "<a href='#' onclick='modify(" + rec.id + ")'>" + value + "</a>";
                     }
@@ -78,7 +78,29 @@
                     }
                 },
                 {
-                    field: 'opt', title: '操作', align: 'center',
+                    field: 'opt', title: '项目类型', align: 'center',
+                    formatter: function (value, rec) {
+                        var btn = "";
+                        if (rec.type == 3)
+                            btn += "<input name='type" + rec.id + "' type='radio' onclick='setType(" + rec.id + ",3)' checked/>企业自荐";
+                        else
+                            btn += "<input name='type" + rec.id + "' type='radio' onclick='setType(" + rec.id + ",3)'/>企业自荐";
+
+                        if (rec.type == 2)
+                            btn += "<input name='type" + rec.id + "' type='radio' onclick='setType(" + rec.id + ",2)' checked/>机构推荐";
+                        else
+                            btn += "<input name='type" + rec.id + "' type='radio' onclick='setType(" + rec.id + ",2)'/>机构推荐";
+
+                        if (rec.type == 1)
+                            btn += "<input name='type" + rec.id + "' type='radio' onclick='setType(" + rec.id + ",1)' checked/>平台推荐";
+                        else
+                            btn += "<input name='type" + rec.id + "' type='radio' onclick='setType(" + rec.id + ",1)'/>平台推荐";
+
+                        return btn;
+                    }
+                },
+                {
+                    field: 'opt1', title: '操作', align: 'center',
                     formatter: function (value, rec) {
                         var btn = '<a class="editcls" onclick="openUpdate(\'' + rec.id + '\')" href="javascript:void(0)">问答管理</a>&nbsp&nbsp';
                         if (rec.recommend == 0) {
@@ -113,7 +135,7 @@
         if ($('#tt').tabs('exists', title)) {
             $('#tt').tabs('select', title);
         } else {
-            var content = '<iframe scrolling="auto" frameborder="0"  src="/statics/sys/project/project_add_edit.html" style="width:100%;height:100%;"></iframe>';
+            var content = '<iframe scrolling="auto" frameborder="0"  src="' + appPath + '/sys/project/project_add_edit.html" style="width:100%;height:100%;"></iframe>';
             $('#tt').tabs('add', {
                 title: title,
                 content: content,
@@ -132,7 +154,7 @@
     }
     function updateStatus(id, status) {
         $.ajax({
-            url: '/project/' + id + '/' + status,
+            url: appPath + '/project/' + id + '/' + status,
             type: 'get',
             dataType: 'json',
             success: function (result) {
@@ -153,7 +175,7 @@
         for (var i = 0; i < rows.length; i++) {
             ids.push(rows[i].id);
         }
-        $.post("/project/investor/suggest/" + projectid, {ids: ids.join('#')},
+        $.post(appPath + "/project/investor/suggest/" + projectid, {ids: ids.join('#')},
                 function (result) {
                     if (result.code != 0) {
                         $.messager.alert('Info', "失败", 'info');
@@ -164,7 +186,7 @@
                 }, "json");
     }
     function recommend(id) {
-        $.get("/project/recommend/1/" + id, function (result) {
+        $.get(appPath + "/project/recommend/1/" + id, function (result) {
             if (result.code != 0) {
                 $.messager.alert('Info', "失败", 'info');
             } else {
@@ -174,7 +196,7 @@
         }, "json");
     }
     function unrecommend(id) {
-        $.get("/project/recommend/0/" + id, function (result) {
+        $.get(appPath + "/project/recommend/0/" + id, function (result) {
             if (result.code != 0) {
                 $.messager.alert('Info', "失败", 'info');
             } else {
@@ -184,7 +206,7 @@
         }, "json");
     }
     function addCase(id) {
-        $.get("/project/case/add/" + id, function (result) {
+        $.get(appPath + "/project/case/add/" + id, function (result) {
             if (result.code != 0) {
                 $.messager.alert('Info', "失败", 'info');
             } else {
@@ -194,13 +216,20 @@
         }, "json");
     }
     function delCase(id) {
-        $.get("/project/case/del/" + id, function (result) {
+        $.get(appPath + "/project/case/del/" + id, function (result) {
             if (result.code != 0) {
                 $.messager.alert('Info', "失败", 'info');
             } else {
                 $.messager.alert('Info', "成功取消", 'info');
             }
             $('#datagrid').datagrid('reload');
+        }, "json");
+    }
+    function setType(projectid, type) {
+        $.get(appPath + "/project/type/" + projectid + "/" + type, function (result) {
+            if (result.code != 0) {
+                $.messager.alert('Info', "失败", 'info');
+            }
         }, "json");
     }
     list();
