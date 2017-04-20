@@ -8,12 +8,13 @@
     List<Xwcmclassinfo> areas = (List<Xwcmclassinfo>) request.getAttribute("areas");
     List<Xwcmclassinfo> financingLimits = (List<Xwcmclassinfo>) request.getAttribute("financingLimits");
     List<Xwcmclassinfo> industrys = (List<Xwcmclassinfo>) request.getAttribute("industrys");
+    String flag = "2";
 %>
 <html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--项目</title>
-    <link rel="stylesheet"  href="<%=appPath%>/images/bootstrap.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/project.css"/>
@@ -70,7 +71,7 @@
     </script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
+<%@include file="../pub/head.jsp" %>
 <div class="g-banner2"></div>
 <div class="g-proj">
     <div class="g-conter">
@@ -146,6 +147,6 @@
         </script>
     </div>
 </div>
-<jsp:include page="../pub/foot.jsp" flush="true"/>
+<%@include file="../pub/foot.jsp" %>
 </body>
 </html>

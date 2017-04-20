@@ -8,6 +8,7 @@
     List<Xwcmclassinfo> areas = (List<Xwcmclassinfo>) request.getAttribute("areas");
     List<Xwcmclassinfo> industrys = (List<Xwcmclassinfo>) request.getAttribute("industrys");
     List<Xwcmclassinfo> stages = (List<Xwcmclassinfo>) request.getAttribute("stages");
+    String flag = "3";
 %>
 <html>
 <head>
@@ -63,7 +64,7 @@
     </script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp?flag=3" flush="true"/>
+<%@include file="../pub/head.jsp"%>
 <div class="g-banner3"></div>
 <div class="g-proj">
     <div class="g-conter">
@@ -127,6 +128,6 @@
         </script>
     </div>
 </div>
-<jsp:include page="../pub/foot.jsp" flush="true"/>
+<%@include file="../pub/foot.jsp"%>
 </body>
 </html>

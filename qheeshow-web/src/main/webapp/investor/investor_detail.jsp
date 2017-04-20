@@ -7,6 +7,7 @@
     String appPath = Config.get("app.path");
     Investor investor = (Investor) request.getAttribute("investor");
     Map<String, Integer> tags = (HashMap<String, Integer>) request.getAttribute("tags");
+    String flag = "3";
 %>
 <html>
 <head>
@@ -18,7 +19,7 @@
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp?flag=3" flush="true"/>
+<%@include file="../pub/head.jsp"%>
 <div class="g-proj">
     <div class="g-invest">
         <div class="g-invest-img"><img src="<%=investor.getPhoto()%>" width="180" height="180"/></div>
@@ -89,7 +90,7 @@
                             <textarea id="content" name="content" class="g-invest-twrtex"
                                       placeholder=" 请输入评论内容"></textarea>
 
-                            <div class="g-invest-twr-fb"><a onclick="saveComment();">发表评论</a></div>
+                            <div class="g-invest-twr-fb"><a onclick="saveComment();">发布评价</a></div>
                         </div>
                     </div>
                 </form>
@@ -125,7 +126,7 @@
     </div>
 
 </div>
-<jsp:include page="../pub/foot.jsp" flush="true"/>
+<%@include file="../pub/foot.jsp"%>
 </body>
 <script>
     function setTag(obj) {

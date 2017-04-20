@@ -1,12 +1,8 @@
 <%@ page import="com.qheeshow.eway.service.model.User" %>
 <%@ page import="org.springframework.util.StringUtils" %>
-<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     User loginUser = session.getAttribute("loginUser") == null ? null : (User) session.getAttribute("loginUser");
-    String flag = request.getParameter("flag");
-    flag = StringUtils.isEmpty(flag) ? "1" : flag;
-    String appPath = Config.get("app.path");
 %>
 <div class="g-top">
     <div class="g-logo"></div>
@@ -44,7 +40,7 @@
         </ul>
     </div>
 </div>
-<div class="modal fade col-center-block" tabindex="-1" role="dialog" id="modal" style="width: 600px;">
+<div class="modal fade col-center-block" tabindex="-1" role="dialog" id="modal" style="width: 600px;display: none;">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

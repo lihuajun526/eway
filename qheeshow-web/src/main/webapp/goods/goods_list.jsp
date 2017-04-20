@@ -12,6 +12,7 @@
     String buyBtncls3 = (String) request.getAttribute("buyBtncls3");
     String buyBtncls4 = (String) request.getAttribute("buyBtncls4");
     Integer projectid = (Integer) request.getAttribute("projectid");
+    String flag = "1";
 %>
 <html>
 <head>
@@ -23,7 +24,7 @@
     <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp" flush="true"/>
+<%@include file="../pub/head.jsp"%>
 <div class="g-banner2"></div>
 <div class="g-proj">
     <div class="g-pser">
@@ -165,7 +166,7 @@
         </div>
     </div>
 </div>
-<jsp:include page="../pub/foot.jsp" flush="true"/>
+<%@include file="../pub/foot.jsp"%>
 </body>
 <script>
     var projectid = <%=projects.size()>0?projects.get(0).getId():0%>;

@@ -16,6 +16,7 @@
     List<Xwcmclassinfo> financingLimits = (List<Xwcmclassinfo>) request.getAttribute("financingLimits");
     List<Xwcmclassinfo> stages = (List<Xwcmclassinfo>) request.getAttribute("stages");
     List<Xwcmclassinfo> styles = (List<Xwcmclassinfo>) request.getAttribute("styles");
+    String flag = "3";
 %>
 <html>
 <head>
@@ -29,7 +30,7 @@
     <script src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp?flag=3" flush="true"/>
+<%@include file="../pub/head.jsp"%>
 <div class="inv-body">
     <input id="photoFile" name="photoFile" type="file" multiple="multiple" onchange="doUpload()"
            style="display: none;"/>
@@ -297,7 +298,7 @@
         </div>
     </form>
 </div>
-<jsp:include page="../pub/foot.jsp" flush="true"/>
+<%@include file="../pub/foot.jsp"%>
 </body>
 <script>
     //保存基本信息

@@ -5,6 +5,7 @@
 <%
     String appPath = Config.get("app.path");
     User loginUser = (User) session.getAttribute("loginUser");
+    String flag = "1";
 %>
 <html>
 <head lang="en">
@@ -19,7 +20,7 @@
     <script src="<%=appPath%>/jquery/ajaxfileupload.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp" flush="true"/>
+<%@include file="../pub/head.jsp"%>
 <input type="file" id="photoFile" name="photoFile" style="display: none;"
        onchange="uploadImage('photoFile','photoImg')"/>
 
@@ -87,7 +88,7 @@
         <div id="content" class="g-mg-r"></div>
     </div>
 </div>
-<jsp:include page="../pub/foot.jsp" flush="true"/>
+<%@include file="../pub/foot.jsp"%>
 <script>
     function menu(obj, url) {
         if ($(obj).attr("class") == "on")

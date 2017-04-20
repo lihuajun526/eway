@@ -4,6 +4,7 @@
 <%
     String appPath = Config.get("app.path");
     Activity activity = (Activity) request.getAttribute("activity");
+    String flag = "4";
 %>
 <html>
 <head>
@@ -17,7 +18,7 @@
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp?flag=4" flush="true"/>
+<%@include file="../pub/head.jsp"%>
 <div class="g-banner4"></div>
 <div class="g-conter">
     <div class="g-actlst-onel"><img src="<%=activity.getLogo()%>" width="440" height="250"/></div>
@@ -51,7 +52,7 @@
     </div>
     <div class="clear"></div>
 </div>
-<jsp:include page="../pub/foot.jsp" flush="true"/>
+<%@include file="../pub/foot.jsp"%>
 </body>
 <script>
 

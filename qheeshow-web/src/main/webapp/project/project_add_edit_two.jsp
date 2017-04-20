@@ -8,6 +8,7 @@
     String appPath = Config.get("app.path");
     Project project = (Project) request.getAttribute("project");
     List<TeamMember> members = (List<TeamMember>) request.getAttribute("members");
+    String flag = "2";
 %>
 <html>
 <head>
@@ -23,7 +24,7 @@
     </script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
+<%@include file="../pub/head.jsp"%>
 <div class="pro-body">
     <input type="file" id="photoFile" name="photoFile" style="display: none;" onchange="uploadImage()"/>
 
@@ -151,7 +152,7 @@
                 href="<%=appPath%>/project/<%=project.getId() %>/add/edit/3/auth">下一步</a></div>
     </div>
 </div>
-<jsp:include page="../pub/foot.jsp" flush="true"/>
+<%@include file="../pub/foot.jsp"%>
 </body>
 <script>
     //保存基本信息

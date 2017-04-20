@@ -21,6 +21,7 @@
             isNull || StringUtils.isEmpty(project.getLastOne()) ? null : project.getLastOne().split(":")[1].split("#");
     String[] datas2 =
             isNull || StringUtils.isEmpty(project.getLastTwo()) ? null : project.getLastTwo().split(":")[1].split("#");
+    String flag = "2";
 %>
 <html>
 <head>
@@ -34,7 +35,7 @@
     <script src="<%=appPath%>/js/config.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
+<%@include file="../pub/head.jsp"%>
 <div class="pro-body">
     <input type="file" id="logoFile" name="logoFile" style="display: none;"
            onchange="uploadImage('logoFile','logoImg','logo')"/>
@@ -551,7 +552,7 @@
         </div>
     </form>
 </div>
-<jsp:include page="../pub/foot.jsp" flush="true"/>
+<%@include file="../pub/foot.jsp"%>
 </body>
 <script>
     function selectFile(id) {

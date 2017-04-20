@@ -1,10 +1,4 @@
-<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-  String appPath = Config.get("app.path");
-%>
-<html>
-<body>
 <div class="g-foot">
   <div class="g-conter">
     <div class="g-foot-l">
@@ -43,5 +37,3 @@
     $('input, textarea').placeholder();
   });
 </script>
-</body>
-</html>

@@ -9,6 +9,7 @@
     Project project = (Project) request.getAttribute("project");
     List<TeamMember> members = (List<TeamMember>) request.getAttribute("members");
     List<CommonQa> commonQas = (List<CommonQa>) request.getAttribute("commonQas");
+    String flag = "2";
 %>
 <html>
 <head>
@@ -23,7 +24,7 @@
     <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp?flag=2" flush="true"/>
+<%@include file="../pub/head.jsp"%>
 <div class="g-proj">
     <div class="g-invest">
         <div class="g-proj-img"><img src="<%=project.getLogo()%>" width="200" height="200"/></div>
@@ -133,7 +134,7 @@
         </div>
     </div>
 </div>
-<jsp:include page="../pub/foot.jsp" flush="true"/>
+<%@include file="../pub/foot.jsp"%>
 </body>
 <script>
     $.ajax({

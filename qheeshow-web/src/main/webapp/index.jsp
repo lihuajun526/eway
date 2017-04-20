@@ -2,6 +2,7 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%
     String appPath = Config.get("app.path");
+    String flag = "1";
 %>
 <html>
 <head>
@@ -18,7 +19,7 @@
     <script type="text/javascript" src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
-<jsp:include page="pub/head.jsp" flush="true"/>
+<%@include file="pub/head.jsp"%>
 <div class="g-banner">
     <div class="g-sol1">
         <ul class="g-pag">
@@ -62,7 +63,7 @@
         <div class="g-more2"><a href="<%=appPath%>/investor/list">More</a></div>
     </div>
 </div>
-<jsp:include page="pub/foot.jsp" flush="true"/>
+<%@include file="pub/foot.jsp"%>
 <script>
     $.get("<%=appPath%>/index/activity/latest", function (result) {
         var data = result.data;

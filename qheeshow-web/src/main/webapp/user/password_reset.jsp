@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String appPath = Config.get("app.path");
+    String flag = "1";
 %>
 <html>
 <head>
@@ -10,7 +11,7 @@
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
-<jsp:include page="../pub/head.jsp" flush="true"/>
+<%@include file="../pub/head.jsp"%>
 <div class="g-lgin">
     <div class="g-lgin-m">
         <form id="resetPwdForm">
@@ -30,7 +31,7 @@
         </form>
     </div>
 </div>
-<jsp:include page="../pub/foot.jsp" flush="true"/>
+<%@include file="../pub/foot.jsp"%>
 </body>
 <script type="text/javascript">
     function resetPwd () {
