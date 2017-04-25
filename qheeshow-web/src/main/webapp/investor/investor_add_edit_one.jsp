@@ -236,7 +236,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="inv-one">
+            <%--<div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">投资风格：</li>
                     <li class="on2">
@@ -258,7 +258,7 @@
                         </ul>
                     </li>
                 </ul>
-            </div>
+            </div>--%>
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">投资案例<span>（选填）</span>:</li>

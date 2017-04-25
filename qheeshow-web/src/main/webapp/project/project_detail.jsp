@@ -2,13 +2,13 @@
 <%@ page import="com.qheeshow.eway.service.model.TeamMember" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
-<%@ page import="com.qheeshow.eway.service.model.CommonQa" %>
+<%@ page import="com.qheeshow.eway.service.model.ProjectQa" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String appPath = Config.get("app.path");
     Project project = (Project) request.getAttribute("project");
     List<TeamMember> members = (List<TeamMember>) request.getAttribute("members");
-    List<CommonQa> commonQas = (List<CommonQa>) request.getAttribute("commonQas");
+    List<ProjectQa> commonQas = (List<ProjectQa>) request.getAttribute("commonQas");
     String flag = "2";
 %>
 <html>
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
 </head>
 <body>
-<%@include file="../pub/head.jsp"%>
+<%@include file="../pub/head.jsp" %>
 <div class="g-proj">
     <div class="g-invest">
         <div class="g-proj-img"><img src="<%=project.getLogo()%>" width="200" height="200"/></div>
@@ -121,7 +121,7 @@
                 <div class="g-invest-rt">常见问题</div>
                 <ul class="g-invest-rlst2">
                     <%
-                        for (CommonQa commonQa : commonQas) {
+                        for (ProjectQa commonQa : commonQas) {
                     %>
                     <li><span class="on1"></span><span><a href="#"><%=commonQa.getQuestion()%>
                     </a></span></li>
@@ -134,7 +134,7 @@
         </div>
     </div>
 </div>
-<%@include file="../pub/foot.jsp"%>
+<%@include file="../pub/foot.jsp" %>
 </body>
 <script>
     $.ajax({
@@ -213,22 +213,52 @@
             $("#apply").html("已申请专职顾问");
         }, "json");
     }
+    function listQa(){
+        $("#qas").load("<%=appPath%>/project/qa/list/<%=project.getId()%>/1");
+    }
     listAdvisers();
     listFollows();
-    $("#qas").load("<%=appPath%>/qa/list/<%=project.getId()%>/1");
-    function q1111(){alert("dfasd");
-        /*$.ajax({
+    listQa();
+    function q() {
+        if (!$("#content").val().length) {
+            xalert("请输入您的问题");
+            return;
+        }
+        $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '<%=appPath%>/qa/q',
-            data: $('#qaForm').serialize(),
+            url: '<%=appPath%>/project/qa/q/authj',
+            data: $('#qForm').serialize(),
             success: function (result) {
                 if (result.code == -1) {
-                    alert(result.message);
+                    xalert(result.message);
                     return;
                 }
+                listQa();
             }
-        });*/
+        });
+    }
+    function openA(id) {
+        $("#reply_" + id).show();
+    }
+    function a(id) {
+        if (!$("#content_" + id).val().length) {
+            xalert("请输入您的回复");
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '<%=appPath%>/project/qa/a/authj',
+            data: $('#aForm_' + id).serialize(),
+            success: function (result) {
+                if (result.code == -1) {
+                    xalert(result.message);
+                    return;
+                }
+                listQa();
+            }
+        });
     }
 </script>
 </html>

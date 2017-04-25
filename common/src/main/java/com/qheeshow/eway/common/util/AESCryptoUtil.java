@@ -130,6 +130,6 @@ public class AESCryptoUtil {
 
     public static void main(String[] args) throws CryptoException {
         System.out.println(AESCryptoUtil.encrypt("password"));
-        System.out.println(AESCryptoUtil.decrypt("6Dwy29t3sMGlCYj1l4o+/g=="));
+        System.out.println(AESCryptoUtil.decrypt("lXxJuqNnkbNHw36dFc32dA=="));
     }
 }

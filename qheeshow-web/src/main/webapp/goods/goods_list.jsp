@@ -2,11 +2,9 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page import="com.qheeshow.eway.service.model.Project" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.qheeshow.eway.service.model.User" %>
 <%
     String appPath = Config.get("app.path");
     List<Project> projects = (List<Project>) request.getAttribute("projects");
-    User loginUser = session.getAttribute("loginUser") == null ? null : (User) session.getAttribute("loginUser");
     String buyBtncls1 = (String) request.getAttribute("buyBtncls1");
     String buyBtncls2 = (String) request.getAttribute("buyBtncls2");
     String buyBtncls3 = (String) request.getAttribute("buyBtncls3");

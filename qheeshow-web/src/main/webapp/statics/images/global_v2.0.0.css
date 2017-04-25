@@ -125,9 +125,10 @@ a:link,a:visited,a:hover,a:active{
 	overflow:hidden;
 	width:1000px;
 }
+
 .col-center-block {
-	float: none;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+   float: none;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
 }

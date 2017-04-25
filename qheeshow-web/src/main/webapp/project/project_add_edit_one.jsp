@@ -27,20 +27,18 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--创建项目</title>
+    <link rel="stylesheet"  href="<%=appPath%>/images/bootstrap.css">
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/project.css"/>
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
-    <script src="<%=appPath%>/jquery/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
+    <script src="<%=appPath%>/jquery/jquery-form.js"></script>
     <script src="<%=appPath%>/js/config.js"></script>
 </head>
 <body>
 <%@include file="../pub/head.jsp"%>
 <div class="pro-body">
-    <input type="file" id="logoFile" name="logoFile" style="display: none;"
-           onchange="uploadImage('logoFile','logoImg','logo')"/>
-    <input type="file" id="bpFile" name="bpFile" style="display: none;"/>
-
     <form id="baseForm">
         <input type="hidden" id="lastOne" name="lastOne" value="<%=curYear-1 %>:500万以下#100万以下#1000万以下#500万以下"/>
         <input type="hidden" id="lastTwo" name="lastTwo" value="<%=curYear-2 %>:500万以下#100万以下#1000万以下#500万以下"/>
@@ -70,7 +68,6 @@
         <input type="hidden" id="stageName" name="stageName" value="<%=isNull?"":project.getStageName()%>"/>
         <input type="hidden" name="type" value="3"/>
         <input type="hidden" id="tags" name="tags" value=""/>
-
         <div class="pro-wap">
             <div class="pro-t">项目信息(1/3)</div>
             <div class="pro-one">
@@ -80,6 +77,7 @@
                         <img id="logoImg" onclick="selectFile('logoFile');" title="点击添加图片"
                              src="<%=(isNull|| StringUtils.isEmpty(project.getLogo()))?appPath+"/images/bg-new1.png":project.getLogo() %>"
                              class="oimg"/>
+                        <span><a class="on">上传LOGO</a></span><input id="logoFile" name="logoFile" type='file' unselectable="on" class="on2" onchange="uploadImage('logoFile','logoImg','logo')"/>
                     </li>
                     <li class="on3">支持png/jpg/jepg格式</li>
                 </ul>
@@ -89,7 +87,8 @@
                     <li class="on1">项目名称</li>
                     <li class="on2"><input name="title"
                                            value="<%=(isNull || StringUtils.isEmpty(project.getTitle()))?"":project.getTitle()%>"
-                                           class="pro-one-ipt" placeholder="填写你的项目名称，不超过8个字"/></li>
+                                           class="pro-one-ipt" placeholder="填写你的项目名称，不超过8个字"/><span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                    </li>
                 </ul>
             </div>
             <div class="pro-one">
@@ -98,6 +97,7 @@
                     <li class="on2"><input name="demand"
                                            value="<%=(isNull || StringUtils.isEmpty(project.getDemand()))?"":project.getDemand()%>"
                                            class="pro-one-ipt" placeholder="一句话介绍你的项目所能解决的市场需求，不超过30个汉字"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                 </ul>
             </div>
@@ -108,6 +108,7 @@
                         <textarea name="highlights" class="pro-one-tex"
                                   placeholder="一句话介绍你的团队的优势（不超过300字）"><%=(isNull || StringUtils
                                 .isEmpty(project.getHighlights())) ? "" : project.getHighlights()%></textarea>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                     <li class="on3">投资人重点关注</li>
                 </ul>
@@ -145,8 +146,8 @@
                                         $(obj).removeClass("on");
                                         count--;
                                     } else {
-                                        if (count >= 6) {
-                                            alert("最多选择6个标签");
+                                        if (count >= 4) {
+                                            xalert("最多选择4个标签");
                                         } else {
                                             $(obj).attr("class", "on");
                                             count++;
@@ -163,7 +164,9 @@
                     <li class="on1">项目视频<span>（选填）</span></li>
                     <li class="on2"><input name="videoLink"
                                            value="<%=(isNull || StringUtils.isEmpty(project.getVideoLink()))?"":project.getVideoLink()%>"
-                                           class="pro-one-ipt" placeholder="添加视频播放地址"/></li>
+                                           class="pro-one-ipt" placeholder="添加视频播放地址"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                    </li>
                     <li class="on3">支持MP4格式／优酷／土豆视频链接</li>
                 </ul>
             </div>
@@ -175,6 +178,7 @@
                                   placeholder="项目详述"><%=(isNull || StringUtils.isEmpty(project.getDescription())) ?
                                 "" :
                                 project.getDescription()%></textarea>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                     <li class="on3">详细描述你的项目亮点，优势等等，便于下一轮投资者更完整了解该项目</li>
                 </ul>
@@ -193,9 +197,9 @@
                                         <%
                                             if (datas1 != null) {
                                         %><a class="a1" href="#"><%=datas1[0]%>
-                                    </a><%
+                                    </a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                     } else {
-                                    %><a class="a1" href="#">500万以下</a><%
+                                    %><a class="a1" href="#">500万以下</a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                         }
                                     %>
                                     </div>
@@ -218,9 +222,9 @@
                                         <%
                                             if (datas1 != null) {
                                         %><a class="a1" href="#"><%=datas1[1]%>
-                                    </a><%
+                                    </a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                     } else {
-                                    %><a class="a1" href="#">100万以下</a><%
+                                    %><a class="a1" href="#">100万以下</a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                         }
                                     %>
                                     </div>
@@ -242,9 +246,9 @@
                                         <%
                                             if (datas1 != null) {
                                         %><a class="a1" href="#"><%=datas1[2]%>
-                                    </a><%
+                                    </a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                     } else {
-                                    %><a class="a1" href="#">1000万以下</a><%
+                                    %><a class="a1" href="#">1000万以下</a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                         }
                                     %>
                                     </div>
@@ -266,9 +270,9 @@
                                         <%
                                             if (datas1 != null) {
                                         %><a class="a1" href="#"><%=datas1[3]%>
-                                    </a><%
+                                    </a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                     } else {
-                                    %><a class="a1" href="#">1000万以下</a><%
+                                    %><a class="a1" href="#">1000万以下</a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                         }
                                     %>
                                     </div>
@@ -293,9 +297,9 @@
                                         <%
                                             if (datas2 != null) {
                                         %><a class="a1" href="#"><%=datas2[0]%>
-                                    </a><%
+                                    </a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                     } else {
-                                    %><a class="a1" href="#">500万以下</a><%
+                                    %><a class="a1" href="#">500万以下</a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                         }
                                     %>
                                     </div>
@@ -318,9 +322,9 @@
                                         <%
                                             if (datas2 != null) {
                                         %><a class="a1" href="#"><%=datas2[1]%>
-                                    </a><%
+                                    </a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                     } else {
-                                    %><a class="a1" href="#">100万以下</a><%
+                                    %><a class="a1" href="#">100万以下</a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                         }
                                     %>
                                     </div>
@@ -342,9 +346,9 @@
                                         <%
                                             if (datas2 != null) {
                                         %><a class="a1" href="#"><%=datas2[2]%>
-                                    </a><%
+                                    </a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                     } else {
-                                    %><a class="a1" href="#">1000万以下</a><%
+                                    %><a class="a1" href="#">1000万以下</a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                         }
                                     %>
                                     </div>
@@ -366,9 +370,9 @@
                                         <%
                                             if (datas2 != null) {
                                         %><a class="a1" href="#"><%=datas2[3]%>
-                                    </a><%
+                                    </a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                     } else {
-                                    %><a class="a1" href="#">1000万以下</a><%
+                                    %><a class="a1" href="#">1000万以下</a><span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span><%
                                         }
                                     %>
                                     </div>
@@ -535,12 +539,20 @@
                 <ul class="pro-one-lst">
                     <li class="on1">商业计划书<span>（选填）</span></li>
                     <li class="on2">
-                        <ul class="pro-fiv-lst">
-                            <li class="e1"><a id="bpSelect" onclick="selectFile('bpFile')">点击选择</a></li>
+                        <%--<ul class="pro-fiv-lst">
+                            <li class="e1"><input id="logoFile" name="logoFile" type='file' unselectable="on" class="on2" onchange="uploadImage('logoFile','logoImg','logo')"/><a id="bpSelect" >点击选择</a><span class="pro5-left-top"></span><span class="pro5-right-top"></span><span class="pro5-right-bottom"></span><span class="pro5-left-bottom"></span></li>
                             <li class="e3">
                                 <span><a onclick="uploadFile('bpFile','bpSelect')">上传</a></span>
                                 <span id="fileName"></span>
                             </li>
+                        </ul>--%>
+                        <ul class="pro-fiv-lst">
+                            <li class="e1"><a>上传商业计划书</a><input id="bpFile" name="bpFile" type='file' unselectable="on" class="on3" onchange="uploadFile('bpFile')"/><span class="pro5-left-top"></span><span class="pro5-right-top"></span><span class="pro5-right-bottom"></span><span class="pro5-left-bottom"></span></li>
+                            <li class="e3">
+                                <span id="fileName"></span>
+                            </li>
+                            <%--<li class="e2"><img src="images/icon-hs.png" width="21" height="21"/></li>
+                            <li class="e3"><span>未上传</span></li>--%>
                         </ul>
                     </li>
                     <li class="on3">支持pdf/ppt/pptx/doc/docx格式</li>
@@ -565,53 +577,51 @@
             return;
         var patn = /\.jpg$|\.jpeg$|\.png$|\.gif$/i;
         if (!patn.test(file.val())) {
-            alert("请选择图片文件");
+            xalert("请选择图片文件");
             return;
         }
-        $.ajaxFileUpload({
-                    url: '<%=appPath%>/image/upload', //用于文件上传的服务器端请求地址
-                    type: 'post',
-                    secureuri: false, //是否需要安全协议，一般设置为false
-                    fileElementId: fileid, //文件上传域的ID
-                    dataType: 'json', //返回值类型 一般设置为json
-                    success: function (result) {  //服务器成功响应处理函数
-                        if (result.code == -1) {
-                            alert(result.message);
-                            return;
-                        }
-                        $('#' + imgid).attr("src", result.data.path);
-                        $('#' + hiddenid).val(result.data.path);
-                    }
-                }
-        );
+        $('#logoFile').wrap("<form id='myUpload' action='<%=appPath%>/image/upload' method='post' enctype='multipart/form-data'></form>");
+        $('#myUpload').ajaxSubmit({
+            dataType:'json',
+            success:function(result){
+                $('#' + imgid).attr("src", result.data.path);
+                $('#' + hiddenid).val(result.data.path);
+                $('#logoFile').unwrap();
+            },
+            error:function(xhr){
+                alert('上传失败!');
+                $('#logoFile').unwrap();
+            }
+        });
     }
     //上传文件
-    function uploadFile(fileid, showid) {
+    function uploadFile(fileid) {
         var file = $('#' + fileid);
         if (!file || !file.val())
             return;
         var patn = /\.pdf$|\.ppt$|\.pptx$/i;
         if (!patn.test(file.val())) {
-            alert("文件类型不正确");
+            xalert("文件类型不正确");
             return;
         }
-        $.ajaxFileUpload({
-                    url: '<%=appPath%>/file/upload', //用于文件上传的服务器端请求地址
-                    type: 'post',
-                    secureuri: false, //是否需要安全协议，一般设置为false
-                    fileElementId: fileid, //文件上传域的ID
-                    dataType: 'json', //返回值类型 一般设置为json
-                    success: function (result) {  //服务器成功响应处理函数
-                        if (result.code == -1) {
-                            alert(result.message);
-                            return;
-                        }
-                        $('#bp').val(result.data.path);
-                        $('#bpName').val(result.data.name);
-                        $('#fileName').html(result.data.name);
-                    }
+        $('#bpFile').wrap("<form id='myUpload' action='<%=appPath%>/file/upload' method='post' enctype='multipart/form-data'></form>");
+        $('#myUpload').ajaxSubmit({
+            dataType:'json',
+            success:function(result){
+                if (result.code == -1) {
+                    xalert(result.message);
+                    return;
                 }
-        );
+                $('#bp').val(result.data.path);
+                $('#bpName').val(result.data.name);
+                $('#fileName').html(result.data.name);
+                $('#bpFile').unwrap();
+            },
+            error:function(xhr){
+                alert('上传失败!');
+                $('#bpFile').unwrap();
+            }
+        });
     }
     //保存基本信息
     function saveBase() {
@@ -632,7 +642,7 @@
             dataType: 'json',
             success: function (result) {
                 if (result.code < 0) {
-                    alert(result.message);
+                    xalert(result.message);
                     return;
                 }
                 window.location.href = "<%=appPath%>/project/" + result.data + "/add/edit/2/auth";

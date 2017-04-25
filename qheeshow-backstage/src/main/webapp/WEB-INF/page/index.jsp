@@ -17,7 +17,7 @@
     <script type="text/javascript" src="<%=appPath%>/js/config.js"></script>
 </head>
 <body class="easyui-layout">
-<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">爬虫规则管理系统</div>
+<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;background-image: url(<%=appPath%>/images/pic-top.png);"></div>
 <div data-options="region:'west',split:true,title:'导航'" style="width:200px;padding:10px;">
     <div class="easyui-panel" style="padding:5px" title="采集点">
         <ul id="tree" class="easyui-tree" url="./tree/tree"></ul>
@@ -29,9 +29,7 @@
     </div>
 
 </div>
-<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region
-</div>
-<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">银联钱包杭州事业部</div>
+<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;text-align: center;">前海恒昇基金</div>
 <div data-options="region:'center',title:''">
     <div id="tt" class="easyui-tabs">
         <div title="工作区">

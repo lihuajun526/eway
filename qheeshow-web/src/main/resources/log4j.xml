@@ -40,7 +40,7 @@
         <level value="error"/>
     </logger>
     <root>
-        <level value="INFO"/>
+        <level value="DEBUG"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="DEFAULT_FILE"/>
     </root>

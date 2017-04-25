@@ -2,7 +2,7 @@ package com.qheeshow.eway.web.controller;
 
 import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.service.model.*;
-import com.qheeshow.eway.service.service.CommonQaService;
+import com.qheeshow.eway.service.service.ProjectQaService;
 import com.qheeshow.eway.service.service.ProjectService;
 import com.qheeshow.eway.service.service.TeamMemberService;
 import com.qheeshow.eway.service.service.XwcmclassinfoService;
@@ -35,7 +35,7 @@ public class ProjectController extends BaseController {
     @Autowired
     private TeamMemberService teamMemberService;
     @Autowired
-    private CommonQaService commonQaService;
+    private ProjectQaService commonQaService;
 
     @RequestMapping("/{id}/add/edit/1/auth")
     public ModelAndView addOrEditOne(@PathVariable Integer id) {
@@ -248,7 +248,7 @@ public class ProjectController extends BaseController {
     public ModelAndView get(@PathVariable Integer id) {
         Project project = projectService.get(id);
         List<TeamMember> members = teamMemberService.listByProject(id);
-        List<CommonQa> commonQas = commonQaService.list();
+        List<ProjectQa> commonQas = commonQaService.list();
 
         ModelAndView modelAndView = new ModelAndView();
 

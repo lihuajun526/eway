@@ -4,7 +4,6 @@
 <%@ page import="org.springframework.util.StringUtils" %>
 <%
     String appPath = Config.get("app.path");
-    User loginUser = (User) session.getAttribute("loginUser");
     String flag = "1";
 %>
 <html>

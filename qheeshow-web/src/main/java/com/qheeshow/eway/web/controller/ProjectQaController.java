@@ -1,20 +1,23 @@
 package com.qheeshow.eway.web.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.qheeshow.eway.service.model.ProjectQa;
+import com.qheeshow.eway.service.model.Project;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.ProjectQaService;
+import com.qheeshow.eway.service.service.ProjectService;
+import com.qheeshow.eway.service.service.UserService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
-import com.qheeshow.eway.web.base.ResultDg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-6-14.
@@ -24,52 +27,87 @@ import java.util.List;
 public class ProjectQaController extends BaseController {
 
     @Autowired
-    private ProjectQaService projectQaService;
+    private ProjectQaService commonQaService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ProjectService projectService;
 
-    @RequestMapping("/q")
+    @RequestMapping("/list/{projectid}/{index}")
+    public ModelAndView list(@PathVariable Integer projectid, @PathVariable Integer index) {
+
+        ProjectQa projectQa = new ProjectQa();
+        projectQa.setPageSize(6);
+        projectQa.setProjectid(projectid);
+
+        Project project = projectService.get(projectid);
+
+        Map map = commonQaService.listByPage(projectQa, index);
+        Integer count = (Integer) map.get("count");
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("project/project_qa");
+        modelAndView.addObject("commonQas", (List<ProjectQa>) map.get("commonQas"));
+        modelAndView.addObject("projectid", projectid);
+        modelAndView.addObject("userid", project.getUserid());
+        modelAndView.addObject("pageIndex", index);
+        modelAndView.addObject("count", count);
+        modelAndView.addObject("pageCount", count % 6 == 0 ? count / 6 : (count / 6 + 1));
+
+        return modelAndView;
+    }
+
+    /**
+     * 提问
+     *
+     * @param projectQa
+     * @param session
+     * @return
+     */
+    @RequestMapping("/q/authj")
     @ResponseBody
-    public String question(ProjectQa projectQa, HttpSession session) {
+    public String q(ProjectQa projectQa, HttpSession session) {
 
         Result result = new Result();
-
-        if (session.getAttribute("loginUser") == null) {
-            result.set(-1, "请先登录");
-            return result.toString();
-        }
 
         User loginUser = (User) session.getAttribute("loginUser");
+
+        projectQa.setParentid(0);
         projectQa.setUserid(loginUser.getId());
-        projectQaService.save(projectQa);
+        projectQa.setName(loginUser.getName());
+        projectQa.setPhoto(loginUser.getPhoto());
+        projectQa.setStatus(1);
+
+        commonQaService.save(projectQa);
 
         return result.toString();
     }
 
-    @RequestMapping("/a")
-    @ResponseBody
-    public String answer(ProjectQa projectQa,HttpSession session) {
+    /**
+     * 回答
+     *
+     * @param projectQa
+     * @param session
+     * @return
+     */
+    @RequestMapping("/a/authj")
+    public String a(ProjectQa projectQa, HttpSession session) {
         Result result = new Result();
 
-        if (session.getAttribute("loginUser") == null) {
-            result.set(-1, "请先登录");
-            return result.toString();
-        }
+        ProjectQa q = commonQaService.get(projectQa.getParentid());
+        User qUser = userService.get(projectQa.getqUserid());
+        User loginUser = (User) session.getAttribute("loginUser");
 
-        projectQaService.save(projectQa);
+        projectQa.setQuestion(q.getContent());
+        projectQa.setqName(qUser.getName());
+        projectQa.setUserid(loginUser.getId());
+        projectQa.setName(loginUser.getName());
+        projectQa.setPhoto(loginUser.getPhoto());
+        projectQa.setStatus(1);
+
+        commonQaService.save(projectQa);
 
         return result.toString();
-    }
-
-    @RequestMapping("/list/{status}")
-    @ResponseBody
-    public String list(@PathVariable Integer status) {
-
-        ResultDg<List<ProjectQa>> resultDg = new ResultDg<>();
-
-        List<ProjectQa> list = projectQaService.listByStatus(status);
-        resultDg.setTotal(list == null ? 0 : list.size());
-        resultDg.setRows(list);
-
-        return JSON.toJSONString(resultDg);
     }
 
 }

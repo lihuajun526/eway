@@ -35,7 +35,7 @@
                     <li class="on2"><a href="#">找回密码</a></li>
                 </ul>
                 <div class="clear"></div>
-                <div id="tips" class="g-noair2" style="display: none;">账号和密码不能为空</div>
+                <div id="tips" class="g-noair2" style="display: none;"></div>
                 <div class="g-pw-btnw"><input type="button" value="登  录" class="g-lgin-btn" onclick="login();"></div>
                 <div class="g-pw-weixin"><a onclick="weChatLogin()">微信快速登录</a></div>
             </div>
@@ -45,11 +45,15 @@
 <%@include file="../pub/foot.jsp"%>
 </body>
 <script type="text/javascript">
+    function showTip(value){
+        $("#tips").html(value);
+        $("#tips").show();
+    }
     function login() {
         var mobile = $("#mobile").val();
         var password = $("#password").val();
         if (!mobile.length || !password.length) {
-            $("#tips").show();
+            showTip("账号和密码不能为空");
             return;
         }
         $.ajax({
@@ -59,7 +63,7 @@
             data: $('#loginForm').serialize(),
             success: function (result) {
                 if (!result.success) {
-                    alert(result.data);
+                    showTip(result.data);
                     return;
                 }
                 window.location.href = "<%=appPath%>/index";

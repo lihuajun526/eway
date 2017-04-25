@@ -3,14 +3,19 @@ package com.qheeshow.eway.service.service;
 import com.qheeshow.eway.service.model.ProjectQa;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * Created by lihuajun on 17-2-8.
+ * Created by lihuajun on 17-3-13.
  */
-public interface ProjectQaService{
+public interface ProjectQaService {
 
-    void save(ProjectQa projectQa);
+    List<ProjectQa> list();
 
-    List<ProjectQa> listByStatus(Integer status);
+    Map<String, Object> listByPage(ProjectQa commonQa, Integer index);
+
+    ProjectQa get(Integer id);
+
+    void save(ProjectQa commonQa);
 
 }

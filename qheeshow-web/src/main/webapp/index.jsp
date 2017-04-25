@@ -137,7 +137,5 @@
         }, "json");
     }
     listbest();
-    //$("#modal").modal("show");
-    xalert("这里是提示");
 </script>
 </html>

@@ -27,4 +27,8 @@ public interface ProjectQaMapper {
     int updateByPrimaryKeySelective(ProjectQa record);
 
     int updateByPrimaryKey(ProjectQa record);
+
+    List<ProjectQa> listByPage(ProjectQa commonQa);
+
+    int countByPage(ProjectQa commonQa);
 }
