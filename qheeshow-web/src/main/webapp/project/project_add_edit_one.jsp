@@ -74,8 +74,7 @@
                 <ul class="pro-one-lst">
                     <li class="on1">项目LOGO</li>
                     <li class="on2">
-                        <img id="logoImg" onclick="selectFile('logoFile');" title="点击添加图片"
-                             src="<%=(isNull|| StringUtils.isEmpty(project.getLogo()))?appPath+"/images/bg-new1.png":project.getLogo() %>"
+                        <img id="logoImg" src="<%=(isNull|| StringUtils.isEmpty(project.getLogo()))?appPath+"/images/bg-new1.png":project.getLogo() %>"
                              class="oimg"/>
                         <span><a class="on">上传LOGO</a></span><input id="logoFile" name="logoFile" type='file' unselectable="on" class="on2" onchange="uploadImage('logoFile','logoImg','logo')"/>
                     </li>
@@ -539,26 +538,16 @@
                 <ul class="pro-one-lst">
                     <li class="on1">商业计划书<span>（选填）</span></li>
                     <li class="on2">
-                        <%--<ul class="pro-fiv-lst">
-                            <li class="e1"><input id="logoFile" name="logoFile" type='file' unselectable="on" class="on2" onchange="uploadImage('logoFile','logoImg','logo')"/><a id="bpSelect" >点击选择</a><span class="pro5-left-top"></span><span class="pro5-right-top"></span><span class="pro5-right-bottom"></span><span class="pro5-left-bottom"></span></li>
-                            <li class="e3">
-                                <span><a onclick="uploadFile('bpFile','bpSelect')">上传</a></span>
-                                <span id="fileName"></span>
-                            </li>
-                        </ul>--%>
                         <ul class="pro-fiv-lst">
                             <li class="e1"><a>上传商业计划书</a><input id="bpFile" name="bpFile" type='file' unselectable="on" class="on3" onchange="uploadFile('bpFile')"/><span class="pro5-left-top"></span><span class="pro5-right-top"></span><span class="pro5-right-bottom"></span><span class="pro5-left-bottom"></span></li>
                             <li class="e3">
                                 <span id="fileName"></span>
                             </li>
-                            <%--<li class="e2"><img src="images/icon-hs.png" width="21" height="21"/></li>
-                            <li class="e3"><span>未上传</span></li>--%>
                         </ul>
                     </li>
                     <li class="on3">支持pdf/ppt/pptx/doc/docx格式</li>
                 </ul>
             </div>
-            <!--*************************下一步按钮************************-->
             <div class="pro-clear"></div>
             <div class="pro-btn"><a onclick="saveBase();">下一步</a></div>
         </div>

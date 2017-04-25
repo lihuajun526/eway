@@ -45,16 +45,23 @@
                 <%
                     for (String tag : project.getTags().split("#")) {
                 %>
-                <li><a><%=tag%>
-                </a></li>
+                <li>
+                    <a><%=tag%></a><span class="invest1-left-top"></span><span class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
+                </li>
                 <%
                     }
                 %>
             </ul>
             <a id="follow" class="g-invest-focus" onclick="follow();"></a>
             <ul class="g-proj-lst3">
-                <li><a id="apply" onclick="applyAdviser(<%=project.getId()%>);">申请成为专职顾问</a></li>
-                <li><a onclick="bound(<%=project.getUserid()%>)">查看联系方式</a></li>
+                <li>
+                    <a id="apply" onclick="applyAdviser(<%=project.getId()%>);">申请成为专职顾问</a>
+                    <span class="invest1-left-top"></span><span class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
+                </li>
+                <li>
+                    <a onclick="bound(<%=project.getUserid()%>)">查看联系方式</a>
+                    <span class="invest1-left-top"></span><span class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
+                </li>
             </ul>
             <div class="g-proj-ico2"></div>
         </div>
@@ -129,7 +136,7 @@
                         }
                     %>
                 </ul>
-                <div class="g-invest-rmore"><a href="#">更多项目</a></div>
+                <div class="g-invest-rmore"><a href="#">更多问题</a></div>
             </div>
         </div>
     </div>
@@ -158,7 +165,7 @@
                 if (result.code == 0) {
                     $("#follow").html("已关注");
                 } else {
-                    alert(result.message);
+                    xalert(result.message);
                 }
             }
         });
@@ -198,16 +205,16 @@
     function bound(userid) {
         $.get("<%=appPath%>/mixcom/bound/" + userid + "/authj", function (result) {
             if (result.code < 0) {
-                alert(result.message);
+                xalert(result.message);
                 return;
             }
-            alert("项目负责人的联系电话是：" + result.data + "，该电话10分钟内有效");
+            xalert("项目负责人的联系电话是：" + result.data + "，该电话10分钟内有效");
         }, "json");
     }
     function applyAdviser(projectid) {
         $.get("<%=appPath%>/project/adviser/apply/" + projectid + "/authj", function (result) {
             if (result.code < 0) {
-                alert(result.message);
+                xalert(result.message);
                 return;
             }
             $("#apply").html("已申请专职顾问");

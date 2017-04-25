@@ -31,6 +31,7 @@
                     <li class="on1">投资机构<span>（选填）</span></li>
                     <li class="on2"><input name="lastInvestment" type="text" class="pro-one-ipt" placeholder="填写上一轮投资机构"
                                            value="<%=StringUtils.isEmpty(project.getLastInvestment())?"":project.getLastInvestment()%>"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                 </ul>
             </div>
@@ -56,12 +57,13 @@
                     <li class="on1">融资金额<span>（选填）</span></li>
                     <li class="on2"><input name="lastLimit" type="text" class="pro-one-ipt" placeholder="填写上一轮融资金额"
                                            value="<%=StringUtils.isEmpty(project.getLastLimit())?"":project.getLastLimit() %>"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                 </ul>
             </div>
             <div class="empty"></div>
             <div class="pro-clear"></div>
-            <div class="pro-btn"><a href="<%=appPath%>/project/<%=project.getId() %>/add/edit/2">上一步</a><a
+            <div class="pro-btn"><a href="<%=appPath%>/project/<%=project.getId() %>/add/edit/2/auth">上一步</a><a
                     onclick="saveFinancing();">完成</a></div>
         </div>
     </form>

@@ -26,8 +26,13 @@
             </ul>
             <div class="g-lgin-cnt">
                 <ul class="g-lgin-lst">
-                    <li><input id="mobile" name="mobile" class="g-lgin-ipt" placeholder="请输入手机号"/></li>
-                    <li><input id="password" name="password" type="password" class="g-lgin-ipt" placeholder="请输入密码"/>
+                    <li>
+                        <input id="mobile" name="mobile" class="g-lgin-ipt" placeholder="请输入手机号"/>
+                        <em class="g-lgin2-left-top"></em><em class="g-lgin2-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                    </li>
+                    <li>
+                        <input id="password" name="password" type="password" class="g-lgin-ipt" placeholder="请输入密码"/>
+                        <em class="g-lgin2-left-top"></em><em class="g-lgin2-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
                 </ul>
                 <ul class="g-lgin-lst2">

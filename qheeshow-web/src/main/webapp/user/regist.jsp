@@ -32,19 +32,29 @@
                     <li onclick="setRole(30,this);"><a>投资人</a></li>
                 </ul>
                 <ul class="g-lgin-lst">
-                    <li><input id="name" name="name" type="text" class="g-lgin-ipt2" placeholder="请务必填写真实姓名"/>
+                    <li>
+                        <input id="name" name="name" type="text" class="g-lgin-ipt2" placeholder="请务必填写真实姓名"/>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
-                    <li><input id="mobile" name="mobile" type="text" class="g-lgin-ipt2"
-                               placeholder="请输入手机号"/></li>
-                    <li><input id="email" name="email" type="text" class="g-lgin-ipt2"
-                               placeholder="请输入邮箱"/></li>
-                    <li><input id="smsCode" name="smsCode" type="text" class="g-lgin-ipt2"
-                               placeholder="请输入短信验证码"/><span><a id="counter" onclick="getSmsCode();">获取验证码</a></span>
+                    <li>
+                        <input id="mobile" name="mobile" type="text" class="g-lgin-ipt2" placeholder="请输入手机号"/>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
-                    <li><input id="password" name="password" type="password" class="g-lgin-ipt2"
-                               placeholder="请输入密码"/></li>
-                    <li><input id="rePassword" name="rePassword" type="password" class="g-lgin-ipt2"
-                               placeholder="请再次输入密码"/>
+                    <li>
+                        <input id="email" name="email" type="text" class="g-lgin-ipt2" placeholder="请输入邮箱"/>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                    </li>
+                    <li>
+                        <input id="smsCode" name="smsCode" type="text" class="g-lgin-ipt2" placeholder="请输入短信验证码"/><span><a id="counter" onclick="getSmsCode();">获取验证码</a></span>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin1-right-top"></em><em class="g-lgin1-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                    </li>
+                    <li>
+                        <input id="password" name="password" type="password" class="g-lgin-ipt2"placeholder="请输入密码"/>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                    </li>
+                    <li>
+                        <input id="rePassword" name="rePassword" type="password" class="g-lgin-ipt2"placeholder="请再次输入密码"/>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
                 </ul>
                 <div id="tips" class="g-noair" style="display: none;"></div>

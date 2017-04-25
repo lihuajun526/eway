@@ -19,7 +19,7 @@
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
-<%@include file="../pub/head.jsp"%>
+<%@include file="../pub/head.jsp" %>
 <div class="g-proj">
     <div class="g-invest">
         <div class="g-invest-img"><img src="<%=investor.getPhoto()%>" width="180" height="180"/></div>
@@ -37,7 +37,11 @@
                 <%
                     for (String tag : tags.keySet()) {
                 %>
-                <li><a><%=tag%>(<%=tags.get(tag)%>)</a></li>
+                <li>
+                    <a><%=tag%>(<%=tags.get(tag)%>)</a>
+                    <span class="invest1-left-top"></span><span class="invest1-right-top"></span><span
+                        class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
+                </li>
                 <%
                     }
                 %>
@@ -45,8 +49,12 @@
             <a id="follow_" class="g-invest-focus"
                onclick="follow(<%=investor.getUserid()%>,<%=investor.getId()%>)"></a>
             <ul class="g-invest-lst2">
-                <li><a href="#">投递项目</a></li>
-                <li><a onclick="bound(<%=investor.getUserid()%>)">查看联系方式</a></li>
+                <li><a href="#">投递项目</a><span class="invest1-left-top"></span><span
+                        class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span
+                        class="invest1-left-bottom"></span></li>
+                <li><a onclick="bound(<%=investor.getUserid()%>)">查看联系方式</a><span class="invest1-left-top"></span><span
+                        class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span
+                        class="invest1-left-bottom"></span></li>
             </ul>
         </div>
     </div>
@@ -66,10 +74,18 @@
                     <div class="g-invest-two3">
                         <div class="g-invest-lonetit">评价 <span>/Profile</span></div>
                         <ul id="tags_" class="g-invest-lst3">
-                            <li onclick="setTag(this);" data="人脉大咖"><a>人脉大咖</a></li>
-                            <li onclick="setTag(this);" data="专业人士"><a>专业人士</a></li>
-                            <li onclick="setTag(this);" data="金融专家"><a>金融专家</a></li>
-                            <li onclick="setTag(this);" data="FA达人"><a>FA达人</a></li>
+                            <li onclick="setTag(this);" data="人脉大咖"><a>人脉大咖</a><span
+                                    class="invest2-left-top"></span><span class="invest2-right-top"></span><span
+                                    class="invest2-right-bottom"></span><span class="invest2-left-bottom"></span></li>
+                            <li onclick="setTag(this);" data="专业人士"><a>专业人士</a><span
+                                    class="invest2-left-top"></span><span class="invest2-right-top"></span><span
+                                    class="invest2-right-bottom"></span><span class="invest2-left-bottom"></span></li>
+                            <li onclick="setTag(this);" data="金融专家"><a>金融专家</a><span
+                                    class="invest2-left-top"></span><span class="invest2-right-top"></span><span
+                                    class="invest2-right-bottom"></span><span class="invest2-left-bottom"></span></li>
+                            <li onclick="setTag(this);" data="FA达人"><a>FA达人</a><span
+                                    class="invest2-left-top"></span><span class="invest2-right-top"></span><span
+                                    class="invest2-right-bottom"></span><span class="invest2-left-bottom"></span></li>
                         </ul>
                     </div>
                     <div class="g-invest-two">
@@ -95,15 +111,6 @@
                     </div>
                 </form>
                 <div class="g-invest-two2"></div>
-                <%--<div class="g-invest-two2">20条评论</div>
-                <div class="g-invest-tre">
-                    <div class="g-invest-treimg"><img src="images/bg-new1.png" width="60" height="60"/></div>
-                    <div class="g-invest-tre-r">
-                        <div class="g-invest-tre-rt"><span class="on1">宋仲基</span><span class="on2">今天 17:09</span></div>
-                        <div class="g-invest-tre-rcnt"><a href="#">好项目真的好项目真的是立本的是立本的，模式的成立也是需要实际验证的，我看好你们的项目，也表示自己的兴趣。</a>
-                        </div>
-                    </div>
-                </div>--%>
             </div>
         </div>
         <!--*************************right star************************-->
@@ -126,13 +133,17 @@
     </div>
 
 </div>
-<%@include file="../pub/foot.jsp"%>
+<%@include file="../pub/foot.jsp" %>
 </body>
 <script>
     function setTag(obj) {
         if ($(obj).attr("class") == "on") {
+            $(obj).remove("span");
+            $(obj).append("<span class='invest2-left-top'></span><span class='invest2-right-top'></span><span class='invest2-right-bottom'></span><span class='invest2-left-bottom'></span>");
             $(obj).removeAttr("class");
         } else {
+            $(obj).remove("span");
+            $(obj).append("<span class='invest3-left-top'></span><span class='invest3-right-top'></span><span class='invest3-right-bottom'></span><span class='invest3-left-bottom'></span>");
             $(obj).attr("class", "on");
         }
     }

@@ -32,7 +32,7 @@ public class ProjectFollowController extends BaseController {
 
         Result result = new Result();
         if (session.getAttribute("loginUser") == null) {
-            result.set(-1, "请先登录");
+            result.set(-1, "对不起，请先登录");
             return result.toString();
         }
         User loginUser = (User) session.getAttribute("loginUser");
