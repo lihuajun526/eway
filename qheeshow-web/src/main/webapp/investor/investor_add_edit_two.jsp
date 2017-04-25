@@ -11,11 +11,13 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--投资人信息完善</title>
+    <link rel="stylesheet"  href="<%=appPath%>/images/bootstrap.css">
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/investor.css"/>
     <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
-    <script src="<%=appPath%>/jquery/ajaxfileupload.js"></script>
+    <script src="<%=appPath%>/images/bootstrap.min.js"></script>
+    <script src="<%=appPath%>/jquery/jquery-form.js"></script>
     <script src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
@@ -38,18 +40,24 @@
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">手机：</li>
-                    <li class="on2"><input id="mobile" name="mobile" class="inv-one-ipt"
+                    <li class="on2">
+                        <input id="mobile" name="mobile" class="inv-one-ipt"
                                            value="<%=StringUtils.isEmpty(investor.getMobile())?"":investor.getMobile()%>"
-                                           placeholder="输入手机号"/></li>
+                                           placeholder="输入手机号"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                    </li>
                     <li class="on3"></li>
                 </ul>
             </div>
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">邮箱：</li>
-                    <li class="on2"><input id="email" name="email" class="inv-one-ipt"
+                    <li class="on2">
+                        <input id="email" name="email" class="inv-one-ipt"
                                            value="<%=StringUtils.isEmpty(investor.getEmail())?"":investor.getEmail()%>"
-                                           placeholder="请输入邮箱"/></li>
+                                           placeholder="请输入邮箱"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                    </li>
                 </ul>
             </div>
             <div class="inv-one">
@@ -124,7 +132,7 @@
                     dataType: 'json', //返回值类型 一般设置为json
                     success: function (result) {  //服务器成功响应处理函数
                         if (result.code == -1) {
-                            alert(result.message);
+                            xalert(result.message);
                             return;
                         }
                         $('#' + id + 'Img').attr("src", result.data.path);
@@ -135,15 +143,15 @@
     }
     function saveAuth() {
         if (isEmpty($("#mobile").val())) {
-            alert("请填写手机号码");
+            xalert("请填写手机号码");
             return;
         }
         if (isEmpty($("#email").val())) {
-            alert("请填写电子邮箱");
+            xalert("请填写电子邮箱");
             return;
         }
         if (isEmpty($("#businessCardPositive").val())) {
-            alert("请上传名片正面照片");
+            xalert("请上传名片正面照片");
             return;
         }
         $.ajax({
@@ -155,7 +163,7 @@
             dataType: 'json',
             success: function (result) {
                 if (result.code < 0) {
-                    alert(result.message);
+                    xalert(result.message);
                     return;
                 }
                 window.location.href = "<%=appPath%>/index";

@@ -2,12 +2,9 @@
 <%@ page import="com.qheeshow.eway.service.model.Investor" %>
 <%@ page import="com.qheeshow.eway.service.model.Xwcmclassinfo" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.qheeshow.eway.service.model.User" %>
-<%@ page import="org.springframework.util.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String appPath = Config.get("app.path");
-    User loginUser = (User) session.getAttribute("loginUser");
     Object object = request.getAttribute("investor");
     Investor investor = object == null ? null : (Investor) object;
     boolean isNull = investor == null;
@@ -22,11 +19,13 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--投资人信息完善</title>
+    <link rel="stylesheet"  href="<%=appPath%>/images/bootstrap.css">
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/investor.css"/>
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
-    <script src="<%=appPath%>/jquery/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
+    <script src="<%=appPath%>/jquery/jquery-form.js"></script>
     <script src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
@@ -54,10 +53,12 @@
                     <li class="on2">
                         <a href="#">
                             <ul class="inv-lst1">
-                                <li><img id="photoImg"
+                                <li>
+                                    <img id="photoImg"
                                          src="<%=isNull?appPath+"/images/wt-icon19.png":investor.getPhoto()%>"
                                          width="58" height="58"
-                                         onclick="selectFile('photoFile')"/></li>
+                                         onclick="selectFile('photoFile')"/>
+                                </li>
                                 <li class="head">上传头像</li>
                             </ul>
                         </a>
@@ -68,8 +69,10 @@
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">真实姓名：</li>
-                    <li class="on2"><input class="inv-one-ipt"
-                                           value="<%=loginUser.getName()%>" readonly="readonly"/></li>
+                    <li class="on2">
+                        <input class="inv-one-ipt" value="<%=loginUser.getName()%>" readonly="readonly"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                    </li>
                 </ul>
             </div>
             <div class="inv-one">
@@ -90,12 +93,16 @@
                     <li class="on1">所在公司：</li>
                     <li class="on2">
                         <ul>
-                            <li class="inv-c-name"><input id="companyName" name="companyName" class="inv-one-ipt1"
-                                                          value="<%=isNull?"":investor.getCompanyName()%>"
-                                                          placeholder="公司名称"></li>
-                            <li><input id="companyRank" name="companyRank"
+                            <li class="inv-c-name">
+                                <input id="companyName" name="companyName" class="inv-one-ipt1" value="<%=isNull?"":investor.getCompanyName()%>" placeholder="公司名称">
+                                <span class="pro6-left-top"></span><span class="pro6-right-top"></span><span class="pro6-right-bottom"></span><span class="pro6-left-bottom"></span>
+                            </li>
+                            <li>
+                                <input id="companyRank" name="companyRank"
                                        value="<%=isNull?"":investor.getCompanyRank()%>"
-                                       class="inv-one-ipt1" placeholder="头衔"></li>
+                                       class="inv-one-ipt1" placeholder="头衔">
+                                <span class="pro6-left-top"></span><span class="pro6-right-top"></span><span class="pro6-right-bottom"></span><span class="pro6-left-bottom"></span>
+                            </li>
                         </ul>
                     </li>
                     <li class="on3">很重要的信息</li>
@@ -104,9 +111,12 @@
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">个人微信<span>（选填）</span>:</li>
-                    <li class="on2"><input name="wechatId" class="inv-one-ipt1"
+                    <li class="on2">
+                        <input name="wechatId" class="inv-one-ipt1"
                                            value="<%=isNull?"":StringUtils.isEmpty(investor.getWechatId())?"":investor.getWechatId()%>"
-                                           placeholder="微信号"/></li>
+                                           placeholder="微信号"/>
+                        <span class="pro1-left-top"></span><span class="pro1a-right-top"></span><span class="pro1a-right-bottom"></span><span class="pro1-left-bottom"></span>
+                    </li>
                 </ul>
             </div>
             <div class="inv-one">
@@ -218,6 +228,7 @@
                     <li class="on2">
                         <div class="inv-two-ipt" onclick="showMenu('limits');">
                             <a id="limit" class="a1">请选择</a>
+                            <span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span>
                         </div>
                         <div id="limits_" class="inv-menu-ico" style="display: none;"></div>
                         <ul id="limits" class="inv-menu" style="display: none;">
@@ -262,17 +273,23 @@
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">投资案例<span>（选填）</span>:</li>
-                    <li class="on2"><input name="investorCase" class="inv-one-ipt"
+                    <li class="on2">
+                        <input name="investorCase" class="inv-one-ipt"
                                            value="<%=isNull?"":StringUtils.isEmpty(investor.getInvestorCase())?"":investor.getInvestorCase()%>"
-                                           placeholder="请输入投资案例"/></li>
+                                           placeholder="请输入投资案例"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                    </li>
                 </ul>
             </div>
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">推荐人<span>（选填）</span>:</li>
-                    <li class="on2"><input name="recommender" class="inv-one-ipt"
+                    <li class="on2">
+                        <input name="recommender" class="inv-one-ipt"
                                            value="<%=isNull?"":StringUtils.isEmpty(investor.getRecommender())?"":investor.getRecommender()%>"
-                                           placeholder="请输入推荐人"/></li>
+                                           placeholder="请输入推荐人"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                    </li>
                 </ul>
             </div>
             <div class="inv-one">
@@ -280,6 +297,7 @@
                     <li class="on1">一句话介绍:</li>
                     <li class="on2"><textarea id="summary" name="summary" class="inv-one-tex" style="height: 80px;"
                                               placeholder="一句话介绍自己"><%=isNull ? "" : StringUtils.isEmpty(investor.getSummary()) ? "" : investor.getSummary()%></textarea>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                     <li class="on3">&nbsp;</li>
                 </ul>
@@ -289,6 +307,7 @@
                     <li class="on1">个人简介:</li>
                     <li class="on2"><textarea id="personalProfile" name="personalProfile" class="inv-one-tex"
                                               placeholder="包括教育经历,工作经验，创业经历，行业背景等内容"><%=isNull ? "" : StringUtils.isEmpty(investor.getPersonalProfile()) ? "" : investor.getPersonalProfile()%></textarea>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                     <li class="on3">&nbsp;</li>
                 </ul>

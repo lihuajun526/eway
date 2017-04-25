@@ -34,7 +34,7 @@
         <ul class="g-pser-lst">
             <%
                 if(projects.size()==0){
-                    %><li class="on"><a href="<%=appPath%>/project/0/add/edit/1/auth">请先创建项目</a></li><%
+                    %><li class="on"><a href="<%=appPath%>/project/0/add/edit/1/auth">请先创建项目</a><span class="g-pser-left-top"></span><span class="g-pser-right-top"></span><span class="g-pser-right-bottom"></span><span class="g-pser-left-bottom"></span></li><%
                 }else{
                     for (int i = 0; i < 4 && i < projects.size(); i++) {
                         Project project = projects.get(i);
@@ -47,7 +47,7 @@
                             cls = "";
                         %><li<%=cls%> onclick="checkProject(this,<%=project.getId()%>);" style="cursor: pointer">
             <a><%=project.getTitle()%>
-            </a></li><%
+            </a><span class="g-pser-left-top"></span><span class="g-pser-right-top"></span><span class="g-pser-right-bottom"></span><span class="g-pser-left-bottom"></span></li><%
                     }
                 }
             %>
