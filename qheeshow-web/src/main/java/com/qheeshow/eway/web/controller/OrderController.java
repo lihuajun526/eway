@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 
 
 /**
@@ -52,10 +53,15 @@ public class OrderController extends BaseController {
         if (count4.intValue() > 0) {
             orderStr.append("4_" + count4 + "#");
         }
-        Result<Boolean> result = new Result();
-        result.setData(false);
-        orderService.place(loginUser.getId(), projectid, orderStr.toString());
-        result.set("下单成功", true);
+        Result<String> result = new Result();
+        try {
+            String qrcode = orderService.place(loginUser.getId(), projectid, orderStr.toString(), "WECHAT");
+            result.setData(qrcode);
+        } catch (Exception e) {
+            LOGGER.error("下单失败:", e);
+            result.setCode(-1);
+            result.setMessage("下单失败");
+        }
         return result.toString();
     }
 

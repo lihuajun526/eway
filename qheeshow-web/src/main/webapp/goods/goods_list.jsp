@@ -22,7 +22,7 @@
     <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
 </head>
 <body>
-<%@include file="../pub/head.jsp"%>
+<%@include file="../pub/head.jsp" %>
 <div class="g-banner2"></div>
 <div class="g-proj">
     <div class="g-pser">
@@ -33,21 +33,28 @@
         <div class="g-pser-t2"><span>温馨提示：</span>选择为您的一个项目购买服务</div>
         <ul class="g-pser-lst">
             <%
-                if(projects.size()==0){
-                    %><li class="on"><a href="<%=appPath%>/project/0/add/edit/1/auth">请先创建项目</a><span class="g-pser-left-top"></span><span class="g-pser-right-top"></span><span class="g-pser-right-bottom"></span><span class="g-pser-left-bottom"></span></li><%
-                }else{
-                    for (int i = 0; i < 4 && i < projects.size(); i++) {
-                        Project project = projects.get(i);
-                        String cls = "";
-                        if (projectid == 0 && i == 0) {
-                            cls = " class='on'";
-                        } else if (project.getId().intValue() == projectid) {
-                            cls = " class='on'";
-                        } else
-                            cls = "";
-                        %><li<%=cls%> onclick="checkProject(this,<%=project.getId()%>);" style="cursor: pointer">
-            <a><%=project.getTitle()%>
-            </a><span class="g-pser-left-top"></span><span class="g-pser-right-top"></span><span class="g-pser-right-bottom"></span><span class="g-pser-left-bottom"></span></li><%
+                if (projects.size() == 0) {
+            %>
+            <li class="on"><a href="<%=appPath%>/project/0/add/edit/1/auth">请先创建项目</a><span
+                    class="g-pser-left-top"></span><span class="g-pser-right-top"></span><span
+                    class="g-pser-right-bottom"></span><span class="g-pser-left-bottom"></span></li>
+            <%
+            } else {
+                for (int i = 0; i < 4 && i < projects.size(); i++) {
+                    Project project = projects.get(i);
+                    String cls = "";
+                    if (projectid == 0 && i == 0) {
+                        cls = " class='on'";
+                    } else if (project.getId().intValue() == projectid) {
+                        cls = " class='on'";
+                    } else
+                        cls = "";
+            %>
+            <li<%=cls%> onclick="checkProject(this,<%=project.getId()%>);" style="cursor: pointer">
+                <a><%=project.getTitle()%>
+                </a><span class="g-pser-left-top"></span><span class="g-pser-right-top"></span><span
+                    class="g-pser-right-bottom"></span><span class="g-pser-left-bottom"></span></li>
+            <%
                     }
                 }
             %>
@@ -164,7 +171,7 @@
         </div>
     </div>
 </div>
-<%@include file="../pub/foot.jsp"%>
+<%@include file="../pub/foot.jsp" %>
 </body>
 <script>
     var projectid = <%=projects.size()>0?projects.get(0).getId():0%>;
@@ -311,7 +318,13 @@
     function place() {
         $.get("<%=appPath%>/order/place/" + projectid + "/" + count1 + "/" + count2 + "/" + count3 + "/" + count4, function (result) {
             alert(result.message);
-            window.location.reload;
+            if (result.code < 0) {
+                xalert(result.message);
+                return;
+            } else {
+                window.location.reload;
+                alert("弹出二维码");
+            }
         }, "json");
     }
 </script>

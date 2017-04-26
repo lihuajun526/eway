@@ -1,14 +1,14 @@
 package com.qheeshow.eway.common.util;
 
-import org.apache.http.Header;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 2016/9/12.
@@ -96,6 +96,44 @@ public class StrUtil {
             buf.append(Integer.toHexString(i));
         }
         return buf.toString();
+    }
+
+    public static String getRandomString(int length) {
+        String feed = "0123456789abcdefghijklmnopqrstuvwxyz";
+        StringBuffer sb = new StringBuffer();
+        int len = feed.length();
+        for (int i = 0; i < length; i++) {
+            sb.append(feed.charAt((int) Math.round(Math.random() * (len - 1))));
+        }
+        return sb.toString();
+    }
+
+    public static String sign(Map<String, String> map) {
+        StringBuffer sb = new StringBuffer();
+        for (Map.Entry entry : map.entrySet()) {
+            sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+        }
+        sb.append("key=").append(Config.get("wechat.key"));
+        return md5(sb.toString()).toUpperCase();
+    }
+
+    public static String map2Xml(Map<String, String> map) {
+        StringBuffer sb = new StringBuffer("<xml>");
+        for (Map.Entry entry : map.entrySet()) {
+            String value = (String) entry.getValue();
+            if (StringUtils.isEmpty(value))
+                continue;
+            sb.append("<" + entry.getKey() + "><![CDATA[" + value + "]]></" + entry.getKey() + ">");
+        }
+        sb.append("</xml>");
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+
+        String str = StrUtil.md5("appid=wx1aa62bfe6452ed5f&body=梧桐e路-A套餐&device_info=WEB&mch_id=1461590802&nonce_str=rra5dliktey4ioxgt26yy6dunrpnjjfg&notify_url=http://lihuajun526.xicp.net/&out_trade_no=693556164067181&sign=BC1C0496147B9796452D0F0A53C7B702&spbill_create_ip=122.224.113.146&total_fee=1&trade_type=NATIVE&key=qheeshow20171234567890qwertyuiop").toUpperCase();
+        System.out.println(str);
+
     }
 
 }
