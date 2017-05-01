@@ -1,6 +1,7 @@
 package com.qheeshow.eway.backstage.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.google.zxing.WriterException;
 import com.qheeshow.eway.backstage.base.BaseController;
 import com.qheeshow.eway.backstage.base.Result;
 import com.qheeshow.eway.backstage.base.ResultDg;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -65,7 +67,7 @@ public class ActivityController extends BaseController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public String save(Activity activity) throws ParseException {
+    public String save(Activity activity) throws ParseException, IOException, WriterException {
 
         Result<Boolean> result = new Result();
         result.setData(false);
@@ -82,7 +84,7 @@ public class ActivityController extends BaseController {
 
     @RequestMapping("/status/update/{activityid}/{status}")
     @ResponseBody
-    public String updateStatus(@PathVariable Integer activityid, @PathVariable Integer status) throws ParseException {
+    public String updateStatus(@PathVariable Integer activityid, @PathVariable Integer status) throws ParseException, IOException, WriterException {
 
         Result<Boolean> result = new Result();
         result.setData(false);
@@ -98,7 +100,7 @@ public class ActivityController extends BaseController {
 
     @RequestMapping("/head/{activityid}/{ishead}")
     @ResponseBody
-    public String head(@PathVariable Integer activityid, @PathVariable Integer ishead) throws ParseException {
+    public String head(@PathVariable Integer activityid, @PathVariable Integer ishead) throws ParseException, IOException, WriterException {
 
         Result<Boolean> result = new Result();
         result.setData(false);

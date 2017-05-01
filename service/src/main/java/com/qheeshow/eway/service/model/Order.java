@@ -20,9 +20,19 @@ public class Order {
 
     private BigDecimal price;
 
+    private Integer flag;
+
     private Date createTime;
 
     private Date updateTime;
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
+    }
 
     public Integer getId() {
         return id;

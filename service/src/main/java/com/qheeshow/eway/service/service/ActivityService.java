@@ -1,8 +1,10 @@
 package com.qheeshow.eway.service.service;
 
+import com.google.zxing.WriterException;
 import com.qheeshow.eway.service.model.Activity;
 import com.qheeshow.eway.service.model.ActivitySign;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +21,7 @@ public interface ActivityService {
 
     Activity get(Integer id);
 
-    void save(Activity activity);
+    void save(Activity activity) throws IOException, WriterException;
 
     List<Activity> latest(Integer num);
 }

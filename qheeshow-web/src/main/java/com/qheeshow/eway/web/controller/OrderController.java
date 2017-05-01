@@ -1,5 +1,6 @@
 package com.qheeshow.eway.web.controller;
 
+import com.qheeshow.eway.service.model.Order;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.OrderService;
 import com.qheeshow.eway.web.base.BaseController;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 
 /**
@@ -35,9 +36,9 @@ public class OrderController extends BaseController {
      * @param session
      * @return
      */
-    @RequestMapping("/place/{projectid}/{count1}/{count2}/{count3}/{count4}")
+    @RequestMapping("/place/{projectid}/{count1}/{count2}/{count3}/{count4}/{payType}")
     @ResponseBody
-    public String place(@PathVariable Integer projectid, @PathVariable Integer count1, @PathVariable Integer count2, @PathVariable Integer count3, @PathVariable Integer count4, HttpSession session) {
+    public String place(@PathVariable Integer projectid, @PathVariable Integer count1, @PathVariable Integer count2, @PathVariable Integer count3, @PathVariable Integer count4, @PathVariable String payType, HttpSession session) {
         //goodsid_count#goodsid_count#goodsid_count
         User loginUser = (User) session.getAttribute("loginUser");
         StringBuffer orderStr = new StringBuffer();
@@ -53,15 +54,34 @@ public class OrderController extends BaseController {
         if (count4.intValue() > 0) {
             orderStr.append("4_" + count4 + "#");
         }
-        Result<String> result = new Result();
+        Result<Map<String, String>> result = new Result<>();
         try {
-            String qrcode = orderService.place(loginUser.getId(), projectid, orderStr.toString(), "WECHAT");
-            result.setData(qrcode);
+            Map<String, String> map = orderService.place(loginUser.getId(), projectid, orderStr.toString(), payType);
+            result.setData(map);
         } catch (Exception e) {
             LOGGER.error("下单失败:", e);
             result.setCode(-1);
             result.setMessage("下单失败");
         }
+        return result.toString();
+    }
+
+    /**
+     * 获取订单状态
+     *
+     * @param orderid
+     * @return
+     */
+    @RequestMapping("/status/{orderid}")
+    @ResponseBody
+    public String getOrderStatus(@PathVariable Integer orderid) {
+
+        Result<Integer> result = new Result<>();
+        result.setData(1);
+
+        Order order = orderService.get(orderid);
+        result.setData(order.getStatus());
+
         return result.toString();
     }
 

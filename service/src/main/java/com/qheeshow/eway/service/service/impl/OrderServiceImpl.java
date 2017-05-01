@@ -1,21 +1,17 @@
 package com.qheeshow.eway.service.service.impl;
 
-import com.google.zxing.WriterException;
+import com.qheeshow.eway.common.bean.wechat.pay.ResultOrder;
 import com.qheeshow.eway.common.bean.wechat.pay.exception.OrderWechatException;
 import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.common.exception.RequestException;
-import com.qheeshow.eway.common.util.Config;
-import com.qheeshow.eway.common.util.MatrixToImageWriter;
 import com.qheeshow.eway.common.util.StrUtil;
 import com.qheeshow.eway.service.dao.GoodsMapper;
 import com.qheeshow.eway.service.dao.OrderDetailMapper;
 import com.qheeshow.eway.service.dao.OrderMapper;
 import com.qheeshow.eway.service.dao.UserMapper;
-import com.qheeshow.eway.service.model.Order;
-import com.qheeshow.eway.service.model.OrderDetail;
-import com.qheeshow.eway.service.model.OrderWechat;
-import com.qheeshow.eway.service.model.User;
+import com.qheeshow.eway.service.model.*;
 import com.qheeshow.eway.service.service.OrderService;
+import com.qheeshow.eway.service.service.PayService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +19,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 2017/2/26.
@@ -46,11 +43,14 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private PayServiceImpl payService;
+    private PayService payService;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
-    public String place(Integer userid, Integer projectid, String orderStr, String payType) throws OrderWechatException {
+    public Map<String, String> place(Integer userid, Integer projectid, String orderStr, String payType) throws OrderWechatException {
+
+        Map<String, String> map = new HashMap<>();
+
         if (orderStr.indexOf("#") != -1) {
             orderStr = orderStr.substring(0, orderStr.length() - 1);
         }
@@ -65,19 +65,21 @@ public class OrderServiceImpl implements OrderService {
             if (count > 1)
                 title.append("(" + count + "份)");
             title.append(" ");
-            total.add(new BigDecimal(goodsMapper.selectByPrimaryKey(goodsid).getPrice().intValue() * count));
+            total = total.add(goodsMapper.selectByPrimaryKey(goodsid).getPrice().multiply(new BigDecimal(count)));
         }
         //保存订单
         Order order = new Order();
         order.setTitle(title.toString());
         order.setProjectid(projectid);
         order.setStatus(1);
+        order.setFlag(0);
         order.setUserid(userid);
         order.setOrderNo(StrUtil.getOrderno());
         order.setPrice(total);
         Date begin = new Date();
         order.setCreateTime(begin);
         orderMapper.insert(order);
+        map.put("orderid", String.valueOf(order.getId()));
 
         User loginUser = userMapper.selectByPrimaryKey(userid);
         Integer callTime = loginUser.getCallTime();
@@ -94,7 +96,7 @@ public class OrderServiceImpl implements OrderService {
             orderDetail.setOrderid(order.getId());
             orderDetail.setGoodsid(goodsid);
             orderDetail.setPrice(goodsMapper.selectByPrimaryKey(goodsid).getPrice());
-            totalPrice = totalPrice.add(orderDetail.getPrice());
+            totalPrice = totalPrice.add(orderDetail.getPrice().multiply(new BigDecimal(count)));
             orderDetail.setCount(count);
             orderDetailMapper.insert(orderDetail);
         }
@@ -111,7 +113,8 @@ public class OrderServiceImpl implements OrderService {
             orderWechat.setOrderno(order.getOrderNo());
             orderWechat.setTotalFee(String.valueOf(totalPrice.multiply(new BigDecimal(100)).intValue()));
             try {
-                qrcode = payService.order(orderWechat);
+                ResultOrder resultOrder = payService.order(orderWechat);
+                qrcode = resultOrder.getCode_url();
             } catch (UnsupportedEncodingException e) {
                 LOGGER.error("error:", e);
                 throw new OrderWechatException();
@@ -126,19 +129,41 @@ public class OrderServiceImpl implements OrderService {
 
         }
         //生成支付二维码
-        String[] paths = StrUtil.getFilePath("qrcode");
-        File dir = new File(paths[0]);
-        if (!dir.exists())
-            dir.mkdir();
-        long fileName = System.nanoTime();
-        String suffix = Config.get("qr.code.format");
-        File file = new File(paths[0] + File.separator + fileName + "." + suffix);
         try {
-            MatrixToImageWriter.createQRCode(qrcode, file);
+            map.put("qrcode", payService.createWechatORCode(qrcode, "qrcode"));
         } catch (Exception e) {
             LOGGER.error("error:", e);
             throw new OrderWechatException();
         }
-        return paths[1] + "/" + fileName + "." + suffix;
+        return map;
+    }
+
+    @Override
+    public Order get(Integer id) {
+        return orderMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Order getByOrder(String orderno) {
+
+        OrderExample example = new OrderExample();
+        OrderExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderNoEqualTo(orderno);
+
+        List<Order> list = orderMapper.selectByExample(example);
+
+        if (list.size() > 0)
+            return list.get(0);
+        else
+            return null;
+    }
+
+    @Override
+    public void save(Order order) {
+        if (order.getId() == null) {
+            orderMapper.insert(order);
+        } else {
+            orderMapper.updateByPrimaryKeySelective(order);
+        }
     }
 }

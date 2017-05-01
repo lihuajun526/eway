@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="<%=appPath%>/images/project.css"/>
     <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
     <script>
-        var type = 0;//项目类型
+        var type = 1;//项目类型
         var areaid = 0;//地区id
         var industryid = 0;//产业id
         var limitid = 0;//融资规模id
@@ -58,15 +58,12 @@
             list();
         }
         function setCheck(value, obj, id) {
-            if (value != 0) {
-                $(obj).parent().children('li').each(function () {
-                    $(this).removeClass("on");
-                });
-                $(obj).attr("class", "on");
-            } else
-                $("#" + id).children('li').each(function () {
-                    $(this).removeClass("on");
-                });
+            $(obj).parent().children('li').each(function () {
+                $(this).removeClass("ove");
+                $(obj).remove("span");
+            });
+            $(obj).append("<span></span>");
+            $(obj).attr("class", "ove");
         }
     </script>
 </head>
@@ -79,18 +76,17 @@
             <li><input id="keyword" class="g-proj-ipt" placeholder="输入您要找的好项目"/></li>
             <li><a href="#" class="g-proj-btn"></a></li>
         </ul>
-        <div class="g-proj-one">
-            <div class="g-proj-onew">
-                <div class="g-proj-onel">项目类型：</div>
-                <div class="g-proj-onec" onclick="setType(0,this,'types');"><a>不限</a></div>
-                <div class="g-proj-oner">
-                    <ul id="types">
-                        <li onclick="setType(1,this);"><a>平台推荐</a></li>
-                        <li onclick="setType(2,this);"><a>机构推荐</a></li>
-                        <li onclick="setType(3,this);"><a>企业自荐</a></li>
-                    </ul>
-                </div>
+        <div class="g-proj-one3">
+            <div class="g-proj-onel">项目类型：</div>
+            <div class="g-proj-oner3">
+                <ul>
+                    <li onclick="setType(1,this);" class="ove"><a>平台推荐</a><span></span></li>
+                    <li onclick="setType(2,this);"><a>机构关注</a></li>
+                    <li onclick="setType(3,this);"><a>企业自荐</a></li>
+                </ul>
             </div>
+        </div>
+        <div class="g-proj-one">
             <div class="g-proj-onew">
                 <div class="g-proj-onel">所在区域：</div>
                 <div class="g-proj-onec" onclick="setArea(0,this,'areas');"><a>不限</a></div>

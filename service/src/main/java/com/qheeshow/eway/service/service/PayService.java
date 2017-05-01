@@ -1,9 +1,14 @@
 package com.qheeshow.eway.service.service;
 
+import com.google.zxing.WriterException;
+import com.qheeshow.eway.common.bean.wechat.pay.ResultOrder;
+import com.qheeshow.eway.common.bean.wechat.pay.WechatNotify;
+import com.qheeshow.eway.common.bean.wechat.pay.exception.ResponseWechat;
 import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.common.exception.RequestException;
 import com.qheeshow.eway.service.model.OrderWechat;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -11,8 +16,9 @@ import java.io.UnsupportedEncodingException;
  */
 public interface PayService {
 
-    String createWechatORCode(String url);
+    String createWechatORCode(String url, String fileType) throws IOException, WriterException;
 
-    String order(OrderWechat orderWechat) throws UnsupportedEncodingException, RequestException, CommonException;
+    ResultOrder order(OrderWechat orderWechat) throws UnsupportedEncodingException, RequestException, CommonException;
 
+    String order(WechatNotify wechatNotify);
 }

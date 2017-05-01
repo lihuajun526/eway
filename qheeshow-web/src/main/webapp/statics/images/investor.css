@@ -80,6 +80,7 @@ position:relative;
 	height:155px;
 	text-align:center;
 	padding-top:30px;
+	position:relative;
 }
 .inv-lst1 li {
 	float:inherit;
@@ -88,6 +89,18 @@ position:relative;
 }
 .inv-lst1 li.head {
 	margin-top:13px;
+}
+.inv-lst1 .on4{
+	position:absolute;
+	left:0;
+	top:0;
+	width:154px;
+	height:155px;
+	z-index:999;
+	font-size:70px;
+	overflow:hidden;
+	opacity:0;
+	filter:alpha(opacity=0);
 }
 .inv-one-lst2 {
 	height:40px;
@@ -212,6 +225,19 @@ position:relative;
 	height:154px;
 	text-align:center;
 	padding-top:30px;
+	position:relative;
+}
+.inv-lst2 li .on5{
+	position:absolute;
+	left:0;
+	top:0;
+	width:200px;
+	height:150px;
+	z-index:999;
+	font-size:70px;
+	overflow:hidden;
+	opacity:0;
+	filter:alpha(opacity=0);
 }
 .inv-lst2-l {
 	margin-right:24px;

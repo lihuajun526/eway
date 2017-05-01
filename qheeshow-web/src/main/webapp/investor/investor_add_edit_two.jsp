@@ -11,7 +11,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--投资人信息完善</title>
-    <link rel="stylesheet"  href="<%=appPath%>/images/bootstrap.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/investor.css"/>
@@ -21,13 +21,8 @@
     <script src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
-<%@include file="../pub/head.jsp"%>
+<%@include file="../pub/head.jsp" %>
 <div class="inv-body">
-    <input id="businessCardPositiveFile" name="businessCardPositiveFile" type="file" multiple="multiple"
-           onchange="doUpload('businessCardPositive')" style="display: none"/>
-    <input id="businessCardOppositeFile" name="businessCardOppositeFile" type="file" multiple="multiple"
-           onchange="doUpload('businessCardOpposite')" style="display: none"/>
-
     <form id="authForm">
         <input type="hidden" name="id" value="<%=investor.getId()%>"/>
         <input type="hidden" id="businessCardPositive" name="businessCardPositive"
@@ -42,9 +37,10 @@
                     <li class="on1">手机：</li>
                     <li class="on2">
                         <input id="mobile" name="mobile" class="inv-one-ipt"
-                                           value="<%=StringUtils.isEmpty(investor.getMobile())?"":investor.getMobile()%>"
-                                           placeholder="输入手机号"/>
-                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                               value="<%=StringUtils.isEmpty(investor.getMobile())?"":investor.getMobile()%>"
+                               placeholder="输入手机号"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span
+                            class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                     <li class="on3"></li>
                 </ul>
@@ -54,9 +50,10 @@
                     <li class="on1">邮箱：</li>
                     <li class="on2">
                         <input id="email" name="email" class="inv-one-ipt"
-                                           value="<%=StringUtils.isEmpty(investor.getEmail())?"":investor.getEmail()%>"
-                                           placeholder="请输入邮箱"/>
-                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                               value="<%=StringUtils.isEmpty(investor.getEmail())?"":investor.getEmail()%>"
+                               placeholder="请输入邮箱"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span
+                            class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                 </ul>
             </div>
@@ -70,14 +67,22 @@
                                     <img id="businessCardPositiveImg"
                                          src="<%=StringUtils.isEmpty(investor.getBusinessCardPositive())?"/images/wt-icon19.png":investor.getBusinessCardPositive()%>"
                                          width="58"
-                                         height="58" onclick="selectFile('businessCardPositiveFile')"/>
+                                         height="58"/>
                                 </span>
-                                <span class="head">名片正面（必要）</span></li>
-                            <li><span><img id="businessCardOppositeImg"
-                                           src="<%=StringUtils.isEmpty(investor.getBusinessCardOpposite())?"/images/wt-icon19.png":investor.getBusinessCardOpposite()%>"
-                                           width="58"
-                                           height="58" onclick="selectFile('businessCardOppositeFile')"/></span><span
-                                    class="head">名片反面（选填）</span></li>
+                                <span class="head">名片正面（必要）</span>
+                                <input id="businessCardPositiveFile" name="businessCardPositiveFile" type='file'
+                                       onchange="doUpload('businessCardPositive');" unselectable="on" class="on5"/>
+                            </li>
+                            <li>
+                                <span>
+                                    <img id="businessCardOppositeImg"
+                                         src="<%=StringUtils.isEmpty(investor.getBusinessCardOpposite())?"/images/wt-icon19.png":investor.getBusinessCardOpposite()%>"
+                                         width="58"
+                                         height="58"/></span><span
+                                    class="head">名片反面（选填）</span>
+                                <input id="businessCardOppositeFile" name="businessCardOppositeFile" type='file'
+                                       onchange="doUpload('businessCardOpposite');" unselectable="on" class="on5"/>
+                            </li>
                         </ul>
                     </li>
                     <li class="on3">必填信息</li>
@@ -116,30 +121,37 @@
         </div>
     </form>
 </div>
-<%@include file="../pub/foot.jsp"%>
+<%@include file="../pub/foot.jsp" %>
 </body>
 <script>
-    function selectFile(id) {
-        $('#' + id).click();
-    }
     //上传图片
     function doUpload(id) {
-        $.ajaxFileUpload({
-                    url: '<%=appPath%>/image/upload', //用于文件上传的服务器端请求地址
-                    type: 'post',
-                    secureuri: false, //是否需要安全协议，一般设置为false
-                    fileElementId: id + 'File', //文件上传域的ID
-                    dataType: 'json', //返回值类型 一般设置为json
-                    success: function (result) {  //服务器成功响应处理函数
-                        if (result.code == -1) {
-                            xalert(result.message);
-                            return;
-                        }
-                        $('#' + id + 'Img').attr("src", result.data.path);
-                        $('#' + id).val(result.data.path);
-                    }
+
+        var file = $('#' + id + "File");
+        if (!file || !file.val())
+            return;
+        var patn = /\.jpg$|\.jpeg$|\.png$|\.gif$/i;
+        if (!patn.test(file.val())) {
+            xalert("请选择图片文件");
+            return;
+        }
+        file.wrap("<form id='myUpload' action='<%=appPath%>/image/upload' method='post' enctype='multipart/form-data'></form>");
+        $('#myUpload').ajaxSubmit({
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == -1) {
+                    xalert(result.message);
+                    return;
                 }
-        );
+                $('#' + id + 'Img').attr("src", result.data.path);
+                $('#' + id).val(result.data.path);
+                file.unwrap();
+            },
+            error: function (xhr) {
+                xalert('上传失败!');
+                file.unwrap();
+            }
+        });
     }
     function saveAuth() {
         if (isEmpty($("#mobile").val())) {

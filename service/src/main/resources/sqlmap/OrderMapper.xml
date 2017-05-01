@@ -10,6 +10,7 @@
     <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -72,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, order_no, title, content, projectid, userid, status, price, create_time, update_time
+    id, order_no, title, content, projectid, userid, status, price, flag, create_time,
+    update_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.OrderExample" >
     select
@@ -90,7 +92,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_order
     where id = #{id,jdbcType=INTEGER}
@@ -109,14 +111,14 @@
     <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
       SELECT LAST_INSERT_ID() AS id
     </selectKey>
-    insert into t_order (id, order_no, title, 
-      content, projectid, userid, 
-      status, price, create_time, 
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{projectid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into t_order (id, order_no, title,
+    content, projectid, userid,
+    status, price, flag,
+    create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+    #{content,jdbcType=VARCHAR}, #{projectid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER},
+    #{status,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{flag,jdbcType=INTEGER},
+    #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Order" >
     insert into t_order
@@ -144,6 +146,9 @@
       </if>
       <if test="price != null" >
         price,
+      </if>
+      <if test="flag != null" >
+        flag,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -176,6 +181,9 @@
       </if>
       <if test="price != null" >
         #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -218,6 +226,9 @@
       <if test="record.price != null" >
         price = #{record.price,jdbcType=DECIMAL},
       </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=INTEGER},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -232,15 +243,16 @@
   <update id="updateByExample" parameterType="map" >
     update t_order
     set id = #{record.id,jdbcType=INTEGER},
-      order_no = #{record.orderNo,jdbcType=VARCHAR},
-      title = #{record.title,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=VARCHAR},
-      projectid = #{record.projectid,jdbcType=INTEGER},
-      userid = #{record.userid,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
-      price = #{record.price,jdbcType=DECIMAL},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    order_no = #{record.orderNo,jdbcType=VARCHAR},
+    title = #{record.title,jdbcType=VARCHAR},
+    content = #{record.content,jdbcType=VARCHAR},
+    projectid = #{record.projectid,jdbcType=INTEGER},
+    userid = #{record.userid,jdbcType=INTEGER},
+    status = #{record.status,jdbcType=INTEGER},
+    price = #{record.price,jdbcType=DECIMAL},
+    flag = #{record.flag,jdbcType=INTEGER},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP},
+    update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -269,6 +281,9 @@
       <if test="price != null" >
         price = #{price,jdbcType=DECIMAL},
       </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -281,14 +296,15 @@
   <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.Order" >
     update t_order
     set order_no = #{orderNo,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
-      projectid = #{projectid,jdbcType=INTEGER},
-      userid = #{userid,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      price = #{price,jdbcType=DECIMAL},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    title = #{title,jdbcType=VARCHAR},
+    content = #{content,jdbcType=VARCHAR},
+    projectid = #{projectid,jdbcType=INTEGER},
+    userid = #{userid,jdbcType=INTEGER},
+    status = #{status,jdbcType=INTEGER},
+    price = #{price,jdbcType=DECIMAL},
+    flag = #{flag,jdbcType=INTEGER},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

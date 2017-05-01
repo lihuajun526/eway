@@ -16,6 +16,8 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--优惠套餐</title>
+    <link rel="stylesheet" href="<%=appPath%>/images/animate.min.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/project.css"/>
@@ -24,6 +26,17 @@
 <body>
 <%@include file="../pub/head.jsp" %>
 <div class="g-banner2"></div>
+<div id="qr_div" class="g-pw-body" style="display: none;">
+    <div class="shade"></div>
+    <div class="g-pw-radius">
+        <div class="g-pw-radius-top"></div>
+        <div class="g-pw2">
+            <div id="qr_txt" class="g-pw2-w2">微信支付</div>
+            <div class="g-pw2-w3"><img id="qr_code" src="" width="275" height="275"/><span id="qr_tip">扫描支付</span></div>
+        </div>
+        <div class="g-pw-radius-bottom"></div>
+    </div>
+</div>
 <div class="g-proj">
     <div class="g-pser">
         <%
@@ -167,7 +180,10 @@
                 </li>
             </ul>
             <div id="sumPrice" class="g-pser-n1"></div>
-            <div class="g-pser-n2"><a onclick="place();">立即支付</a></div>
+            <%--<div class="g-pser-n2"><a onclick="place();">立即支付</a></div>--%>
+            <div class="g-pser-n2">
+                <a href="#qr_div" onclick="place('WECHAT')" class="on1">微信支付</a>
+                <a href="#qr_div" onclick="place('ALIPAY')" class="on2">支付宝支付</a></div>
         </div>
     </div>
 </div>
@@ -315,17 +331,36 @@
             $("#goods4").hide();
     }
     draw();
-    function place() {
-        $.get("<%=appPath%>/order/place/" + projectid + "/" + count1 + "/" + count2 + "/" + count3 + "/" + count4, function (result) {
-            alert(result.message);
+    var orderid = 0;
+    function place(payType) {
+        $.get("<%=appPath%>/order/place/" + projectid + "/" + count1 + "/" + count2 + "/" + count3 + "/" + count4 + "/" + payType, function (result) {
             if (result.code < 0) {
                 xalert(result.message);
                 return;
             } else {
-                window.location.reload;
-                alert("弹出二维码");
+                $("#qr_div").show();
+                orderid = result.data.orderid;
+                $("#qr_code").attr("src", result.data.qrcode);
+                timer1 = window.setInterval(getStatus, 3000);
             }
         }, "json");
+    }
+    var timer1 = 0;
+    var counter1 = 0;
+    function getStatus() {
+        counter1++;
+        if (counter1 > 100) {//5分钟之内完成支付
+            window.clearInterval(timer1);
+            return;
+        }
+        $.get("<%=appPath%>/order/status/" + orderid, function (result) {
+            if (result.code >= 0 && result.data == 2) {
+                $("#qr_tip").html("支付成功&nbsp;<a onclick='refres();'>返回</a>");
+            }
+        }, "json");
+    }
+    function refres() {
+        window.location.reload();
     }
 </script>
 </html>

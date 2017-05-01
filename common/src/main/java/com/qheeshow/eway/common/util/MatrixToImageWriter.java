@@ -69,7 +69,7 @@ public class MatrixToImageWriter {
 
     public static void main(String[] args) {
 
-        String text = "weixin://wxpay/bizpayurl?pr=Q2SNV0z"; // 二维码内容
+        String text = "weixin://wxpay/bizpayurl?appid=wx1aa62bfe6452ed5f&mch_id=1461590802&nonce_str=2sg7ku3jj3uqa7peml9g827oj5thqzon&product_id=8&sign=05A157D7197931F8E9573A8BA78C3FAF&time_stamp=1493366298"; // 二维码内容
         int width = 300; // 二维码图片宽度
         int height = 300; // 二维码图片高度
         String format = "gif";// 二维码的图片格式

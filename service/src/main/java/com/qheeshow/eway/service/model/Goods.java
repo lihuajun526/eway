@@ -14,6 +14,8 @@ public class Goods {
 
     private Integer orderNo;
 
+    private Integer gtype;
+
     private Integer status;
 
     private BigDecimal discountPrice;
@@ -23,6 +25,14 @@ public class Goods {
     private Date updateTime;
 
     private String goodsDescribe;
+
+    public Integer getGtype() {
+        return gtype;
+    }
+
+    public void setGtype(Integer gtype) {
+        this.gtype = gtype;
+    }
 
     public Integer getId() {
         return id;

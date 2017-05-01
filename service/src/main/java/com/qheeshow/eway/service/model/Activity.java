@@ -51,6 +51,16 @@ public class Activity extends BaseModel{
 
     private String content;
 
+    private String qrcode;
+
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public void setQrcode(String qrcode) {
+        this.qrcode = qrcode;
+    }
+
     public String getLogo() {
         return logo;
     }
