@@ -37,7 +37,7 @@
                 </ul>
                 <ul class="g-lgin-lst2">
                     <li class="on1"><input name="remind" type="checkbox" value="1"><span>记住密码</span></li>
-                    <li class="on2"><a href="#">找回密码</a></li>
+                    <li class="on2"><a href="./password_reset.jsp">找回密码</a></li>
                 </ul>
                 <div class="clear"></div>
                 <div id="tips" class="g-noair2" style="display: none;"></div>

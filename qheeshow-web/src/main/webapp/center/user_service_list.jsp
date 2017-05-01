@@ -56,7 +56,7 @@
                                 class="g-sev-post"><%=investor.getCompanyName()%><%=investor.getCompanyRank()%></span>
                         </li>
                         <li class="on3"></li>
-                        <li class="on4"><a href="<%=appPath%>/investor/detail?id=<%=investor.getId()%>" target="_blank">查看详情</a>
+                        <li class="on4"><a href="<%=appPath%>/investor/<%=investor.getId()%>" target="_blank">查看详情</a>
                         </li>
                     </ul>
                 </li>

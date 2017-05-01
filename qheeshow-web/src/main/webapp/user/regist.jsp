@@ -16,7 +16,7 @@
     <script type="text/javascript" src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
-<%@include file="../pub/head.jsp"%>
+<%@include file="../pub/head.jsp" %>
 <div class="g-lgin">
     <div class="g-lgin-m">
         <ul class="g-lgin-t g-lgin-t2">
@@ -34,27 +34,34 @@
                 <ul class="g-lgin-lst">
                     <li>
                         <input id="name" name="name" type="text" class="g-lgin-ipt2" placeholder="请务必填写真实姓名"/>
-                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em
+                            class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
                     <li>
                         <input id="mobile" name="mobile" type="text" class="g-lgin-ipt2" placeholder="请输入手机号"/>
-                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em
+                            class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
                     <li>
                         <input id="email" name="email" type="text" class="g-lgin-ipt2" placeholder="请输入邮箱"/>
-                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em
+                            class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
                     <li>
-                        <input id="smsCode" name="smsCode" type="text" class="g-lgin-ipt2" placeholder="请输入短信验证码"/><span><a id="counter" onclick="getSmsCode();">获取验证码</a></span>
-                        <em class="g-lgin-left-top"></em><em class="g-lgin1-right-top"></em><em class="g-lgin1-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                        <input id="smsCode" name="smsCode" type="text" class="g-lgin-ipt2"
+                               placeholder="请输入短信验证码"/><span><a id="counter" onclick="getSmsCode();">获取验证码</a></span>
+                        <%--<em class="g-lgin-left-top"></em><em class="g-lgin1-right-top"></em><em class="g-lgin1-right-bottom"></em><em class="g-lgin-left-bottom"></em>--%>
                     </li>
                     <li>
-                        <input id="password" name="password" type="password" class="g-lgin-ipt2"placeholder="请输入密码"/>
-                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                        <input id="password" name="password" type="password" class="g-lgin-ipt2" placeholder="请输入密码"/>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em
+                            class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
                     <li>
-                        <input id="rePassword" name="rePassword" type="password" class="g-lgin-ipt2"placeholder="请再次输入密码"/>
-                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                        <input id="rePassword" name="rePassword" type="password" class="g-lgin-ipt2"
+                               placeholder="请再次输入密码"/>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em
+                            class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
                 </ul>
                 <div id="tips" class="g-noair" style="display: none;"></div>
@@ -63,10 +70,11 @@
         </form>
     </div>
 </div>
-<%@include file="../pub/foot.jsp"%>
+<%@include file="../pub/foot.jsp" %>
 </body>
 <script>
     var counter = 0;
+    var timer = 0;
     //获取短信验证码
     function getSmsCode() {
         if (counter > 0)
@@ -81,7 +89,7 @@
                 alert("发送成功");
                 $("#counter").parent().attr("class", "g-ove");
                 counter = 45;
-                window.setInterval(showTime, 1000);
+                timer = window.setInterval(showTime, 1000);
             } else
                 alert(result.message);
         }, "json");
@@ -148,9 +156,9 @@
             return false;
         }
         /*if (!/(^1[3|5|8][0-9]{9}$)/.test(mobile)) {
-            tip("请输入正确的手机号");
-            return false;
-        }*/
+         tip("请输入正确的手机号");
+         return false;
+         }*/
         if (!/(^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)/.test(email)) {
             tip("邮箱格式不正确");
             return false;
@@ -166,12 +174,13 @@
             $("#counter").html("倒计时" + counter + "秒");
             counter--;
         } else {
+            window.clearInterval(timer);
             $("#counter").parent().removeAttr("class");
             $("#counter").html("获取验证码");
         }
 
     }
-    function tip(value){
+    function tip(value) {
         $("#tips").html(value);
         $("#tips").show();
     }

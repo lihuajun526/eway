@@ -61,7 +61,11 @@ public class UserServiceImpl implements UserService {
     public void changePassword(User user) {
         UserExample example = new UserExample();
         example.createCriteria().andMobileEqualTo(user.getMobile());
-        user.setPassword(MD5Util.MD5(user.getPassword()));
+        try {
+            user.setPassword(AESCryptoUtil.encrypt(user.getPassword()));
+        } catch (CryptoException e) {
+            LOGGER.error("error:", e);
+        }
         userMapper.updateByExampleSelective(user, example);
     }
 

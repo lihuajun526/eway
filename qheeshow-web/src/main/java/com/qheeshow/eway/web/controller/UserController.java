@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import com.qheeshow.eway.common.exception.CryptoException;
 import com.qheeshow.eway.common.util.AESCryptoUtil;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -131,25 +132,42 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/password/reset")
     @ResponseBody
-    public HaResponse resetPassword(HttpSession session, User user, String smsCode, String rePassword) {
-
-        Object object = session.getAttribute("reset" + "smsCode");
-        if (StringUtils.isEmpty(user.getMobile()))
-            return HaResponse.fail("手机号不能为空");
-        if (StringUtils.isEmpty(smsCode))
-            return HaResponse.fail("短信验证码不能为空");
-        if (StringUtils.isEmpty(user.getPassword()))
-            return HaResponse.fail("新密码不能为空");
-        if (!user.getPassword().equals(rePassword))
-            return HaResponse.fail("两次密码不匹配");
-        if (object == null)
-            return HaResponse.fail("请先获取短信验证码");
-        if (!smsCode.equals((String) object)) {
-            return HaResponse.fail("短信验证码错误");
-        } else {
-            userService.changePassword(user);
-            return HaResponse.sussess();
+    public String resetPassword(HttpSession session, User user, String smsCode, String rePassword) {
+        Result<Boolean> result = new Result<>();
+        result.setData(false);
+        User userDB = userService.getByMobile(user.getMobile());
+        if (userDB == null) {
+            result.setMessage("该手机号码不存在，请先注册");
+            return result.toString();
         }
+        Object object = session.getAttribute(user.getMobile() + "_resetPwd_smsCode");
+        if (StringUtils.isEmpty(user.getMobile())) {
+            result.setMessage("手机号不能为空");
+            return result.toString();
+        }
+        if (StringUtils.isEmpty(smsCode)) {
+            result.setMessage("短信验证码不能为空");
+            return result.toString();
+        }
+        if (StringUtils.isEmpty(user.getPassword())) {
+            result.setMessage("新密码不能为空");
+            return result.toString();
+        }
+        if (!user.getPassword().equals(rePassword)) {
+            result.setMessage("两次密码不匹配");
+            return result.toString();
+        }
+        if (object == null) {
+            result.setMessage("请先获取短信验证码");
+            return result.toString();
+        }
+        if (!smsCode.equals((String) object)) {
+            result.setMessage("短信验证码错误");
+            return result.toString();
+        }
+        userService.changePassword(user);
+        result.setData(true);
+        return result.toString();
     }
 
     /**

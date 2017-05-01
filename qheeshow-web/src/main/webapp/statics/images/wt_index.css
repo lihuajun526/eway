@@ -3027,6 +3027,7 @@
 	overflow:hidden;
 	padding-left:10px;
 	padding-right:10px;
+	margin-top:12px;
 }
 .g-actlst-onel {
 	width:430px;
@@ -3121,6 +3122,7 @@
 	background:#FFFFFF;
 	margin-top:12px;
 	margin-right:10px;
+	margin-bottom:12px;
 	padding-bottom:30px;
 }
 .g-actlst-twor {
