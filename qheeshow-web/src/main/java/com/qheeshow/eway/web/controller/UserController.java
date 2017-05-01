@@ -20,6 +20,7 @@ import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.UserService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by lihuajun on 16-6-14.
@@ -107,6 +108,17 @@ public class UserController extends BaseController {
         } else {
             return HaResponse.fail("用户名密码错误");
         }
+    }
+
+    @RequestMapping(value = "/logout")
+    public ModelAndView logout(HttpSession session) {
+
+        session.removeAttribute("loginUser");
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/index");
+
+        return modelAndView;
     }
 
     /**

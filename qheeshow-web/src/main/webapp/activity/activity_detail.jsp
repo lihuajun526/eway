@@ -4,6 +4,7 @@
 <%
     String appPath = Config.get("app.path");
     Activity activity = (Activity) request.getAttribute("activity");
+    Boolean isFull = (Boolean) request.getAttribute("isFull");
     String flag = "4";
 %>
 <html>
@@ -16,6 +17,7 @@
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
 </head>
 <body>
 <%@include file="../pub/head.jsp" %>
@@ -38,7 +40,16 @@
                     </a></span></li>
                 </ul>
                 <ul class="g-actlst-onelst2">
-                    <li><input name="" type="button" value="名额已满" class="g-actlst-btn2"></li>
+                    <li>
+                        <%
+                            if (isFull) {
+                        %><input id="signBtn" type="button" value="名额已满" class="g-actlst-btn2"><%
+                    } else {
+                    %><input id="signBtn" onclick="activitySign(<%=activity.getId()%>);" type="button" value="我要报名"
+                             class="g-actlst-btn1"><%
+                        }
+                    %>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -47,13 +58,13 @@
             <div class="g-actlst-twol-cnt">
                 <ul class="g-actlst-twolst2"><%=activity.getContent()%>
                 </ul>
-                <div><img src="images/actlst-img.jpg"/></div>
+                <div><img src="<%=appPath%>/images/actlst-img.jpg"/></div>
             </div>
         </div>
         <div class="g-actlst-twor">
-            <ul class="g-actlst-two-lst">
+            <%--<ul class="g-actlst-two-lst">
                 <li><a href="#"><img src="<%=appPath%>/images/actlst-img2.jpg"/></a></li>
-            </ul>
+            </ul>--%>
             <div class="g-actlst-two-tit">活动地址</div>
             <ul class="g-actlst-two-lst">
                 <li><img src="<%=activity.getBaiduMap()%>"/></li>
@@ -65,6 +76,27 @@
 <%@include file="../pub/foot.jsp" %>
 </body>
 <script>
-
+    function activitySign(actid) {
+        $.get("<%=appPath%>/activity/sign/" + actid + "/authj", function (result) {
+            if (result.code == 1) {
+                $("#signBtn").val("已报名");
+                $("#signBtn").attr("class", "g-actlst-btn2");
+            } else {
+                xalert(result.message);
+            }
+        }, "json");
+    }
+    <%
+        if(loginUser!=null){
+        %>
+    $.get("<%=appPath%>/activity/issign/<%=activity.getId()%>", function (result) {
+        if (result.data) {
+            $("#signBtn").val("已报名");
+            $("#signBtn").attr("class", "g-actlst-btn2");
+        }
+    }, "json");
+    <%
+    }
+%>
 </script>
 </html>

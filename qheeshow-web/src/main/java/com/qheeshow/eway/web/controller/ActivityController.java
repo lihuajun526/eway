@@ -62,20 +62,23 @@ public class ActivityController extends BaseController {
 
         Activity activity = activityService.get(id);
 
+        List<ActivitySign> list = activitySignService.listByActivity(id);
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("activity/activity_detail");
         modelAndView.addObject("activity", activity);
+        modelAndView.addObject("isFull", activity.getLimitNum() > list.size() ? false : true);
 
         return modelAndView;
     }
 
 
-    @RequestMapping("/sign/{activityid}")
+    @RequestMapping("/sign/{activityid}/authj")
     @ResponseBody
     public String sign(@PathVariable Integer activityid, HttpSession session) {
 
         Result<String> result = new Result<>();
-        Object o = session.getAttribute("loginUser");
+        /*Object o = session.getAttribute("loginUser");
         if (o == null) {//未登录
             result.setMessage("微信端扫码报名，敬请期待");
             return result.toString();
@@ -85,7 +88,8 @@ public class ActivityController extends BaseController {
         if (activity.getCost().intValue() > 0) {
             result.setMessage("微信端扫支付报名费，敬请期待");
             return result.toString();
-        }
+        }*/
+        User loginUser = (User) session.getAttribute("loginUser");
         ActivitySign activitySign = new ActivitySign();
         activitySign.setActivityId(activityid);
         activitySign.setStatus(1);
@@ -94,4 +98,18 @@ public class ActivityController extends BaseController {
         result.setCode(1);
         return result.toString();
     }
+
+    @RequestMapping("/issign/{activityid}")
+    @ResponseBody
+    public String issign(@PathVariable Integer activityid, HttpSession session) {
+
+        Result<Boolean> result = new Result<>();
+        User loginUser = (User) session.getAttribute("loginUser");
+        ActivitySign activitySign = new ActivitySign();
+        activitySign.setActivityId(activityid);
+        activitySign.setUserid(loginUser.getId());
+        result.setData(activitySignService.issign(activitySign));
+        return result.toString();
+    }
+
 }

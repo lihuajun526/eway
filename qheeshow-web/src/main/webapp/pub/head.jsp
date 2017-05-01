@@ -21,7 +21,7 @@
             %>
             <li class="on5"><a
                     href="<%=appPath%>/center/index/auth"><%=StringUtils.isEmpty(loginUser.getName()) ? loginUser.getMobile() : loginUser.getName()%>
-            </a></li>
+            </a>&nbsp;<a href="<%=appPath%>/user/logout">退出</a></li>
             <li class="on4"><a href="<%=appPath%>/center/index/auth"><img
                     src="<%=StringUtils.isEmpty(loginUser.getPhoto())?appPath+"/images/wt-top3.png":loginUser.getPhoto()%>"
                     width="30"
