@@ -31,7 +31,7 @@ public class ActivitySignServiceImpl implements ActivitySignService {
         criteria.andActivityIdEqualTo(activitySign.getActivityId());
 
         List list = activitySignMapper.selectByExample(example);
-        if (list != null)
+        if (list != null && list.size() > 0)
             return true;
 
         return false;

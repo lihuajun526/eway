@@ -32,6 +32,7 @@
         function setType(value, obj, id) {
             type = value;
             keyword = $("#keyword").val();
+            pageIndex = 1;
             setCheck(value, obj, id);
             list();
         }

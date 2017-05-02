@@ -183,7 +183,7 @@
             <%--<div class="g-pser-n2"><a onclick="place();">立即支付</a></div>--%>
             <div class="g-pser-n2">
                 <a href="#qr_div" onclick="place('WECHAT')" class="on1">微信支付</a>
-                <a href="#qr_div" onclick="place('ALIPAY')" class="on2">支付宝支付</a></div>
+                <%--<a href="#qr_div" onclick="place('ALIPAY')" class="on2">支付宝支付</a>--%></div>
         </div>
     </div>
 </div>
