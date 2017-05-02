@@ -248,7 +248,7 @@
     <select id="listByProject" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT tb_a.* FROM t_order_detail tb_a INNER JOIN t_order tb_b
     ON tb_a.orderid=tb_b.id
-    WHERE tb_b.projectid=#{projectid,jdbcType=INTEGER}
+    WHERE tb_b.projectid=#{projectid,jdbcType=INTEGER} and tb_b.status = 2
   </select>
 
 </mapper>
