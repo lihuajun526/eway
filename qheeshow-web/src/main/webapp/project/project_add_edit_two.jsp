@@ -207,17 +207,17 @@
             dataType: 'json',
             success: function (result) {
                 if (result.code < 0) {
-                    alert(result.message);
+                    xalert(result.message);
                     return;
                 }
-                alert("保存成功");
+                xalert("保存成功");
                 window.location.reload();
             }
         });
     }
     function addMember() {
         if (!flag) {
-            alert("请先保存团队信息");
+            xalert("请先保存团队信息");
             return;
         }
         $("#members").load("<%=appPath%>/project/member_append.jsp?projectid=<%=project.getId()%>");
@@ -233,7 +233,7 @@
         hiddenid = "photo_" + id;
         var patn = /\.jpg$|\.jpeg$|\.png$|\.gif$/i;
         if (!patn.test(file.val())) {
-            alert("请选择图片文件");
+            xalert("请选择图片文件");
             return;
         }
         $(obj).wrap("<form id='myUpload' action='<%=appPath%>/image/upload' method='post' enctype='multipart/form-data'></form>");

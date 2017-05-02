@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
     <script type="text/javascript" src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
@@ -86,12 +87,12 @@
         }
         $.get("<%=appPath%>/sms/get/" + mobile + "?type=regist", function (result) {
             if (result.data) {
-                alert("发送成功");
+                xalert("发送成功");
                 $("#counter").parent().attr("class", "g-ove");
                 counter = 45;
                 timer = window.setInterval(showTime, 1000);
             } else
-                alert(result.message);
+                xalert(result.message);
         }, "json");
     }
     //提交表单
@@ -184,5 +185,10 @@
         $("#tips").html(value);
         $("#tips").show();
     }
+    $('#rePassword').keydown(function (e) {
+        if (e.keyCode == 13) {
+            login();
+        }
+    });
 </script>
 </html>
