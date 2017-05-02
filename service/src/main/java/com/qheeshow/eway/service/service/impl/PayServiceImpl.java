@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -65,8 +66,7 @@ public class PayServiceImpl implements PayService {
         params.put("mch_id", Config.get("wechat.mchid"));
         params.put("device_info", Config.get("wechat.device.info"));
         params.put("nonce_str", StrUtil.getRandomString(32));
-        //params.put("body", orderWechat.getDescription());
-        params.put("body", new String("套餐".getBytes("UTF-8"), "UTF-8"));
+        params.put("body", URLEncoder.encode(orderWechat.getDescription()));
         params.put("out_trade_no", orderWechat.getOrderno());
         params.put("total_fee", orderWechat.getTotalFee());
         params.put("spbill_create_ip", Config.get("server.ip"));
@@ -75,12 +75,11 @@ public class PayServiceImpl implements PayService {
         params.put("sign", StrUtil.sign(params));
 
         String xml = StrUtil.map2Xml(params);
-        System.out.println(new String(xml.getBytes("UTF-8"), "UTF-8"));
-        StringEntity stringEntity = new StringEntity(new String(xml.getBytes("UTF-8"), "UTF-8"),"UTF-8");
+        StringEntity stringEntity = new StringEntity(new String(xml.getBytes("UTF-8"), "UTF-8"), "UTF-8");
 
         HttpPost httpPost = new HttpPost("https://api.mch.weixin.qq.com/pay/unifiedorder");
         httpPost.setEntity(stringEntity);
-        httpPost.setHeader("Content-Type","text/xml;charset=UTF-8");
+        //httpPost.setHeader("Content-Type", "text/xml;charset=UTF-8");
         String response = XHttpClient.doRequest(httpPost);
         ResultOrder resultOrder = (ResultOrder) Bean2Xml.toBean(response, ResultOrder.class);
         if (!resultOrder.getReturn_code().equalsIgnoreCase("SUCCESS")) {
