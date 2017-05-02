@@ -74,7 +74,7 @@ public class PayServiceImpl implements PayService {
         params.put("sign", StrUtil.sign(params));
 
         String xml = StrUtil.map2Xml(params);
-        StringEntity stringEntity = new StringEntity(new String(xml.getBytes(), "UTF-8"));
+        StringEntity stringEntity = new StringEntity(new String(xml.getBytes(), "UTF-8"), "UTF-8");
         HttpPost httpPost = new HttpPost("https://api.mch.weixin.qq.com/pay/unifiedorder");
         httpPost.setEntity(stringEntity);
         String response = XHttpClient.doRequest(httpPost);
