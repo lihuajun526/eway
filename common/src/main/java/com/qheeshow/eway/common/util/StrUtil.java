@@ -3,6 +3,7 @@ package com.qheeshow.eway.common.util;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -83,7 +84,11 @@ public class StrUtil {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        md.update(str.getBytes());
+        try {
+            md.update(str.getBytes("utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         byte b[] = md.digest();
         int i;
         StringBuffer buf = new StringBuffer("");
@@ -142,8 +147,8 @@ public class StrUtil {
 
     public static void main(String[] args) {
 
-        System.out.println(System.currentTimeMillis() / 1000);
-
+        String str = StrUtil.md5("appid=wx1aa62bfe6452ed5f&body=%E5%A5%97%E9%A4%90&device_info=WEB&mch_id=1461590802&nonce_str=7bxip8ilc03zk87f89mvdbzvpqobd4vd&notify_url=http://119.23.39.149/web/pay/wechat/notify/2&out_trade_no=66464454071117&spbill_create_ip=119.23.39.149&total_fee=1&trade_type=NATIVE&key=qheeshow20171234567890qwertyuiop").toUpperCase();
+        System.out.println(str);
     }
 
 }

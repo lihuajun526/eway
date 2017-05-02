@@ -66,7 +66,7 @@ public class PayServiceImpl implements PayService {
         params.put("mch_id", Config.get("wechat.mchid"));
         params.put("device_info", Config.get("wechat.device.info"));
         params.put("nonce_str", StrUtil.getRandomString(32));
-        params.put("body", URLEncoder.encode(orderWechat.getDescription()));
+        params.put("body", orderWechat.getDescription());
         params.put("out_trade_no", orderWechat.getOrderno());
         params.put("total_fee", orderWechat.getTotalFee());
         params.put("spbill_create_ip", Config.get("server.ip"));
