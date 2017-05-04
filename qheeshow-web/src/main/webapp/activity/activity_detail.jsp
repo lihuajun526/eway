@@ -58,7 +58,6 @@
             <div class="g-actlst-twol-cnt">
                 <ul class="g-actlst-twolst2"><%=activity.getContent()%>
                 </ul>
-                <div><img src="<%=appPath%>/images/actlst-img.jpg"/></div>
             </div>
         </div>
         <div class="g-actlst-twor">

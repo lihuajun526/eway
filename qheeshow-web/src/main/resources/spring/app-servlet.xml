@@ -32,4 +32,17 @@
         <property name="suffix" value=".jsp"/>
         <property name="order" value="1"/>
     </bean>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.qq.com"/>
+        <property name="port" value="25"/>
+        <property name="username" value="service@qheefund.com"/>
+        <property name="password" value="wutongE123456"/>
+
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+            </props>
+        </property>
+    </bean>
 </beans>

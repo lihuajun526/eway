@@ -30,15 +30,11 @@ import com.qheeshow.eway.service.service.MailService;
 
 @Service
 public class MailServiceImpl implements MailService {
-	
+
 	/**
-	 * 
-	 * @Title: sendTextMail
-	 * @Description:
-	 * @author alan
+	 *
 	 * @param mailInfo
 	 * @return
-	 * @see com.sns.common.mail.oa.manager.system.service.IMailServer#sendTextMail(com.MailBean.common.mail.oa.manager.system.bean.MailSenderBean)
 	 */
 	@Override
 	public boolean sendTextMail(MailBean mailInfo) {
@@ -77,13 +73,9 @@ public class MailServiceImpl implements MailService {
 	}
 
 	/**
-	 * 
-	 * @Title: sendHtmlMail
-	 * @Description:
-	 * @author alan
+	 *
 	 * @param mailInfo
 	 * @return
-	 * @see com.sns.common.mail.oa.manager.system.service.IMailServer#sendHtmlMail(com.MailBean.common.mail.oa.manager.system.bean.MailSenderBean)
 	 */
 	@Override
 	public boolean sendHtmlMail(MailBean mailInfo) {

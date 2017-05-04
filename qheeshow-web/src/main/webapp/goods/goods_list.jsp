@@ -353,7 +353,7 @@
             window.clearInterval(timer1);
             return;
         }
-        $.get("<%=appPath%>/order/status/" + orderid, function (result) {
+        $.get("<%=appPath%>/order/status/" + orderid + "?r=" + Math.random(), function (result) {
             if (result.code >= 0 && result.data == 2) {
                 $("#qr_tip").html("支付成功&nbsp;<a onclick='refres();'>返回</a>");
             }

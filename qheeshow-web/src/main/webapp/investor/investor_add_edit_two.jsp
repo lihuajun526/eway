@@ -62,30 +62,51 @@
                     <li class="on1">名片：</li>
                     <li class="on2">
                         <ul class="inv-lst2">
-                            <li class="inv-lst2-l">
+                            <li id="li_businessCardPositive" class="inv-lst2-l">
+                                <%
+                                    if (StringUtils.isEmpty(investor.getBusinessCardPositive())) {
+                                %>
                                 <span>
-                                    <img id="businessCardPositiveImg"
-                                         src="<%=StringUtils.isEmpty(investor.getBusinessCardPositive())?"/images/wt-icon19.png":investor.getBusinessCardPositive()%>"
-                                         width="58"
+                                    <img id="businessCardPositiveImg" src="<%=appPath%>/images/wt-icon19.png" width="58"
                                          height="58"/>
                                 </span>
-                                <span class="head">名片正面（必要）</span>
+                                <span class="head">名片正面（选填）</span>
+                                <%
+                                } else {
+                                %>
+                                <span class="upload-a"><img src="<%=investor.getBusinessCardPositive()%>" width="170"
+                                                            height="110"/></span>
+                                <%
+                                    }
+                                %>
                                 <input id="businessCardPositiveFile" name="businessCardPositiveFile" type='file'
                                        onchange="doUpload('businessCardPositive');" unselectable="on" class="on5"/>
                             </li>
-                            <li>
-                                <span>
-                                    <img id="businessCardOppositeImg"
-                                         src="<%=StringUtils.isEmpty(investor.getBusinessCardOpposite())?"/images/wt-icon19.png":investor.getBusinessCardOpposite()%>"
-                                         width="58"
-                                         height="58"/></span><span
-                                    class="head">名片反面（选填）</span>
+                            <li id="li_businessCardOpposite">
+                                    <%
+                                        if(StringUtils.isEmpty(investor.getBusinessCardOpposite())){
+                                            %>
+                                    <span>
+                                        <img id="businessCardOppositeImg" src="<%=appPath%>/images/wt-icon19.png" width="58" height="58"/>
+                                    </span>
+                                    <span class="head">名片反面（选填）</span>
+                                    <%
+                                        }else{
+                                            %>
+                                    <span class="upload-a"><img src="<%=investor.getBusinessCardOpposite()%>" width="170" height="110"/></span>
+                                    <%
+                                        }
+                                    %>
                                 <input id="businessCardOppositeFile" name="businessCardOppositeFile" type='file'
                                        onchange="doUpload('businessCardOpposite');" unselectable="on" class="on5"/>
                             </li>
                         </ul>
                     </li>
-                    <li class="on3">必填信息</li>
+                    <%
+                        if(!StringUtils.isEmpty(investor.getBusinessCardPositive()) || !StringUtils.isEmpty(investor.getBusinessCardOpposite())){
+                            %><li class="on3">点击图片重新选择名片</li><%
+                        }
+                    %>
                 </ul>
             </div>
             <div class="inv-one">
@@ -126,7 +147,6 @@
 <script>
     //上传图片
     function doUpload(id) {
-
         var file = $('#' + id + "File");
         if (!file || !file.val())
             return;
@@ -143,7 +163,7 @@
                     xalert(result.message);
                     return;
                 }
-                $('#' + id + 'Img').attr("src", result.data.path);
+                $("#li_" + id).html("<span class='upload-a'><img src='" + result.data.path + "' width='170' height='110'/></span><input id='"+id+"File' name='"+id+"File' type='file' onchange='doUpload(\'"+id+"\');' unselectable='on' class='on5'/>");
                 $('#' + id).val(result.data.path);
                 file.unwrap();
             },

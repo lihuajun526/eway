@@ -23,8 +23,9 @@
         <%
         } else {
         %>
-        <li style="cursor: pointer" onclick="load('<%=appPath%>/center/myservices/<%=project.getId()%>');"><a><%=project.getTitle()%>
-        </a></li>
+        <li style="cursor: pointer" onclick="load('<%=appPath%>/center/myservices/<%=project.getId()%>');">
+            <a><%=project.getTitle()%>
+            </a></li>
         <%
                 }
             }
@@ -36,7 +37,7 @@
     %>
     <div class="g-mg-mesg1 g-mg-mesg2">
         <div class="g-mg-rtit6"><a><%=goodsItem.getTitle()%>
-        </a><span class="left-line"></span></div>
+        </a><%--<span class="left-line"></span>--%></div>
         <div class="g-mg-rtit3"><a><%=goodsItem.getContent()%>
         </a></div>
         <div class="g-sev-one">
@@ -45,7 +46,7 @@
                     for (int i = 0; i < 10 && i < investors.size(); i++) {
                         Investor investor = investors.get(i);
                 %>
-                <li>
+                <li id="img_<%=investor.getId()%>">
                     <a><img onclick="show(<%=investor.getId()%>);" src="<%=investor.getPhoto()%>" width="42"
                             height="42"/></a>
                     <!--弹出详细-->
@@ -71,7 +72,7 @@
     %>
     <div class="g-mg-mesg1">
         <div class="g-mg-rtit6"><a><%=goodsItem.getTitle()%>
-        </a><span class="left-line"></span></div>
+        </a><%--<span class="left-line"></span>--%></div>
         <div class="g-mg-rtit3"><a><%=goodsItem.getContent()%>
         </a></div>
         <%
@@ -88,10 +89,40 @@
     %>
 </div>
 <script>
+    var moreid = 0;
     function show(id) {
         $(".g-sev-ov").each(function () {
             $(this).hide();
         });
         $("#more_" + id).show();
+        moreid = id;
     }
+    /*function hid(event) {
+        if (moreid == 0)
+            return;
+        var div = document.getElementById("more_" + moreid);
+        var x = $(event).offset().left;
+        var y = $(event).offset().top;
+        var divx1 = div.offsetLeft;
+        var divy1 = div.offsetTop;
+        var divx2 = div.offsetLeft + div.offsetWidth;
+        var divy2 = div.offsetTop + div.offsetHeight;
+
+        debugger;
+
+        var img = document.getElementById("img_" + moreid);
+        var imgx1 = $('#img_'+moreid).offset().left;
+        var imgy1 = $('#img_'+moreid).offset().top;
+
+        var imgx2 = imgx1 + img.offsetWidth;
+        var imgy2 = imgy1 + img.offsetHeight;
+
+        alert((x < divx1 || x > divx2 || y < divy1 || y > divy2));
+        alert(x < imgx1 || x > imgx2 || y < imgy1 || y > imgy2);
+
+        if ((x < divx1 || x > divx2 || y < divy1 || y > divy2) && (x < imgx1 || x > imgx2 || y < imgy1 || y > imgy2)) {
+            $("#more_" + moreid).hide();
+            moreid = 0;
+        }
+    }*/
 </script>

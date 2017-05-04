@@ -12,7 +12,7 @@
         <li><a href="#">服务条款</a></li>
         <li><a href="#">服务条款</a></li>
       </ul>
-      <div class="g-fl-Remarks">服务热线:020-32039118  /   粤ICP备14063324号  /  ©2 建议用IE8.0 以上浏览器浏览</div>
+      <div class="g-fl-Remarks">服务热线:020-32039118  /   粤ICP备17050255号-1  /  ©2 建议用谷歌浏览器浏览</div>
     </div>
     <div class="g-foot-r">
       <div class="g-fr-t">友情链接</div>

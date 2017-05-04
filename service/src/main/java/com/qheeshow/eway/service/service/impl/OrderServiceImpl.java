@@ -91,6 +91,8 @@ public class OrderServiceImpl implements OrderService {
             Integer count = Integer.valueOf(temp[1]);
             if (goodsid.intValue() == 1) {
                 callTime += 45 * count;
+            } else {
+                callTime += 30 * count;
             }
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrderid(order.getId());

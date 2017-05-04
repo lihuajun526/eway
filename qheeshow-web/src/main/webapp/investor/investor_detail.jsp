@@ -14,9 +14,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--<%=investor.getTrueName()%>
     </title>
+    <link rel="stylesheet" href="<%=appPath%>/images/animate.min.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
 </head>
 <body>
 <%@include file="../pub/head.jsp" %>
@@ -164,15 +167,15 @@
         });
         $("#tags").val(tags);
         if (!tags.length) {
-            alert("请选择标签");
+            xalert("请选择标签");
             return;
         }
         if ($("#star").val() == "0") {
-            alert("请选择星级");
+            xalert("请选择星级");
             return;
         }
         if (!$("#content").val().length) {
-            alert("请输入评论内容");
+            xalert("请输入评论内容");
             return;
         }
         $.ajax({
@@ -184,11 +187,11 @@
             dataType: 'json',
             success: function (result) {
                 if (result.code < 0) {
-                    alert(result.message);
+                    xalert(result.message);
                     return;
                 }
                 $("#content").val("");
-                alert("评论成功");
+                xalert("评论成功");
             }
         });
     }
@@ -199,7 +202,7 @@
             if (result.data) {
                 $("#follow_").html("已关注");
             } else {
-                alert(result.message);
+                xalert(result.message);
             }
         }, "json");
     }
@@ -215,10 +218,10 @@
     function bound(userid) {
         $.get("<%=appPath%>/mixcom/bound/" + userid + "/authj", function (result) {
             if (result.code < 0) {
-                alert(result.message);
+                xalert(result.message);
                 return;
             }
-            alert("<%=investor.getTrueName()%>的联系电话是：" + result.data + "，该电话10分钟内有效");
+            xalert("<%=investor.getTrueName()%>的联系电话是：" + result.data + "，该电话号码10分钟内有效，请尽快联系对方");
         }, "json");
     }
 </script>

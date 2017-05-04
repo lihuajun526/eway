@@ -58,11 +58,11 @@ public class MixcomController extends BaseController {
                 return result.toString();
             }
             if (loginUser.getCallTime().intValue() <= 0) {
-                result.setMessage("您没有购买套餐或您的通话时长已用完，请购买套餐");
+                result.setMessage("您没有购买套餐或您的通话时长已用完，请购买套餐，<a href='../goods/list/0'>立即购买</a>");
                 return result.toString();
             }
             if (loginUser.getCallTime().intValue() <= 2) {
-                result.setMessage("您的通话时长小于2分钟，请购买套餐");
+                result.setMessage("您的通话时长小于2分钟，请购买套餐，<a href='../goods/list/0'>立即购买</a>");
                 return result.toString();
             }
         } else if (loginUser.getRoleid().intValue() >= 30 && loginUser.getRoleid().intValue() < 40) {//投资人

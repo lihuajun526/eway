@@ -19,7 +19,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title><%=Config.get("app.name")%>--投资人信息完善</title>
-    <link rel="stylesheet"  href="<%=appPath%>/images/bootstrap.css">
+    <link rel="stylesheet" href="<%=appPath%>/images/bootstrap.css">
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/investor.css"/>
@@ -29,12 +29,10 @@
     <script src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
-<%@include file="../pub/head.jsp"%>
+<%@include file="../pub/head.jsp" %>
 <div class="inv-body">
-    <input id="photoFile" name="photoFile" type="file" multiple="multiple" onchange="doUpload()"
-           style="display: none;"/>
-
     <form id="baseForm">
+        <input type="hidden" name="id" <%=isNull?"":"value='"+investor.getId()+"'"%>/>
         <input type="hidden" id="industrys_" name="industryId"
                value="<%=isNull?"":investor.getIndustryId()%>"/>
         <input type="hidden" id="areas_" name="cityId" value="<%=isNull?"":investor.getCityId()%>"/>
@@ -52,16 +50,25 @@
                     <li class="on1">个人头像：</li>
                     <li class="on2">
                         <a href="#">
-                            <ul class="inv-lst1">
+                            <ul id="ul_photo" class="inv-lst1">
+                                <%
+                                    if (isNull) {
+                                %>
                                 <li>
-                                    <img id="photoImg"
-                                         src="<%=isNull?appPath+"/images/wt-icon19.png":investor.getPhoto()%>"
-                                         width="58" height="58"
-                                         onclick="selectFile('photoFile')"/>
+                                    <img src="<%=appPath%>/images/wt-icon19.png" width="58" height="58"/>
                                 </li>
                                 <li class="head">上传头像</li>
+                                <%
+                                } else {
+                                %>
+                                <li class="upload"><img src="<%=investor.getPhoto()%>" width="130" height="130"/></li>
+                                <%
+                                    }
+                                %>
                             </ul>
                         </a>
+                        <span><a class="on">上传头像</a></span><input onchange="doUpload()" id="photoFile" name="photoFile"
+                                                                  type='file' unselectable="on" class="on2"/>
                     </li>
                     <li class="on3">支持png/jpg/jepg格式</li>
                 </ul>
@@ -71,7 +78,8 @@
                     <li class="on1">真实姓名：</li>
                     <li class="on2">
                         <input class="inv-one-ipt" value="<%=loginUser.getName()%>" readonly="readonly"/>
-                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span
+                            class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                 </ul>
             </div>
@@ -94,14 +102,17 @@
                     <li class="on2">
                         <ul>
                             <li class="inv-c-name">
-                                <input id="companyName" name="companyName" class="inv-one-ipt1" value="<%=isNull?"":investor.getCompanyName()%>" placeholder="公司名称">
-                                <span class="pro6-left-top"></span><span class="pro6-right-top"></span><span class="pro6-right-bottom"></span><span class="pro6-left-bottom"></span>
+                                <input id="companyName" name="companyName" class="inv-one-ipt1"
+                                       value="<%=isNull?"":investor.getCompanyName()%>" placeholder="公司名称">
+                                <span class="pro6-left-top"></span><span class="pro6-right-top"></span><span
+                                    class="pro6-right-bottom"></span><span class="pro6-left-bottom"></span>
                             </li>
                             <li>
                                 <input id="companyRank" name="companyRank"
                                        value="<%=isNull?"":investor.getCompanyRank()%>"
                                        class="inv-one-ipt1" placeholder="头衔">
-                                <span class="pro6-left-top"></span><span class="pro6-right-top"></span><span class="pro6-right-bottom"></span><span class="pro6-left-bottom"></span>
+                                <span class="pro6-left-top"></span><span class="pro6-right-top"></span><span
+                                    class="pro6-right-bottom"></span><span class="pro6-left-bottom"></span>
                             </li>
                         </ul>
                     </li>
@@ -113,9 +124,10 @@
                     <li class="on1">个人微信<span>（选填）</span>:</li>
                     <li class="on2">
                         <input name="wechatId" class="inv-one-ipt1"
-                                           value="<%=isNull?"":StringUtils.isEmpty(investor.getWechatId())?"":investor.getWechatId()%>"
-                                           placeholder="微信号"/>
-                        <span class="pro1-left-top"></span><span class="pro1a-right-top"></span><span class="pro1a-right-bottom"></span><span class="pro1-left-bottom"></span>
+                               value="<%=isNull?"":StringUtils.isEmpty(investor.getWechatId())?"":investor.getWechatId()%>"
+                               placeholder="微信号"/>
+                        <span class="pro1-left-top"></span><span class="pro1a-right-top"></span><span
+                            class="pro1a-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                 </ul>
             </div>
@@ -141,7 +153,7 @@
                                     areaCount--;
                                 } else {
                                     if (areaCount >= 5) {
-                                        alert("最多选择5项");
+                                        xalert("最多选择5项");
                                     } else {
                                         $(obj).attr("class", "on");
                                         areaCount++;
@@ -175,7 +187,7 @@
                                     stageCount--;
                                 } else {
                                     if (stageCount >= 5) {
-                                        alert("最多选择5项");
+                                        xalert("最多选择5项");
                                     } else {
                                         $(obj).attr("class", "on");
                                         stageCount++;
@@ -210,7 +222,7 @@
                                     industryCount--;
                                 } else {
                                     if (industryCount >= 5) {
-                                        alert("最多选择5项");
+                                        xalert("最多选择5项");
                                     } else {
                                         $(obj).attr("class", "on");
                                         industryCount++;
@@ -228,7 +240,8 @@
                     <li class="on2">
                         <div class="inv-two-ipt" onclick="showMenu('limits');">
                             <a id="limit" class="a1">请选择</a>
-                            <span class="pro2-left-top"></span><span class="pro2-right-top"></span><span class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span>
+                            <span class="pro2-left-top"></span><span class="pro2-right-top"></span><span
+                                class="pro2-right-bottom"></span><span class="pro2-left-bottom"></span>
                         </div>
                         <div id="limits_" class="inv-menu-ico" style="display: none;"></div>
                         <ul id="limits" class="inv-menu" style="display: none;">
@@ -275,9 +288,10 @@
                     <li class="on1">投资案例<span>（选填）</span>:</li>
                     <li class="on2">
                         <input name="investorCase" class="inv-one-ipt"
-                                           value="<%=isNull?"":StringUtils.isEmpty(investor.getInvestorCase())?"":investor.getInvestorCase()%>"
-                                           placeholder="请输入投资案例"/>
-                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                               value="<%=isNull?"":StringUtils.isEmpty(investor.getInvestorCase())?"":investor.getInvestorCase()%>"
+                               placeholder="请输入投资案例"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span
+                            class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                 </ul>
             </div>
@@ -286,9 +300,10 @@
                     <li class="on1">推荐人<span>（选填）</span>:</li>
                     <li class="on2">
                         <input name="recommender" class="inv-one-ipt"
-                                           value="<%=isNull?"":StringUtils.isEmpty(investor.getRecommender())?"":investor.getRecommender()%>"
-                                           placeholder="请输入推荐人"/>
-                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                               value="<%=isNull?"":StringUtils.isEmpty(investor.getRecommender())?"":investor.getRecommender()%>"
+                               placeholder="请输入推荐人"/>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span
+                            class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                 </ul>
             </div>
@@ -297,7 +312,8 @@
                     <li class="on1">一句话介绍:</li>
                     <li class="on2"><textarea id="summary" name="summary" class="inv-one-tex" style="height: 80px;"
                                               placeholder="一句话介绍自己"><%=isNull ? "" : StringUtils.isEmpty(investor.getSummary()) ? "" : investor.getSummary()%></textarea>
-                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span
+                                class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                     <li class="on3">&nbsp;</li>
                 </ul>
@@ -307,7 +323,8 @@
                     <li class="on1">个人简介:</li>
                     <li class="on2"><textarea id="personalProfile" name="personalProfile" class="inv-one-tex"
                                               placeholder="包括教育经历,工作经验，创业经历，行业背景等内容"><%=isNull ? "" : StringUtils.isEmpty(investor.getPersonalProfile()) ? "" : investor.getPersonalProfile()%></textarea>
-                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
+                        <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span
+                                class="pro1-right-bottom"></span><span class="pro1-left-bottom"></span>
                     </li>
                     <li class="on3">&nbsp;</li>
                 </ul>
@@ -317,7 +334,7 @@
         </div>
     </form>
 </div>
-<%@include file="../pub/foot.jsp"%>
+<%@include file="../pub/foot.jsp" %>
 </body>
 <script>
     //保存基本信息
@@ -346,39 +363,39 @@
         var singlePriceId = $("#singlePriceId").val();
         var styleId = $("#styleId").val();
         if (isEmpty($("#photo").val())) {
-            alert("请上传照片");
+            xalert("请上传照片");
             return;
         }
         if (isEmpty($("#companyName").val())) {
-            alert("请填写公司名称");
+            xalert("请填写公司名称");
             return;
         }
         if (isEmpty($("#companyRank").val())) {
-            alert("请填写职位名称");
+            xalert("请填写职位名称");
             return;
         }
         if (isEmpty(areaIds)) {
-            alert("请选择活跃城市");
+            xalert("请选择活跃城市");
             return;
         }
         if (isEmpty(stageIds)) {
-            alert("请选择投资阶段");
+            xalert("请选择投资阶段");
             return;
         }
         if (isEmpty(industryIds)) {
-            alert("请选择投资领域");
+            xalert("请选择投资领域");
             return;
         }
         if (singlePriceId == 0) {
-            alert("请选择单笔投资金额");
+            xalert("请选择单笔投资金额");
             return;
         }
         if (styleId == 0) {
-            alert("请选择投资风格");
+            xalert("请选择投资风格");
             return;
         }
         if (isEmpty($("#personalProfile").val())) {
-            alert("请填写个人简介");
+            xalert("请填写个人简介");
             return;
         }
         $.ajax({
@@ -390,7 +407,7 @@
             dataType: 'json',
             success: function (result) {
                 if (result.code < 0) {
-                    alert(result.message);
+                    xalert(result.message);
                     return;
                 }
                 window.location.href = "<%=appPath%>/investor/" + result.data + "/add/edit/2/auth";
@@ -428,22 +445,32 @@
     }
     //上传图片
     function doUpload() {
-        $.ajaxFileUpload({
-                    url: '<%=appPath%>/image/upload', //用于文件上传的服务器端请求地址
-                    type: 'post',
-                    secureuri: false, //是否需要安全协议，一般设置为false
-                    fileElementId: 'photoFile', //文件上传域的ID
-                    dataType: 'json', //返回值类型 一般设置为json
-                    success: function (result) {  //服务器成功响应处理函数
-                        if (result.code == -1) {
-                            alert(result.message);
-                            return;
-                        }
-                        $('#photoImg').attr("src", result.data.path);
-                        $('#photo').val(result.data.path);
-                    }
+        var file = $('#photoFile');
+        if (!file || !file.val())
+            return;
+        var patn = /\.jpg$|\.jpeg$|\.png$|\.gif$/i;
+        if (!patn.test(file.val())) {
+            xalert("请选择图片文件");
+            return;
+        }
+        debugger;
+        $('#photoFile').wrap("<form id='myUpload' action='<%=appPath%>/image/upload' method='post' enctype='multipart/form-data'></form>");
+        $('#myUpload').ajaxSubmit({
+            dataType:'json',
+            success:function(result){
+                if (result.code == -1) {
+                    xalert(result.message);
+                    return;
                 }
-        );
+                $("#ul_photo").html("<li class='upload'><img src='"+result.data.path+"' width='130' height='130'/></li>");
+                $('#photo').val(result.data.path);
+                $('#photoFile').unwrap();
+            },
+            error:function(xhr){
+                xalert('上传失败!');
+                $('#photoFile').unwrap();
+            }
+        });
     }
     function selectFile(id) {
         $('#' + id).click();
