@@ -103,7 +103,7 @@
         load(url);
     }
     function load(url) {
-        $("#content").load(url);
+        $("#content").load(url + "?r=" + Math.random());
     }
     load("<%=appPath%>/center/project/1/1/1");
 
