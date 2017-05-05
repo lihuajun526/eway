@@ -72,7 +72,8 @@ public class BinaryUploader {
 
             savePath = PathFormat.parse(savePath, originFileName);
 
-            String physicalPath = (String) conf.get("rootPath") + savePath;
+            //String physicalPath = (String) conf.get("rootPath") + savePath;
+            String physicalPath = Config.get("ueditor.image.root") + savePath;
 
             InputStream is = fileStream.openStream();
             State storageState = StorageManager.saveFileByInputStream(is,
@@ -88,7 +89,7 @@ public class BinaryUploader {
                 }
             }*/
             if (storageState.isSuccess()) {
-                storageState.putInfo("url", Config.get("app.path") + PathFormat.format(savePath).replace("/statics", ""));
+                storageState.putInfo("url", Config.get("webserver.url") + PathFormat.format(savePath));
                 storageState.putInfo("type", suffix);
                 storageState.putInfo("original", originFileName + suffix);
             }
