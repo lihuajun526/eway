@@ -64,7 +64,7 @@
                         cls = "";
             %>
             <li<%=cls%> onclick="checkProject(this,<%=project.getId()%>);" style="cursor: pointer">
-                <a><%=project.getTitle()%>
+                <a title="<%=project.getTitle()%>"><%=project.getTitle().length() > 9 ? project.getTitle().substring(0, 8) + "..." : project.getTitle()%>
                 </a><span class="g-pser-left-top"></span><span class="g-pser-right-top"></span><span
                     class="g-pser-right-bottom"></span><span class="g-pser-left-bottom"></span></li>
             <%

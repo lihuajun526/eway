@@ -44,7 +44,7 @@
         <input type="hidden" name="trueName" value="<%=loginUser.getName()%>"/>
 
         <div class="inv-wap">
-            <div class="inv-t">基本信息(1/2))</div>
+            <div class="inv-t">基本信息(1/2)</div>
             <div class="inv-one">
                 <ul class="inv-one-lst">
                     <li class="on1">个人头像：</li>
@@ -67,7 +67,7 @@
                                 %>
                             </ul>
                         </a>
-                        <span><a class="on">上传头像</a></span><input onchange="doUpload()" id="photoFile" name="photoFile"
+                        <span><a class="oe">上传头像</a></span><input onchange="doUpload()" id="photoFile" name="photoFile"
                                                                   type='file' unselectable="on" class="on2"/>
                     </li>
                     <li class="on3">支持png/jpg/jepg格式</li>
@@ -390,10 +390,10 @@
             xalert("请选择单笔投资金额");
             return;
         }
-        if (styleId == 0) {
+        /*if (styleId == 0) {
             xalert("请选择投资风格");
             return;
-        }
+        }*/
         if (isEmpty($("#personalProfile").val())) {
             xalert("请填写个人简介");
             return;
@@ -453,7 +453,6 @@
             xalert("请选择图片文件");
             return;
         }
-        debugger;
         $('#photoFile').wrap("<form id='myUpload' action='<%=appPath%>/image/upload' method='post' enctype='multipart/form-data'></form>");
         $('#myUpload').ajaxSubmit({
             dataType:'json',

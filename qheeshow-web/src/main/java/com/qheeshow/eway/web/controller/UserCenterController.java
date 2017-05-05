@@ -45,7 +45,7 @@ public class UserCenterController extends BaseController {
     public ModelAndView index(HttpSession session) {
 
         ModelAndView modelAndView = new ModelAndView();
-        User loginUser = (User)session.getAttribute("loginUser");
+        User loginUser = (User) session.getAttribute("loginUser");
         modelAndView.addObject("investor", investorService.getByUser(loginUser.getId()));
         modelAndView.setViewName("center/center");
         return modelAndView;
@@ -69,7 +69,8 @@ public class UserCenterController extends BaseController {
             Map<String, Object> map = new HashMap<>();
             if (type.intValue() == 1) {//平台推荐的项目
                 ProjectSuggest projectSuggest = new ProjectSuggest();
-                projectSuggest.setInvestorid(loginUser.getId());
+                Investor investor = investorService.getByUser(loginUser.getId());
+                projectSuggest.setInvestorid(investor.getId());
                 projectSuggest.setStatus(0);
                 projectSuggest.setPageSize(pageSize);
                 projectSuggest.setStartRow((pageIndex - 1) * pageSize);
@@ -165,6 +166,7 @@ public class UserCenterController extends BaseController {
 
     /**
      * 个人设置
+     *
      * @param projectid
      * @param session
      * @return

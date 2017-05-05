@@ -18,8 +18,9 @@
                 Project project = projects.get(i);
                 if (projectid.intValue() == project.getId().intValue()) {
         %>
-        <li class="on"><a><%=project.getTitle()%>
-        </a></li>
+        <li class="on">
+            <a><%=project.getTitle().length() > 9 ? project.getTitle().substring(0, 8) + "..." : project.getTitle()%>
+            </a></li>
         <%
         } else {
         %>
@@ -98,31 +99,31 @@
         moreid = id;
     }
     /*function hid(event) {
-        if (moreid == 0)
-            return;
-        var div = document.getElementById("more_" + moreid);
-        var x = $(event).offset().left;
-        var y = $(event).offset().top;
-        var divx1 = div.offsetLeft;
-        var divy1 = div.offsetTop;
-        var divx2 = div.offsetLeft + div.offsetWidth;
-        var divy2 = div.offsetTop + div.offsetHeight;
+     if (moreid == 0)
+     return;
+     var div = document.getElementById("more_" + moreid);
+     var x = $(event).offset().left;
+     var y = $(event).offset().top;
+     var divx1 = div.offsetLeft;
+     var divy1 = div.offsetTop;
+     var divx2 = div.offsetLeft + div.offsetWidth;
+     var divy2 = div.offsetTop + div.offsetHeight;
 
-        debugger;
+     debugger;
 
-        var img = document.getElementById("img_" + moreid);
-        var imgx1 = $('#img_'+moreid).offset().left;
-        var imgy1 = $('#img_'+moreid).offset().top;
+     var img = document.getElementById("img_" + moreid);
+     var imgx1 = $('#img_'+moreid).offset().left;
+     var imgy1 = $('#img_'+moreid).offset().top;
 
-        var imgx2 = imgx1 + img.offsetWidth;
-        var imgy2 = imgy1 + img.offsetHeight;
+     var imgx2 = imgx1 + img.offsetWidth;
+     var imgy2 = imgy1 + img.offsetHeight;
 
-        alert((x < divx1 || x > divx2 || y < divy1 || y > divy2));
-        alert(x < imgx1 || x > imgx2 || y < imgy1 || y > imgy2);
+     alert((x < divx1 || x > divx2 || y < divy1 || y > divy2));
+     alert(x < imgx1 || x > imgx2 || y < imgy1 || y > imgy2);
 
-        if ((x < divx1 || x > divx2 || y < divy1 || y > divy2) && (x < imgx1 || x > imgx2 || y < imgy1 || y > imgy2)) {
-            $("#more_" + moreid).hide();
-            moreid = 0;
-        }
-    }*/
+     if ((x < divx1 || x > divx2 || y < divy1 || y > divy2) && (x < imgx1 || x > imgx2 || y < imgy1 || y > imgy2)) {
+     $("#more_" + moreid).hide();
+     moreid = 0;
+     }
+     }*/
 </script>

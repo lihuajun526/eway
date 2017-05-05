@@ -20,13 +20,13 @@
                 {
                     field: 'trueName', title: '投资人', width: 18,
                     formatter: function (value, rec) {
-                        return "<a href='" + appPath + "/investor/" + rec.investorid + "' target='_blank'>" + value + "</a>";
+                        return "<a href='" + appDomain + "/investor/" + rec.investorid + "' target='_blank'>" + value + "</a>";
                     }
                 },
                 {
                     field: 'title', title: '项目', width: 18,
                     formatter: function (value, rec) {
-                        return "<a href='" + appPath + "/project/" + rec.projectid + "' target='_blank'>" + value + "</a>";
+                        return "<a href='" + appDomain + "/project/" + rec.projectid + "' target='_blank'>" + value + "</a>";
                     }
                 },
                 {

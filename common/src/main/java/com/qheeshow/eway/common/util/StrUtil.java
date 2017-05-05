@@ -62,7 +62,7 @@ public class StrUtil {
     }
 
     public static String handleAdd86(String mobile) {
-        if (mobile.contains("86")) {
+        if (mobile.indexOf("86") == 0) {
             return mobile;
         } else {
             return "86" + mobile;
@@ -70,8 +70,8 @@ public class StrUtil {
     }
 
     public static String handleDel86(String mobile) {
-        if (mobile.contains("86")) {
-            return mobile.replace("86", "");
+        if (mobile.indexOf("86") == 0) {
+            return mobile.replaceFirst("86", "");
         } else {
             return mobile;
         }

@@ -127,13 +127,13 @@ public class InvestorController extends BaseController {
             industrys.append("#").append(xwcmclassinfoService.get(Integer.parseInt(industryid)).getCname());
         }
         String singlePrice = xwcmclassinfoService.get(investor.getSinglePriceId()).getCname();
-        String style = xwcmclassinfoService.get(investor.getStyleId()).getCname();
+        //String style = xwcmclassinfoService.get(investor.getStyleId()).getCname();
 
         investor.setCityName(citys.toString());
         investor.setStageName(stages.toString());
         investor.setIndustryName(industrys.toString());
         investor.setSinglePrice(singlePrice);
-        investor.setStyle(style);
+        //investor.setStyle(style);
 
         loginUser.setPhoto(investor.getPhoto());
 

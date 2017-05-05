@@ -28,12 +28,12 @@
             <li class="on2">
                 <ul>
                     <li class="pro-c-name">
-                        <input name="memberName" class="pro-one-ipt1" placeholder="姓名">
+                        <input id="memberName_0" name="memberName" class="pro-one-ipt1" placeholder="姓名">
                         <span class="pro6-left-top"></span><span class="pro6-right-top"></span><span
                             class="pro6-right-bottom"></span><span class="pro6-left-bottom"></span>
                     </li>
                     <li>
-                        <input name="position" class="pro-one-ipt1" placeholder="职位">
+                        <input id="position_0" name="position" class="pro-one-ipt1" placeholder="职位">
                         <span class="pro6-left-top"></span><span class="pro6-right-top"></span><span
                             class="pro6-right-bottom"></span><span class="pro6-left-bottom"></span>
                     </li>
@@ -47,7 +47,7 @@
             <li class="on2">
                 <ul class="pro-six-lst">
                     <li>
-                        <textarea name="summary" class="pro-one-tex" placeholder="个人简介（不超过300字）"></textarea>
+                        <textarea id="summary_0" name="summary" class="pro-one-tex" placeholder="个人简介（不超过300字）"></textarea>
                         <span class="pro6-left-top"></span><span class="pro6-right-top"></span><span
                             class="pro6-right-bottom"></span><span class="pro6-left-bottom"></span>
                     </li>
@@ -56,7 +56,7 @@
         </ul>
     </div>
     <div class="pro-clear"></div>
-    <div class="pro-btn1"><a onclick="saveTeam(this);">保 存</a></div>
+    <div class="pro-btn1"><a onclick="saveTeam(this,0);">保 存</a></div>
 </form>
 <script>
     flag = false;
