@@ -1,0 +1,135 @@
+@charset "utf-8";
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+	margin:0;
+	padding:0;
+}
+/* -webkit-text-size-adjust fix Chrome 12 px limit */
+body, button, input, select, textarea, label {
+	font-size:14px;
+	font-family:PingFangSC-Regular Helvetica;
+	-webkit-text-size-adjust:none;
+	font-family:Microsoft Yahei;
+}
+button, input, select, label {
+	vertical-align:middle;
+	list-style-type:none;
+	border:none;
+}
+label {
+	padding-left:0.4em;
+}
+ul, ol, p, h1, h2, h3, h4, h5, h6 {
+	font-size:100%;
+}
+ul {
+	list-style:none;
+}
+h1 {
+	font-size:20px;
+}
+h2 {
+	font-size:16px;
+}
+h3 {
+	font-size:14px;
+}
+h4 {
+	font-size:13px;
+}
+h5 {
+	font-size:12px;
+}
+h6 {
+	font-size:12px;
+}
+address, cite, dfn, em, var {
+	font-style:normal;
+}
+code, kbd, pre, samp {
+	font-family:courier new, courier, monospace;
+}
+small {
+	font-size:12px;
+}
+sup {
+	vertical-align:text-top;
+}
+sub {
+	vertical-align:text-bottom;
+}
+img {
+	border:0 none;
+}
+a img, span img {
+	vertical-align:bottom;
+}
+em {
+	font-style:normal;
+	font-weight:normal
+}
+button, input, select, textarea {
+	font-size:100%;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+table th {
+	font-weight:300;
+}
+a:link,a:visited,a:hover,a:active{
+	text-decoration:none;
+	cursor:pointer;
+}
+
+/* width_control  */
+.width_control {
+	width:100%;
+	overflow:hidden;
+	min-width:1000px;
+	max-width:2000px;
+	margin:0 auto;
+	position:relative;
+}
+.fixed_width {
+	width:1000px;
+	margin:0 auto;
+	position:relative;
+	z-index:9999;
+}
+/* body 主体 */
+
+.main_body {
+	background-color:#fff;
+	overflow:hidden;
+	width:100%;
+	min-height:500px;
+	position:relative;
+	z-index:99;
+}
+.main_content {
+	width:1000px;
+	margin:0 auto;
+}
+.fluid_width {
+	width:1000px;
+	margin-left:auto;
+	margin-right:auto;
+	overflow:hidden;
+	zoom:1;
+	position:relative;
+}
+/* footer */
+.main_footer {
+	padding:30px 0 0;
+	margin:0 0;
+	overflow:hidden;
+	width:1000px;
+}
+
+.col-center-block {
+   float: none;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+}

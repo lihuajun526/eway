@@ -3,7 +3,7 @@ package com.qheeshow.eway.wechart.task;
 import com.alibaba.fastjson.JSONObject;
 import com.qheeshow.eway.wechart.constant.Constant;
 import com.qheeshow.eway.wechart.exception.RequestException;
-import com.qheeshow.eway.wechart.util.AppConfig;
+import com.qheeshow.eway.service.AppConfig;
 import com.qheeshow.eway.wechart.util.XHttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;

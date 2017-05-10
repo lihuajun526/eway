@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import com.qheeshow.eway.wechart.base.BaseController;
 import com.qheeshow.eway.wechart.exception.RequestException;
-import com.qheeshow.eway.wechart.util.AppConfig;
+import com.qheeshow.eway.service.AppConfig;
 import com.qheeshow.eway.wechart.util.XHttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.springframework.beans.factory.annotation.Autowired;

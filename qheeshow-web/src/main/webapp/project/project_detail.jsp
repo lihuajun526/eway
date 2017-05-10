@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
+    <script type='text/javascript' src='<%=appPath%>/images/jwplayer.js'></script>
 </head>
 <body>
 <%@include file="../pub/head.jsp" %>
@@ -46,7 +47,9 @@
                     for (String tag : project.getTags().split("#")) {
                 %>
                 <li>
-                    <a><%=tag%></a><span class="invest1-left-top"></span><span class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
+                    <a><%=tag%>
+                    </a><span class="invest1-left-top"></span><span class="invest1-right-top"></span><span
+                        class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
                 </li>
                 <%
                     }
@@ -56,11 +59,13 @@
             <ul class="g-proj-lst3">
                 <li>
                     <a id="apply" onclick="applyAdviser(<%=project.getId()%>);">申请成为专职顾问</a>
-                    <span class="invest1-left-top"></span><span class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
+                    <span class="invest1-left-top"></span><span class="invest1-right-top"></span><span
+                        class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
                 </li>
                 <li>
                     <a onclick="bound(<%=project.getUserid()%>)">查看联系方式</a>
-                    <span class="invest1-left-top"></span><span class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
+                    <span class="invest1-left-top"></span><span class="invest1-right-top"></span><span
+                        class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
                 </li>
             </ul>
             <div class="g-proj-ico2"></div>
@@ -71,11 +76,28 @@
         <div class="g-invest-l">
             <div class="g-invest-lone3">
                 <ul class="g-proj-titlst">
+                    <li><a href="#0F">路演视频</a></li>
                     <li><a href="#1F">项目亮点</a></li>
                     <li><a href="#2F">项目简介</a></li>
                     <li><a href="#3F">团队介绍</a></li>
                     <li><a href="#4F">项目BP</a></li>
                 </ul>
+            </div>
+            <div id="0F" class="g-invest-lone">
+                <div class="g-proj-lonetit6">路演视频</div>
+                <div class="g-invest-lonect">
+                    <div id='mediaspace'></div>
+                    <script type='text/javascript'>
+                        jwplayer('mediaspace').setup({
+                            'flashplayer': '<%=appPath%>/images/player.swf',
+                            'file': 'BladeRunner2049.flv',
+                            'streamer': 'rtmp://media.qheeshow.com/oflaDemo',
+                            'controlbar': 'bottom',
+                            'width': '676',
+                            'height': '315'
+                        });
+                    </script>
+                </div>
             </div>
             <div id="1F" class="g-invest-lone">
                 <div class="g-proj-lonetit6">项目亮点</div>
@@ -220,7 +242,7 @@
             $("#apply").html("已申请专职顾问");
         }, "json");
     }
-    function listQa(){
+    function listQa() {
         $("#qas").load("<%=appPath%>/project/qa/list/<%=project.getId()%>/1");
     }
     listAdvisers();
