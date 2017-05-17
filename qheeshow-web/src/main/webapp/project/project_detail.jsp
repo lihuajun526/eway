@@ -157,12 +157,18 @@
             <%
                 }
             %>
+            <%
+                if(!StringUtils.isEmpty(project.getBp())){
+                    %>
             <div id="4F" class="g-invest-lone3">
                 <ul class="g-proj-titlst">
                     <li class="on-bp">项目BP</li>
                 </ul>
                 <a class="g-proj-more" onclick="downloadBp();">下载商业计划书</a>
             </div>
+                    <%
+                }
+            %>
             <div id="qas" class="g-invest-lone2"></div>
         </div>
         <!--*************************right star************************-->

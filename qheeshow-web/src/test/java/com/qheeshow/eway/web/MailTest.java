@@ -19,7 +19,7 @@ public class MailTest {
 
     @org.junit.Test
     public void test() {
-        MailBean mailBean = new MailBean();
+        /*MailBean mailBean = new MailBean();
         mailBean.setToAddress("515182557@qq.com");
         mailBean.setContent("<body><h1>你好！</h1></body>");
         mailBean.setFromAddress("service@qheefund.com");
@@ -29,7 +29,7 @@ public class MailTest {
         mailBean.setPassword("wutongE123456");
 
 
-        mailService.sendHtmlMail(mailBean);
+        mailService.sendHtmlMail(mailBean);*/
     }
 
 
