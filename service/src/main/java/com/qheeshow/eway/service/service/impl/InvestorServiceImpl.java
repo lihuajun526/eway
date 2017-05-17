@@ -155,7 +155,7 @@ public class InvestorServiceImpl implements InvestorService {
     }
 
     @Override
-    public Map<String, Object> listByCondition(String cityid, String industryid, String stageid, Integer pageIndex, Integer pageSize) {
+    public Map<String, Object> listByCondition(String cityid, String industryid, String stageid, Integer pageIndex, Integer pageSize,String keyword) {
         Investor investor = new Investor();
         if (!"0".equals(cityid))
             investor.setCityId("#" + cityid + "#");
@@ -163,6 +163,7 @@ public class InvestorServiceImpl implements InvestorService {
             investor.setIndustryId("#" + industryid + "#");
         if (!"0".equals(stageid))
             investor.setStageId("#" + stageid + "#");
+        investor.setKeyword(keyword);
         investor.setPageSize(pageSize);
         investor.setStartRow((pageIndex - 1) * investor.getPageSize());
         Map<String, Object> map = new HashMap<>();

@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>配置管理系统</title>
+    <title>梧桐e路后台管理</title>
     <link rel="stylesheet" type="text/css" href="<%=appPath%>/jquery-easyui-1.4.5/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="<%=appPath%>/jquery-easyui-1.4.5/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="<%=appPath%>/jquery-easyui-1.4.5/demo/demo.css">

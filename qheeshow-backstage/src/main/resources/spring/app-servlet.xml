@@ -7,6 +7,7 @@
     <mvc:resources mapping="images/**" location="/statics/images/"/>
     <mvc:resources mapping="jquery/**" location="/statics/jquery/"/>
     <mvc:resources mapping="jquery-easyui-1.4.5/**" location="/statics/jquery-easyui-1.4.5/"/>
+    <mvc:resources mapping="css/**" location="/statics/css/"/>
     <mvc:resources mapping="js/**" location="/statics/js/"/>
     <mvc:resources mapping="rule/**" location="/statics/rule/"/>
     <mvc:resources mapping="sys/**" location="/statics/sys/"/>

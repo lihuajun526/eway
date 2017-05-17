@@ -76,6 +76,10 @@ public class Project extends BaseModel{
 
     private Integer isCase;
 
+    private String onepage;
+
+    private String keyword;
+
     public Integer getIsCase() {
         return isCase;
     }
@@ -370,5 +374,21 @@ public class Project extends BaseModel{
 
     public void setFollows(Integer follows) {
         this.follows = follows;
+    }
+
+    public String getOnepage() {
+        return onepage;
+    }
+
+    public void setOnepage(String onepage) {
+        this.onepage = onepage;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

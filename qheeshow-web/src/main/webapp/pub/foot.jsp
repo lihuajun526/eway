@@ -4,7 +4,7 @@
     <div class="g-foot-l">
       <div class="g-fl-t">
         <span class="g-fl-tit"></span>
-        <h3>MUX倾力打造的矢量图标管理、交流平台。设计师将图标上传到Iconfont平台，用户可以自定义下载多种格式的icon，平台也可将图标。</h3>
+        <h3></h3>
       </div>
       <ul class="g-fl-lst">
         <li><a href="#">服务条款</a></li>

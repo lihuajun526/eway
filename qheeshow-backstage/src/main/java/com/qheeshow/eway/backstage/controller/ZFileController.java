@@ -24,7 +24,7 @@ import com.qheeshow.eway.service.model.FileWithBLOBs;
 import com.qheeshow.eway.service.service.FileService;
 
 @RestController
-@RequestMapping("/file")
+@RequestMapping("/zfile")
 public class ZFileController {
 	
 	@Autowired

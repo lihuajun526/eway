@@ -54,7 +54,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Map<String, Object> listByCondition(Integer type, Integer areaid, Integer financingLimit, Integer industry,
-                                               Integer pageIndex, Integer pageSize) {
+                                               Integer pageIndex, Integer pageSize, String keyword) {
         Project project = new Project();
         if (type > 0)
             project.setType(type);
@@ -66,6 +66,7 @@ public class ProjectServiceImpl implements ProjectService {
             project.setIndustry(industry);
         project.setPageSize(pageSize);
         project.setStartRow((pageIndex - 1) * project.getPageSize());
+        project.setKeyword(keyword);
         Map<String, Object> map = new HashMap<>();
         map.put("projects", projectMapper.listByCondition(project));
         map.put("count", projectMapper.getCount(project).size());

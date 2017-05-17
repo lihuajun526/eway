@@ -54,7 +54,7 @@
             setCheck(value, obj, id);
             list();
         }
-        function search() {
+        function goSearch() {
             keyword = $("#keyword").val();
             list();
         }
@@ -75,7 +75,7 @@
     <div class="g-conter">
         <ul class="g-proj-sev">
             <li><input id="keyword" class="g-proj-ipt" placeholder="输入您要找的好项目"/></li>
-            <li><a href="#" class="g-proj-btn"></a></li>
+            <li><a onclick="goSearch();" class="g-proj-btn"></a></li>
         </ul>
         <div class="g-proj-one3">
             <div class="g-proj-onel">项目类型：</div>

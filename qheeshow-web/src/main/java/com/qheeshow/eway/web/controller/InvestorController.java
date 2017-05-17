@@ -3,10 +3,7 @@ package com.qheeshow.eway.web.controller;
 import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.common.web.HaResponse;
 import com.qheeshow.eway.service.model.*;
-import com.qheeshow.eway.service.service.CommentService;
-import com.qheeshow.eway.service.service.InvestorFollowService;
-import com.qheeshow.eway.service.service.InvestorService;
-import com.qheeshow.eway.service.service.XwcmclassinfoService;
+import com.qheeshow.eway.service.service.*;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,12 @@ public class InvestorController extends BaseController {
     private InvestorFollowService investorFollowService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private MailService mailService;
+    @Autowired
+    private ProjectService projectService;
+    @Autowired
+    private PostRecordService postRecordService;
 
     @RequestMapping("/{id}/add/edit/1/auth")
     public ModelAndView addOrEditOne(@PathVariable Integer id) {
@@ -183,12 +186,11 @@ public class InvestorController extends BaseController {
         int pageSize = 8;
         int recordCount = 0;
         List<Investor> investorList = new ArrayList<>();
-        if (StringUtils.isEmpty(keyword)) {
-            Map<String, Object> map = investorService.listByCondition(cityid, industryid, stageid, pageIndex, pageSize);
-            investorList = (List<Investor>) map.get("investors");
-            recordCount = (Integer) map.get("count");
-        } /*else
-            projectList = projectService.search(keyword);*/
+
+        Map<String, Object> map = investorService.listByCondition(cityid, industryid, stageid, pageIndex, pageSize, keyword);
+        investorList = (List<Investor>) map.get("investors");
+        recordCount = (Integer) map.get("count");
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("investor/investors");
         modelAndView.addObject("investors", investorList);
@@ -280,6 +282,58 @@ public class InvestorController extends BaseController {
         if (o == null)
             return result.toString();
         User loginUser = (User) o;
+        InvestorFollow investorFollow = new InvestorFollow();
+        investorFollow.setUserid(loginUser.getId());
+        investorFollow.setInvestorid(investorid);
+        Boolean isFollow = investorFollowService.isFollow(investorFollow);
+        result.setData(isFollow);
+        return result.toString();
+    }
+
+    /**
+     * 投递项目
+     *
+     * @param investorid
+     * @param session
+     * @return
+     */
+    @RequestMapping("/project/post/{investorid}/authj")
+    @ResponseBody
+    public String postProject(@PathVariable Integer investorid, HttpSession session) {
+
+        Result<Boolean> result = new Result<>();
+        result.setData(false);
+        Object o = session.getAttribute("loginUser");
+        if (o == null)
+            return result.toString();
+        User loginUser = (User) o;
+        if (loginUser.getRoleid().intValue() != 20) {
+            result.setMessage("对不起，企业/创业者才能投递项目");
+            return result.toString();
+        }
+
+        List<Project> list = projectService.listByUser(loginUser.getId());
+        if (list.size() == 0) {
+            result.setMessage("对不起，您尚未创建项目，请先创建项目");
+            return result.toString();
+        }
+        //企业每天最多投递5次
+        List<PostRecord> postRecordList = postRecordService.listByUserAndToday(loginUser.getId());
+        if (postRecordList.size() >= 5) {
+            result.setMessage("对不起，每天做多可投递5次");
+            return result.toString();
+        }
+
+        //todo  判断投递的项目是否有BP
+
+        //投递项目
+        PostRecord postRecord = new PostRecord();
+        postRecord.setUserid(loginUser.getId());
+        postRecord.setInvestorid(investorid);
+        postRecord.setProjectid(list.get(0).getId());
+        postRecordService.save(postRecord);
+        //发送邮件
+
         InvestorFollow investorFollow = new InvestorFollow();
         investorFollow.setUserid(loginUser.getId());
         investorFollow.setInvestorid(investorid);

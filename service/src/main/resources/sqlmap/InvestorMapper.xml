@@ -740,6 +740,9 @@
         <if test="industryId != null">
             and industry_id like CONCAT('%','${industryId}','%')
         </if>
+        <if test="keyword != null">
+            and true_name like CONCAT('%','${keyword}','%' )
+        </if>
         limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
 
@@ -756,6 +759,9 @@
         </if>
         <if test="industryId != null">
             and industry_id like CONCAT('%','${industryId}','%')
+        </if>
+        <if test="keyword != null">
+            and true_name like CONCAT('%','${keyword}','%' )
         </if>
     </select>
 

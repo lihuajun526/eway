@@ -43,6 +43,8 @@ public class Investor extends BaseModel {
 
     private String firstCity;
 
+    private String keyword;
+
     public String getTags() {
         return tags;
     }
@@ -391,5 +393,13 @@ public class Investor extends BaseModel {
 
     public void setFirstCity(String firstCity) {
         this.firstCity = firstCity;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

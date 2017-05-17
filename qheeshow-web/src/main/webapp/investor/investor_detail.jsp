@@ -52,7 +52,8 @@
             <a id="follow_" class="g-invest-focus"
                onclick="follow(<%=investor.getUserid()%>,<%=investor.getId()%>)"></a>
             <ul class="g-invest-lst2">
-                <li><a href="#">投递项目</a><span class="invest1-left-top"></span><span
+                <li><a onclick="postProject(<%=investor.getUserid()%>)">投递项目</a><span
+                        class="invest1-left-top"></span><span
                         class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span
                         class="invest1-left-bottom"></span></li>
                 <li><a onclick="bound(<%=investor.getUserid()%>)">查看联系方式</a><span class="invest1-left-top"></span><span
@@ -222,6 +223,16 @@
                 return;
             }
             xalert("<%=investor.getTrueName()%>的联系电话是：" + result.data + "，该电话号码10分钟内有效，请尽快联系对方");
+        }, "json");
+    }
+
+    function postProject(userid) {
+        $.get("<%=appPath%>/investor/project/post/" + userid + "/authj", function (result) {
+            if (result.data) {
+                xalert(result.message);
+                return;
+            }
+            xalert("投递成功");
         }, "json");
     }
 </script>

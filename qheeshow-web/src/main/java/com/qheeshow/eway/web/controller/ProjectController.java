@@ -206,12 +206,10 @@ public class ProjectController extends BaseController {
         int recordCount = 0;
 
         List<Project> projectList = new ArrayList<>();
-        if (StringUtils.isEmpty(keyword)) {
-            Map<String, Object> map = projectService.listByCondition(type, areaid, financingLimit, industry, pageIndex, pageSize);
-            projectList = (List<Project>) map.get("projects");
-            recordCount = (Integer) map.get("count");
-        } else
-            projectList = projectService.search(keyword);
+
+        Map<String, Object> map = projectService.listByCondition(type, areaid, financingLimit, industry, pageIndex, pageSize,keyword);
+        projectList = (List<Project>) map.get("projects");
+        recordCount = (Integer) map.get("count");
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("project/projects");
@@ -257,6 +255,39 @@ public class ProjectController extends BaseController {
         modelAndView.addObject("members", members);
         modelAndView.addObject("commonQas", commonQas);
         return modelAndView;
+    }
+
+    /**
+     * 下载BP
+     *
+     * @return
+     */
+    @RequestMapping("/bp/download/{projectid}/authj")
+    @ResponseBody
+    public String downloadBp(@PathVariable Integer projectid, HttpSession session) {
+
+        Result<String> result = new Result<>();
+        result.setCode(-1);
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser.getRoleid().intValue() >= 40 || loginUser.getRoleid().intValue() < 30) {
+            result.setMessage("对不起，您不是投资人不能下载商业计划书");
+            return result.toString();
+        }
+        if (loginUser.getRoleid().intValue() == 30) {
+            result.setMessage("对不起，您尚未认证不能下载商业计划书，请先认证");
+            return result.toString();
+        }
+
+        Project project = projectService.get(projectid);
+        if (project == null) {
+            LOGGER.error("[id={}]的项目不存在", projectid);
+            result.setMessage("对不起，项目不存在");
+            return result.toString();
+        }
+        result.setData(project.getBp());
+        result.setCode(0);
+        return result.toString();
     }
 
 }

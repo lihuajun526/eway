@@ -16,6 +16,7 @@
 <input type="file" id="logoFile" name="logoFile" onchange="uploadLogo('logoFile','logoImg','logo')"
        style="display: none;"/>
 <input type="file" id="bpFile" name="bpFile" onchange="uploadFile('bpFile')" style="display: none;"/>
+<input type="file" id="onepageFile" name="onepageFile" onchange="uploadOnepage('onepageFile')" style="display: none;"/>
 
 <form id="projectForm">
     <input type="hidden" id="id" name="id"/>
@@ -30,6 +31,7 @@
     <input type="hidden" id="financingLimitName" name="financingLimitName"/>
     <input type="hidden" id="bp" name="bp"/>
     <input type="hidden" id="bpName" name="bpName"/>
+    <input type="hidden" id="onepage" name="onepage"/>
     <input type="hidden" id="type" name="type" value="3"/>
     <table>
         <tbody>
@@ -40,14 +42,16 @@
             </td>
             <td style="word-break: break-all;">
                 &nbsp;项目名称：<input id="title" name="title" placeholder="项目名称"/>&nbsp;&nbsp;
-                用户手机号：<input id="mobile" name="mobile" placeholder="用户手机号"/>
+                用户手机号：<input id="mobile" name="mobile" placeholder="用户手机号"/>&nbsp;&nbsp;
             </td>
         </tr>
         <tr>
             <td style="word-break: break-all;">
                 &nbsp;项目视频：<input id="videoLink" name="videoLink" placeholder="输入项目视频网址"/>&nbsp;&nbsp;&nbsp;&nbsp;
                 <input id="uploadBtn" onclick="selectFile('bpFile');" type="button" value="上传BP"/>&nbsp;<span
-                    id="bpShow"></span>
+                    id="bpShow"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input onclick="selectFile('onepageFile');" type="button" value="上传一页通"/>&nbsp;
+                <span id="onepageShow"></span>
             </td>
         </tr>
         <tr>
@@ -312,6 +316,36 @@
                     }
                 }
         );
+    }
+    //上传一页通
+    function uploadOnepage(fileid) {
+
+        var file = $('#' + fileid);
+        if (!file || !file.val())
+            return;
+        var patn = /\.jpg$|\.jpeg$|\.png$|\.gif$/i;
+        if (!patn.test(file.val())) {
+            alert("请选择图片文件");
+            return;
+        }
+        $.ajaxFileUpload({
+                    url: appPath + '/image/upload', //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId: fileid, //文件上传域的ID
+                    dataType: 'json', //返回值类型 一般设置为json
+                    success: function (result) {  //服务器成功响应处理函数
+                        if (result.code == -1) {
+                            alert(result.message);
+                            return;
+                        }
+                        $("#onepageShow").html("<a href='" + result.data.path + "'>" + result.data.name + "</a>");
+                        $('#onepage').val(result.data.path);
+                    }
+                }
+        );
+
+
     }
     //获得行业信息
     $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_industry, function (result) {

@@ -77,10 +77,24 @@
             <div class="g-invest-lone3">
                 <ul class="g-proj-titlst">
                     <li><a href="#0F">路演视频</a></li>
-                    <li><a href="#1F">项目亮点</a></li>
+                    <li><a href="#1F">投资亮点</a></li>
+                    <%
+                        if (StringUtils.isEmpty(project.getOnepage())) {
+                    %>
                     <li><a href="#2F">项目简介</a></li>
                     <li><a href="#3F">团队介绍</a></li>
-                    <li><a href="#4F">项目BP</a></li>
+                    <%
+                    } else {
+                    %>
+                    <li><a href="#23F">一页通</a></li>
+                    <%
+                        }
+                    %>
+                    <%
+                        if(!StringUtils.isEmpty(project.getBp())){
+                            %><li><a href="#4F">项目BP</a></li><%
+                        }
+                    %>
                 </ul>
             </div>
             <div id="0F" class="g-invest-lone">
@@ -90,7 +104,7 @@
                     <script type='text/javascript'>
                         jwplayer('mediaspace').setup({
                             'flashplayer': '<%=appPath%>/images/player.swf',
-                            'file': 'BladeRunner2049.flv',
+                            'file': '405_0573_01.flv',
                             'streamer': 'rtmp://media.qheeshow.com/oflaDemo',
                             'controlbar': 'bottom',
                             'width': '676',
@@ -100,10 +114,13 @@
                 </div>
             </div>
             <div id="1F" class="g-invest-lone">
-                <div class="g-proj-lonetit6">项目亮点</div>
+                <div class="g-proj-lonetit6">投资亮点</div>
                 <div class="g-invest-lonect"><%=project.getHighlights()%>
                 </div>
             </div>
+            <%
+                if (StringUtils.isEmpty(project.getOnepage())) {
+            %>
             <div id="2F" class="g-invest-lone">
                 <div class="g-proj-lonetit6">项目简介</div>
                 <div class="g-invest-lonect"><%=project.getDescription()%>
@@ -128,11 +145,23 @@
                     }
                 %>
             </div>
+            <%
+            } else {
+            %>
+            <div id="23F" class="g-invest-lone">
+                <div class="g-proj-lonetit6">一页通</div>
+                <div class="g-invest-lonect">
+                    <img src="<%=project.getOnepage()%>" width="676"/>
+                </div>
+            </div>
+            <%
+                }
+            %>
             <div id="4F" class="g-invest-lone3">
                 <ul class="g-proj-titlst">
                     <li class="on-bp">项目BP</li>
                 </ul>
-                <a href="#" class="g-proj-more">登录查看商业计划书</a>
+                <a class="g-proj-more" onclick="downloadBp();">下载商业计划书</a>
             </div>
             <div id="qas" class="g-invest-lone2"></div>
         </div>
@@ -288,6 +317,17 @@
                 listQa();
             }
         });
+    }
+
+    function downloadBp(){
+
+        $.get("<%=appPath%>/project/bp/download/<%=project.getId()%>/authj", function (result) {
+            if (result.code < 0) {
+                xalert(result.message);
+                return;
+            }
+            window.location.href = result.data;
+        }, "json");
     }
 </script>
 </html>
