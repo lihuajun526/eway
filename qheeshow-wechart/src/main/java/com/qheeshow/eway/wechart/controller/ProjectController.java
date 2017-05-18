@@ -61,11 +61,8 @@ public class ProjectController extends BaseController {
         int pageSize = 10;
 
         List<Project> projectList = new ArrayList<>();
-        if (StringUtils.isEmpty(keyword)) {
-            Map<String, Object> map = projectService.listByCondition(type, areaid, financingLimit, industry, pageIndex, pageSize);
-            projectList = (List<Project>) map.get("projects");
-        } else
-            projectList = projectService.search(keyword);
+        Map<String, Object> map = projectService.listByCondition(type, areaid, financingLimit, industry, pageIndex, pageSize, keyword);
+        projectList = (List<Project>) map.get("projects");
 
         result.setData(projectList);
 
@@ -76,14 +73,14 @@ public class ProjectController extends BaseController {
     public ModelAndView get(@PathVariable Integer id) {
         Project project = projectService.get(id);
         List<TeamMember> members = teamMemberService.listByProject(id);
-        List<ProjectQa> commonQas = commonQaService.list();
+        List<ProjectQa> projectQas = commonQaService.list();
 
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("project/project_detail");
         modelAndView.addObject("project", project);
         modelAndView.addObject("members", members);
-        modelAndView.addObject("commonQas", commonQas);
+        modelAndView.addObject("commonQas", projectQas);
         return modelAndView;
     }
 

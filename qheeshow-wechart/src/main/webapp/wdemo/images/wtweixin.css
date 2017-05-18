@@ -116,18 +116,12 @@
 .wtwx-project-cnt1-bootm li {
 	box-sizing:content-box;
 	-moz-box-sizing:content-box;
-	width:24%;
+	width:25%;
 	height:37px;
 	line-height:37px;
 	float:left;
 	font-size:13px;
 	color:#333333;
-}
-.wtwx-project-cnt1-bootm li.on1{
-width:20%;
-}
-.wtwx-project-cnt1-bootm li.on2{
-width:32%;
 }
 .wtwx-project-cnt1-bootm img {
 	vertical-align:top;
