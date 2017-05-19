@@ -79,7 +79,7 @@
     }
     function weChatLogin() {
         var webAppId = "wxbafeef064253fb7c";
-        var resturUrl = "http://lihuajun526.xicp.net/user/login/wechat";
+        var resturUrl = "http://www.qheeshow.com/web/user/login/wechat";
         var href = "https://open.weixin.qq.com/connect/qrconnect?appid=" + webAppId;
         href += "&redirect_uri=" + encodeURIComponent(resturUrl);
         href += "&response_type=code" +
