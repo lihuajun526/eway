@@ -20,8 +20,16 @@ public interface UserService {
     
     public void update(User user);
 
+	User merge(User user1,User user2);
+
 	User get(Integer id);
 
 	User getByMobile(String mobile);
+
+	User getByOpenid(String openid);
+
+	User getByUnionid(String unionid);
+
+	void saveFromWechat(User user);
 
 }

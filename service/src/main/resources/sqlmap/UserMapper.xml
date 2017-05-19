@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="nickname" property="nickname" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="openid" property="openid" jdbcType="INTEGER" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
     <result column="mobile" property="mobile" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -14,6 +14,14 @@
     <result column="photo" property="photo" jdbcType="VARCHAR" />
     <result column="companyid" property="companyid" jdbcType="INTEGER" />
     <result column="call_time" property="callTime" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
+    <result column="privilege" property="privilege" jdbcType="VARCHAR" />
+    <result column="unionid" property="unionid" jdbcType="VARCHAR" />
+    <result column="gzh_openid" property="gzhOpenid" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -77,7 +85,8 @@
   </sql>
   <sql id="Base_Column_List" >
     id, nickname, password, openid, mobile, email, name, roleid, status, photo, companyid,
-    call_time, create_time, update_time
+    call_time, sex, province, city, country, headimgurl, privilege, unionid, gzh_openid,
+    create_time, update_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.UserExample" >
     select
@@ -118,12 +127,18 @@
     openid, mobile, email,
     name, roleid, status,
     photo, companyid, call_time,
-    create_time, update_time)
+    sex, province, city,
+    country, headimgurl, privilege,
+    unionid, gzh_openid, create_time,
+    update_time)
     values (#{id,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-    #{openid,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+    #{openid,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
     #{name,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
     #{photo,jdbcType=VARCHAR}, #{companyid,jdbcType=INTEGER}, #{callTime,jdbcType=INTEGER},
-    #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    #{sex,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+    #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{privilege,jdbcType=VARCHAR},
+    #{unionid,jdbcType=VARCHAR}, #{gzhOpenid,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+    #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.User" >
     insert into t_user
@@ -164,6 +179,30 @@
       <if test="callTime != null" >
         call_time,
       </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl,
+      </if>
+      <if test="privilege != null" >
+        privilege,
+      </if>
+      <if test="unionid != null" >
+        unionid,
+      </if>
+      <if test="gzhOpenid != null" >
+        gzh_openid,
+      </if>
       <if test="createTime != null" >
         create_time,
       </if>
@@ -182,7 +221,7 @@
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="openid != null" >
-        #{openid,jdbcType=INTEGER},
+        #{openid,jdbcType=VARCHAR},
       </if>
       <if test="mobile != null" >
         #{mobile,jdbcType=VARCHAR},
@@ -207,6 +246,30 @@
       </if>
       <if test="callTime != null" >
         #{callTime,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null" >
+        #{privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="gzhOpenid != null" >
+        #{gzhOpenid,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -235,7 +298,7 @@
         password = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.openid != null" >
-        openid = #{record.openid,jdbcType=INTEGER},
+        openid = #{record.openid,jdbcType=VARCHAR},
       </if>
       <if test="record.mobile != null" >
         mobile = #{record.mobile,jdbcType=VARCHAR},
@@ -261,6 +324,30 @@
       <if test="record.callTime != null" >
         call_time = #{record.callTime,jdbcType=INTEGER},
       </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headimgurl != null" >
+        headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.privilege != null" >
+        privilege = #{record.privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unionid != null" >
+        unionid = #{record.unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gzhOpenid != null" >
+        gzh_openid = #{record.gzhOpenid,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -277,7 +364,7 @@
     set id = #{record.id,jdbcType=INTEGER},
     nickname = #{record.nickname,jdbcType=VARCHAR},
     password = #{record.password,jdbcType=VARCHAR},
-    openid = #{record.openid,jdbcType=INTEGER},
+    openid = #{record.openid,jdbcType=VARCHAR},
     mobile = #{record.mobile,jdbcType=VARCHAR},
     email = #{record.email,jdbcType=VARCHAR},
     name = #{record.name,jdbcType=VARCHAR},
@@ -286,6 +373,14 @@
     photo = #{record.photo,jdbcType=VARCHAR},
     companyid = #{record.companyid,jdbcType=INTEGER},
     call_time = #{record.callTime,jdbcType=INTEGER},
+    sex = #{record.sex,jdbcType=INTEGER},
+    province = #{record.province,jdbcType=VARCHAR},
+    city = #{record.city,jdbcType=VARCHAR},
+    country = #{record.country,jdbcType=VARCHAR},
+    headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+    privilege = #{record.privilege,jdbcType=VARCHAR},
+    unionid = #{record.unionid,jdbcType=VARCHAR},
+    gzh_openid = #{record.gzhOpenid,jdbcType=VARCHAR},
     create_time = #{record.createTime,jdbcType=TIMESTAMP},
     update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -302,7 +397,7 @@
         password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="openid != null" >
-        openid = #{openid,jdbcType=INTEGER},
+        openid = #{openid,jdbcType=VARCHAR},
       </if>
       <if test="mobile != null" >
         mobile = #{mobile,jdbcType=VARCHAR},
@@ -328,6 +423,30 @@
       <if test="callTime != null" >
         call_time = #{callTime,jdbcType=INTEGER},
       </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null" >
+        privilege = #{privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="gzhOpenid != null" >
+        gzh_openid = #{gzhOpenid,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -341,7 +460,7 @@
     update t_user
     set nickname = #{nickname,jdbcType=VARCHAR},
     password = #{password,jdbcType=VARCHAR},
-    openid = #{openid,jdbcType=INTEGER},
+    openid = #{openid,jdbcType=VARCHAR},
     mobile = #{mobile,jdbcType=VARCHAR},
     email = #{email,jdbcType=VARCHAR},
     name = #{name,jdbcType=VARCHAR},
@@ -350,6 +469,14 @@
     photo = #{photo,jdbcType=VARCHAR},
     companyid = #{companyid,jdbcType=INTEGER},
     call_time = #{callTime,jdbcType=INTEGER},
+    sex = #{sex,jdbcType=INTEGER},
+    province = #{province,jdbcType=VARCHAR},
+    city = #{city,jdbcType=VARCHAR},
+    country = #{country,jdbcType=VARCHAR},
+    headimgurl = #{headimgurl,jdbcType=VARCHAR},
+    privilege = #{privilege,jdbcType=VARCHAR},
+    unionid = #{unionid,jdbcType=VARCHAR},
+    gzh_openid = #{gzhOpenid,jdbcType=VARCHAR},
     create_time = #{createTime,jdbcType=TIMESTAMP},
     update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

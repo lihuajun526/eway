@@ -1,26 +1,29 @@
 package com.qheeshow.eway.web.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.alibaba.fastjson.JSONObject;
+import com.qheeshow.eway.common.constant.ExceptionTypeEnum;
+import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.common.exception.CryptoException;
+import com.qheeshow.eway.common.http.XHttpClient;
 import com.qheeshow.eway.common.util.AESCryptoUtil;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.qheeshow.eway.common.util.Config;
+import com.qheeshow.eway.common.web.HaResponse;
+import com.qheeshow.eway.service.model.User;
+import com.qheeshow.eway.service.service.UserService;
+import com.qheeshow.eway.web.base.BaseController;
+import com.qheeshow.eway.web.base.Result;
+import org.apache.http.client.methods.HttpGet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.qheeshow.eway.common.web.HaResponse;
-import com.qheeshow.eway.service.model.User;
-import com.qheeshow.eway.service.service.UserService;
-import com.qheeshow.eway.web.base.BaseController;
-import com.qheeshow.eway.web.base.Result;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by lihuajun on 16-6-14.
@@ -108,6 +111,148 @@ public class UserController extends BaseController {
         } else {
             return HaResponse.fail("用户名密码错误");
         }
+    }
+
+    /**
+     * 微信统一登录
+     *
+     * @param code
+     * @param state
+     * @return
+     * @throws CryptoException
+     */
+    @RequestMapping(value = "/login/wechat")
+    public String loginFromWechat(String code, String state, HttpSession session) throws CryptoException, CommonException {
+
+        if (StringUtils.isEmpty(code)) {
+            return "redirect:/user/login.jsp";
+        }
+        //获取用户的微信unionid
+        String unionid = null;
+        JSONObject jsonObject = null;
+        try {
+            /*{
+                "access_token":"ACCESS_TOKEN",
+                    "expires_in":7200,
+                    "refresh_token":"REFRESH_TOKEN",
+                    "openid":"OPENID",
+                    "scope":"SCOPE",
+                    "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+            }*/
+            String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + Config.get("wechat.open.app.id") + "&secret=" + Config.get("wechat.open.app.secret") + "&code=" + code + "&grant_type=authorization_code";
+            HttpGet httpGet = new HttpGet(url);
+            String response = XHttpClient.doRequest(httpGet);
+            jsonObject = JSONObject.parseObject(response);
+            unionid = jsonObject.getString("unionid");
+            if (!StringUtils.isEmpty(jsonObject.getString("errcode")) || StringUtils.isEmpty(unionid)) {
+                LOGGER.error("errcode={}", jsonObject.getString("errcode"));
+                throw new CommonException(ExceptionTypeEnum.Get_Unionid_ERROR);
+            }
+        } catch (Exception e) {
+            LOGGER.error("获取unionid失败", e);
+            throw new CommonException(ExceptionTypeEnum.Get_Unionid_ERROR);
+        }
+        User user = userService.getByUnionid(unionid);
+        if (user != null && !StringUtils.isEmpty(user.getMobile())) {//已经绑定手机号
+            session.setAttribute("loginUser", user);
+            return "redirect:/index";
+        }
+
+        if (user == null) {//保存用户的微信基本信息
+            try {
+                String accessToken = jsonObject.getString("access_token");
+                String openid = jsonObject.getString("openid");
+                String url = "https://api.weixin.qq.com/sns/userinfo?access_token=" + accessToken + "&openid=" + openid;
+                HttpGet httpGet = new HttpGet(url);
+                String response = XHttpClient.doRequest(httpGet);
+                jsonObject = JSONObject.parseObject(response);
+                if (!StringUtils.isEmpty(jsonObject.getString("errcode"))) {
+                    LOGGER.error("errcode={}", jsonObject.getString("errcode"));
+                    throw new CommonException(ExceptionTypeEnum.Get_User_Info_ERROR);
+                }
+                user = new User();
+                user.setOpenid(jsonObject.getString("openid"));
+                user.setNickname(jsonObject.getString("nickname"));
+                user.setSex(jsonObject.getInteger("sex"));
+                user.setProvince(jsonObject.getString("province"));
+                user.setCity(jsonObject.getString("city"));
+                user.setCountry(jsonObject.getString("country"));
+                user.setHeadimgurl(jsonObject.getString("headimgurl"));
+                user.setPrivilege(jsonObject.getString("privilege"));
+                user.setUnionid(jsonObject.getString("unionid"));
+                userService.saveFromWechat(user);
+            } catch (Exception e) {
+                LOGGER.error("获取微信用户基本信息失败", e);
+            }
+        }
+
+        session.setAttribute("unionid", unionid);
+        return "redirect:/user/mobile_bind.jsp";
+    }
+
+    @RequestMapping(value = "/mobile/bind")
+    @ResponseBody
+    public String bindMobile(User user, String smsCode, HttpSession session) {
+
+        Result<Boolean> result = new Result<>();
+        result.setData(false);
+
+        if (StringUtils.isEmpty(user.getName())) {
+            result.set("真实姓名不能为空");
+            return result.toString();
+        }
+        if (StringUtils.isEmpty(user.getMobile())) {
+            result.set("手机号不能为空");
+            return result.toString();
+        }
+        if (StringUtils.isEmpty(user.getEmail())) {
+            result.set("邮箱不能为空");
+            return result.toString();
+        }
+        if (StringUtils.isEmpty(smsCode)) {
+            result.set("短信验证码不能为空");
+            return result.toString();
+        }
+        if (user.getRoleid() == null) {
+            result.set("身份不能为空");
+            return result.toString();
+        }
+
+        if (StringUtils.isEmpty(user.getUnionid())) {
+            result.setMessage("unionid为空，无法绑定");
+            return result.toString();
+        }
+
+        User wechatUser = userService.getByUnionid(user.getUnionid());
+        if (wechatUser == null) {
+            result.setMessage("unionid不存在，无法绑定");
+            return result.toString();
+        }
+
+        if (session.getAttribute(user.getMobile() + "_bind_smsCode") == null) {
+            result.set("短信验证码错误");
+            return result.toString();
+        }
+        String sSmsCode = (String) session.getAttribute(user.getMobile() + "_bind_smsCode");
+        if (sSmsCode == null || !sSmsCode.equals(smsCode)) {
+            result.set("短信验证码错误");
+            return result.toString();
+        }
+
+        User dbUser = userService.getByMobile(user.getMobile());
+        if (dbUser == null) {
+            wechatUser.setMobile(user.getMobile());
+            wechatUser.setEmail(user.getEmail());
+            wechatUser.setRoleid(user.getRoleid());
+            wechatUser.setStatus(1);
+            userService.update(wechatUser);
+            session.setAttribute("loginUser", wechatUser);
+        } else {//合并用户
+            session.setAttribute("loginUser", userService.merge(dbUser, wechatUser));
+        }
+
+        result.setData(true);
+        return result.toString();
     }
 
     @RequestMapping(value = "/logout")

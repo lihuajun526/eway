@@ -22,13 +22,14 @@
 </head>
 <body class="wtxt-pb2 wtwx-warp">
 <div>
-    <div class="shade"></div>
-    <div class="wtwx-project-radius">
+     <div class="shade"></div> 
+     <div class="wtwx-project-radius">
         <a href="#" class="wtwx-project-radius-close"></a>
         <h1>温馨提示</h1>
         <h3>认证投资人才可以关注项目认证投资人资人才可以关注项目</h3>
-        <input type="button" class="wtwx-project-radius-btn1" value="马上认证"/>
-    </div>
+        <!--<input type="button" class="wtwx-project-radius-btn1" value="马上认证"/>-->
+        <div class="wtwx-project-radius-btn1"><a href="#">马上认证</a></div>
+     </div>
 </div>
 <div class="wtwx-project-cnt1">
     <div class="wtwx-project-cnt1-l"><img src="<%=project.getLogo()%>" width="72" height="72"/></div>

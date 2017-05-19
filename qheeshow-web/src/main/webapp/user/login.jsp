@@ -16,7 +16,7 @@
     <script type="text/javascript" src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
-<%@include file="../pub/head.jsp"%>
+<%@include file="../pub/head.jsp" %>
 <div class="g-lgin">
     <form id="loginForm">
         <div class="g-lgin-m">
@@ -28,11 +28,13 @@
                 <ul class="g-lgin-lst">
                     <li>
                         <input id="mobile" name="mobile" class="g-lgin-ipt" placeholder="请输入手机号"/>
-                        <em class="g-lgin2-left-top"></em><em class="g-lgin2-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                        <em class="g-lgin2-left-top"></em><em class="g-lgin2-right-top"></em><em
+                            class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
                     <li>
                         <input id="password" name="password" type="password" class="g-lgin-ipt" placeholder="请输入密码"/>
-                        <em class="g-lgin2-left-top"></em><em class="g-lgin2-right-top"></em><em class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                        <em class="g-lgin2-left-top"></em><em class="g-lgin2-right-top"></em><em
+                            class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
                 </ul>
                 <ul class="g-lgin-lst2">
@@ -47,10 +49,10 @@
         </div>
     </form>
 </div>
-<%@include file="../pub/foot.jsp"%>
+<%@include file="../pub/foot.jsp" %>
 </body>
 <script type="text/javascript">
-    function showTip(value){
+    function showTip(value) {
         $("#tips").html(value);
         $("#tips").show();
     }
@@ -76,17 +78,14 @@
         });
     }
     function weChatLogin() {
-//     	var webAppId = "wx268fcfe924dcb171";
-//     	var resturUrl = "http://localhost:8080/weChat/getUserMessage.html";
-        var webAppId = "wx268fcfe924dcb171";
-        var resturUrl = "https://www.zhihu.com";
+        var webAppId = "wxbafeef064253fb7c";
+        var resturUrl = "http://lihuajun526.xicp.net/user/login/wechat";
         var href = "https://open.weixin.qq.com/connect/qrconnect?appid=" + webAppId;
         href += "&redirect_uri=" + encodeURIComponent(resturUrl);
         href += "&response_type=code" +
                 "&scope=snsapi_login" +
-                "#wechat_redirect";
-//     	location.href = href;
-        window.open(href, "newwindow", "height=550, width=600, top=200, left=400, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no");
+                "&state=" + Math.random();
+        window.location.href = href;
     }
     $('#password').keydown(function (e) {
         if (e.keyCode == 13) {

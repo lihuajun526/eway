@@ -16,7 +16,9 @@ public enum ExceptionTypeEnum {
     Bound_Mixcom_No_ERROR("100006", "绑定米糠小号失败"),
     Bound_Map_Not_Exist_ERROR("100007", "绑定关系不存在"),
     Calling_Not_Exist_ERROR("100008", "主叫号码不存在"),
-    UnBound_Mixcom_No_ERROR("100006", "解绑米糠小号失败"),;
+    UnBound_Mixcom_No_ERROR("100006", "解绑米糠小号失败"),
+    Get_Unionid_ERROR("100007", "获取微信unionid失败"),
+    Get_User_Info_ERROR("100008", "获取用户基本信息失败"),;
 
     public final String code;
     public final String desc;

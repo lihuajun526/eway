@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -58,6 +60,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void saveFromWechat(User user) {
+        user.setStatus(0);
+        user.setCallTime(0);
+        userMapper.insert(user);
+    }
+
+    @Override
     public void changePassword(User user) {
         UserExample example = new UserExample();
         example.createCriteria().andMobileEqualTo(user.getMobile());
@@ -85,6 +94,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
+    public User merge(User user1, User user2) {
+        user1.setOpenid(user2.getOpenid());
+        user1.setNickname(user2.getNickname());
+        user1.setSex(user2.getSex());
+        user1.setProvince(user2.getProvince());
+        user1.setCity(user2.getCity());
+        user1.setCountry(user2.getCountry());
+        user1.setHeadimgurl(user2.getHeadimgurl());
+        user1.setPrivilege(user2.getPrivilege());
+        user1.setUnionid(user2.getUnionid());
+        userMapper.updateByPrimaryKeySelective(user1);
+        userMapper.deleteByPrimaryKey(user2.getId());
+        return user1;
+    }
+
+    @Override
     public User get(Integer id) {
         return userMapper.selectByPrimaryKey(id);
     }
@@ -93,6 +119,26 @@ public class UserServiceImpl implements UserService {
     public User getByMobile(String mobile) {
         UserExample example = new UserExample();
         example.createCriteria().andMobileEqualTo(StrUtil.handleDel86(mobile));
+        List<User> list = userMapper.selectByExample(example);
+        if (list.size() == 0)
+            return null;
+        return list.get(0);
+    }
+
+    @Override
+    public User getByOpenid(String openid) {
+        UserExample example = new UserExample();
+        example.createCriteria().andOpenidEqualTo(openid);
+        List<User> list = userMapper.selectByExample(example);
+        if (list.size() == 0)
+            return null;
+        return list.get(0);
+    }
+
+    @Override
+    public User getByUnionid(String unionid) {
+        UserExample example = new UserExample();
+        example.createCriteria().andUnionidEqualTo(unionid);
         List<User> list = userMapper.selectByExample(example);
         if (list.size() == 0)
             return null;
