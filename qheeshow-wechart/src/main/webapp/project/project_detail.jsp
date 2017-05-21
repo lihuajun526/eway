@@ -21,16 +21,7 @@
     <link rel="stylesheet" href="<%=appPath%>/images/dropload.css"/>
 </head>
 <body class="wtxt-pb2 wtwx-warp">
-<div>
-     <div class="shade"></div> 
-     <div class="wtwx-project-radius">
-        <a href="#" class="wtwx-project-radius-close"></a>
-        <h1>温馨提示</h1>
-        <h3>认证投资人才可以关注项目认证投资人资人才可以关注项目</h3>
-        <!--<input type="button" class="wtwx-project-radius-btn1" value="马上认证"/>-->
-        <div class="wtwx-project-radius-btn1"><a href="#">马上认证</a></div>
-     </div>
-</div>
+<%@include file="../pub/head.jsp"%>
 <div class="wtwx-project-cnt1">
     <div class="wtwx-project-cnt1-l"><img src="<%=project.getLogo()%>" width="72" height="72"/></div>
     <div class="wtwx-project-cnt1-r">
@@ -120,10 +111,10 @@
     <a href="#" class="wtwx-project-cnt3-praise2">872</a>
 </div>
 <ul class="wtwx-menu2">
-    <a href="#"><li><img src="<%=appPath%>/images/wtwx-project-meun1.png" width="25" height="25"/><span>商业计划书</span></li></a>
-    <a href="#"><li><img src="<%=appPath%>/images/wtwx-project-meun2.png" width="25" height="25"/><span>联系创始人</span></li></a>
-    <a href="#"><li><img src="<%=appPath%>/images/wtwx-project-meun3.png" width="25" height="25"/><span>成为专职顾问</span></li></a>
-    <a href="#"><li><img src="<%=appPath%>/images/wtwx-project-meun4.png" width="25" height="25"/><span>关注</span></li></a>
+    <a onclick="getBp()"><li><img src="<%=appPath%>/images/wtwx-project-meun1.png" width="25" height="25"/><span>商业计划书</span></li></a>
+    <a ><li><img src="<%=appPath%>/images/wtwx-project-meun2.png" width="25" height="25"/><span>联系创始人</span></li></a>
+    <a ><li><img src="<%=appPath%>/images/wtwx-project-meun3.png" width="25" height="25"/><span>成为专职顾问</span></li></a>
+    <a ><li><img src="<%=appPath%>/images/wtwx-project-meun4.png" width="25" height="25"/><span>关注</span></li></a>
 </ul>
 <script type="text/javascript" src="<%=appPath%>/zepto/zepto.js"></script>
 <script>
@@ -133,6 +124,17 @@
     $("#comment").blur(function(){
         alert($("#comment").val());
     });
+    function getBp(){
+        $.getJSON('<%=appPath%>/project/do/list/0/0/0/0/1', function (result) {
+            if (result.code >= 0) {
+                var tpl = $('#projects_tmpl').html();
+                var tempFn = doT.template(tpl);
+                $("#container").append(tempFn(result.data));
+                $("#container").append("<div class='dropload-refresh'><span class='loading'></span>加载中...</div>");
+
+            }
+        });
+    }
 </script>
 </body>
 </html>

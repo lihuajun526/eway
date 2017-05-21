@@ -1,7 +1,7 @@
 package com.qheeshow.eway.wechart.util.wechat;
 
 
-import com.qheeshow.eway.service.model.WechatMsg;
+import com.qheeshow.eway.common.bean.wechat.WechatMsg;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;

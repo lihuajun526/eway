@@ -2,7 +2,6 @@ package com.qheeshow.eway.service.service.impl;
 
 import com.qheeshow.eway.common.exception.CryptoException;
 import com.qheeshow.eway.common.util.AESCryptoUtil;
-import com.qheeshow.eway.common.util.MD5Util;
 import com.qheeshow.eway.common.util.StrUtil;
 import com.qheeshow.eway.service.dao.UserMapper;
 import com.qheeshow.eway.service.model.User;
@@ -61,7 +60,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveFromWechat(User user) {
-        user.setStatus(0);
+        user.setStatus(4);
+        user.setCallTime(0);
+        userMapper.insert(user);
+    }
+
+    @Override
+    public void saveFromGzh(User user) {
+        user.setStatus(4);
         user.setCallTime(0);
         userMapper.insert(user);
     }
@@ -129,6 +135,16 @@ public class UserServiceImpl implements UserService {
     public User getByOpenid(String openid) {
         UserExample example = new UserExample();
         example.createCriteria().andOpenidEqualTo(openid);
+        List<User> list = userMapper.selectByExample(example);
+        if (list.size() == 0)
+            return null;
+        return list.get(0);
+    }
+
+    @Override
+    public User getByGzhOpenid(String openid) {
+        UserExample example = new UserExample();
+        example.createCriteria().andGzhOpenidEqualTo(openid);
         List<User> list = userMapper.selectByExample(example);
         if (list.size() == 0)
             return null;

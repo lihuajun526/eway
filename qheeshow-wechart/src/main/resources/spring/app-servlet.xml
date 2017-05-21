@@ -11,6 +11,7 @@
     <mvc:resources mapping="project/**" location="/project/"/>
     <mvc:resources mapping="dot/**" location="/statics/dot/"/>
     <mvc:resources mapping="dropload/**" location="/statics/dropload/"/>
+    <mvc:resources mapping="/*.txt" location="/statics/mp/"/>
 
     <!--<mvc:interceptors>
         <mvc:interceptor>

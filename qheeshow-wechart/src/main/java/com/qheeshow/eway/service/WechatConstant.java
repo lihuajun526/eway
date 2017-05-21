@@ -1,14 +1,14 @@
-package com.qheeshow.eway.wechart;
+package com.qheeshow.eway.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.qheeshow.eway.wechart.constant.Constant;
 import com.qheeshow.eway.wechart.exception.RequestException;
-import com.qheeshow.eway.service.AppConfig;
 import com.qheeshow.eway.wechart.util.XHttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,6 +17,7 @@ import java.util.TimerTask;
  * Created by lihuajun on 2016/9/12.
  */
 
+@Service("wechatConstant")
 public class WechatConstant {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WechatConstant.class);

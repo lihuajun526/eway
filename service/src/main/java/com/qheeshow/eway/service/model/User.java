@@ -89,6 +89,8 @@ public class User extends BaseBean {
 
 	private String gzhOpenid;
 
+	private Integer subscribe;
+
 	public String getPhoto() {
 		return photo;
 	}
@@ -393,5 +395,13 @@ public class User extends BaseBean {
 
 	public void setGzhOpenid(String gzhOpenid) {
 		this.gzhOpenid = gzhOpenid;
+	}
+
+	public Integer getSubscribe() {
+		return subscribe;
+	}
+
+	public void setSubscribe(Integer subscribe) {
+		this.subscribe = subscribe;
 	}
 }

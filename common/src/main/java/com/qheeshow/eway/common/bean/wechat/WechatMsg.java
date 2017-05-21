@@ -1,4 +1,4 @@
-package com.qheeshow.eway.service.model;
+package com.qheeshow.eway.common.bean.wechat;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

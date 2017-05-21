@@ -27,7 +27,7 @@
         <li><a href="#">搜狐财经</a></li>
         <li><a href="#">新浪网</a></li>
       </ul>
-      <div class="g-fr-ewm">不错过任何一个好产品<span><img src="<%=appPath%>/images/wt-ewm.png"/></span></div>
+      <div class="g-fr-ewm">不错过任何一个好产品<span><img width="128" height="128" src="<%=appPath%>/images/wt-ewm.png"/></span></div>
     </div>
   </div>
 </div>

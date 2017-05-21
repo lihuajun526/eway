@@ -5,18 +5,17 @@ public class MailBean implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private String mailServerHost = "smtp.exmail.qq.com";     //发送邮件的服务器的IP(或主机地址)
 
-    private String mailServerHost;     //发送邮件的服务器的IP(或主机地址)
+    private String mailServerPort = "465"; //发送邮件的服务器的端口
 
-    private String mailServerPort = "25"; //发送邮件的服务器的端口
-
-    private String fromAddress;  //发件人邮箱地址
+    private String fromAddress = "service@qheefund.com";  //发件人邮箱地址
 
     private String toAddress;  //收件人邮箱地址
 
-    private String userName; //登陆邮件发送服务器的用户名
+    private String userName="service@qheefund.com"; //登陆邮件发送服务器的用户名
 
-    private String password; //登陆邮件发送服务器的密码
+    private String password="wutongE123456"; //登陆邮件发送服务器的密码
 
     private boolean validate = true; //是否需要身份验证
 
@@ -30,16 +29,8 @@ public class MailBean implements java.io.Serializable {
         return mailServerHost;
     }
 
-    public void setMailServerHost(String mailServerHost) {
-        this.mailServerHost = mailServerHost;
-    }
-
     public String getMailServerPort() {
         return mailServerPort;
-    }
-
-    public void setMailServerPort(String mailServerPort) {
-        this.mailServerPort = mailServerPort;
     }
 
     public boolean isValidate() {
@@ -62,16 +53,8 @@ public class MailBean implements java.io.Serializable {
         return fromAddress;
     }
 
-    public void setFromAddress(String fromAddress) {
-        this.fromAddress = fromAddress;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getToAddress() {
@@ -84,10 +67,6 @@ public class MailBean implements java.io.Serializable {
 
     public String getUserName() {
         return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getSubject() {

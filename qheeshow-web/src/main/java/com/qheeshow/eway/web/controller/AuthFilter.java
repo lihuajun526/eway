@@ -1,19 +1,12 @@
 package com.qheeshow.eway.web.controller;
 
-import java.io.IOException;
+import com.qheeshow.eway.common.util.Config;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.qheeshow.eway.common.util.Config;
-import com.qheeshow.eway.common.util.UrlFilterConfig;
+import java.io.IOException;
 
 public class AuthFilter implements Filter {
 

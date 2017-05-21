@@ -28,8 +28,12 @@ public interface UserService {
 
 	User getByOpenid(String openid);
 
+	User getByGzhOpenid(String openid);
+
 	User getByUnionid(String unionid);
 
 	void saveFromWechat(User user);
+
+	void saveFromGzh(User user);
 
 }
