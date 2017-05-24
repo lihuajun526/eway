@@ -25,6 +25,7 @@
             <form id="bindForm">
                 <input type="hidden" name="unionid" value="<%=unionid%>"/>
                 <input id="roleid" name="roleid" type="hidden" value="20"/>
+
                 <div class="g-lgin-cnt3">
                     <div class="g-lgin-tit">完善信息</div>
                     <ul class="g-lgin-lst3">
@@ -75,11 +76,15 @@
                     xalert(result.message);
                     return;
                 }
-                var roleid = $("#roleid").val();
-                if (roleid == 20) {
-                    window.location.href = "<%=appPath%>/project/0/add/edit/1/auth";
-                } else if (roleid == 30) {
-                    window.location.href = "<%=appPath%>/investor/0/add/edit/1/auth";
+                if (result.code == 1) {
+                    window.location.href = "<%=appPath%>/index";
+                } else {
+                    var roleid = $("#roleid").val();
+                    if (roleid == 20) {
+                        window.location.href = "<%=appPath%>/project/0/add/edit/1/auth";
+                    } else if (roleid == 30) {
+                        window.location.href = "<%=appPath%>/investor/0/add/edit/1/auth";
+                    }
                 }
             }
         });

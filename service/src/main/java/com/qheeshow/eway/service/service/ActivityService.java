@@ -19,9 +19,12 @@ public interface ActivityService {
 
     Map<String, Object> listByClassAndPage(Activity activity);
 
+    List<Activity> listByPage(Activity activity);
+
     Activity get(Integer id);
 
     void save(Activity activity) throws IOException, WriterException;
 
     List<Activity> latest(Integer num);
+
 }

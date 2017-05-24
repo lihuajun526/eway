@@ -53,6 +53,8 @@ public class Activity extends BaseModel{
 
     private String qrcode;
 
+    private String style;
+
     public String getQrcode() {
         return qrcode;
     }
@@ -243,5 +245,13 @@ public class Activity extends BaseModel{
 
     public void setsSignEndTime(String sSignEndTime) {
         this.sSignEndTime = sSignEndTime;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
 }

@@ -62,30 +62,37 @@ public class WechatController {
             //正常的微信处理流程
             WechatMsg wechatMsg = new WechatProcess().processWechatMag(xml);
             String openid = wechatMsg.getFromUserName();
-            User user = userService.getByOpenid(openid);
+            User user = userService.getByGzhOpenid(openid);
             if ("subscribe".equalsIgnoreCase(wechatMsg.getEvent())) {//关注
                 if (null == user) {//添加用户
-                    user = new User();
-                    user.setStatus(1);
-                    user.setOpenid(openid);
                     //获取用户基本信息
                     HttpGet httpGet = new HttpGet("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + Constant.ACCESS_TOKEN + "&openid=" + openid + "&lang=zh_CN");
                     try {
                         String jsonResult = XHttpClient.doRequest(httpGet);
                         JSONObject jsonObject = JSONObject.parseObject(jsonResult);
-                        user.setGzhOpenid(jsonObject.getString("openid"));
-                        user.setNickname(jsonObject.getString("nickname"));
-                        user.setSex(jsonObject.getInteger("sex"));
-                        user.setCity(jsonObject.getString("city"));
-                        user.setProvince(jsonObject.getString("province"));
-                        user.setCountry(jsonObject.getString("country"));
-                        user.setHeadimgurl(jsonObject.getString("headimgurl"));
-                        user.setUnionid(jsonObject.getString("headimgurl"));
-                        user.setSubscribe(1);
+                        user = userService.getByUnionid(jsonObject.getString("unionid"));
+                        if (user == null) {
+                            user = new User();
+                            user.setGzhOpenid(jsonObject.getString("openid"));
+                            user.setNickname(jsonObject.getString("nickname"));
+                            user.setSex(jsonObject.getInteger("sex"));
+                            user.setCity(jsonObject.getString("city"));
+                            user.setProvince(jsonObject.getString("province"));
+                            user.setCountry(jsonObject.getString("country"));
+                            user.setHeadimgurl(jsonObject.getString("headimgurl"));
+                            user.setUnionid(jsonObject.getString("unionid"));
+                            user.setSubscribe(1);
+                            userService.saveFromGzh(user);
+                        } else {
+                            User updateUser = new User();
+                            updateUser.setId(user.getId());
+                            updateUser.setGzhOpenid(jsonObject.getString("openid"));
+                            updateUser.setSubscribe(1);
+                            userService.update(updateUser);
+                        }
                     } catch (Exception e) {
                         LOGGER.error("获取用户基本信息错误：", e);
                     }
-                    userService.saveFromGzh(user);
                     LOGGER.info("新用户[{}]关注成功", user.getNickname());
                 } else {//更新用户状态
                     User updateUser = new User();

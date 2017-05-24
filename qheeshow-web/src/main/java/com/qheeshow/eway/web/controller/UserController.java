@@ -249,6 +249,7 @@ public class UserController extends BaseController {
             session.setAttribute("loginUser", wechatUser);
         } else {//合并用户
             session.setAttribute("loginUser", userService.merge(dbUser, wechatUser));
+            result.setCode(1);
         }
 
         result.setData(true);

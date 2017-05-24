@@ -43,4 +43,6 @@ public interface ActivityMapper {
     List<Activity> listByClassAndPage(Activity activity);
 
     Integer countByClassAndPage(Activity activity);
+
+    List<Activity> listByPage(Activity activity);
 }

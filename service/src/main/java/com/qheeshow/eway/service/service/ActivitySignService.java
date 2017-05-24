@@ -1,5 +1,7 @@
 package com.qheeshow.eway.service.service;
 
+import com.qheeshow.eway.common.bean.wechat.pay.ResultOrder;
+import com.qheeshow.eway.common.bean.wechat.pay.exception.OrderWechatException;
 import com.qheeshow.eway.service.model.ActivitySign;
 
 import java.util.List;
@@ -14,5 +16,7 @@ public interface ActivitySignService {
     boolean issign(ActivitySign activitySign);
 
     List<ActivitySign> listByActivity(Integer activityid);
+
+    ResultOrder preOrder(ActivitySign activitySign, String payType, String openid) throws OrderWechatException;
 
 }

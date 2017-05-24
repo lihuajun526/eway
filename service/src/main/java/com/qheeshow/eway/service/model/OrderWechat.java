@@ -8,6 +8,8 @@ public class OrderWechat {
     private String description;
     private String orderno;
     private String totalFee;
+    private String tradeType;
+    private String openid;
 
     public String getDescription() {
         return description;
@@ -31,5 +33,21 @@ public class OrderWechat {
 
     public void setTotalFee(String totalFee) {
         this.totalFee = totalFee;
+    }
+
+    public String getTradeType() {
+        return tradeType;
+    }
+
+    public void setTradeType(String tradeType) {
+        this.tradeType = tradeType;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 }

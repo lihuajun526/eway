@@ -114,6 +114,7 @@ public class OrderServiceImpl implements OrderService {
             orderWechat.setDescription(title.toString());
             orderWechat.setOrderno(order.getOrderNo());
             orderWechat.setTotalFee(String.valueOf(totalPrice.multiply(new BigDecimal(100)).intValue()));
+            orderWechat.setTradeType("NATIVE");
             try {
                 ResultOrder resultOrder = payService.order(orderWechat);
                 qrcode = resultOrder.getCode_url();

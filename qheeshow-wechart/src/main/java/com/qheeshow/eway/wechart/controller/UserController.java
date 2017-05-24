@@ -3,6 +3,7 @@ package com.qheeshow.eway.wechart.controller;
 import com.qheeshow.eway.service.service.UserService;
 import com.qheeshow.eway.wechart.base.BaseController;
 import com.qheeshow.eway.wechart.base.Result;
+import com.qheeshow.eway.wechart.base.Tip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,14 +30,14 @@ public class UserController extends BaseController {
     @ResponseBody
     public String appendj() {
 
-        Result<Map> result = new Result<>();
+        Result<Tip> result = new Result<>();
 
-        Map map = new HashMap<>();
-        map.put("link","/user/append.jsp");
-        map.put("action","去完善");
+        Tip tip = new Tip();
+        tip.setLink("/user/append.jsp");
+        tip.setAction("去完善");
 
         result.setMessage("请先完善您的个人信息");
-        result.setData(map);
+        result.setData(tip);
 
         return result.toString();
     }

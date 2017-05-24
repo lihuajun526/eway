@@ -616,4 +616,12 @@
         and doc_status not in(30)
     </select>
 
+    <select id="listByPage" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Activity">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity
+        order by create_time desc
+        limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+
 </mapper>

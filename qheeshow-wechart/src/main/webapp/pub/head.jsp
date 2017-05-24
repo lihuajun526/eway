@@ -3,13 +3,29 @@
 <%
     User loginUser = session.getAttribute("loginUser") == null ? null : (User) session.getAttribute("loginUser");
 %>
-<div id="tip">
+<div id="tip" style="display: none;">
     <div class="shade"></div>
     <div class="wtwx-project-radius">
         <a onclick="closeTip()" class="wtwx-project-radius-close"></a>
+
         <h1>温馨提示</h1>
-        <h3 id="message"></h3>
-        <div id="action" class="wtwx-project-radius-btn1"><a href="#">马上认证</a></div>
+
+        <h3 id="t_message"></h3>
+
+        <div id="t_action" class="wtwx-project-radius-btn1"></div>
     </div>
-    <script>function closeTip(){$("#tip").hide();}</script>
+    <script>
+        function closeTip() {
+            $("#tip").hide();
+        }
+        function openTip(result) {
+            $("#t_message").html(result.message);
+            if (result.data.link == "close") {
+                $("#t_action").html("<a onclick='closeTip()'>" + result.data.action + "</a>");
+            } else {
+                $("#t_action").html("<a href='" + result.data.link + "'>" + result.data.action + "</a>");
+            }
+            $("#tip").show();
+        }
+    </script>
 </div>

@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by lihuajun on 17-1-22.
  */
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveFromGzh(User user) {
-        user.setStatus(4);
+        user.setStatus(5);
         user.setCallTime(0);
         userMapper.insert(user);
     }
@@ -111,6 +111,8 @@ public class UserServiceImpl implements UserService {
         user1.setHeadimgurl(user2.getHeadimgurl());
         user1.setPrivilege(user2.getPrivilege());
         user1.setUnionid(user2.getUnionid());
+        user1.setGzhOpenid(user2.getGzhOpenid());
+        user1.setSubscribe(user2.getSubscribe());
         userMapper.updateByPrimaryKeySelective(user1);
         userMapper.deleteByPrimaryKey(user2.getId());
         return user1;

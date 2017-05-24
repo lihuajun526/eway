@@ -71,7 +71,8 @@ public class PayServiceImpl implements PayService {
         params.put("total_fee", orderWechat.getTotalFee());
         params.put("spbill_create_ip", Config.get("server.ip"));
         params.put("notify_url", Config.get("wechat.notify.url"));
-        params.put("trade_type", "NATIVE");
+        params.put("trade_type", orderWechat.getTradeType());
+        params.put("openid", orderWechat.getOpenid());
         params.put("sign", StrUtil.sign(params));
 
         String xml = StrUtil.map2Xml(params);

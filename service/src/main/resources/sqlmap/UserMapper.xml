@@ -22,6 +22,7 @@
     <result column="privilege" property="privilege" jdbcType="VARCHAR" />
     <result column="unionid" property="unionid" jdbcType="VARCHAR" />
     <result column="gzh_openid" property="gzhOpenid" jdbcType="VARCHAR" />
+    <result column="subscribe" property="subscribe" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -86,7 +87,7 @@
   <sql id="Base_Column_List" >
     id, nickname, password, openid, mobile, email, name, roleid, status, photo, companyid,
     call_time, sex, province, city, country, headimgurl, privilege, unionid, gzh_openid,
-    create_time, update_time
+    subscribe, create_time, update_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.UserExample" >
     select
@@ -129,16 +130,16 @@
     photo, companyid, call_time,
     sex, province, city,
     country, headimgurl, privilege,
-    unionid, gzh_openid, create_time,
-    update_time)
+    unionid, gzh_openid, subscribe,
+    create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
     #{openid,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
     #{name,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
     #{photo,jdbcType=VARCHAR}, #{companyid,jdbcType=INTEGER}, #{callTime,jdbcType=INTEGER},
     #{sex,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
     #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{privilege,jdbcType=VARCHAR},
-    #{unionid,jdbcType=VARCHAR}, #{gzhOpenid,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-    #{updateTime,jdbcType=TIMESTAMP})
+    #{unionid,jdbcType=VARCHAR}, #{gzhOpenid,jdbcType=VARCHAR}, #{subscribe,jdbcType=INTEGER},
+    #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.User" >
     insert into t_user
@@ -202,6 +203,9 @@
       </if>
       <if test="gzhOpenid != null" >
         gzh_openid,
+      </if>
+      <if test="subscribe != null" >
+        subscribe,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -270,6 +274,9 @@
       </if>
       <if test="gzhOpenid != null" >
         #{gzhOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        #{subscribe,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -348,6 +355,9 @@
       <if test="record.gzhOpenid != null" >
         gzh_openid = #{record.gzhOpenid,jdbcType=VARCHAR},
       </if>
+      <if test="record.subscribe != null" >
+        subscribe = #{record.subscribe,jdbcType=INTEGER},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -381,6 +391,7 @@
     privilege = #{record.privilege,jdbcType=VARCHAR},
     unionid = #{record.unionid,jdbcType=VARCHAR},
     gzh_openid = #{record.gzhOpenid,jdbcType=VARCHAR},
+    subscribe = #{record.subscribe,jdbcType=INTEGER},
     create_time = #{record.createTime,jdbcType=TIMESTAMP},
     update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -447,6 +458,9 @@
       <if test="gzhOpenid != null" >
         gzh_openid = #{gzhOpenid,jdbcType=VARCHAR},
       </if>
+      <if test="subscribe != null" >
+        subscribe = #{subscribe,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -477,6 +491,7 @@
     privilege = #{privilege,jdbcType=VARCHAR},
     unionid = #{unionid,jdbcType=VARCHAR},
     gzh_openid = #{gzhOpenid,jdbcType=VARCHAR},
+    subscribe = #{subscribe,jdbcType=INTEGER},
     create_time = #{createTime,jdbcType=TIMESTAMP},
     update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

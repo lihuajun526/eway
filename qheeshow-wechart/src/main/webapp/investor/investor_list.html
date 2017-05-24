@@ -1,0 +1,51 @@
+<div class="wtwx-investors-tit">
+    投资人关注领域
+    <a href="#" class="wtwx-investors-searicon"></a>
+</div>
+<ul id="indus" class="wtwx-investors-lst1"></ul>
+<script id="i_tmpl" type="text/template" charset="utf-8">
+    <li onclick="q(0,this)" class="on"><a>全部</a></li>
+    {{ for(var i=0; i < it.length; i++) { }}
+    <li onclick="q({{=it[i].classinfoid}},this)"><a>{{=it[i].cname}}</a></li>
+    {{ } }}
+    <li><a href="#">更多</a></li>
+</script>
+<div id="investors"></div>
+<script id="investors_tmpl" type="text/template" charset="utf-8">
+    {{ for(var i=0; i < it.length; i++) { }}
+    <div class="wtwx-investors-cnt1">
+        <div class="wtwx-investors-cnt1-l"><img src="{{=it[i].photo}}" width="48" height="48"/></div>
+        <a href="#">
+            <div class="wtwx-investors-cnt1-r">
+                <h1>{{=it[i].trueName}}</h1>
+                <h4>{{=it[i].companyName}}／{{=it[i].companyRank}}</h4>
+            </div>
+        </a>
+        <span class="wtwx-investors-cnt1-on1">{{=it[i].cityName}}</span>
+        <span class="wtwx-investors-cnt1-on2">LV 4</span>
+    </div>
+    {{ } }}
+</script>
+<script>
+    $.getJSON(appPath + '/classinfo/industry/list/6', function (result) {
+        if (result.code >= 0) {
+            var tpl = $('#i_tmpl').html();
+            var tempFn = doT.template(tpl);
+            $("#indus").html(tempFn(result.data));
+        }
+    });
+    function q(id, obj) {
+        $("#indus>li").each(function () {
+            $(this).removeClass("on");
+        });
+        $(obj).attr("class", "on");
+        $.getJSON(appPath + '/investor/do/list/' + id + '/1', function (result) {
+            if (result.code >= 0) {
+                var tpl = $('#investors_tmpl').html();
+                var tempFn = doT.template(tpl);
+                $("#investors").html(tempFn(result.data));
+            }
+        });
+    }
+    q(0);
+</script>

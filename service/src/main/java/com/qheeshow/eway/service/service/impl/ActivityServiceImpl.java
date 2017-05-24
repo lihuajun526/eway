@@ -63,6 +63,12 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public List<Activity> listByPage(Activity activity) {
+
+        return activityMapper.listByPage(activity);
+    }
+
+    @Override
     public Activity get(Integer id) {
         return activityMapper.selectByPrimaryKey(id);
     }

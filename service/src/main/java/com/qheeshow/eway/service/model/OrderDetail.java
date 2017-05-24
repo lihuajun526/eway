@@ -14,6 +14,8 @@ public class OrderDetail {
 
     private BigDecimal price;
 
+    private Integer activityid;
+
     private Date createTime;
 
     private Date updateTime;
@@ -72,5 +74,13 @@ public class OrderDetail {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getActivityid() {
+        return activityid;
+    }
+
+    public void setActivityid(Integer activityid) {
+        this.activityid = activityid;
     }
 }

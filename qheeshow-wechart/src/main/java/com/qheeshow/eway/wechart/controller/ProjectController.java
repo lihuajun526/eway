@@ -1,10 +1,9 @@
 package com.qheeshow.eway.wechart.controller;
 
+import com.qheeshow.eway.common.constant.ExceptionTypeEnum;
+import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.service.model.*;
-import com.qheeshow.eway.service.service.MailService;
-import com.qheeshow.eway.service.service.ProjectQaService;
-import com.qheeshow.eway.service.service.ProjectService;
-import com.qheeshow.eway.service.service.TeamMemberService;
+import com.qheeshow.eway.service.service.*;
 import com.qheeshow.eway.wechart.base.BaseController;
 import com.qheeshow.eway.wechart.base.Result;
 import com.qheeshow.eway.wechart.base.Tip;
@@ -36,6 +35,10 @@ public class ProjectController extends BaseController {
     private ProjectQaService commonQaService;
     @Autowired
     private MailService mailService;
+    @Autowired
+    private ProjectFollowService projectFollowService;
+    @Autowired
+    private ProjectAdviserService projectAdviserService;
 
     /**
      * 根据条件过滤项目
@@ -126,5 +129,100 @@ public class ProjectController extends BaseController {
         result.setCode(0);
         return result.toString();
     }
+
+    @RequestMapping("/follow/{projectid}/v_authj")
+    @ResponseBody
+    public String follow(@PathVariable Integer projectid, HttpSession session) {
+
+        Result<Tip> result = new Result<>();
+        Tip tip = new Tip();
+        result.setData(tip);
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        ProjectFollow projectFollow = new ProjectFollow();
+        projectFollow.setProjectid(projectid);
+        projectFollow.setUserid(loginUser.getId());
+        try {
+            projectFollowService.follow(projectFollow);
+        } catch (CommonException e) {
+            LOGGER.error("error:", e);
+            result.setMessage("关注失败");
+            return result.toString();
+        }
+        result.setMessage("关注成功");
+        return result.toString();
+    }
+
+    @RequestMapping("/unfollow/{projectid}/v_authj")
+    @ResponseBody
+    public String unFollow(@PathVariable Integer projectid, HttpSession session) {
+
+        Result<Tip> result = new Result<>();
+        Tip tip = new Tip();
+        result.setData(tip);
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        ProjectFollow projectFollow = new ProjectFollow();
+        projectFollow.setProjectid(projectid);
+        projectFollow.setUserid(loginUser.getId());
+        projectFollowService.unFollow(projectFollow);
+
+        result.setMessage("取消关注成功");
+        return result.toString();
+    }
+
+    @RequestMapping("/isfollow/{projectid}")
+    @ResponseBody
+    public String isFollow(@PathVariable Integer projectid, HttpSession session) {
+        Result<Boolean> result = new Result();
+        if (session.getAttribute("loginUser") == null) {
+            result.setData(false);
+            return result.toString();
+        }
+        User loginUser = (User) session.getAttribute("loginUser");
+        ProjectFollow projectFollow = new ProjectFollow();
+        projectFollow.setProjectid(projectid);
+        projectFollow.setUserid(loginUser.getId());
+        boolean isFollow = projectFollowService.isFollow(projectFollow);
+        result.setData(isFollow);
+        return result.toString();
+    }
+
+    @RequestMapping("/apply/{projectid}/v_authj")
+    @ResponseBody
+    public String apply(@PathVariable Integer projectid, HttpSession session) {
+
+        Result<Tip> result = new Result<>();
+        Tip tip = new Tip();
+        result.setData(tip);
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        try {
+            projectAdviserService.apply(projectid, loginUser.getId());
+        } catch (CommonException e) {
+            if(e.getCode().equals(ExceptionTypeEnum.Is_Not_Adviser_ERROR)){
+                result.setMessage("对不起，您不是投资人，不能申请");
+                return result.toString();
+            }
+            if(e.getCode().equals(ExceptionTypeEnum.Investor_Not_Auth_ERROR)){
+                result.setMessage("对不起，您的投资人身份尚未认证");
+                tip.setAction("去认证");
+                tip.setLink("/investor/investor_auth");
+                return result.toString();
+            }
+            if(e.getCode().equals(ExceptionTypeEnum.Project_Adviser_Apply_Exist_ERROR)){
+                result.setMessage("您已申请，不能重复申请");
+                return result.toString();
+            }
+            if(e.getCode().equals(ExceptionTypeEnum.Project_Adviser_Full_ERROR)){
+                result.setMessage("对不起，顾问人数已满");
+                return result.toString();
+            }
+        }
+        result.setMessage("申请成功");
+        tip.setAction("关闭");
+        return result.toString();
+    }
+
 
 }

@@ -9,6 +9,9 @@
     <mvc:resources mapping="zepto/**" location="/statics/zepto/"/>
     <mvc:resources mapping="js/**" location="/statics/js/"/>
     <mvc:resources mapping="project/**" location="/project/"/>
+    <mvc:resources mapping="investor/**" location="/investor/"/>
+    <mvc:resources mapping="activity/**" location="/activity/"/>
+    <mvc:resources mapping="center/**" location="/center/"/>
     <mvc:resources mapping="dot/**" location="/statics/dot/"/>
     <mvc:resources mapping="dropload/**" location="/statics/dropload/"/>
     <mvc:resources mapping="/*.txt" location="/statics/mp/"/>
