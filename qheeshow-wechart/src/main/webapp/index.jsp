@@ -2,6 +2,7 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%
     String appPath = Config.get("app.path");
+    String m = request.getParameter("m");
 %>
 <html>
 <head>
@@ -15,11 +16,26 @@
     <link rel="stylesheet" href="<%=appPath%>/images/dropload.css"/>
 </head>
 <body class="wtxt-pb wtwx-warp">
-<%@include file="pub/head.jsp"%>
+<%@include file="pub/head.jsp" %>
 <div id="container"></div>
-<%@include file="pub/foot.jsp"%>
+<%@include file="pub/foot.jsp" %>
 </body>
 <script>
-    $('#container').load('project/project_list.html');
+    function nav(obj, url) {
+        $("#nav>a>li").each(function () {
+            $(this).removeClass("on");
+            var img = $(this).children('img')[0];
+            var src = $(img).attr("src");
+            $(img).attr("src", src.replace('-a', ''));
+        });
+        $(obj).parent().attr("class", "on");
+        var src = $(obj).attr("src");
+        $(obj).attr("src", src.replace('.png', '-a.png'));
+        load(url);
+    }
+    function load(url){
+        $('#container').load(url);
+    }
+    load('<%=m%>');
 </script>
 </html>

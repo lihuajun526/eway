@@ -78,16 +78,30 @@ public class Menus {
         Menus menus = new Menus();
 
         Menu menu1 = new Menus.Menu();
-        menu1.setType("view");
-        menu1.setName("找项目");
-        String redirectUri = Config.get("app.domain") + (StringUtils.isEmpty(Config.get("app.path")) ? "" : "/" + Config.get("app.path")) + "/index.jsp";
-        menu1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
+        menu1.setName("企业/创业");
+        Menu menu1_1 = new Menus.Menu();
+        menu1_1.setType("view");
+        menu1_1.setName("找投资");
+        String redirectUri = Config.get("app.domain") + (StringUtils.isEmpty(Config.get("app.path")) ? "" : "/" + Config.get("app.path")) + "/index.jsp?m=investor/investor_list.html";
+        menu1_1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
+        Menu menu1_2 = new Menus.Menu();
+        menu1_2.setType("view");
+        menu1_2.setName("购买套餐");
+        redirectUri = Config.get("app.domain") + (StringUtils.isEmpty(Config.get("app.path")) ? "" : "/" + Config.get("app.path")) + "/goods/do/list/0";
+        menu1_2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
+        menu1.setSub_button(new ArrayList<>());
+        menu1.getSub_button().add(menu1_1);
+        menu1.getSub_button().add(menu1_2);
 
         Menu menu2 = new Menus.Menu();
-        menu2.setType("view");
-        menu2.setName("找投资");
-        redirectUri = Config.get("app.domain") + (StringUtils.isEmpty(Config.get("app.path")) ? "" : "/" + Config.get("app.path")) + "/index.jsp";
-        menu2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
+        menu2.setName("投资人");
+        Menu menu2_1 = new Menus.Menu();
+        menu2_1.setType("view");
+        menu2_1.setName("找项目");
+        redirectUri = Config.get("app.domain") + (StringUtils.isEmpty(Config.get("app.path")) ? "" : "/" + Config.get("app.path")) + "/index.jsp?m=project/project_list.html";
+        menu2_1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
+        menu2.setSub_button(new ArrayList<>());
+        menu2.getSub_button().add(menu2_1);
 
         Menu menu3 = new Menus.Menu();
         menu3.setName("梧桐e路");
@@ -101,7 +115,6 @@ public class Menus {
         menu3_2.setName("意见建议");
         redirectUri = Config.get("app.domain") + (StringUtils.isEmpty(Config.get("app.path")) ? "" : "/" + Config.get("app.path")) + "/index.jsp";
         menu3_2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
-
         menu3.setSub_button(new ArrayList<>());
         menu3.getSub_button().add(menu3_1);
         menu3.getSub_button().add(menu3_2);
@@ -109,7 +122,7 @@ public class Menus {
         menus.setButton(new ArrayList<>());
         menus.getButton().add(menu1);
         menus.getButton().add(menu2);
-        //menus.getButton().add(menu3);
+        menus.getButton().add(menu3);
 
         return JSON.toJSONString(menus);
     }

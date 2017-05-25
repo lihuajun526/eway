@@ -61,9 +61,6 @@
             </div>
         </div>
         <div class="g-actlst-twor">
-            <%--<ul class="g-actlst-two-lst">
-                <li><a href="#"><img src="<%=appPath%>/images/actlst-img2.jpg"/></a></li>
-            </ul>--%>
             <div class="g-actlst-two-tit">活动地址</div>
             <ul class="g-actlst-two-lst">
                 <li><img src="<%=activity.getBaiduMap()%>"/></li>

@@ -1283,8 +1283,10 @@
 }
 .wtwx-package-right {
 	overflow:hidden;
-	min-height:227px;
 	background:#FFFFFF;
+}
+.wtwx-package-right-h{
+	min-height:227px;
 }
 .wtwx-package-r-lst {
 	position:relative;

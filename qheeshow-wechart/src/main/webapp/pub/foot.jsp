@@ -9,17 +9,3 @@
 <script type="text/javascript" src="<%=appPath%>/dot/doT.min.js"></script>
 <script type="text/javascript" src="<%=appPath%>/dropload/dropload.min.js"></script>
 <script type="text/javascript" src="<%=appPath%>/js/config.js"></script>
-<script>
-  function load(obj,url){
-      $("#nav>a>li").each(function () {
-          $(this).removeClass("on");
-          var img = $(this).children('img')[0];
-          var src = $(img).attr("src");
-          $(img).attr("src",src.replace('-a',''));
-      });
-      $(obj).parent().attr("class", "on");
-      var src = $(obj).attr("src");
-      $(obj).attr("src",src.replace('.png','-a.png'));
-      $('#container').load(url);
-}
-</script>

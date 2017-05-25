@@ -44,6 +44,11 @@ public class AuthFilter implements Filter {
                 LOGGER.debug("请求获取openid的返回结果:{}", request);
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 String openid = jsonObject.getString("openid");
+                if (StringUtils.isEmpty(openid)) {
+                    LOGGER.error("伪造的code={}",code);
+                    request.getRequestDispatcher("/pub/404").forward(request, response);
+                    return;
+                }
                 WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletRequest.getServletContext());
                 UserService userService = (UserService) webApplicationContext.getBean("userService");
                 User loginUser = userService.getByGzhOpenid(openid);

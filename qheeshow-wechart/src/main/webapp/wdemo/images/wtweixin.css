@@ -3,6 +3,10 @@
 .wtwx-warp {
 	background:#e9eaee;
 }
+.wtwx-warp2 {
+	background:#e9eaee;
+	padding-bottom:44px;
+}
 /*********** project  star***********/
 .wtwx-top {
 	height:44px;
@@ -680,6 +684,12 @@
 	color:#666666;
 }
 .wtwx-activity-ipt1, .wtwx-activity-ipt2 {
+	position:fixed;
+	width:100%;
+	left:0;
+	bottom:0;
+}
+.wtwx-activity-ipt1 a, .wtwx-activity-ipt2 a {
 	background:#2ea0e4;
 	height:44px;
 	line-height:44px;
@@ -687,8 +697,9 @@
 	color:#ffffff;
 	text-align:center;
 	width:100%;
+	display:block;
 }
-.wtwx-activity-ipt2 {
+.wtwx-activity-ipt2 a {
 	background:#bebebe;
 }
 .wtwx-project-cnt1-rnum {
@@ -1272,8 +1283,10 @@
 }
 .wtwx-package-right {
 	overflow:hidden;
-	min-height:227px;
 	background:#FFFFFF;
+}
+.wtwx-package-right-h{
+	min-height:227px;
 }
 .wtwx-package-r-lst {
 	position:relative;
