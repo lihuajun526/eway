@@ -1,35 +1,47 @@
 <div class="wtwx-search">
     <a href="#" class="wtwx-search-menu"></a>
-    <input type="text" class="wtwx-search-search" value="筛选"/>
+    <input type="button" class="wtwx-search-search" value="筛选" onclick="javascript:window.location.href='project/conditions.jsp'"/>
     <span class="wtwx-search-scre"></span>
 </div>
 <script id="projects_tmpl" type="text/template" charset="utf-8">
     {{ for(var i=0; i < it.length; i++) { }}
-    <div class="wtwx-project-cnt1">
-        <div class="wtwx-project-cnt1-l"><img src="{{=it[i].logo}}" width="72" height="72"/></div>
-        <a href="project/do/{{=it[i].id}}">
+    <a href="project/do/{{=it[i].id}}">
+        <div class="wtwx-project-cnt1">
+            <div class="wtwx-project-cnt1-l"><img src="{{=it[i].logo}}" width="72" height="72"/></div>
             <div class="wtwx-project-cnt1-r">
                 <h1>{{=it[i].title}}</h1>
                 <h4>{{=it[i].demand}}</h4>
             </div>
-        </a>
-        <ul class="wtwx-project-cnt1-bootm">
-            <li class="on1"><img src="images/wtwx-icon1.png" width="16" height="16"/>{{=it[i].areaName}}</li>
-            <li><img src="images/wtwx-icon2.png" width="16" height="16"/>{{=it[i].stageName}}</li>
-            <li class="on2"><img src="images/wtwx-icon3.png" width="16" height="16"/>{{=it[i].financingLimitName}}</li>
-            <li><img src="images/wtwx-icon4.png" width="16" height="16"/>{{=it[i].industryName}}</li>
-        </ul>
-    </div>
+            <ul class="wtwx-project-cnt1-bootm">
+                <li class="on1"><img src="images/wtwx-icon1.png" width="16" height="16"/>{{=it[i].areaName}}</li>
+                <li><img src="images/wtwx-icon2.png" width="16" height="16"/>{{=it[i].stageName}}</li>
+                <li class="on2"><img src="images/wtwx-icon3.png" width="16" height="16"/>{{=it[i].financingLimitName}}
+                </li>
+                <li><img src="images/wtwx-icon4.png" width="16" height="16"/>{{=it[i].industryName}}</li>
+            </ul>
+        </div>
+    </a>
     {{ } }}
 </script>
 <script>
-    $.getJSON(appPath + '/project/do/list/0/0/0/0/1', function (result) {
-        if (result.code >= 0) {
-            var tpl = $('#projects_tmpl').html();
-            var tempFn = doT.template(tpl);
-            $("#container").append(tempFn(result.data));
-            $("#container").append("<div class='dropload-refresh'><span class='loading'></span>加载中...</div>");
-
-        }
-    });
+    var index = 1;
+    function listPro() {
+        $.getJSON(appPath + '/project/do/list/0/0/0/0/' + index, function (result) {
+            if (result.code >= 0) {
+                var tpl = $('#projects_tmpl').html();
+                var tempFn = doT.template(tpl);
+                $("#container").append(tempFn(result.data));
+                if (result.data.length < 10) {
+                    $("#more").html("没有更多了");
+                } else {
+                    $("#more").html("点击加载更多");
+                    $("#more").click(function () {
+                        index++;
+                        listPro();
+                    });
+                }
+            }
+        });
+    }
+    listPro();
 </script>

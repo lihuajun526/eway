@@ -1035,6 +1035,7 @@
 	min-height:362px;
 	margin:0 25px;
 	margin-bottom:30px;
+	position:relative;
 }
 .g-pser-cnt h2 {
 	background:#0097e1;
@@ -1078,6 +1079,10 @@
 	border-bottom:2px solid #d8d8d8;
 	font-size:18px;
 	margin-bottom:20px;
+	color:#1f78a0;
+}
+.g-pser-cntont h1 a {
+	color:#1f78a0;
 }
 .g-pser-cntont h3 {
 	opacity:0.3;
@@ -1124,7 +1129,7 @@
 	border-top:2px solid #d8d8d8;
 	font-size:18px;
 	padding:15px 0;
-	color:#000;
+	color:#1f78a0;
 }
 .g-pser-cntont2 ul li span {
 	display:block;
@@ -1132,11 +1137,33 @@
 	color:#d3d3d3;
 }
 .g-pser-cntont2 ul li a {
-	color:#000
+	color:#1f78a0
 }
 .g-purchase3 a {
 	background:url(wt-radius-30.png) no-repeat center center;
 	color:#0097e1;
+}
+.g-invest-bombbox {
+	position:absolute;
+	top:182px;
+	left:62px;
+	width:268px;
+}
+.g-invest-bombbox-t {
+	background:url(wt-icon35.png) no-repeat;
+	height:29px;
+}
+.g-invest-bombbox-b {
+	background:url(wt-icon37.png) no-repeat;
+	height:9px;
+	font-size:0;
+}
+.g-invest-bombbox-c {
+	background:url(wt-icon36.png) repeat-y;
+	padding:0 20px 10px;
+	font-size:12px;
+	color:#333333;
+	line-height:22px;
 }
 /******登录*****/
 .g-lgin {
@@ -1418,6 +1445,63 @@
 	width:500px;
 	padding-top:42px;
 	position:relative;
+}
+.g-invest-wwarp {
+	position:relative;
+	width:1000px;
+	margin:0 auto;
+}
+.g-invest-bomb {
+	position:absolute;
+	right:170px;
+	top:150px;
+	z-index:99;
+}
+.g-invest-bomb-l, .g-invest-bomb-c, .g-invest-bomb-r {
+	float:right;
+	height:245px;
+}
+.g-invest-bomb-l {
+	background:url(wt-icon31.png) no-repeat;
+	width:38px;
+}
+.g-invest-bomb-r {
+	background:url(wt-icon33.png) no-repeat;
+	width:20px;
+}
+.g-invest-bomb-c {
+	background:url(wt-icon32.png) repeat-x;
+}
+.g-invest-bomb-clst {
+	padding-top:32px;
+	overflow:hidden;
+}
+.g-invest-bomb-clst li {
+	float:right;
+	margin:0 18px;
+	text-align:center;
+	font-size:12px;
+	color:#000000;
+}
+.g-invest-bomb-clst li span {
+	display:block;
+	margin-top:18px;
+}
+.g-invest-bomb-clst li span input {
+	margin-right:6px;
+}
+.g-invest-bomb-cbtn {
+	text-align:center;
+}
+.g-invest-bomb-cbtn a {
+	background:url(wt-icon34.png) no-repeat;
+	width:120px;
+	height:40px;
+	line-height:39px;
+	font-size:14px;
+	color:#ffffff;
+	display:inline-block;
+	margin-top:25px;
 }
 .g-invest-name {
 	font-size:30px;
@@ -2539,6 +2623,7 @@
 }
 .g-pser-cnt {
 	border:2px solid #dddddd;
+	position:relative;
 }
 .g-pser-cnt:hover {
 	border:2px solid #0198e2;
@@ -2643,10 +2728,8 @@
 	padding:0 26px;
 }
 .g-read-lst li a {
-	opacity:0.5;
-	filter: alpha(opacity=50);
 	font-size:16px;
-	color:#000000;
+	color:#333333;
 }
 .g-read-lst li.on {
 	background:url(wt-radius-23.png) no-repeat center center;
@@ -3180,3 +3263,81 @@
 	font-size:14px;
 	line-height:22px;
 }
+/*404 star*/
+.wt-404 {
+	text-align:center;
+	margin:130px 0 0;
+}
+.wt-404-ct {
+	font-size:28px;
+	color:#333333;
+	text-align:center;
+	margin:20px 0 50px;
+}
+.wt-404-ct2 {
+	margin-bottom:150px;
+	text-align:center;
+}
+.wt-404-ct2 a {
+	display:inline-block;
+	font-size:24px;
+	color:#21b6e1;
+	margin:0 50px;
+	padding-left:40px;
+}
+.wt-404-ct2 a.on1 {
+	background:url(wt-404-icon-cancel.png) no-repeat left center;
+}
+.wt-404-ct2 a.on2 {
+	background:url(wt-404-icon-reload.png) no-repeat left center;
+}
+/*404 end*/
+
+/*常见问题 star*/
+ .wt-problem-left {
+	float:left;
+	width:170px;
+	text-align:center;
+	border-right:1px solid #ececec;
+	height:600px;
+	margin-top:40px;
+}
+.wt-problem-left li {
+	font-size:20px;
+	color:#7f7f7f;
+	height:55px;
+	line-height:55px;
+}
+.wt-problem-left li a {
+	color:#7f7f7f;
+}
+.wt-problem-left li.on a {
+	color:#333333;
+}
+.wt-problem-right {
+	float:left;
+	margin:40px 0 0 50px;
+	width:679px;
+}
+.wt-problem-right h1 {
+	font-size:22px;
+	color:#000000;
+	font-weight:normal;
+	margin-bottom:17px;
+	line-height:30px;
+}
+.wt-problem-right h3 {
+	font-size:18px;
+	color:#777777;
+	line-height:32px;
+	font-weight:normal;
+	margin-bottom:33px;
+}
+.wt-problem-right h3 a {
+	color:#777777;
+}
+.wt-problem-right h3 span, .wt-problem-right h3 span a {
+	font-size:22px;
+	color:#124591;
+} 
+/*常见问题 end*/

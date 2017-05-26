@@ -64,6 +64,7 @@
     </div>
 </div>
 <%@include file="pub/foot.jsp"%>
+</body>
 <script>
     $.get("<%=appPath%>/index/activity/latest", function (result) {
         var data = result.data;

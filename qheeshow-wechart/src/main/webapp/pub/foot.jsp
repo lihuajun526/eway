@@ -7,5 +7,4 @@
 </ul>
 <script type="text/javascript" src="<%=appPath%>/zepto/zepto.js"></script>
 <script type="text/javascript" src="<%=appPath%>/dot/doT.min.js"></script>
-<script type="text/javascript" src="<%=appPath%>/dropload/dropload.min.js"></script>
 <script type="text/javascript" src="<%=appPath%>/js/config.js"></script>

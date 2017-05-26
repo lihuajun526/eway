@@ -18,6 +18,7 @@
 <body class="wtxt-pb wtwx-warp">
 <%@include file="pub/head.jsp" %>
 <div id="container"></div>
+<div id="more" class='dropload-refresh'></div>
 <%@include file="pub/foot.jsp" %>
 </body>
 <script>

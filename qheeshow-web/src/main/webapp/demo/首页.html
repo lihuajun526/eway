@@ -2,6 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
     <link rel="stylesheet" href="images/animate.min.css">   
     <link rel="stylesheet"  href="images/bootstrap.css">
@@ -13,33 +14,41 @@
 <body>
 <!--*************************快速购买通道1************************-->
     <div class="g-pw-body" style="display:none">
-        <div class="shade"></div>   
-        <div class="g-pw1">
-           <h1>请先填写企业信息</h1>
-           <h3>步骤1/2</h3>
-           <ul class="g-pw1-lst">
-              <li><input type="text" class="g-pw-ipt" value="请输入真实姓名"/></li>
-              <li><input type="text" class="g-pw-ipt" value="手机"/></li>
-              <li><input type="text" class="g-pw-ipt" value="邮箱"/></li>
-              <li><input type="text" class="g-pw-ipt" value="请输入短信验证码"/></li>
-              <li><input type="text" class="g-pw-ipt" value="请输入密码"/></li>
-              <li><input type="text" class="g-pw-ipt" value="确认密码"/></li>
-           </ul>
-           <div class="g-pw-btnw"><input name="" type="button" value="下一步" class="g-pw-btn"></div>
+        <div class="shade"></div>  
+        <div class="g-pw-radius">  
+                <div class="g-pw-radius-top"></div>
+                <div class="g-pw1">
+                   <h1>请先填写企业信息</h1>
+                   <h3>步骤1/2</h3>
+                   <ul class="g-pw1-lst">
+                      <li><input type="text" class="g-pw-ipt" value="请输入真实姓名"/></li>
+                      <li><input type="text" class="g-pw-ipt" value="手机"/></li>
+                      <li><input type="text" class="g-pw-ipt" value="邮箱"/></li>
+                      <li><input type="text" class="g-pw-ipt" value="请输入短信验证码"/></li>
+                      <li><input type="text" class="g-pw-ipt" value="请输入密码"/></li>
+                      <li><input type="text" class="g-pw-ipt" value="确认密码"/></li>
+                   </ul>
+                   <div class="g-pw-btnw"><input name="" type="button" value="下一步" class="g-pw-btn"></div>
+                </div>
+               <div class="g-pw-radius-bottom"></div> 
         </div>
     </div>
 <!--*************************快速购买通道2************************-->
-    <div class="g-pw-body"  style="display:none">
-        <div class="shade"></div> 
-        <div class="g-pw2">
-           <h1>请支付</h1>
-           <h3>步骤2/2</h3>
-           <div class="g-pw2-m">￥1000</div>
-           <div class="g-pw2-m2">支付方式</div>
-           <ul class="g-pw2-lst">
-              <li><img src="images/wt-ewm2.png"/><span>支付宝支付</span></li>
-              <li><img src="images/wt-ewm2.png"/><span>微信支付</span></li>
-           </ul>
+    <div class="g-pw-body" style="display:none">
+        <div class="shade"></div>
+        <div class="g-pw-radius">
+                <div class="g-pw-radius-top"></div> 
+                    <div class="g-pw2">
+                       <h1>请支付</h1>
+                       <h3>步骤2/2</h3>
+                       <div class="g-pw2-m">￥1000</div>
+                       <div class="g-pw2-m2">支付方式</div>
+                       <ul class="g-pw2-lst">
+                          <li><img src="images/wt-ewm2.png"/><span>支付宝支付</span></li>
+                          <li><img src="images/wt-ewm2.png"/><span>微信支付</span></li>
+                       </ul>
+                    </div>
+                <div class="g-pw-radius-bottom"></div> 
         </div>
     </div>
 <!--*************************头部************************-->
@@ -55,6 +64,8 @@
    </div>
    <div class="g-login">
       <ul>
+         <li>退出</li>
+         <li>15009876543</li>
          <li class="on3"><a href="#"><img src="images/wt-top3.png"/></a></li>
          <li class="on2"><a href="#">创建项目</a></li>
          <li class="on1"><a href="#">购买服务</a></li>       
@@ -281,10 +292,10 @@
             <div class="on1">感兴趣的</div>
             <div class="on2"><span>天使轮 | A轮</span><span>100W-5000W</span></div>
             <ul class="on3">
-               <li><a href="#">大数据</a></li>
-               <li><a href="#">o2o服务</a></li>
-               <li><a href="#">p2p</a></li>
-               <li><a href="#">赞服务</a></li>
+               <li><span class="radius-left"></span><a href="#">大数据</a><span class="radius-right"></span></li>
+              <li><span class="radius-left"></span><a href="#">o2o服务</a><span class="radius-right"></span></li>
+              <li><span class="radius-left"></span><a href="#">p2p</a><span class="radius-right"></span></li>
+              <li><span class="radius-left"></span><a href="#">赞服务</a><span class="radius-right"></span></li>
             </ul>
           </div>
        </div>
