@@ -2,6 +2,7 @@ package com.qheeshow.eway.wechart.controller;
 
 import com.qheeshow.eway.common.constant.ExceptionTypeEnum;
 import com.qheeshow.eway.common.exception.CommonException;
+import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.service.model.*;
 import com.qheeshow.eway.service.service.*;
 import com.qheeshow.eway.wechart.base.BaseController;
@@ -39,29 +40,34 @@ public class ProjectController extends BaseController {
     private ProjectFollowService projectFollowService;
     @Autowired
     private ProjectAdviserService projectAdviserService;
+    @Autowired
+    private XwcmclassinfoService xwcmclassinfoService;
 
     /**
      * 根据条件过滤项目
      *
-     * @param type
-     * @param areaid
-     * @param financingLimit
-     * @param industry
      * @param pageIndex
      * @param keyword
+     * @param session
      * @return
      */
-    @RequestMapping("/list/{type}/{areaid}/{financingLimit}/{industry}/{pageIndex}")
+    @RequestMapping("/list/{pageIndex}")
     @ResponseBody
-    public String listByCondition(@PathVariable Integer type, @PathVariable Integer areaid,
-                                  @PathVariable Integer financingLimit, @PathVariable Integer industry,
-                                  @PathVariable Integer pageIndex, String keyword) {
+    public String listByCondition(
+            @PathVariable Integer pageIndex, HttpSession session) {
 
         LOGGER.debug("根据条件过滤项目");
+
 
         Result<List<Project>> result = new Result<>();
 
         int pageSize = 10;
+
+        Integer type = session.getAttribute("type") == null ? 0 : (Integer) session.getAttribute("type");
+        Integer areaid = session.getAttribute("areaid") == null ? 0 : (Integer) session.getAttribute("areaid");
+        Integer financingLimit = session.getAttribute("financingLimit") == null ? 0 : (Integer) session.getAttribute("financingLimit");
+        Integer industry = session.getAttribute("industry") == null ? 0 : (Integer) session.getAttribute("industry");
+        String keyword = session.getAttribute("keyword") == null ? "" : (String) session.getAttribute("keyword");
 
         List<Project> projectList = new ArrayList<>();
         Map<String, Object> map = projectService.listByCondition(type, areaid, financingLimit, industry, pageIndex, pageSize, keyword);
@@ -200,21 +206,21 @@ public class ProjectController extends BaseController {
         try {
             projectAdviserService.apply(projectid, loginUser.getId());
         } catch (CommonException e) {
-            if(e.getCode().equals(ExceptionTypeEnum.Is_Not_Adviser_ERROR)){
+            if (e.getCode().equals(ExceptionTypeEnum.Is_Not_Adviser_ERROR)) {
                 result.setMessage("对不起，您不是投资人，不能申请");
                 return result.toString();
             }
-            if(e.getCode().equals(ExceptionTypeEnum.Investor_Not_Auth_ERROR)){
+            if (e.getCode().equals(ExceptionTypeEnum.Investor_Not_Auth_ERROR)) {
                 result.setMessage("对不起，您的投资人身份尚未认证");
                 tip.setAction("去认证");
                 tip.setLink("/investor/investor_auth");
                 return result.toString();
             }
-            if(e.getCode().equals(ExceptionTypeEnum.Project_Adviser_Apply_Exist_ERROR)){
+            if (e.getCode().equals(ExceptionTypeEnum.Project_Adviser_Apply_Exist_ERROR)) {
                 result.setMessage("您已申请，不能重复申请");
                 return result.toString();
             }
-            if(e.getCode().equals(ExceptionTypeEnum.Project_Adviser_Full_ERROR)){
+            if (e.getCode().equals(ExceptionTypeEnum.Project_Adviser_Full_ERROR)) {
                 result.setMessage("对不起，顾问人数已满");
                 return result.toString();
             }
@@ -224,5 +230,42 @@ public class ProjectController extends BaseController {
         return result.toString();
     }
 
+    @RequestMapping("/condition/list")
+    public ModelAndView listCondition() {
+
+        //项目所属行业rootid
+        int classinfo_rootid_industry = Config.getInt("classinfo.rootid.industry");
+        //项目所属地域rootid
+        int classinfo_rootid_area = Config.getInt("classinfo.rootid.area");
+        //项目融资额度rootid
+        int classinfo_rootid_financing_limit = Config.getInt("classinfo.rootid.financing.limit");
+
+        List<Xwcmclassinfo> industrys = xwcmclassinfoService.listByRoot(classinfo_rootid_industry);
+        List<Xwcmclassinfo> areas = xwcmclassinfoService.listByRoot(classinfo_rootid_area);
+        List<Xwcmclassinfo> financingLimits = xwcmclassinfoService.listByRoot(classinfo_rootid_financing_limit);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("industrys", industrys);
+        modelAndView.addObject("areas", areas);
+        modelAndView.addObject("financingLimits", financingLimits);
+        modelAndView.setViewName("/project/conditions");
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/condition/set/{type}/{area}/{financingLimit}/{industry}")
+    @ResponseBody
+    public String setCondition(@PathVariable Integer type, @PathVariable Integer area, @PathVariable Integer financingLimit, @PathVariable Integer industry, String keyword, HttpSession session) {
+
+        Result result = new Result();
+
+        session.setAttribute("type", type);
+        session.setAttribute("area", area);
+        session.setAttribute("financingLimit", financingLimit);
+        session.setAttribute("industry", industry);
+        session.setAttribute("keyword", keyword);
+
+        return result.toString();
+    }
 
 }
