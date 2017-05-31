@@ -70,7 +70,7 @@
         var data = result.data;
         for (var i = 0; i < data.length; i++) {
             var activity = data[i];
-            $("#activitys").append("<a href='<%=appPath%>/activity/get/" + activity.id + "'><li><span><img src='" + activity.logo + "' width='320' height='180'/></span><h1>" + activity.title + "</h1><p>" + activity.summary + "</p><div href='<%=appPath%>/activity/get/" + activity.id + "' class='icon'><img src='<%=appPath%>/images/wt-icon4.png'/></div></li></a>");
+            $("#activitys").append("<a href='<%=appPath%>/activity/get/" + activity.id + "'><li><span><img src='" + activity.logo + "' width='320' height='180'/></span><h1>" + activity.title + "</h1><div class='heightp'><p>" + activity.summary + "</p></div><div href='<%=appPath%>/activity/get/" + activity.id + "' class='icon'><img src='<%=appPath%>/images/wt-icon4.png'/></div></li></a>");
         }
     }, "json");
     $.get("<%=appPath%>/index/project/best/suggest", function (result) {

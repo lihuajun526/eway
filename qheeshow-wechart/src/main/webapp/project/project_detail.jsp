@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="<%=appPath%>/images/wtweixin.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/dropload.css"/>
 </head>
-<body class="wtxt-pb2 wtwx-warp">
+<body id="top" class="wtxt-pb2 wtwx-warp">
 <%@include file="../pub/head.jsp" %>
 <div class="wtwx-project-cnt1">
     <div class="wtwx-project-cnt1-l"><img src="<%=project.getLogo()%>" width="72" height="72"/></div>
@@ -94,62 +94,16 @@
     %>
 </div>
 
-<div class="wtwx-activity-tit">提问互动<a onclick="openQa()" class="wtwx-project-add">添加问题</a></div>
-<div class="wtwx-project-textarea">
-    <textarea class="wtwx-project-textareacnt" placeholder="填写您的问题..."></textarea>
+<div class="wtwx-activity-tit">提问互动<a onclick="javascript:$('#q_').show()" class="wtwx-project-add">点击提问</a></div>
+<div id="q_" class="wtwx-project-textarea" style="display: none">
+    <textarea id="question" class="wtwx-project-textareacnt" placeholder="填写您的问题..."></textarea>
 
     <div class="wtwx-project-textabtn">
-        <a class="on1">确定</a>
-        <a class="on2">取消</a>
+        <a href="#top" class="on1" onclick="q()">确定</a>
+        <a onclick="javascript:$('#q_').hide()" class="on2">取消</a>
     </div>
 </div>
-
-<div class="wtwx-project-cnt3">
-    <div class="wtwx-project-cnt3-l"><img src="<%=appPath%>/images/wtwx-img2.png" width="36" height="36"/></div>
-    <div class="wtwx-project-cnt3-r">
-        <h1>一休哥</h1>
-
-        <div class="wtwx-project-cnt3-rcnt">有没有明确的盈利方案和商业模式吗？后续会做什么促进？</div>
-        <!--点击回复的时候下面有输入框 star-->
-        <input type="text" class="wtwx-project-cnt3-ripnt" placeholder="回复"/>
-        <!--点击回复的时候下面有输入框end-->
-    </div>
-    <a href="#" class="wtwx-project-cnt3-praise">2017年7月9日19:00</a>
-</div>
-
-<div class="wtwx-project-cnt3">
-    <div class="wtwx-project-cnt3-l"><img src="<%=appPath%>/images/wtwx-img2.png" width="36" height="36"/></div>
-    <div class="wtwx-project-cnt3-r">
-        <h1>一休哥</h1>
-
-        <div class="wtwx-project-cnt3-rcnt">有没有明确的盈利方案和商业模式吗？后续会做什么促进？</div>
-        <!--点击回复时候 star-->
-        <div class="wtwx-project-cancel"><a href="#">取消</a></div>
-        <div class="wtwx-project-cnt3-warp">
-            <input type="text" class="ipt" value="请输入要文字回复"/>
-            <a href="#" class="btn">确定</a>
-        </div>
-        <!--点击回复时候 end-->
-    </div>
-    <a href="#" class="wtwx-project-cnt3-praise">2017年7月9日19:00</a>
-</div>
-
-<div class="wtwx-project-cnt3">
-    <div class="wtwx-project-cnt3-l"><img src="<%=appPath%>/images/wtwx-img2.png" width="36" height="36"/></div>
-    <div class="wtwx-project-cnt3-r">
-        <h1>一休哥</h1>
-
-        <div class="wtwx-project-cnt3-rcnt">有没有明确的盈利方案和商业模式吗？后续会做什么促进？</div>
-        <!--回复成功后 star-->
-        <div class="wtwx-project-cnt3-rcnt2">
-            <span>一休哥：</span>我想说为什么那么好的项目你没有看上呢，这可能是你错过阿里巴巴这样大的企业哦。只想知道你是出于什么考虑呢。
-        </div>
-        <!--回复成功后 end-->
-    </div>
-    <a href="#" class="wtwx-project-cnt3-praise">2017年7月9日19:00</a>
-</div>
-
-
+<div id="qas"></div>
 <ul class="wtwx-menu2">
     <a onclick="getBp()">
         <li><img src="<%=appPath%>/images/wtwx-project-meun1.png" width="25" height="25"/><span>商业计划书</span></li>
@@ -210,6 +164,23 @@
         $.getJSON("<%=appPath%>/project/do/adviser/apply/<%=project.getId()%>/v_authj", function (result) {
             openTip(result);
         }, "json");
+    }
+    function listQas() {
+        $("#qas").load("<%=appPath%>/project/do/qa/list/<%=project.getId()%>");
+    }
+    listQas();
+    function q() {
+        if (!$("#question").val().length) {
+            openTip({'message': '请输入您的问题', 'data': {'action': '知道了', 'link': 'close'}});
+            return;
+        }
+        /*$.post("<%=appPath%>/project/do/q/<%=project.getId()%>/v_authj", function (result) {
+            openTip(result);
+        }, "json");
+
+        $.post('<%=appPath%>/project/do/q/<%=project.getId()%>/v_authj', {sample: 'payload'}, function (response) {
+            // process response
+        })*/
     }
 </script>
 </body>

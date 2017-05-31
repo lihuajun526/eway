@@ -351,4 +351,13 @@
     from t_project_qa
     where status = 1 and projectid = #{projectid,jdbcType=INTEGER}
   </select>
+
+  <select id="listQByProject" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
+    from t_project_qa
+    where status = 1 and projectid = #{projectid,jdbcType=INTEGER} and parentid = 0
+    order by create_time desc
+    limit 0,20
+  </select>
 </mapper>

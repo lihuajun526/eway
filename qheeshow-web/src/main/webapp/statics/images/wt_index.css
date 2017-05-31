@@ -159,6 +159,10 @@
 	filter: alpha(opacity=40);
 	font-size:13px;
 }
+.g-one1 .heightp{
+height:44px;
+overflow:hidden;
+}
 .g-one1 .icon {
 	display:block;
 	padding:0 20px;
@@ -493,7 +497,7 @@
 	margin-right:115px;
 }
 .g-fl-t {
-	height:190px;
+	height:180px;
 	margin-top:50px;
 }
 .g-fl-tit {
@@ -508,11 +512,15 @@
 .g-fl-lst, .g-fr-lst {
 	overflow:hidden;
 }
+.g-fl-lst{
+	margin-bottom:90px;
+	margin-top:50px;
+}
 .g-fl-lst li {
 	float:left;
 	margin-right:55px;
 	font-size:16px;
-	margin-bottom:25px;
+	line-height:30px;
 }
 .g-fl-lst li a, .g-fr-lst li a {
 	color:#FFFFFF;

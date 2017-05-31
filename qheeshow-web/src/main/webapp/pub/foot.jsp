@@ -2,15 +2,12 @@
 <div class="g-foot">
     <div class="g-conter">
         <div class="g-foot-l">
-            <div class="g-fl-t">
-                <ul class="g-fl-lst">
-                    <li><a href="#">关于梧桐e路</a></li>
-                    <li><a href="#">关于我们</a></li>
-                    <li><a href="<%=appPath%>/about/fuwutiaokuan.jsp">服务条款</a></li>
-                    <li><a href="#">风险提示</a></li>
-                </ul>
-                <h3></h3>
-            </div>
+            <ul class="g-fl-lst">
+                <li><a href="#">关于梧桐e路</a></li>
+                <li><a href="#">关于我们</a></li>
+                <li><a href="<%=appPath%>/about/fuwutiaokuan.jsp">服务条款</a></li>
+                <li><a href="#">风险提示</a></li>
+            </ul>
             <ul class="g-fl-lst">
                 <li><a href="#">常见问题</a></li>
                 <li><a href="#">合作与建议</a></li>
@@ -31,10 +28,7 @@
                 <li><a target="_blank" href="http://business.sohu.com/">搜狐财经</a></li>
                 <li><a target="_blank" href="http://www.sina.com.cn/">新浪网</a></li>
             </ul>
-            <div class="g-fr-ewm">
-                不错过任何一个好项目
-                <span><img width="128" height="128" src="<%=appPath%>/images/wt-ewm.png"/></span>
-            </div>
+            <div class="g-fr-ewm">不错过任何一个好产品<span><img src="<%=appPath%>/images/wt-ewm.png"></span></div>
         </div>
     </div>
 </div>

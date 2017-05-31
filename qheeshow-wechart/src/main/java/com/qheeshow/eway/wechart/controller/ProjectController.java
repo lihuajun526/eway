@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,12 +43,13 @@ public class ProjectController extends BaseController {
     private ProjectAdviserService projectAdviserService;
     @Autowired
     private XwcmclassinfoService xwcmclassinfoService;
+    @Autowired
+    private ProjectQaService projectQaService;
 
     /**
      * 根据条件过滤项目
      *
      * @param pageIndex
-     * @param keyword
      * @param session
      * @return
      */
@@ -266,6 +268,30 @@ public class ProjectController extends BaseController {
         session.setAttribute("keyword", keyword);
 
         return result.toString();
+    }
+
+    @RequestMapping("/qa/list/{projectid}")
+    public ModelAndView listQa(@PathVariable Integer projectid) {
+
+        List<ProjectQa> qs = projectQaService.listQByProject(projectid);
+
+        List<Integer> ids = new ArrayList<>();
+        for (ProjectQa projectQa : qs) {
+            ids.add(projectQa.getId());
+        }
+
+        List<ProjectQa> as = ids.size() > 0 ? projectQaService.listA(ids) : new ArrayList<>();
+        Map<Integer, ProjectQa> aMap = new HashMap<>();
+        for (ProjectQa projectQa : as) {
+            aMap.put(projectQa.getParentid(), projectQa);
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("aMap", aMap);
+        modelAndView.addObject("qs", qs);
+        modelAndView.setViewName("/project/qa_list");
+
+        return modelAndView;
     }
 
 }

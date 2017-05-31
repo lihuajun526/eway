@@ -31,4 +31,6 @@ public interface ProjectQaMapper {
     List<ProjectQa> listByPage(ProjectQa commonQa);
 
     int countByPage(ProjectQa commonQa);
+
+    List<ProjectQa> listQByProject(Integer projectid);
 }

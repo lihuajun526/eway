@@ -44,4 +44,17 @@ public class ProjectQaServiceImpl implements ProjectQaService {
     public void save(ProjectQa commonQa) {
         projectQaMapper.insert(commonQa);
     }
+
+    @Override
+    public List<ProjectQa> listQByProject(Integer projectid) {
+        return projectQaMapper.listQByProject(projectid);
+    }
+
+    @Override
+    public List<ProjectQa> listA(List<Integer> ids) {
+        ProjectQaExample example = new ProjectQaExample();
+        ProjectQaExample.Criteria criteria = example.createCriteria();
+        criteria.andParentidIn(ids);
+        return projectQaMapper.selectByExample(example);
+    }
 }

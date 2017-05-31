@@ -18,4 +18,8 @@ public interface ProjectQaService {
 
     void save(ProjectQa commonQa);
 
+    List<ProjectQa> listQByProject(Integer projectid);
+
+    List<ProjectQa> listA(List<Integer> ids);
+
 }
