@@ -13,4 +13,6 @@ public interface PostRecordService {
 
     void save(PostRecord postRecord);
 
+    List<PostRecord> listByInvestorAndProject(Integer investorid,Integer projectid);
+
 }

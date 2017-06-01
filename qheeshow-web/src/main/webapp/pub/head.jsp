@@ -26,14 +26,22 @@
                     src="<%=StringUtils.isEmpty(loginUser.getPhoto())?appPath+"/images/wt-top3.png":loginUser.getPhoto()%>"
                     width="30"
                     height="30"/></a></li>
+            <%
+                if (loginUser.getRoleid().intValue() >= 20 && loginUser.getRoleid().intValue() < 30) {
+            %>
             <li class="on1"><a href="<%=appPath%>/goods/list/0">购买服务</a></li>
             <li class="on2"><a href="<%=appPath%>/project/0/add/edit/1/auth">创建项目</a></li>
             <%
+                }
             } else {
             %>
             <li class="on1"><a href="<%=appPath%>/goods/list/0">购买服务</a></li>
             <li class="on2"><a href="<%=appPath%>/project/0/add/edit/1/auth">创建项目</a></li>
-            <li class="on3"><a href="<%=appPath%>/user/login.jsp"><img src="<%=appPath%>/images/wt-top3.png"/></a></li>
+            <%--<li class="on3"><a href="<%=appPath%>/user/login.jsp"><img src="<%=appPath%>/images/wt-top3.png"/></a></li>--%>
+            <li class="on5">
+                <a href="<%=appPath%>/user/login.jsp">登录</a>&nbsp;
+                <a href="<%=appPath%>/user/regist.jsp">注册</a>
+            </li>
             <%
                 }
             %>
@@ -44,22 +52,30 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">提示</h4>
             </div>
             <div class="modal-body">
                 <p id="tip"></p>
             </div>
-            <div class="modal-footer">
+            <div id="t_action" class="modal-footer">
                 <%--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">知道了</button>
+                <%--<button type="button" class="btn btn-primary" data-dismiss="modal">知道了</button>--%>
+                <a href="http://www.baidu.com" class="btn btn-primary">知道了1</a>
             </div>
         </div>
     </div>
 </div>
 <script>
-    function xalert(tip){
+    function xalert(tip) {
         $("#tip").html(tip);
+        $("#t_action").html("<button type='button' class='btn btn-primary' data-dismiss='modal'>知道了</button>");
+        $("#modal").modal("show");
+    }
+    function xalert1(tip, action, link) {
+        $("#tip").html(tip);
+        $("#t_action").html("<a href='" + link + "' class='btn btn-primary'>" + action + "</a>");
         $("#modal").modal("show");
     }
 </script>

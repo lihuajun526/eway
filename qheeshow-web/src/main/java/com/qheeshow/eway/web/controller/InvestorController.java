@@ -255,11 +255,13 @@ public class InvestorController extends BaseController {
         result.setData(false);
         Object o = session.getAttribute("loginUser");
         if (o == null) {
-            result.setMessage("对不起，请登录");
+            result.setCode(-1);
+            result.setMessage("亲爱的用户，请先登录才能添加关注哦！");
             return result.toString();
         }
         User loginUser = (User) o;
         if (loginUser.getId().intValue() == userid.intValue()) {
+            result.setCode(-2);
             result.setMessage("您不能关注自己");
             return result.toString();
         }
@@ -293,13 +295,14 @@ public class InvestorController extends BaseController {
     /**
      * 投递项目
      *
-     * @param investorid
+     * @param userid
+     * @param projectid
      * @param session
      * @return
      */
-    @RequestMapping("/project/post/{investorid}/authj")
+    @RequestMapping("/project/post/{userid}/{projectid}/authj")
     @ResponseBody
-    public String postProject(@PathVariable Integer investorid, HttpSession session) {
+    public String postProject(@PathVariable Integer userid, @PathVariable Integer projectid, HttpSession session) {
 
         Result<Boolean> result = new Result<>();
         result.setData(false);
@@ -307,16 +310,11 @@ public class InvestorController extends BaseController {
         if (o == null)
             return result.toString();
         User loginUser = (User) o;
-        if (loginUser.getRoleid().intValue() != 20) {
+        if (loginUser.getRoleid().intValue() >= 30 || loginUser.getRoleid().intValue() < 20) {
             result.setMessage("对不起，企业/创业者才能投递项目");
             return result.toString();
         }
 
-        List<Project> list = projectService.listByUser(loginUser.getId());
-        if (list.size() == 0) {
-            result.setMessage("对不起，您尚未创建项目，请先创建项目");
-            return result.toString();
-        }
         //企业每天最多投递5次
         List<PostRecord> postRecordList = postRecordService.listByUserAndToday(loginUser.getId());
         if (postRecordList.size() >= 5) {
@@ -324,21 +322,34 @@ public class InvestorController extends BaseController {
             return result.toString();
         }
 
-        //todo  判断投递的项目是否有BP
+        Project project = projectService.get(projectid);
+        if (StringUtils.isEmpty(project.getBp())) {
+            result.setMessage("对不起，该项目没有上传商业计划书，请上传");
+            result.setCode(-1);
+            return result.toString();
+        }
+
+        Investor investor = investorService.getByUser(userid);
+
+        /*if (postRecordService.listByInvestorAndProject(investor.getId(), projectid).size() > 0) {
+            result.setMessage("对不起，该项目已投递给该投资人，不能重复投递");
+            return result.toString();
+        }*/
 
         //投递项目
         PostRecord postRecord = new PostRecord();
         postRecord.setUserid(loginUser.getId());
-        postRecord.setInvestorid(investorid);
-        postRecord.setProjectid(list.get(0).getId());
+        postRecord.setInvestorid(investor.getId());
+        postRecord.setProjectid(project.getId());
         postRecordService.save(postRecord);
         //发送邮件
+        MailBean mailBean = new MailBean();
+        mailBean.setSubject(project.getTitle() + "商业计划书");
+        mailBean.setToAddress(investor.getEmail());
+        mailBean.setContent("<body><h1>" + investor.getTrueName() + "，您好</h1><br/><a href='" + project.getBp() + "'>点击下载</a>" + project.getTitle() + "商业计划书</body>");
+        mailService.sendHtmlMail(mailBean);
 
-        InvestorFollow investorFollow = new InvestorFollow();
-        investorFollow.setUserid(loginUser.getId());
-        investorFollow.setInvestorid(investorid);
-        Boolean isFollow = investorFollowService.isFollow(investorFollow);
-        result.setData(isFollow);
+        result.setData(true);
         return result.toString();
     }
 

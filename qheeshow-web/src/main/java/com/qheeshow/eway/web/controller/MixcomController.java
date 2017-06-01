@@ -37,7 +37,7 @@ public class MixcomController extends BaseController {
     public String bound(@PathVariable Integer userid, HttpSession session) {
 
         Result<String> result = new Result<>();
-        result.setCode(-1);
+        result.setCode(-2);
         User user = userService.get(userid);
         if (user == null) {
             result.setMessage("此联系人不存在");
@@ -58,11 +58,14 @@ public class MixcomController extends BaseController {
                 return result.toString();
             }
             if (loginUser.getCallTime().intValue() <= 0) {
-                result.setMessage("您没有购买套餐或您的通话时长已用完，请购买套餐，<a href='../goods/list/0'>立即购买</a>");
+                //result.setMessage("您没有购买套餐或您的通话时长已用完，请购买套餐，<a href='../goods/list/0'>立即购买</a>");
+                result.setMessage("您没有购买套餐或您的通话时长已用完，请购买套餐");
+                result.setCode(-3);
                 return result.toString();
             }
             if (loginUser.getCallTime().intValue() <= 2) {
-                result.setMessage("您的通话时长小于2分钟，请购买套餐，<a href='../goods/list/0'>立即购买</a>");
+                result.setMessage("您的通话时长小于2分钟，请购买套餐");
+                result.setCode(-3);
                 return result.toString();
             }
         } else if (loginUser.getRoleid().intValue() >= 30 && loginUser.getRoleid().intValue() < 40) {//投资人
@@ -71,7 +74,8 @@ public class MixcomController extends BaseController {
                 return result.toString();
             }
             if (loginUser.getRoleid().intValue() == 30) {//未认证
-                result.setMessage("请先认证投资人身份");
+                result.setMessage("亲爱的用户，请先认证成为合格投资人才能申请成为专职顾问哦！");
+                result.setCode(-4);
                 return result.toString();
             }
         }

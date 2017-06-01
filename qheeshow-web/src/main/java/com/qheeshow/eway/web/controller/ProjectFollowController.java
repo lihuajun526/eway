@@ -32,7 +32,7 @@ public class ProjectFollowController extends BaseController {
 
         Result result = new Result();
         if (session.getAttribute("loginUser") == null) {
-            result.set(-1, "对不起，请先登录");
+            result.set(-1, "亲爱的用户，请先登录才能添加关注哦！");
             return result.toString();
         }
         User loginUser = (User) session.getAttribute("loginUser");
@@ -42,7 +42,7 @@ public class ProjectFollowController extends BaseController {
         try {
             projectFollowService.follow(projectFollow);
         } catch (CommonException e) {
-            result.set(-1, e.getDesc());
+            result.set(-2, e.getDesc());
             return result.toString();
         }
         return result.toString();

@@ -1,5 +1,6 @@
 package com.qheeshow.eway.web.controller;
 
+import com.qheeshow.eway.common.constant.ExceptionTypeEnum;
 import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.ProjectAdviser;
@@ -38,10 +39,13 @@ public class ProjectAdviserController extends BaseController {
         try {
             projectAdviserService.apply(projectid, loginUser.getId());
         } catch (CommonException e) {
-            result.set(-1, e.getDesc());
+            if (e.getCode().equals(ExceptionTypeEnum.Investor_Not_Auth_ERROR)) {
+                result.set(-2, "亲爱的用户，请先认证成为合格投资人才能申请成为专职顾问哦！");
+            } else {
+                result.set(-3, e.getDesc());
+            }
             return result.toString();
         }
-
         return result.toString();
     }
 
@@ -72,7 +76,7 @@ public class ProjectAdviserController extends BaseController {
     @RequestMapping("/status/set/{projectid}/{userid}/{status}")
     @ResponseBody
     public String setStatus(@PathVariable Integer projectid, @PathVariable Integer userid, @PathVariable Integer status,
-            String description) {
+                            String description) {
 
         Result result = new Result();
 

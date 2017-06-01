@@ -207,7 +207,7 @@ public class ProjectController extends BaseController {
 
         List<Project> projectList = new ArrayList<>();
 
-        Map<String, Object> map = projectService.listByCondition(type, areaid, financingLimit, industry, pageIndex, pageSize,keyword);
+        Map<String, Object> map = projectService.listByCondition(type, areaid, financingLimit, industry, pageIndex, pageSize, keyword);
         projectList = (List<Project>) map.get("projects");
         recordCount = (Integer) map.get("count");
 
@@ -287,6 +287,24 @@ public class ProjectController extends BaseController {
         }
         result.setData(project.getBp());
         result.setCode(0);
+        return result.toString();
+    }
+
+
+    /**
+     * 获得登录用户创建的项目
+     * @param session
+     * @return
+     */
+    @RequestMapping("/list/mypros/authj")
+    @ResponseBody
+    public String downloadBp(HttpSession session) {
+        Result<List<Project>> result = new Result();
+
+        User loginUser = (User)session.getAttribute("loginUser");
+        List<Project> list = projectService.listByUser(loginUser.getId());
+        result.setData(list);
+
         return result.toString();
     }
 

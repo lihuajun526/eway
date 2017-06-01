@@ -85,11 +85,18 @@
                 <div class="on2">现价<span>￥1299</span></div>
             </div>
             <div class="g-pser-cntont">
-                <h1>投资人互动</h1>
+                <h1 onmouseover="showT(0)" onmouseout="hideT(0)">投资人互动</h1>
 
                 <h3>3个投资人／45分钟起</h3>
             </div>
             <div id="buy1" class="<%=buyBtncls1%>"><a onclick="addGoods(1,1299);">购买</a></div>
+            <div id="t_0" class="g-invest-bombbox">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
         </div>
         <div class="g-pser-cnt">
             <h2>套餐二</h2>
@@ -98,12 +105,26 @@
                 <div class="on3">￥799</div>
             </div>
             <div class="g-pser-cntont">
-                <h1>项目亮点精编</h1>
-                <span>投资人互动</span>
+                <h1 onmouseover="showT(1)" onmouseout="hideT(1)">项目亮点精编</h1>
+                <span onmouseover="showT(2)" onmouseout="hideT(2)">投资人互动</span>
 
                 <h3>2个投资人／30分钟起</h3>
             </div>
             <div id="buy2" class="<%=buyBtncls2%>"><a onclick="addGoods(2,799);">购买</a></div>
+            <div id="t_1" class="g-invest-bombbox1">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_2" class="g-invest-bombbox2">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
         </div>
         <div class="g-pser-cnt">
             <h2>套餐三</h2>
@@ -113,15 +134,57 @@
             </div>
             <div class="g-pser-cntont2">
                 <ul>
-                    <li>场外市场挂牌</li>
-                    <li>线下路演</li>
-                    <li>资本孵化<span>商业计划书/培训</span></li>
-                    <li>双平台展示</li>
-                    <li>项目亮点精编</li>
-                    <li>投资人互动</li>
+                    <li onmouseover="showT(3)" onmouseout="hideT(3)">场外市场挂牌</li>
+                    <li onmouseover="showT(4)" onmouseout="hideT(4)">线下路演</li>
+                    <li onmouseover="showT(5)" onmouseout="hideT(5)">资本孵化<span>商业计划书/培训</span></li>
+                    <li onmouseover="showT(6)" onmouseout="hideT(6)">双平台展示</li>
+                    <li onmouseover="showT(7)" onmouseout="hideT(7)">项目亮点精编</li>
+                    <li onmouseover="showT(8)" onmouseout="hideT(8)">投资人互动</li>
                 </ul>
             </div>
             <div id="buy3" class="<%=buyBtncls3%>"><a onclick="addGoods(3,19900);">购买服务</a></div>
+            <div id="t_3" class="g-invest-bombbox3">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_4" class="g-invest-bombbox4">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_5" class="g-invest-bombbox5">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_6" class="g-invest-bombbox6">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_7" class="g-invest-bombbox7">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_8" class="g-invest-bombbox8">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
         </div>
         <div class="g-pser-cnt">
             <h2>套餐四</h2>
@@ -131,14 +194,49 @@
             </div>
             <div class="g-pser-cntont2">
                 <ul>
-                    <li>线下路演</li>
-                    <li>资本孵化<span>商业计划书/培训</span></li>
-                    <li>双平台展示</li>
-                    <li>项目亮点精编</li>
-                    <li>投资人互动</li>
+                    <li onmouseover="showT(9)" onmouseout="hideT(9)">线下路演</li>
+                    <li onmouseover="showT(10)" onmouseout="hideT(10)">资本孵化<span>商业计划书/培训</span></li>
+                    <li onmouseover="showT(11)" onmouseout="hideT(11)">双平台展示</li>
+                    <li onmouseover="showT(12)" onmouseout="hideT(12)">项目亮点精编</li>
+                    <li onmouseover="showT(13)" onmouseout="hideT(13)">投资人互动</li>
                 </ul>
             </div>
             <div id="buy4" class="<%=buyBtncls4%>"><a onclick="addGoods(4,9900);">购买服务</a></div>
+            <div id="t_9" class="g-invest-bombbox9">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_10" class="g-invest-bombbox10">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_11" class="g-invest-bombbox11">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_12" class="g-invest-bombbox12">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_13" class="g-invest-bombbox13">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
         </div>
         <div class="clear"></div>
         <div id="cart" class="g-pser-n">
@@ -361,6 +459,12 @@
     }
     function refres() {
         window.location.reload();
+    }
+    function showT(id) {
+        $("#t_" + id).show();
+    }
+    function hideT(id) {
+        $("#t_" + id).hide();
     }
 </script>
 </html>

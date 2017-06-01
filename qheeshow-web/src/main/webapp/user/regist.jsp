@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <script type="text/javascript" src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
     <script type="text/javascript" src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
@@ -54,13 +55,20 @@
                         <%--<em class="g-lgin-left-top"></em><em class="g-lgin1-right-top"></em><em class="g-lgin1-right-bottom"></em><em class="g-lgin-left-bottom"></em>--%>
                     </li>
                     <li>
-                        <input id="password" name="password" type="password" class="g-lgin-ipt2" placeholder="请输入密码"/>
+                        <input id="password" name="password" type="password" class="g-lgin-ipt2"
+                               placeholder="请输入密码，必须由6-16位字母和数字组成"/>
                         <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em
                             class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
                     <li>
                         <input id="rePassword" name="rePassword" type="password" class="g-lgin-ipt2"
                                placeholder="请再次输入密码"/>
+                        <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em
+                            class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
+                    </li>
+                    <li>
+                        <input id="referee" name="referee" class="g-lgin-ipt2"
+                               placeholder="推荐人（选填）"/>
                         <em class="g-lgin-left-top"></em><em class="g-lgin-right-top"></em><em
                             class="g-lgin-right-bottom"></em><em class="g-lgin-left-bottom"></em>
                     </li>
@@ -150,6 +158,15 @@
         }
         if (!password.length) {
             tip("请输入密码");
+            return false;
+        }
+        if (password.length < 6 || password.length > 16) {
+            tip("请输入6-16位字母与数字组合的密码");
+            return false;
+        }
+        var re = /^(?=.*[a-zA-Z]+)(?=.*[0-9]+)[a-zA-Z0-9]+$/;//判断字符串是否为数字和字母的组合
+        if (!re.test(password)) {
+            tip("密码必须包含字母和数字");
             return false;
         }
         if (!rePassword.length) {

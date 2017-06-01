@@ -1151,11 +1151,51 @@ overflow:hidden;
 	background:url(wt-radius-30.png) no-repeat center center;
 	color:#0097e1;
 }
-.g-invest-bombbox {
+.g-invest-bombbox,.g-invest-bombbox1,.g-invest-bombbox2,.g-invest-bombbox3,.g-invest-bombbox4,.g-invest-bombbox5,.g-invest-bombbox6,.g-invest-bombbox7,.g-invest-bombbox8,.g-invest-bombbox9,.g-invest-bombbox10,.g-invest-bombbox11,.g-invest-bombbox12,.g-invest-bombbox13 {
 	position:absolute;
 	top:182px;
 	left:62px;
 	width:268px;
+	display: none;
+}
+.g-invest-bombbox1 {
+	top:182px;
+}
+.g-invest-bombbox2 {
+	top:242px;
+}
+.g-invest-bombbox3 {
+	top:178px;
+}
+.g-invest-bombbox4 {
+	top:235px;
+}
+.g-invest-bombbox5 {
+	top:312px;
+}
+.g-invest-bombbox6 {
+	top:369px;
+}
+.g-invest-bombbox7 {
+	top:426px;
+}
+.g-invest-bombbox8 {
+	top:480px;
+}
+.g-invest-bombbox9 {
+	top:178px;
+}
+.g-invest-bombbox10 {
+	top:235px;
+}
+.g-invest-bombbox11 {
+	top:312px;
+}
+.g-invest-bombbox12 {
+	top:369px;
+}
+.g-invest-bombbox13 {
+	top:423px;
 }
 .g-invest-bombbox-t {
 	background:url(wt-icon35.png) no-repeat;

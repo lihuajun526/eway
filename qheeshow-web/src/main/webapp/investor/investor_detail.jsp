@@ -24,44 +24,60 @@
 <body>
 <%@include file="../pub/head.jsp" %>
 <div class="g-proj">
-    <div class="g-invest">
-        <div class="g-invest-img"><img src="<%=investor.getPhoto()%>" width="180" height="180"/></div>
-        <div class="g-invest-tr">
-            <div class="g-invest-name"><%=investor.getTrueName()%>
-            </div>
-            <div class="g-invest-t"><%=investor.getCompanyName()%>-<%=investor.getCompanyRank()%>
-            </div>
-            <div class="g-invest-onect">
-                <div class="on1">个人简介：</div>
-                <div class="on2"><%=investor.getSummary()%>
+
+    <div class="g-invest-wwarp">
+
+        <div class="g-invest">
+            <div class="g-invest-img"><img src="<%=investor.getPhoto()%>" width="180" height="180"/></div>
+            <div class="g-invest-tr">
+                <div class="g-invest-name"><%=investor.getTrueName()%>
                 </div>
+                <div class="g-invest-t"><%=investor.getCompanyName()%>-<%=investor.getCompanyRank()%>
+                </div>
+                <div class="g-invest-onect">
+                    <div class="on1">个人简介：</div>
+                    <div class="on2"><%=investor.getSummary()%>
+                    </div>
+                </div>
+                <ul class="g-invest-lst">
+                    <%
+                        for (String tag : tags.keySet()) {
+                    %>
+                    <li>
+                        <a><%=tag%>(<%=tags.get(tag)%>)</a>
+                        <span class="invest1-left-top"></span><span class="invest1-right-top"></span><span
+                            class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
+                    </li>
+                    <%
+                        }
+                    %>
+                </ul>
+                <a id="follow_" class="g-invest-focus"
+                   onclick="follow(<%=investor.getUserid()%>,<%=investor.getId()%>)"></a>
+                <ul class="g-invest-lst2">
+                    <li><a onclick="listProject()">投递项目</a><span
+                            class="invest1-left-top"></span><span
+                            class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span
+                            class="invest1-left-bottom"></span></li>
+                    <li><a onclick="bound(<%=investor.getUserid()%>)">查看联系方式</a><span
+                            class="invest1-left-top"></span><span
+                            class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span
+                            class="invest1-left-bottom"></span></li>
+                </ul>
             </div>
-            <ul class="g-invest-lst">
-                <%
-                    for (String tag : tags.keySet()) {
-                %>
-                <li>
-                    <a><%=tag%>(<%=tags.get(tag)%>)</a>
-                    <span class="invest1-left-top"></span><span class="invest1-right-top"></span><span
-                        class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
-                </li>
-                <%
-                    }
-                %>
-            </ul>
-            <a id="follow_" class="g-invest-focus"
-               onclick="follow(<%=investor.getUserid()%>,<%=investor.getId()%>)"></a>
-            <ul class="g-invest-lst2">
-                <li><a onclick="postProject(<%=investor.getUserid()%>)">投递项目</a><span
-                        class="invest1-left-top"></span><span
-                        class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span
-                        class="invest1-left-bottom"></span></li>
-                <li><a onclick="bound(<%=investor.getUserid()%>)">查看联系方式</a><span class="invest1-left-top"></span><span
-                        class="invest1-right-top"></span><span class="invest1-right-bottom"></span><span
-                        class="invest1-left-bottom"></span></li>
-            </ul>
         </div>
+
+        <div id="pros_div" class="g-invest-bomb" style="display: none">
+            <div class="g-invest-bomb-l"></div>
+            <div class="g-invest-bomb-c">
+                <ul id="pros" class="g-invest-bomb-clst"></ul>
+                <div class="g-invest-bomb-cbtn"><a onclick="postProject()">确定投递</a></div>
+            </div>
+            <div class="g-invest-bomb-r"></div>
+        </div>
+
     </div>
+
     <div class="g-conter">
         <div class="g-invest-l">
             <div class="g-invest-lone">
@@ -202,6 +218,8 @@
         $.get("<%=appPath%>/investor/follow/" + userid + "/" + investorid, function (result) {
             if (result.data) {
                 $("#follow_").html("已关注");
+            } else if (result.code == -1) {
+                xalert1(result.message, "去登录", "<%=appPath%>/user/login.jsp");
             } else {
                 xalert(result.message);
             }
@@ -219,19 +237,52 @@
     function bound(userid) {
         $.get("<%=appPath%>/mixcom/bound/" + userid + "/authj", function (result) {
             if (result.code < 0) {
-                xalert(result.message);
+                if (result.code == -1) {
+                    xalert1(result.message, "去登录", "<%=appPath%>/user/login.jsp");
+                } else if (result.code == -3) {
+                    xalert1(result.message, "立即购买", "<%=appPath%>/goods/list/0");
+                } else
+                    xalert(result.message);
                 return;
             }
             xalert("<%=investor.getTrueName()%>的联系电话是：" + result.data + "，该电话号码10分钟内有效，请尽快联系对方");
         }, "json");
     }
 
-    function postProject(userid) {
-        $.get("<%=appPath%>/investor/project/post/" + userid + "/authj", function (result) {
-            if (result.data) {
-                xalert(result.message);
+    function listProject() {
+
+        $.get("<%=appPath%>/project/list/mypros/authj", function (result) {
+            if (result.code < 0) {
+                if (result.code == -1)
+                    xalert1(result.message, "去登录", "<%=appPath%>/user/login.jsp");
+                else
+                    xalert(result.message);
                 return;
             }
+            if (result.data.length == 0) {
+                xalert("您尚未创建项目，请先创建项目");
+                return;
+            }
+            for (var i = 0; i < result.data.length; i++) {
+                var pro = result.data[i];
+                $("#pros").append("<li><img src='" + pro.logo + "' width='82' height='82'/><span><i><input name='s_pro' type='radio' value='" + pro.id + "'></i>" + pro.title + "</span></li>");
+            }
+            $("input[name='s_pro']:first").attr('checked', 'checked');
+            $("#pros_div").show();
+        }, "json");
+    }
+
+    function postProject() {
+        var id = $("input[name='s_pro']:checked").val();
+        $.get("<%=appPath%>/investor/project/post/<%=investor.getUserid()%>/" + id + "/authj", function (result) {
+            if (!result.data) {
+                if (result.code = -1) {
+                    xalert1(result.message, "去上传", "<%=appPath%>/project/" + id + "/add/edit/1/auth");
+                } else
+                    xalert(result.message);
+                return;
+            }
+            $("#pros_div").hide();
             xalert("投递成功");
         }, "json");
     }

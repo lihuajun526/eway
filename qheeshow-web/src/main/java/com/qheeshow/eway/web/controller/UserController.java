@@ -357,7 +357,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public String reLogin() {
         Result result = new Result();
-        result.set(-1, "对不起，请先登录");
+        result.set(-1, "亲爱的用户，请先登录！");
         return result.toString();
     }
 

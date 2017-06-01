@@ -91,8 +91,10 @@
                         }
                     %>
                     <%
-                        if(!StringUtils.isEmpty(project.getBp())){
-                            %><li><a href="#4F">项目BP</a></li><%
+                        if (!StringUtils.isEmpty(project.getBp())) {
+                    %>
+                    <li><a href="#4F">项目BP</a></li>
+                    <%
                         }
                     %>
                 </ul>
@@ -158,15 +160,15 @@
                 }
             %>
             <%
-                if(!StringUtils.isEmpty(project.getBp())){
-                    %>
+                if (!StringUtils.isEmpty(project.getBp())) {
+            %>
             <div id="4F" class="g-invest-lone3">
                 <ul class="g-proj-titlst">
                     <li class="on-bp">项目BP</li>
                 </ul>
                 <a class="g-proj-more" onclick="downloadBp();">下载商业计划书</a>
             </div>
-                    <%
+            <%
                 }
             %>
             <div id="qas" class="g-invest-lone2"></div>
@@ -221,6 +223,8 @@
             success: function (result) {
                 if (result.code == 0) {
                     $("#follow").html("已关注");
+                } else if (result.code == -1) {
+                    xalert1(result.message, "去登录", "<%=appPath%>/user/login.jsp");
                 } else {
                     xalert(result.message);
                 }
@@ -262,7 +266,17 @@
     function bound(userid) {
         $.get("<%=appPath%>/mixcom/bound/" + userid + "/authj", function (result) {
             if (result.code < 0) {
-                xalert(result.message);
+                if (result.code == -1) {
+                    xalert1(result.message, "去登录", "<%=appPath%>/user/login.jsp");
+                } else if (result.code == -4) {
+                    <%
+                        if(loginUser!=null){
+                        %>xalert1(result.message, "去认证", "<%=appPath%>/investor/<%=loginUser.getId()%>/add/edit/2/auth");
+                    <%
+                                            }
+                                        %>
+                } else
+                    xalert(result.message);
                 return;
             }
             xalert("项目负责人的联系电话是：" + result.data + "，该电话10分钟内有效");
@@ -271,7 +285,17 @@
     function applyAdviser(projectid) {
         $.get("<%=appPath%>/project/adviser/apply/" + projectid + "/authj", function (result) {
             if (result.code < 0) {
-                xalert(result.message);
+                if (result.code == -1) {
+                    xalert1(result.message, "去登录", "<%=appPath%>/user/login.jsp");
+                } else if (result.code == -2) {
+                    <%
+                        if(loginUser!=null){
+                        %>xalert1(result.message, "去认证", "<%=appPath%>/investor/<%=loginUser.getId()%>/add/edit/2/auth");
+                    <%
+                                            }
+                                        %>
+                } else
+                    xalert(result.message);
                 return;
             }
             $("#apply").html("已申请专职顾问");
@@ -325,11 +349,14 @@
         });
     }
 
-    function downloadBp(){
+    function downloadBp() {
 
         $.get("<%=appPath%>/project/bp/download/<%=project.getId()%>/authj", function (result) {
             if (result.code < 0) {
-                xalert(result.message);
+                if (result.code == -1) {
+                    xalert1(result.message, "去登录", "<%=appPath%>/user/login.jsp");
+                } else
+                    xalert(result.message);
                 return;
             }
             window.location.href = result.data;
