@@ -1084,9 +1084,7 @@
 	width:100%;
 	border:0;
 	background:#FFFFFF;
-	height:37px;
-	line-height:37px;
-	padding-left:16px;
+	padding:8px 0 8px 16px;
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	font-size:17px;

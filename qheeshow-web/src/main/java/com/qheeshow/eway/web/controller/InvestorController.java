@@ -331,10 +331,10 @@ public class InvestorController extends BaseController {
 
         Investor investor = investorService.getByUser(userid);
 
-        /*if (postRecordService.listByInvestorAndProject(investor.getId(), projectid).size() > 0) {
+        if (postRecordService.listByInvestorAndProject(investor.getId(), projectid).size() > 0) {
             result.setMessage("对不起，该项目已投递给该投资人，不能重复投递");
             return result.toString();
-        }*/
+        }
 
         //投递项目
         PostRecord postRecord = new PostRecord();

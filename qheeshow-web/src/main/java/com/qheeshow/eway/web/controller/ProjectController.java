@@ -298,7 +298,7 @@ public class ProjectController extends BaseController {
      */
     @RequestMapping("/list/mypros/authj")
     @ResponseBody
-    public String downloadBp(HttpSession session) {
+    public String listMyProject(HttpSession session) {
         Result<List<Project>> result = new Result();
 
         User loginUser = (User)session.getAttribute("loginUser");

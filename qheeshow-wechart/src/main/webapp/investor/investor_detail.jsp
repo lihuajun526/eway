@@ -21,11 +21,13 @@
 </head>
 <body class="wtxt-pb wtwx-warp">
 <%@include file="../pub/head.jsp" %>
-<div id="pros" style="display: none;">
+<div id="pros_" style="display: none;">
     <div class="shade"></div>
     <div class="wtwx-project2-radius">
+        <a onclick="javascript:$('#pros_').hide()" class="wtwx-project-radius-close"></a>
+
         <h1>选择要投递的项目</h1>
-        <ul class="wtwx-project2-lst2"></ul>
+        <ul id="pros" class="wtwx-project2-lst2"></ul>
         <div class="wtwx-project2-btn3"><a onclick="postPro()">确定</a></div>
     </div>
 </div>
@@ -59,60 +61,48 @@
 </div>
 <div class="wtwx-project-cnt2">
     <div class="wtwx-activity-tit2">评价</div>
-    <ul class="wtwx-project-cnt2-lst4">
-        <li onclick="setTag(this)" data="专业人士"><a>专业人士</a></li>
-        <li onclick="setTag(this)" data="人脉大咖"><a>人脉大咖</a></li>
-        <li onclick="setTag(this)" data="金融专家"><a>金融专家</a></li>
-        <li onclick="setTag(this)" data="FA达人"><a>FA达人</a></li>
-    </ul>
-    <div class="wtwx-project-cnt2-lst5">
-        <div class="wtwx-project-cnt2-lst5-l">星级评价：</div>
-        <div id="stars" class="wtwx-project-cnt2-lst5-r">
-            <a onclick="setStar(1)"><img src="images/wtwx-icon16.png" width="19" height="18"/></a>
-            <a onclick="setStar(2)"><img src="images/wtwx-icon16.png" width="19" height="18"/></a>
-            <a onclick="setStar(3)"><img src="images/wtwx-icon16.png" width="19" height="18"/></a>
-            <a onclick="setStar(4)"><img src="images/wtwx-icon16.png" width="19" height="18"/></a>
-            <a onclick="setStar(5)"><img src="images/wtwx-icon16.png" width="19" height="18"/></a>
+    <form id="commentForm">
+        <input type="hidden" name="investorid" value="<%=investor.getId()%>"/>
+        <input type="hidden" id="star" name="star" value="0"/>
+        <input type="hidden" id="tags" name="tags" value=""/>
+        <ul id="tags_" class="wtwx-project-cnt2-lst4">
+            <li onclick="setTag(this)" data="专业人士"><a>专业人士</a></li>
+            <li onclick="setTag(this)" data="人脉大咖"><a>人脉大咖</a></li>
+            <li onclick="setTag(this)" data="金融专家"><a>金融专家</a></li>
+            <li onclick="setTag(this)" data="FA达人"><a>FA达人</a></li>
+        </ul>
+        <div class="wtwx-project-cnt2-lst5">
+            <div class="wtwx-project-cnt2-lst5-l">星级评价：</div>
+            <div id="stars" class="wtwx-project-cnt2-lst5-r">
+                <a onclick="setStar(1)"><img src="<%=appPath%>/images/wtwx-icon16.png" width="19" height="18"/></a>
+                <a onclick="setStar(2)"><img src="<%=appPath%>/images/wtwx-icon16.png" width="19" height="18"/></a>
+                <a onclick="setStar(3)"><img src="<%=appPath%>/images/wtwx-icon16.png" width="19" height="18"/></a>
+                <a onclick="setStar(4)"><img src="<%=appPath%>/images/wtwx-icon16.png" width="19" height="18"/></a>
+                <a onclick="setStar(5)"><img src="<%=appPath%>/images/wtwx-icon16.png" width="19" height="18"/></a>
+            </div>
         </div>
-    </div>
-    <div class="wtwx-project-cnt2-lst5">
-        <div class="wtwx-project-cnt2-lst5-la">描述评论：</div>
-        <div class="wtwx-project-cnt2-lst5-r">
-            <div class="wtwx-project-texta"><textarea name="" cols="" rows=""
-                                                      class="wtwx-project-texta1">添加评论</textarea></div>
-            <div class="wtwx-project-btn2"><a href="#">发表评论</a></div>
+        <div class="wtwx-project-cnt2-lst5">
+            <div class="wtwx-project-cnt2-lst5-la">描述评论：</div>
+            <div class="wtwx-project-cnt2-lst5-r">
+                <div class="wtwx-project-texta">
+                    <textarea id="content" name="content" class="wtwx-project-texta1" placeholder="填写评价"></textarea></div>
+                <div class="wtwx-project-btn2"><a onclick="saveComment()" href="#">发表评价</a></div>
+            </div>
         </div>
-    </div>
-    <div class="wtwx-project-cnt3">
-        <div class="wtwx-project-cnt3-l"><img src="images/wtwx-img2.png" width="36" height="36"/></div>
-        <div class="wtwx-project-cnt3-r">
-            <h1>一休哥</h1>
-
-            <div class="wtwx-project-cnt3-rcnt">有没有明确的盈利方案和商业模式吗？后续会做什么促进？</div>
-            <div class="wtwx-project-cnt3-rtime">2017年7月9日19:00<a href="#" class="wtwx-project-cnt3-rreply">回复</a></div>
-        </div>
-        <a href="#" class="wtwx-project-cnt3-praise">872</a>
-    </div>
-    <div class="wtwx-project-cnt3">
-        <div class="wtwx-project-cnt3-l"><img src="images/wtwx-img2.png" width="36" height="36"/></div>
-        <div class="wtwx-project-cnt3-r">
-            <h1>一休哥</h1>
-
-            <div class="wtwx-project-cnt3-rcnt">有没有明<span class="blue">@一宿哥</span>确的盈利方案和商业模式吗？后续会做什么促进？</div>
-            <div class="wtwx-project-cnt3-rtime">2017年7月9日19:00<a href="#" class="wtwx-project-cnt3-rreply">回复</a></div>
-        </div>
-        <a href="#" class="wtwx-project-cnt3-praise2">872</a>
-    </div>
+    </form>
+    <div id="coms"></div>
 </div>
 <ul class="wtwx-menu3">
-    <a onclick="follow()">
-        <li><img src="images/wtwx-project-meun4.png" width="25" height="25"/><span id="follow_">关注</span></li>
+    <a href="#" onclick="follow()">
+        <li><img src="<%=appPath%>/images/wtwx-project-meun4.png" width="25" height="25"/><span id="follow_">关注</span>
+        </li>
     </a>
-    <a onclick="postPro()">
-        <li><img src="images/wtwx-project-meun5.png" width="25" height="25"/><span>投递项目</span></li>
+    <a href="#" onclick="listPro()">
+        <li><img src="<%=appPath%>/images/wtwx-project-meun5.png" width="25" height="25"/><span>投递项目</span></li>
     </a>
-    <a onclick="bound()">
-        <li class="on"><img src="images/wtwx-project-meun6.png" width="25" height="25"/><span>获取联系电话</span></li>
+    <a href="#" onclick="bound()">
+        <li class="on"><img src="<%=appPath%>/images/wtwx-project-meun6.png" width="25" height="25"/><span>获取联系电话</span>
+        </li>
     </a>
 </ul>
 <script type="text/javascript" src="<%=appPath%>/zepto/zepto.js"></script>
@@ -129,9 +119,9 @@
         var imgs = $("#stars>a>img");
         for (var i = 1; i <= imgs.length; i++) {
             if (i <= v)
-                $(imgs[i]).attr("src", "images/wtwx-icon17.png");
+                $(imgs[i - 1]).attr("src", "<%=appPath%>/images/wtwx-icon17.png");
             else
-                $(imgs[i]).attr("src", "images/wtwx-icon16.png");
+                $(imgs[i - 1]).attr("src", "<%=appPath%>/images/wtwx-icon16.png");
         }
         $("#star").val(v);
     }
@@ -164,14 +154,77 @@
             }
         }, "json");
     }
-    //投递项目
-    function postPro(id) {
-        $.get("<%=appPath%>/investor/do/project/post/" + id + "/<%=investor.getUserid()%>/v_auth", function (result) {
+    function bound() {
+        $.getJSON("<%=appPath%>/mixcom/do/bound/<%=investor.getUserid()%>/v_authj", function (result) {
             openTip(result);
         }, "json");
     }
-    function bound() {
-        $.getJSON("<%=appPath%>/mixcom/do/bound/<%=investor.getUserid()%>/v_authj", function (result) {
+    var postProid = 0;
+    function listPro() {
+        $.get("<%=appPath%>/project/do/list/mypros/v_authj", function (result) {
+            if (result.code < 0) {
+                openTip(result);
+            } else {
+                $("#pros").empty();
+                for (var i = 0; i < result.data.data.length; i++) {
+                    var pro = result.data.data[i];
+                    if (i == 0) {
+                        postProid = pro.id;
+                        $("#pros").append("<li id='li_" + pro.id + "' onclick='selectPro(" + pro.id + ")'><span class='shade2'></span><span class='select'><img src='<%=appPath%>/images/wtwx-icon18.png' width='30' height='30'/></span><img src='" + pro.logo + "' width='68' height='68'/><span class='gfont'>" + pro.title + "</span></li>");
+                    } else {
+                        $("#pros").append("<li id='li_" + pro.id + "' onclick='selectPro(" + pro.id + ")'><img src='" + pro.logo + "' width='68' height='68'/><span class='gfont'>" + pro.title + "</span></li>");
+                    }
+                }
+                $("#pros_").show();
+            }
+        }, "json");
+    }
+    function selectPro(id) {
+        if (postProid == 0)
+            return;
+        var count = 0;
+        $("#li_" + postProid).children().each(function () {
+            if (count < 2) {
+                $(this).remove();
+                count++;
+            } else
+                return;
+        });
+        postProid = id;
+        $("#li_" + postProid).before("<span class='shade2'></span><span class='select'><img src='<%=appPath%>/images/wtwx-icon18.png' width='30' height='30'/></span>");
+    }
+    function postPro() {
+        $.get("<%=appPath%>/investor/do/project/post/<%=investor.getUserid()%>/" + postProid + "/v_authj", function (result) {
+            $("#pros_").hide();
+            openTip(result);
+        }, "json");
+    }
+    function listComs() {
+        $("#coms").load("<%=appPath%>/investor/do/comment/list/<%=investor.getId()%>");
+    }
+    listComs();
+    function saveComment() {
+        var tags = "";
+        $("#tags_").children('li').each(function () {
+            if ($(this).attr("class") == "on")
+                tags += $(this).attr("data") + "#";
+        });
+        $("#tags").val(tags);
+        if (!tags.length) {
+            openTip({'message': '对不起，请选择评价标签', 'data': {'link': 'close', 'action': '知道了'}});
+            return;
+        }
+        if ($("#star").val() == "0") {
+            openTip({'message': '对不起，请选择星级', 'data': {'link': 'close', 'action': '知道了'}});
+            return;
+        }
+        if (!$("#content").val().length) {
+            openTip({'message': '对不起，请输入评论内容', 'data': {'link': 'close', 'action': '知道了'}});
+            return;
+        }
+        $.post("<%=appPath%>/investor/do/comment/save/v_authj", $('#commentForm').serialize(), function (result) {
+            $("#content").val("");
+            listComs();
             openTip(result);
         }, "json");
     }

@@ -105,16 +105,16 @@
 </div>
 <div id="qas"></div>
 <ul class="wtwx-menu2">
-    <a onclick="getBp()">
+    <a href="#" onclick="getBp()">
         <li><img src="<%=appPath%>/images/wtwx-project-meun1.png" width="25" height="25"/><span>商业计划书</span></li>
     </a>
-    <a onclick="bound()">
+    <a href="#" onclick="bound()">
         <li><img src="<%=appPath%>/images/wtwx-project-meun2.png" width="25" height="25"/><span>联系创始人</span></li>
     </a>
-    <a onclick="applyAdviser()">
+    <a href="#" onclick="applyAdviser()">
         <li><img src="<%=appPath%>/images/wtwx-project-meun3.png" width="25" height="25"/><span>成为专职顾问</span></li>
     </a>
-    <a onclick="followOrNot()">
+    <a href="#" onclick="followOrNot()">
         <li><img src="<%=appPath%>/images/wtwx-project-meun4.png" width="25" height="25"/><span id="follow_">关注</span>
         </li>
     </a>
@@ -174,13 +174,17 @@
             openTip({'message': '请输入您的问题', 'data': {'action': '知道了', 'link': 'close'}});
             return;
         }
-        /*$.post("<%=appPath%>/project/do/q/<%=project.getId()%>/v_authj", function (result) {
-            openTip(result);
-        }, "json");
+        /*$.post("
+        <%=appPath%>/project/do/q/
+        <%=project.getId()%>/v_authj", function (result) {
+         openTip(result);
+         }, "json");
 
-        $.post('<%=appPath%>/project/do/q/<%=project.getId()%>/v_authj', {sample: 'payload'}, function (response) {
-            // process response
-        })*/
+         $.post('
+        <%=appPath%>/project/do/q/
+        <%=project.getId()%>/v_authj', {sample: 'payload'}, function (response) {
+         // process response
+         })*/
     }
 </script>
 </body>

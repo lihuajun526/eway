@@ -19,6 +19,10 @@ public class Comment {
 
     private Date updateTime;
 
+    private String photo;
+
+    private String name;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +85,21 @@ public class Comment {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

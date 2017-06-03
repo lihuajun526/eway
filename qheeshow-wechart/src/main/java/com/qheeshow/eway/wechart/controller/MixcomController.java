@@ -80,7 +80,9 @@ public class MixcomController extends BaseController {
         }
         try {
             String mixNo = mixcomService.bound(loginUser.getMobile(), user.getMobile(), loginUser.getCallTime());
-            result.setMessage("联系电话：<a href='tel:" + mixNo + "'>" + mixNo + "<a>，点击拨打");
+            result.setMessage("联系电话：" + mixNo);
+            tip.setLink("tel:" + mixNo);
+            tip.setAction("呼叫");
         } catch (Exception e) {
             LOGGER.error("error", e);
             result.setMessage("获取失败");

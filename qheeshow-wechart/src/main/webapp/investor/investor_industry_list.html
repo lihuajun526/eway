@@ -1,0 +1,46 @@
+<div class="wtwx-investors-tit2">
+    <div class="wtwx-investors-field2"><span id="c"></span>个投资人</div>
+    <a id="i" class="wtwx-investors-field">关注领域：</a>
+</div>
+<div id="investor_indus">
+    <script id="investor_indus_tmpl" type="text/template" charset="utf-8">
+        {{ for(var i=0; i < it.length; i++) { }}
+        <div class="wtwx-investors-cnt1">
+            <div class="wtwx-investors-cnt1-l"><img src="{{=it[i].photo}}" width="48" height="48"/></div>
+            <a href="/investor/do/{{=it[i].id}}">
+                <div class="wtwx-investors-cnt1-r">
+                    <h1>{{=it[i].trueName}}</h1>
+                    <h4>{{=it[i].companyName}}／{{=it[i].companyRank}}</h4>
+                </div>
+            </a>
+            <span class="wtwx-investors-cnt1-on1">{{=it[i].cityName}}</span>
+            <span class="wtwx-investors-cnt1-on2">LV 4</span>
+        </div>
+        {{ } }}
+    </script>
+</div>
+<script>
+    index = 1;
+    function q() {
+        $.getJSON(appPath + '/investor/do/list/industry/' + indusid + "/" + index, function (result) {
+            if (result.code >= 0) {
+                $("#c").html(result.data.count);
+                $("#i").append(result.data.indusName);
+                var tpl = $('#investor_indus_tmpl').html();
+                var tempFn = doT.template(tpl);
+                $("#investor_indus").append(tempFn(result.data.investors));
+                if (result.data.investors.length < 10) {
+                    $("#more").html("没有更多了");
+                } else {
+                    $("#more").html("点击加载更多");
+                    $('#more').unbind("click");
+                    $("#more").bind("click", function () {
+                        index++;
+                        q();
+                    });
+                }
+            }
+        });
+    }
+    q();
+</script>

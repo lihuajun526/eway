@@ -1,5 +1,6 @@
 package com.qheeshow.eway.wechart.controller;
 
+import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.common.web.HaResponse;
 import com.qheeshow.eway.service.model.*;
 import com.qheeshow.eway.service.service.*;
@@ -8,6 +9,7 @@ import com.qheeshow.eway.wechart.base.Result;
 import com.qheeshow.eway.wechart.base.Tip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,22 +38,8 @@ public class InvestorController extends BaseController {
     private MailService mailService;
     @Autowired
     private UserService userService;
-
-
-    /**
-     * @param id
-     * @return
-     * @Title: detail
-     * @Description: 根据id获取详情
-     * @author yue
-     * @date 2017年3月5日 下午2:53:21
-     */
-    @RequestMapping(value = "/detail")
-    @ResponseBody
-    public HaResponse detail(Integer id) {
-        Investor investor = investorService.detail(id);
-        return HaResponse.sussess(investor);
-    }
+    @Autowired
+    private XwcmclassinfoService xwcmclassinfoService;
 
     /**
      * 根据条件过滤投资人
@@ -233,30 +221,182 @@ public class InvestorController extends BaseController {
 
     /**
      * 投递项目
+     *
      * @param projectid
      * @param userid
      * @param session
      * @return
      */
-    @RequestMapping("/project/post/{projectid}/{investorid}/v_auth")
+    @RequestMapping("/project/post/{userid}/{projectid}/v_authj")
     @ResponseBody
-    public String postPro(@PathVariable Integer projectid, @PathVariable Integer userid, HttpSession session) {
+    public String postPro(@PathVariable Integer userid, @PathVariable Integer projectid, HttpSession session) {
 
         Result<Tip> result = new Result<>();
         Tip tip = new Tip();
         result.setData(tip);
 
-        User user = userService.get(userid);
-        Project project = projectService.get(projectid);
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser.getRoleid().intValue() >= 30 || loginUser.getRoleid().intValue() < 20) {
+            result.setMessage("对不起，企业/创业者才能投递项目");
+            return result.toString();
+        }
 
-        //邮件发送商业计划书
+        //企业每天最多投递5次
+        List<PostRecord> postRecordList = postRecordService.listByUserAndToday(loginUser.getId());
+        if (postRecordList.size() >= 5) {
+            result.setMessage("对不起，每天做多可投递5次");
+            return result.toString();
+        }
+
+        Project project = projectService.get(projectid);
+        if (StringUtils.isEmpty(project.getBp())) {
+            result.setMessage("对不起，该项目没有上传商业计划书，请在电脑端上传");
+            return result.toString();
+        }
+
+        Investor investor = investorService.getByUser(userid);
+
+        if (postRecordService.listByInvestorAndProject(investor.getId(), projectid).size() > 0) {
+            result.setMessage("对不起，该项目已投递给该投资人，不能重复投递");
+            return result.toString();
+        }
+
+        //投递项目
+        PostRecord postRecord = new PostRecord();
+        postRecord.setUserid(loginUser.getId());
+        postRecord.setInvestorid(investor.getId());
+        postRecord.setProjectid(project.getId());
+        postRecordService.save(postRecord);
+        //发送邮件
         MailBean mailBean = new MailBean();
-        mailBean.setContent("<div><a href='" + project.getBp() + "'>点击下载商业计划书</a></div>");
-        mailBean.setToAddress(user.getEmail());
-        mailBean.setSubject("\"" + project.getTitle() + "\"项目的商业计划书");
+        mailBean.setSubject(project.getTitle() + "商业计划书");
+        mailBean.setToAddress(investor.getEmail());
+        mailBean.setContent("<body><h1>" + investor.getTrueName() + "，您好</h1><br/><a href='" + project.getBp() + "'>点击下载</a>" + project.getTitle() + "商业计划书</body>");
         mailService.sendHtmlMail(mailBean);
 
         result.setMessage("投递成功");
         return result.toString();
     }
+
+    /**
+     * 获取所有行业
+     *
+     * @return
+     */
+    @RequestMapping("/industry/list")
+    public ModelAndView listAllIndustry() {
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        List<Xwcmclassinfo> industrys = xwcmclassinfoService.listByRoot(Config.getInt("classinfo.rootid.industry"));
+        Map<Integer, Integer> map = new HashMap<>();
+
+        Investor investor = new Investor();
+        investor.setPageSize(100);
+        investor.setStartRow(0);
+        for (Xwcmclassinfo industry : industrys) {
+            investor.setIndustryId("#" + industry.getClassinfoid() + "#");
+            map.put(industry.getClassinfoid(), investorService.listByIndustry(investor).size());
+        }
+
+        modelAndView.setViewName("investor/industry_list");
+        modelAndView.addObject("industrys", industrys);
+        modelAndView.addObject("map", map);
+
+        return modelAndView;
+    }
+
+    /**
+     * 添加评价
+     *
+     * @param comment
+     * @param session
+     * @return
+     */
+    @RequestMapping("/comment/save/v_authj")
+    @ResponseBody
+    public String save(Comment comment, HttpSession session) {
+        Result<Tip> result = new Result<>();
+        Tip tip = new Tip();
+        result.setData(tip);
+
+        Investor investor = investorService.get(comment.getInvestorid());
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        if (loginUser.getId().intValue() == investor.getUserid()) {
+            result.setMessage("您不能评价自己");
+            return result.toString();
+        }
+
+        if (commentService.listByUserAndInvestor(loginUser.getId(), comment.getInvestorid()).size() > 0) {
+            result.setMessage("您已评价过，不能重复评价");
+            return result.toString();
+        }
+
+        if (comment.getTags().indexOf("#") != -1) {
+            comment.setTags(comment.getTags().substring(0, comment.getTags().length() - 1));
+        }
+
+        comment.setUserid(loginUser.getId());
+        commentService.save(comment);
+
+        result.setMessage("评价成功");
+        return result.toString();
+    }
+
+    /**
+     * 评价列表
+     *
+     * @param investorid
+     * @return
+     */
+    @RequestMapping("/comment/list/{investorid}")
+    public ModelAndView listComment(@PathVariable Integer investorid) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        List<Comment> comments = commentService.listByInvestor(investorid);
+
+        if (comments.size() > 20)
+            comments = comments.subList(0, 20);
+
+        for (Comment comment : comments) {
+            User user = userService.get(comment.getUserid());
+            comment.setPhoto(user.getPhoto());
+            comment.setName(user.getName());
+        }
+
+        modelAndView.setViewName("investor/comment_list");
+        modelAndView.addObject("comments", comments);
+        return modelAndView;
+    }
+
+    /**
+     * 获取某行业下的投资人
+     *
+     * @param industryid
+     * @param pageIndex
+     * @return
+     */
+    @RequestMapping("/list/industry/{industryid}/{pageIndex}")
+    @ResponseBody
+    public String listByIndustry(@PathVariable Integer industryid, @PathVariable Integer pageIndex) {
+        Result<Map<String,Object>> result = new Result<>();
+
+        Map<String, Object> data = new HashMap<>();
+
+        Map<String, Object> map = investorService.listByCondition("0", String.valueOf(industryid), "0", pageIndex, 10, null);
+        List<Investor> investors = (List<Investor>) map.get("investors");
+
+        for (Investor investor : investors) {
+            investor.setCityName(investor.getCityName().replaceAll("#", " "));
+        }
+
+        data.put("investors", investors);
+        data.put("count", (Integer) map.get("count"));
+        data.put("indusName", xwcmclassinfoService.get(industryid).getCname());
+
+        result.setData(data);
+        return result.toString();
+    }
+
 }

@@ -32,7 +32,7 @@ public interface InvestorService {
     List<Investor> listByCondition(Investor investor);
 
     Map<String, Object> listByCondition(String cityid,
-                                        String industryid, String stageid, Integer pageIndex, Integer pageSize,String keyword);
+                                        String industryid, String stageid, Integer pageIndex, Integer pageSize, String keyword);
 
     List<Investor> bestInvestor(Integer num);
 
@@ -45,4 +45,6 @@ public interface InvestorService {
     void setBest(Integer investorid, Integer isBest);
 
     void setSign(Integer userid, Integer investorid, Integer isSign);
+
+    List<Investor> listByIndustry(Investor investor);
 }

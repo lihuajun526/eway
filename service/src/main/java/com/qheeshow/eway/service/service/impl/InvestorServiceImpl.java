@@ -155,7 +155,7 @@ public class InvestorServiceImpl implements InvestorService {
     }
 
     @Override
-    public Map<String, Object> listByCondition(String cityid, String industryid, String stageid, Integer pageIndex, Integer pageSize,String keyword) {
+    public Map<String, Object> listByCondition(String cityid, String industryid, String stageid, Integer pageIndex, Integer pageSize, String keyword) {
         Investor investor = new Investor();
         if (!"0".equals(cityid))
             investor.setCityId("#" + cityid + "#");
@@ -241,5 +241,10 @@ public class InvestorServiceImpl implements InvestorService {
             user.setRoleid(31);
         }
         userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public List<Investor> listByIndustry(Investor investor) {
+        return investorMapper.listByCondition(investor);
     }
 }

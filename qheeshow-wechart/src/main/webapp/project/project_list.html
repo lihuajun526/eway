@@ -25,7 +25,7 @@
     {{ } }}
 </script>
 <script>
-    var index = 1;
+    index = 1;
     function listPro() {
         $.getJSON(appPath + '/project/do/list/' + index, function (result) {
             if (result.code >= 0) {
@@ -36,7 +36,8 @@
                     $("#more").html("没有更多了");
                 } else {
                     $("#more").html("点击加载更多");
-                    $("#more").click(function () {
+                    $('#more').unbind("click");
+                    $("#more").bind("click", function () {
                         index++;
                         listPro();
                     });

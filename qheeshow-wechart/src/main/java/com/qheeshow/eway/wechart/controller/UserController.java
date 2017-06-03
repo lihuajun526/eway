@@ -31,6 +31,7 @@ public class UserController extends BaseController {
     public String appendj() {
 
         Result<Tip> result = new Result<>();
+        result.setCode(-1);
 
         Tip tip = new Tip();
         tip.setLink("/user/append.jsp");

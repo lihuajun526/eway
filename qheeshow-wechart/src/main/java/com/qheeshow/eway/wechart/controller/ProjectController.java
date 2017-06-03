@@ -196,7 +196,7 @@ public class ProjectController extends BaseController {
         return result.toString();
     }
 
-    @RequestMapping("/apply/{projectid}/v_authj")
+    @RequestMapping("/adviser/apply/{projectid}/v_authj")
     @ResponseBody
     public String apply(@PathVariable Integer projectid, HttpSession session) {
 
@@ -292,6 +292,38 @@ public class ProjectController extends BaseController {
         modelAndView.setViewName("/project/qa_list");
 
         return modelAndView;
+    }
+
+    /**
+     * 获得登录用户创建的项目
+     *
+     * @param session
+     * @return
+     */
+    @RequestMapping("/list/mypros/v_authj")
+    @ResponseBody
+    public String listMyProject(HttpSession session) {
+
+        Result<Tip> result = new Result<>();
+        Tip tip = new Tip();
+        result.setData(tip);
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        List<Project> list = projectService.listByUser(loginUser.getId());
+        if (list.size() == 0) {
+            result.setMessage("您尚未创建项目，请在电脑端登录梧桐e路网站进行创建");
+            result.setCode(-2);
+            return result.toString();
+        }
+
+        for (Project project : list) {
+            if (project.getTitle().length() > 5) {
+                project.setTitle(project.getTitle().substring(0, 4) + "...");
+            }
+        }
+
+        tip.setData(list);
+        return result.toString();
     }
 
 }

@@ -1,8 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
+<%@ page import="org.springframework.util.StringUtils" %>
 <%
     String appPath = Config.get("app.path");
     String m = request.getParameter("m");
+    String indusid = request.getParameter("indusid");
 %>
 <html>
 <head>
@@ -22,6 +24,7 @@
 <%@include file="pub/foot.jsp" %>
 </body>
 <script>
+    var index = 1;
     function nav(obj, url) {
         $("#nav>a>li").each(function () {
             $(this).removeClass("on");
@@ -32,11 +35,22 @@
         $(obj).parent().attr("class", "on");
         var src = $(obj).attr("src");
         $(obj).attr("src", src.replace('.png', '-a.png'));
-        load(url);
+        if (url != null)
+            $('#container').load(url);
     }
-    function load(url){
-        $('#container').load(url);
+    <%
+        if(!StringUtils.isEmpty(m)){
+            %>$("#<%=m%>_").click();
+    <%
+            }
+            if(!StringUtils.isEmpty(indusid)){
+            %>
+    var indusid = <%=indusid%>;
+    nav($("#2_"), null);
+    $('#container').load("investor/investor_industry_list.html");
+    <%
     }
-    load('<%=m%>');
+%>
+
 </script>
 </html>

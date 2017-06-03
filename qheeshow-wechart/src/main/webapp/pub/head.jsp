@@ -19,13 +19,13 @@
             $("#tip").hide();
         }
         function openTip(result) {
+            $("#tip").show();
             $("#t_message").html(result.message);
             if (result.data.link == "close") {
                 $("#t_action").html("<a onclick='closeTip()'>" + result.data.action + "</a>");
             } else {
                 $("#t_action").html("<a href='" + result.data.link + "'>" + result.data.action + "</a>");
             }
-            $("#tip").show();
         }
     </script>
 </div>
