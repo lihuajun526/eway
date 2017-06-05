@@ -7,6 +7,7 @@
 
     <mvc:resources mapping="images/**" location="/statics/images/"/>
     <mvc:resources mapping="zepto/**" location="/statics/zepto/"/>
+    <mvc:resources mapping="jquery/**" location="/statics/jquery/"/>
     <mvc:resources mapping="js/**" location="/statics/js/"/>
     <mvc:resources mapping="project/**" location="/project/"/>
     <mvc:resources mapping="investor/**" location="/investor/"/>

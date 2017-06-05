@@ -47,4 +47,6 @@ public interface InvestorService {
     void setSign(Integer userid, Integer investorid, Integer isSign);
 
     List<Investor> listByIndustry(Investor investor);
+
+    List<Investor> search(String keyword);
 }

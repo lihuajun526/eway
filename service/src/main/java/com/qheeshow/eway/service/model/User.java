@@ -91,6 +91,8 @@ public class User extends BaseBean {
 
 	private Integer subscribe;
 
+	private String referee;
+
 	public String getPhoto() {
 		return photo;
 	}
@@ -403,5 +405,13 @@ public class User extends BaseBean {
 
 	public void setSubscribe(Integer subscribe) {
 		this.subscribe = subscribe;
+	}
+
+	public String getReferee() {
+		return referee;
+	}
+
+	public void setReferee(String referee) {
+		this.referee = referee;
 	}
 }

@@ -24,13 +24,16 @@
 <div id="pros_" style="display: none;">
     <div class="shade"></div>
     <div class="wtwx-project2-radius">
-        <a onclick="javascript:$('#pros_').hide()" class="wtwx-project-radius-close"></a>
+        <a onclick="javascript:$('#pros_').hide()" class="wtwx-project-radius-close2"></a>
 
         <h1>选择要投递的项目</h1>
-        <ul id="pros" class="wtwx-project2-lst2"></ul>
-        <div class="wtwx-project2-btn3"><a onclick="postPro()">确定</a></div>
+
+        <div id="pros" class="wtwx-project2-lst2a"></div>
+        <div class="wtwx-project2-btn3"><a href="#">确定</a></div>
     </div>
 </div>
+
+
 <div class="wtwx-project-cnt1">
     <div class="wtwx-project-cnt1-l"><img src="<%=investor.getPhoto()%>" width="72" height="72"/></div>
     <div class="wtwx-project-cnt1-r">
@@ -85,7 +88,8 @@
             <div class="wtwx-project-cnt2-lst5-la">描述评论：</div>
             <div class="wtwx-project-cnt2-lst5-r">
                 <div class="wtwx-project-texta">
-                    <textarea id="content" name="content" class="wtwx-project-texta1" placeholder="填写评价"></textarea></div>
+                    <textarea id="content" name="content" class="wtwx-project-texta1" placeholder="填写评价"></textarea>
+                </div>
                 <div class="wtwx-project-btn2"><a onclick="saveComment()" href="#">发表评价</a></div>
             </div>
         </div>
@@ -170,9 +174,9 @@
                     var pro = result.data.data[i];
                     if (i == 0) {
                         postProid = pro.id;
-                        $("#pros").append("<li id='li_" + pro.id + "' onclick='selectPro(" + pro.id + ")'><span class='shade2'></span><span class='select'><img src='<%=appPath%>/images/wtwx-icon18.png' width='30' height='30'/></span><img src='" + pro.logo + "' width='68' height='68'/><span class='gfont'>" + pro.title + "</span></li>");
+                        $("#pros").append("<a id='li_" + pro.id + "' onclick='selectPro(" + pro.id + ")'><span class='shade2'></span><span class='select'><img src='<%=appPath%>/images/wtwx-icon18.png' width='30' height='30'/></span><img src='" + pro.logo + "' width='68' height='68'/><span class='gfont'>" + pro.title + "</span></a>");
                     } else {
-                        $("#pros").append("<li id='li_" + pro.id + "' onclick='selectPro(" + pro.id + ")'><img src='" + pro.logo + "' width='68' height='68'/><span class='gfont'>" + pro.title + "</span></li>");
+                        $("#pros").append("<a id='li_" + pro.id + "' onclick='selectPro(" + pro.id + ")'><img src='" + pro.logo + "' width='68' height='68'/><span class='gfont'>" + pro.title + "</span></a>");
                     }
                 }
                 $("#pros_").show();

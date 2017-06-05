@@ -76,7 +76,7 @@
             }
         %>
         <div class="g-pser-t">购买服务</div>
-        <div class="g-pser-t2"><span>温馨提示：</span>购买过套餐三或套餐四的用户才能购买套餐一或套餐二</div>
+        <div class="g-pser-t2"><span>温馨提示：</span>购买过套餐三或套餐四的用户才能购买套餐一</div>
         <div class="g-pser-cnt">
             <h2>套餐一</h2>
 

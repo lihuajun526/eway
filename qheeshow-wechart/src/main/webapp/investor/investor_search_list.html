@@ -1,0 +1,39 @@
+<div class="wtwx-investors-search">
+    <input id="keyword" class="wtwx-investors-ipt" placeholder="请输入关键字"/>
+    <input type="button" class="wtwx-investors-btn" onclick="search()" value="搜索"/>
+</div>
+<div id="investors">
+    <script id="investors_tmpl" type="text/template" charset="utf-8">
+        {{ for(var i=0; i < it.length; i++) { }}
+        <div class="wtwx-investors-cnt1">
+            <div class="wtwx-investors-cnt1-l"><img src="{{=it[i].photo}}" width="48" height="48"/></div>
+            <a href="/investor/do/{{=it[i].id}}">
+                <div class="wtwx-investors-cnt1-r">
+                    <h1>{{=it[i].trueName}}</h1>
+                    <h4>{{=it[i].companyName}}／{{=it[i].companyRank}}</h4>
+                </div>
+            </a>
+            <span class="wtwx-investors-cnt1-on1">{{=it[i].cityName}}</span>
+            <span class="wtwx-investors-cnt1-on2">LV 4</span>
+        </div>
+        {{ } }}
+    </script>
+</div>
+<script>
+    $("#more").html("搜索结果...");
+    function search() {
+        var keyword = $("#keyword").val();
+        if (!keyword.length)
+            return;
+        $.getJSON(appPath + '/investor/do/search/' + keyword, function (result) {
+            if (result.code >= 0) {
+                var tpl = $('#investors_tmpl').html();
+                var tempFn = doT.template(tpl);
+                $("#investors").append(tempFn(result.data));
+                if (result.data.length == 0) {
+                    $("#more").html("暂无搜索结果");
+                }
+            }
+        });
+    }
+</script>

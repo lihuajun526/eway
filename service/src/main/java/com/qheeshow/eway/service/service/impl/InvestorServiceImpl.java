@@ -247,4 +247,14 @@ public class InvestorServiceImpl implements InvestorService {
     public List<Investor> listByIndustry(Investor investor) {
         return investorMapper.listByCondition(investor);
     }
+
+    @Override
+    public List<Investor> search(String keyword) {
+
+        InvestorExample example = new InvestorExample();
+        InvestorExample.Criteria criteria = example.createCriteria();
+        criteria.andTrueNameLike("%" + keyword + "%");
+
+        return investorMapper.selectByExample(example);
+    }
 }

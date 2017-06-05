@@ -19,6 +19,7 @@ public class ResultOrder {
     private String err_code;
     private String err_code_des;
     private String timeStamp;
+    private String orderno;
 
     public String getReturn_code() {
         return return_code;
@@ -130,5 +131,13 @@ public class ResultOrder {
 
     public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public String getOrderno() {
+        return orderno;
+    }
+
+    public void setOrderno(String orderno) {
+        this.orderno = orderno;
     }
 }

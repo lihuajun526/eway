@@ -91,4 +91,16 @@ public class GoodsController extends BaseController {
         return modelAndView;
     }
 
+    @RequestMapping("/get/{goodsid}/{flag}")
+    public ModelAndView get(@PathVariable Integer goodsid, @PathVariable Integer flag) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Goods goods = goodsService.selectByPrimaryKey(goodsid);
+
+        modelAndView.addObject("goods", goods);
+        modelAndView.addObject("flag", flag);
+        modelAndView.setViewName("goods/t_" + goodsid);
+        return modelAndView;
+    }
+
 }

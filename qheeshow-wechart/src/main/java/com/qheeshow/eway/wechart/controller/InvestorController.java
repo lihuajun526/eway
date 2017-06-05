@@ -380,7 +380,7 @@ public class InvestorController extends BaseController {
     @RequestMapping("/list/industry/{industryid}/{pageIndex}")
     @ResponseBody
     public String listByIndustry(@PathVariable Integer industryid, @PathVariable Integer pageIndex) {
-        Result<Map<String,Object>> result = new Result<>();
+        Result<Map<String, Object>> result = new Result<>();
 
         Map<String, Object> data = new HashMap<>();
 
@@ -396,6 +396,78 @@ public class InvestorController extends BaseController {
         data.put("indusName", xwcmclassinfoService.get(industryid).getCname());
 
         result.setData(data);
+        return result.toString();
+    }
+
+    /**
+     * 搜索投资人
+     *
+     * @param keyword
+     * @return
+     */
+    @RequestMapping("/search/{keyword}")
+    @ResponseBody
+    public String search(@PathVariable String keyword) {
+        Result<List<Investor>> result = new Result<>();
+
+        List<Investor> investors = investorService.search(keyword);
+
+        for (Investor investor : investors) {
+            investor.setCityName(investor.getCityName().replaceAll("#", " "));
+        }
+
+        result.setData(investors);
+        return result.toString();
+    }
+
+    /**
+     * 投资人认证
+     *
+     * @param investor
+     * @return
+     */
+    @RequestMapping("/auth/v_authj")
+    @ResponseBody
+    public String auth(Investor investor, String smsCode, HttpSession session) {
+        Result<Tip> result = new Result<>();
+        Tip tip = new Tip();
+        result.setData(tip);
+
+        if (StringUtils.isEmpty(investor.getMobile())) {
+            result.setMessage("对不起，手机号不能为空");
+            return result.toString();
+        }
+        if (StringUtils.isEmpty(smsCode)) {
+            result.setMessage("对不起，手机验证码不能为空");
+            return result.toString();
+        }
+        if (StringUtils.isEmpty(investor.getBusinessCardPositive())) {
+            result.setMessage("对不起，请上传名片正面");
+            return result.toString();
+        }
+        if (StringUtils.isEmpty(investor.getBusinessCardOpposite())) {
+            result.setMessage("对不起，请上传名片反面");
+            return result.toString();
+        }
+        Object o = session.getAttribute(investor.getMobile() + "_auth_smsCode");
+        if (o == null) {
+            result.setMessage("对不起，手机验证码错误");
+            return result.toString();
+        }
+        String smsCodeS = (String) o;
+        if (!smsCode.equals(smsCodeS)) {
+            result.setMessage("对不起，手机验证码错误");
+            return result.toString();
+        }
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        Investor investorDb = investorService.getByUser(loginUser.getId());
+        investor.setId(investorDb.getId());
+        investorService.save(investor);
+
+        result.setMessage("认证成功");
+        tip.setAction("返回");
+        tip.setLink("javascript:window.history.go(-1);");
         return result.toString();
     }
 

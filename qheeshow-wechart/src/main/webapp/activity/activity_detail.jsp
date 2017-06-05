@@ -55,7 +55,7 @@
     </div>
 </div>
 <%
-    if (activity.getStyle().equals("on1")) {
+    if (true || activity.getStyle().equals("on1")) {
 %><div class="wtwx-activity-ipt1"><a onclick="preOrder()">立即报名</a></div><%
 } else {
 %><div class="wtwx-activity-ipt2"><a>已爆满</a></div>
