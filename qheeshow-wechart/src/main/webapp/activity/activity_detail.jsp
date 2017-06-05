@@ -56,9 +56,12 @@
 </div>
 <%
     if (true || activity.getStyle().equals("on1")) {
-%><div class="wtwx-activity-ipt1"><a onclick="preOrder()">立即报名</a></div><%
+%>
+<div class="wtwx-activity-ipt1"><a onclick="preOrder()">立即报名</a></div>
+<%
 } else {
-%><div class="wtwx-activity-ipt2"><a>已爆满</a></div>
+%>
+<div class="wtwx-activity-ipt2"><a>已爆满</a></div>
 <%
     }
 %>
@@ -88,9 +91,9 @@
                     "paySign": result.sign //微信签名
                 },
                 function (res) {
-                    if (res.err_msg == "get_brand_wcpay_request:ok") {
-                        alert("oko");
-                    }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                    if (res.err_msg == "get_brand_wcpay_request:ok") {// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                        window.location.href = "<%=appPath%>/order/do/get/" + result.orderno;
+                    }
                 }
         );
     }

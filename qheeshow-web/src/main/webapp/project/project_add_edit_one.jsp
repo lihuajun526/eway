@@ -613,10 +613,12 @@
                 $('#' + imgid).attr("src", result.data.path);
                 $('#' + hiddenid).val(result.data.path);
                 $('#logoFile').unwrap();
+                resetFileInput(file);
             },
             error: function (xhr) {
                 alert('上传失败!');
                 $('#logoFile').unwrap();
+                resetFileInput(file);
             }
         });
     }
@@ -642,10 +644,12 @@
                 $('#bpName').val(result.data.name);
                 $('#fileName').html(result.data.name);
                 $('#bpFile').unwrap();
+                resetFileInput(file);
             },
             error: function (xhr) {
                 alert('上传失败!');
                 $('#bpFile').unwrap();
+                resetFileInput(file);
             }
         });
     }
@@ -730,6 +734,10 @@
             $("#two" + i).hide();
             $("#two" + i + "_").hide();
         }
+    }
+    function resetFileInput(file){
+        file.after(file.clone().val(""));
+        file.remove();
     }
 </script>
 </html>

@@ -70,11 +70,16 @@ public class UserCenterController extends BaseController {
             if (type.intValue() == 1) {//平台推荐的项目
                 ProjectSuggest projectSuggest = new ProjectSuggest();
                 Investor investor = investorService.getByUser(loginUser.getId());
-                projectSuggest.setInvestorid(investor.getId());
-                projectSuggest.setStatus(0);
-                projectSuggest.setPageSize(pageSize);
-                projectSuggest.setStartRow((pageIndex - 1) * pageSize);
-                map = projectService.listSuggest(projectSuggest);
+                if (investor == null) {
+                    map.put("projects", new ArrayList<>());
+                    map.put("count", 0);
+                } else {
+                    projectSuggest.setInvestorid(investor.getId());
+                    projectSuggest.setStatus(0);
+                    projectSuggest.setPageSize(pageSize);
+                    projectSuggest.setStartRow((pageIndex - 1) * pageSize);
+                    map = projectService.listSuggest(projectSuggest);
+                }
                 projects = (List<Project>) map.get("projects");
             } else if (type.intValue() == 2) {//关注的项目
                 ProjectFollow projectFollow = new ProjectFollow();
