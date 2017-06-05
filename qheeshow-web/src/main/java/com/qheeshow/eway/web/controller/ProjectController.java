@@ -267,7 +267,7 @@ public class ProjectController extends BaseController {
     public String downloadBp(@PathVariable Integer projectid, HttpSession session) {
 
         Result<String> result = new Result<>();
-        result.setCode(-1);
+        result.setCode(-2);
 
         User loginUser = (User) session.getAttribute("loginUser");
         if (loginUser.getRoleid().intValue() >= 40 || loginUser.getRoleid().intValue() < 30) {
