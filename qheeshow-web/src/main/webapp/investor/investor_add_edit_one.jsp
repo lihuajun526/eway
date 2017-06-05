@@ -464,10 +464,12 @@
                 $("#ul_photo").html("<li class='upload'><img src='"+result.data.path+"' width='130' height='130'/></li>");
                 $('#photo').val(result.data.path);
                 $('#photoFile').unwrap();
+                resetFileInput(file);
             },
             error:function(xhr){
                 xalert('上传失败!');
                 $('#photoFile').unwrap();
+                resetFileInput(file);
             }
         });
     }
@@ -477,6 +479,10 @@
 
     if (!<%=isNull%>) {
         $("input[name='investorType'][value='<%=isNull?"1":investor.getInvestorType()%>']").attr("checked", true);
+    }
+    function resetFileInput(file){
+        file.after(file.clone().val(""));
+        file.remove();
     }
 </script>
 </html>

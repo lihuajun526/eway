@@ -133,10 +133,12 @@
 
                 }, "json");
                 $('#' + fileid).unwrap();
+                resetFileInput(file);
             },
             error: function (xhr) {
                 xalert('上传失败!');
                 $('#' + fileid).unwrap();
+                resetFileInput(file);
             }
         });
     }
@@ -235,6 +237,10 @@
                 dataType: "json"
             });
         }
+    }
+    function resetFileInput(file){
+        file.after(file.clone().val(""));
+        file.remove();
     }
 </script>
 </html>

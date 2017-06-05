@@ -102,6 +102,7 @@ public class ActivitySignServiceImpl implements ActivitySignService {
             orderWechat.setOpenid(openid);
             try {
                 resultOrder = payService.order(orderWechat);
+                resultOrder.setOrderno(order.getOrderNo());
             } catch (UnsupportedEncodingException e) {
                 LOGGER.error("error:", e);
                 throw new OrderWechatException();

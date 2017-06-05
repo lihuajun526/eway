@@ -53,7 +53,8 @@ public class FileController extends BaseController {
                             return result.toString();
                         }
                         boolean isAllow = false;
-                        String suffix = fileItem.getName().split("\\.")[1];
+                        String[] aSuffix = fileItem.getName().split("\\.");
+                        String suffix = aSuffix[aSuffix.length - 1];
                         String[] suffixs = Config.get("image.allow.type").split(",");
                         for (String str : suffixs) {
                             if (str.equalsIgnoreCase(suffix)) {
@@ -123,7 +124,8 @@ public class FileController extends BaseController {
                             return result.toString();
                         }
                         boolean isAllow = false;
-                        String suffix = fileItem.getName().split("\\.")[1];
+                        String[] aSuffix = fileItem.getName().split("\\.");
+                        String suffix = aSuffix[aSuffix.length - 1];
                         String[] suffixs = Config.get("file.allow.type").split(",");
                         for (String str : suffixs) {
                             if (str.equalsIgnoreCase(suffix)) {

@@ -166,10 +166,12 @@
                 $("#li_" + id).html("<span class='upload-a'><img src='" + result.data.path + "' width='170' height='110'/></span><input id='"+id+"File' name='"+id+"File' type='file' onchange='doUpload(\'"+id+"\');' unselectable='on' class='on5'/>");
                 $('#' + id).val(result.data.path);
                 file.unwrap();
+                resetFileInput(file);
             },
             error: function (xhr) {
                 xalert('上传失败!');
                 file.unwrap();
+                resetFileInput(file);
             }
         });
     }
@@ -204,6 +206,10 @@
     }
     if (!<%=StringUtils.isEmpty(investor.getPersonalAssets())%>) {
         $("input[name='personalAssets'][value='<%=investor.getPersonalAssets()%>']").attr("checked", true);
+    }
+    function resetFileInput(file){
+        file.after(file.clone().val(""));
+        file.remove();
     }
 </script>
 </html>
