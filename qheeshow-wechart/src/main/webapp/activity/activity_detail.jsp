@@ -69,7 +69,7 @@
 <script type="text/javascript" src="<%=appPath%>/zepto/zepto.js"></script>
 <script>
     function preOrder() {
-        $.get("<%=appPath%>/activity/do/preorder/wechat/<%=activity.getId()%>/v_auth", function (result) {
+        $.get("<%=appPath%>/activity/do/preorder/wechat/<%=activity.getId()%>/v_authj", function (result) {
             if (result.code == -1) {
                 openTip(result);
                 return;
