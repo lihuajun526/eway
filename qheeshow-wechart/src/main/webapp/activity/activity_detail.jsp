@@ -1,9 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page import="com.qheeshow.eway.service.model.Activity" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%
     String appPath = Config.get("app.path");
     Activity activity = (Activity) request.getAttribute("activity");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
 <html>
 <head>
@@ -25,7 +27,7 @@
 
     <div class="wtwx-activity-lst2">
         <div class="time"><img src="../../../images/wtwx-icon7.png" width="18" height="18"/>时间：</div>
-        <div class="time-cnt"><%=activity.getsBeginTime()%>
+        <div class="time-cnt"><%=sdf.format(activity.getBeginTime())%>
         </div>
     </div>
     <div class="wtwx-activity-lst2">
@@ -70,7 +72,7 @@
 <script>
     function preOrder() {
         $.get("<%=appPath%>/activity/do/preorder/wechat/<%=activity.getId()%>/v_authj", function (result) {
-            if (result.code == -1) {
+            if (result.code < 0) {
                 openTip(result);
                 return;
             }

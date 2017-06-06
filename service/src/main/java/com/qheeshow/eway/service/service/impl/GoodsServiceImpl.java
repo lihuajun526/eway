@@ -79,7 +79,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public ResultOrder preOrder(String orderStr, String payType, Integer userid, String openid) throws OrderWechatException {
+    public ResultOrder preOrder(String orderStr, String payType, Integer projectid, Integer userid, String openid) throws OrderWechatException {
         ResultOrder resultOrder = null;
         //orderStr=goodsid1_count1#goodsid2_count2
         String[] aOrderStr = orderStr.split("#");
@@ -89,7 +89,7 @@ public class GoodsServiceImpl implements GoodsService {
             String[] aTemp = str.split("_");
             Goods goods = goodsMapper.selectByPrimaryKey(Integer.valueOf(aTemp[0]));
             orderTitle.append(goods.getTitle()).append("(").append(aTemp[1]).append("份) ");
-            orderPrice.add(goods.getPrice().multiply(new BigDecimal(aTemp[1])));
+            orderPrice = orderPrice.add(goods.getPrice().multiply(new BigDecimal(aTemp[1])));
         }
         //创建订单
         Order order = new Order();
@@ -97,6 +97,7 @@ public class GoodsServiceImpl implements GoodsService {
         order.setPrice(orderPrice);
         order.setTitle(orderTitle.toString());
         order.setStatus(1);
+        order.setProjectid(projectid);
         order.setUserid(userid);
         order.setOrderNo(StrUtil.getOrderno());
         orderMapper.insert(order);

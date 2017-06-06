@@ -35,7 +35,7 @@
             }
         %>
     </ul>
-    <div class="wx-pay-btn"><a onclick="javascript:window.history.go(-1);">返回</a></div>
+    <div class="wx-pay-btn"><a href="javascript:" onclick="self.location=document.referrer;">返回</a></div>
 </div>
 </body>
 </html>

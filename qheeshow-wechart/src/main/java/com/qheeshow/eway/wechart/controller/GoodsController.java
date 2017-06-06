@@ -59,9 +59,10 @@ public class GoodsController extends BaseController {
 
         } else {
             Project project = null;
-            if (projectid.intValue() == 0)
+            if (projectid.intValue() == 0) {
                 project = projects.get(0);
-            else
+                projectid = project.getId();
+            } else
                 project = projectService.get(projectid);
                 /*if (project.getStatus().intValue() == 1) {//新项目
                     buyBtncls1 = "g-purchase2";
@@ -119,18 +120,26 @@ public class GoodsController extends BaseController {
      */
     @RequestMapping("/preorder/{payType}/v_authj")
     @ResponseBody
-    public String preOrder(@PathVariable String payType, String orderStr, HttpSession session) {
+    public String preOrder(@PathVariable String payType, String orderStr,Integer projectid, HttpSession session) {
 
         Result<Tip<ResultOrder>> result = new Result<>();
         Tip<ResultOrder> tip = new Tip<>();
         result.setData(tip);
 
-        User loginUser = (User) session.getAttribute("loginUser");
+        if (StringUtils.isEmpty(orderStr)) {
+            result.setCode(-1);
+            result.setMessage("对不起，请选择要购买的商品");
+            return result.toString();
+        }
 
+        if (orderStr.charAt(orderStr.length() - 1) == '#')
+            orderStr = orderStr.substring(0, orderStr.length() - 1);
+
+        User loginUser = (User) session.getAttribute("loginUser");
         ResultOrder resultOrder = null;
 
         try {
-            resultOrder = goodsService.preOrder(orderStr, payType, loginUser.getId(), loginUser.getGzhOpenid());
+            resultOrder = goodsService.preOrder(orderStr, payType,projectid, loginUser.getId(), loginUser.getGzhOpenid());
             resultOrder.setTimeStamp(String.valueOf(System.currentTimeMillis()));
             //签名
             Map<String, String> params = new TreeMap<>();
@@ -149,5 +158,6 @@ public class GoodsController extends BaseController {
 
         return result.toString();
     }
+
 
 }

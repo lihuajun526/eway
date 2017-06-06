@@ -1,10 +1,8 @@
-<%@ page import="com.qheeshow.eway.service.model.User" %>
+<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page import="com.qheeshow.eway.service.model.Project" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    User loginUser = (User) session.getAttribute("loginUser");
     List<Project> projects = (List<Project>) request.getAttribute("projects");
     Integer projectid = (Integer) request.getAttribute("projectid");
     String appPath = Config.get("app.path");
@@ -29,6 +27,7 @@
     <title>购买套餐</title>
 </head>
 <body class="wtxt-package">
+<%@include file="../pub/head.jsp" %>
 <div>
     <ul class="wtwx-package-lst">
         <%
@@ -68,7 +67,7 @@
 </div>
 <div class="wtwx-package-menu">
     共计：<span id="sum">0</span>元
-    <a href="#" class="wtwx-package-menu-pay">立即付款</a>
+    <a onclick="place()" class="wtwx-package-menu-pay">立即付款</a>
 
     <div class="wtwx-package-menu-cart">
         <%--<a href="#">4</a>--%>
@@ -141,6 +140,53 @@
     function sum() {
         var sum = price1 * goods1 + price2 * goods2 + price3 * goods3 + price4 * goods4;
         $("#sum").html(sum);
+    }
+    function place() {
+        var orderStr = "";
+        if (goods1 > 0) {
+            orderStr += "1_" + goods1 + "#";
+        }
+        if (goods2 > 0) {
+            orderStr += "2_" + goods2 + "#";
+        }
+        if (goods3 > 0) {
+            orderStr += "3_" + goods3 + "#";
+        }
+        if (goods4 > 0) {
+            orderStr += "4_" + goods4 + "#";
+        }
+        if (orderStr == "")
+            return;
+        $.post("<%=appPath%>/goods/do/preorder/WECHAT/v_authj", {
+            "orderStr": orderStr,
+            "projectid": <%=projectid%>
+        }, function (result) {
+            if (result.code < 0) {
+                openTip(result);
+                return;
+            }
+            /*window.location.href = "<%=appPath%>/order/do/get/" + result.data.data.orderno;
+            return;*/
+            //发起支付
+            onBridgeReady(result.data.data);
+        }, "json");
+    }
+    function onBridgeReady(result) {
+        WeixinJSBridge.invoke(
+                'getBrandWCPayRequest', {
+                    "appId": result.appid,     //公众号名称，由商户传入
+                    "timeStamp": result.timeStamp,         //时间戳，自1970年以来的秒数
+                    "nonceStr": result.nonce_str, //随机串
+                    "package": "prepay_id=" + result.prepay_id,
+                    "signType": "MD5",         //微信签名方式：
+                    "paySign": result.sign //微信签名
+                },
+                function (res) {
+                    if (res.err_msg == "get_brand_wcpay_request:ok") {// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                        window.location.href = "<%=appPath%>/order/do/get/" + result.orderno;
+                    }
+                }
+        );
     }
 </script>
 </html>

@@ -25,6 +25,6 @@ public interface GoodsService {
 
     Goods selectByPrimaryKey(Integer id);
 
-    ResultOrder preOrder(String orderStr, String payType, Integer userid, String openid) throws OrderWechatException;
+    ResultOrder preOrder(String orderStr, String payType, Integer projectid, Integer userid, String openid) throws OrderWechatException;
 
 }
