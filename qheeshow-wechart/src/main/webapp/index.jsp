@@ -8,9 +8,9 @@
 %>
 <html>
 <head>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,6 +41,15 @@
         $(obj).attr("src", src.replace('.png', '-a.png'));
         if (url != null)
             $('#container').load(url);
+    }
+    function center(obj, url) {
+        $.get("<%=appPath%>/user/center/do/v_authj", function (result) {
+            if (result.code < 0) {
+                openTip(result);
+                return;
+            }
+            nav(obj, url);
+        }, "json");
     }
     <%
         if(!StringUtils.isEmpty(m)){

@@ -576,8 +576,7 @@
 }
 .wtwx-investors-ipt {
 	width:100%;
-	height:46px;
-	line-height:46px;
+	padding:12px 0;
 	font-size:16px;
 	color:#adadad;
 	background:none;
@@ -1238,6 +1237,7 @@
 	padding-left:36px;
 	height:55px;
 	line-height:55px;
+	position:relative;
 }
 .wtwx-user-lst li a {
 	color:#333333;
@@ -1273,6 +1273,29 @@
 .wtwx-user-lst li.on8 {
 	background:url(wtwx-icon45.png) no-repeat 0 center;
 	background-size:7%;
+}
+.wtwx-user-num {
+	position:absolute;
+	right:71px;
+	top:3px;
+	font-size:16px;
+	color:#0096e0;
+}
+.wtwx-user-btn {
+	position:absolute;
+	right:10px;
+	top:20px;
+	background:#00a5ed;
+	border-radius:2px;
+	width:50px;
+	text-align:center;
+	height:22px;
+	line-height:22px;
+	font-size:14px;
+	color:#ffffff;
+}
+.wtwx-user-lst li .wtwx-user-btn {
+	color:#ffffff;
 }
 /*********** User center  end***********/
 
@@ -1646,11 +1669,14 @@
 	font-size:14px;
 	color:#999999;
 }
-.wx-call {
+.wx-call, .wx-callmmone {
 	text-align:center;
 	padding:80px 10px 0;
 }
-.wx-call span {
+.wx-callmmone {
+	padding-top:120px;
+}
+.wx-call span, .wx-callmmone span {
 	display:block;
 	font-size:12px;
 	color:#999999;
@@ -1765,7 +1791,13 @@
 	padding:0 20px;
 	margin-top:29px;
 }
-.wx-buycl-btn a, .wx-invest-btn a {
+.wx-buycl-btn2 {
+	padding:0 20px;
+}
+.wx-invest-btn3 {
+	padding:40px 20px 0;
+}
+.wx-buycl-btn a, .wx-invest-btn a, .wx-buycl-btn2 a, .wx-invest-btn3 a {
 	display:block;
 	font-size:14px;
 	color:#ffffff;
@@ -1796,11 +1828,15 @@
 	text-align:center;
 	font-size:20px;
 	color:#000000;
-	padding-top:80px;
+	padding:20px;
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	position:relative;
 	overflow:hidden;
+}
+.wx-invest-font {
+	font-weight:normal;
+	margin-top:55px;
 }
 .wx-invest .on1 {
 	position:absolute;
@@ -1818,4 +1854,65 @@
 }
 .wx-invest-btn {
 	padding:0 28px 20px;
+}
+.wtwx-buycl {
+	background:#f9f9f9
+}
+.wx-buycl-3 {
+	background:#FFFFFF;
+}
+.wx-buycl-3 li {
+	height:48px;
+	line-height:48px;
+	border-bottom:1px solid #ededed;
+	font-size:14px;
+	color:#333333;
+	padding-left:20px;
+	position:relative;
+}
+.wx-buycl-t {
+	font-size:12px;
+	color:#999999;
+	height:40px;
+	line-height:40px;
+	padding-left:20px;
+}
+.wx-buycl-t span {
+	font-size:13px;
+	color:#2c8ab3;
+}
+.wx-buycl-t2 {
+	text-align:center;
+	font-size:12px;
+	color:#ff2424;
+	height:25px;
+}
+.wx-buycl-t3 {
+	text-align:center;
+	font-size:13px;
+	color:#999999;
+	height:40px;
+	line-height:40px;
+}
+.wx-buycl-topbtn {
+	text-align:center;
+	padding:10px 0;
+}
+.wx-buycl-topbtn a {
+	width:43%;
+	text-align:center;
+	border-radius:4px;
+	font-size:16px;
+	display:inline-block;
+	height:46px;
+	line-height:46px;
+	margin:0 2%;
+	color:#666666;
+}
+.wx-buycl-topbtn .on1 {
+	background:#2ea0e4;
+	color:#ffffff;
+}
+.wx-buycl-topbtn .on2 {
+	background:#e1e1e1;
 }

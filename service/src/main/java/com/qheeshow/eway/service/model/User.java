@@ -1,6 +1,8 @@
 package com.qheeshow.eway.service.model;
 
 import com.qheeshow.eway.common.bean.BaseBean;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class User extends BaseBean {
@@ -92,6 +94,8 @@ public class User extends BaseBean {
 	private Integer subscribe;
 
 	private String referee;
+
+	private BigDecimal account;
 
 	public String getPhoto() {
 		return photo;
@@ -413,5 +417,13 @@ public class User extends BaseBean {
 
 	public void setReferee(String referee) {
 		this.referee = referee;
+	}
+
+	public BigDecimal getAccount() {
+		return account;
+	}
+
+	public void setAccount(BigDecimal account) {
+		this.account = account;
 	}
 }

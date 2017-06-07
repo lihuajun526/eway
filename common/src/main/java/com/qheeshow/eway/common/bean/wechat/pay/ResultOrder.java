@@ -8,7 +8,11 @@ public class ResultOrder {
     private String return_code;
     private String return_msg;
     private String appid;
+    private String mch_appid;
     private String mch_id;
+    private String partner_trade_no;
+    private String payment_no;
+    private String payment_time;
     private String device_info;
     private String nonce_str;
     private String sign;
@@ -139,5 +143,37 @@ public class ResultOrder {
 
     public void setOrderno(String orderno) {
         this.orderno = orderno;
+    }
+
+    public String getMch_appid() {
+        return mch_appid;
+    }
+
+    public void setMch_appid(String mch_appid) {
+        this.mch_appid = mch_appid;
+    }
+
+    public String getPartner_trade_no() {
+        return partner_trade_no;
+    }
+
+    public void setPartner_trade_no(String partner_trade_no) {
+        this.partner_trade_no = partner_trade_no;
+    }
+
+    public String getPayment_no() {
+        return payment_no;
+    }
+
+    public void setPayment_no(String payment_no) {
+        this.payment_no = payment_no;
+    }
+
+    public String getPayment_time() {
+        return payment_time;
+    }
+
+    public void setPayment_time(String payment_time) {
+        this.payment_time = payment_time;
     }
 }

@@ -4,18 +4,15 @@ import com.google.zxing.WriterException;
 import com.qheeshow.eway.common.bean.wechat.pay.ResultOrder;
 import com.qheeshow.eway.common.bean.wechat.pay.WechatNotify;
 import com.qheeshow.eway.common.bean.wechat.pay.exception.ResponseWechat;
+import com.qheeshow.eway.common.constant.ExceptionTypeEnum;
 import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.common.exception.RequestException;
 import com.qheeshow.eway.common.http.XHttpClient;
-import com.qheeshow.eway.common.util.Bean2Xml;
-import com.qheeshow.eway.common.util.Config;
-import com.qheeshow.eway.common.util.MatrixToImageWriter;
-import com.qheeshow.eway.common.util.StrUtil;
+import com.qheeshow.eway.common.util.*;
 import com.qheeshow.eway.service.dao.GoodsMapper;
 import com.qheeshow.eway.service.model.Goods;
 import com.qheeshow.eway.service.model.Order;
 import com.qheeshow.eway.service.model.OrderWechat;
-import com.qheeshow.eway.service.service.GoodsService;
 import com.qheeshow.eway.service.service.PayService;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -30,7 +27,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -129,6 +125,49 @@ public class PayServiceImpl implements PayService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
+    public void draw(String openid, String trueName, Integer limit) throws CommonException {
+
+        Map<String, String> params = new TreeMap<>();
+        params.put("mch_appid", Config.get("wechat.appid"));
+        params.put("mchid", Config.get("wechat.mchid"));
+        params.put("nonce_str", StrUtil.getRandomString(32));
+        params.put("partner_trade_no", StrUtil.getOrderno());
+        params.put("openid", openid);
+        params.put("check_name", "FORCE_CHECK");
+        params.put("re_user_name", trueName);
+        params.put("amount", String.valueOf((limit.intValue() * 100)));
+        params.put("desc", "投资人提现");
+        params.put("spbill_create_ip", Config.get("server.ip"));
+        params.put("sign", StrUtil.sign(params));
+        String xml = StrUtil.map2Xml(params);
+        String response = "";
+        try {
+            StringEntity stringEntity = new StringEntity(new String(xml.getBytes("UTF-8"), "UTF-8"), "UTF-8");
+            HttpPost httpPost = new HttpPost("https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers");
+            httpPost.setEntity(stringEntity);
+            response = ClientCustomSSL.doPost(httpPost);
+        } catch (Exception e) {
+            LOGGER.error("error", e);
+            throw new CommonException(ExceptionTypeEnum.Wechat_Draw_ERROR.code);
+        }
+        ResultOrder resultOrder = (ResultOrder) Bean2Xml.toBean(response, ResultOrder.class);
+        if (!resultOrder.getReturn_code().equalsIgnoreCase("SUCCESS")) {
+            LOGGER.error("提现失败原因：{}", resultOrder.getReturn_msg());
+            throw new CommonException(ExceptionTypeEnum.Wechat_Draw_ERROR.code, resultOrder.getReturn_msg());
+        }
+        if (!resultOrder.getResult_code().equalsIgnoreCase("SUCCESS")) {
+            LOGGER.error("提现失败原因：{}", resultOrder.getErr_code_des());
+            throw new CommonException(ExceptionTypeEnum.Wechat_Draw_ERROR.code, resultOrder.getErr_code_des());
+        }
+        //账户明细插入记录
+
+        //todo 暂时先到这里吧
+
+
     }
 
 

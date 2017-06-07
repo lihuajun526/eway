@@ -4,22 +4,30 @@ import com.qheeshow.eway.common.bean.wechat.pay.WechatNotifyTwo;
 import com.qheeshow.eway.common.util.Bean2Xml;
 import com.qheeshow.eway.common.util.StrUtil;
 import com.qheeshow.eway.service.model.Order;
+import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.GoodsService;
 import com.qheeshow.eway.service.service.OrderService;
 import com.qheeshow.eway.service.service.PayService;
+import com.qheeshow.eway.service.service.UserService;
 import com.qheeshow.eway.wechart.base.BaseController;
+import com.qheeshow.eway.wechart.base.Result;
+import com.qheeshow.eway.wechart.base.Tip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by lihuajun on 2017/4/25.
@@ -34,6 +42,8 @@ public class PayController extends BaseController {
     private GoodsService goodsService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 模式二回调
@@ -105,6 +115,47 @@ public class PayController extends BaseController {
     private Map<String, String> crMap(WechatNotifyTwo wechatNotifyTwo) {
         Map<String, String> map = new TreeMap<>();
         return null;
+    }
+
+
+    @RequestMapping(value = "/draw/v_authj")
+    @ResponseBody
+    public String draw(String limit, HttpSession session) {
+
+        Result<Tip> result = new Result<>();
+        Tip tip = new Tip();
+        result.setData(tip);
+        result.setCode(-2);
+
+        String rex = "^[1-9]\\d*$";
+        Pattern p = Pattern.compile(rex);
+        if (!p.matcher(limit).find()) {
+            result.setMessage("对不起，提现金额必须为正整数");
+            return result.toString();
+        }
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (StringUtils.isEmpty(loginUser.getOpenid())) {
+            result.setMessage("对不起，请在微信公众号内提现");
+            return result.toString();
+        }
+        loginUser = userService.get(loginUser.getId());
+        if (loginUser.getAccount().compareTo(new BigDecimal(limit)) <= 0) {
+            result.setMessage("对不起，您的账户余额不足");
+            return result.toString();
+        }
+
+
+        return null;
+    }
+
+    public static void main(String[] args) {
+
+        String num = "1.111";
+        String rex = "^[1-9]\\d*$";
+        Pattern p = Pattern.compile(rex);
+        Matcher m = p.matcher(num);
+        System.out.println(m.find());
+
     }
 
 }

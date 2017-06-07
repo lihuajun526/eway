@@ -21,4 +21,7 @@ public interface PayService {
     ResultOrder order(OrderWechat orderWechat) throws UnsupportedEncodingException, RequestException, CommonException;
 
     String order(WechatNotify wechatNotify);
+
+    //提现
+    void draw(String openid, String trueName, Integer limit) throws CommonException;
 }

@@ -16,6 +16,11 @@ public class CommonException extends Exception {
         this.desc = exceptionTypeEnum.getDesc();
     }
 
+    public CommonException(String code, String desc) {
+        this.code = code;
+        this.desc = desc;
+    }
+
     public CommonException(String desc) {
         this.desc = desc;
     }

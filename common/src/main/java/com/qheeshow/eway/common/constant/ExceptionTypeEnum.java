@@ -18,7 +18,9 @@ public enum ExceptionTypeEnum {
     Calling_Not_Exist_ERROR("100008", "主叫号码不存在"),
     UnBound_Mixcom_No_ERROR("100006", "解绑米糠小号失败"),
     Get_Unionid_ERROR("100007", "获取微信unionid失败"),
-    Get_User_Info_ERROR("100008", "获取用户基本信息失败"),;
+    Get_User_Info_ERROR("100008", "获取用户基本信息失败"),
+    Wechat_Draw_ERROR("100009", "对不起，提现失败，请联系梧桐小e，电话15002060446"),
+    ;
 
     public final String code;
     public final String desc;

@@ -74,7 +74,7 @@ public class MixcomController extends BaseController {
                 return result.toString();
             }
             if (loginUser.getRoleid().intValue() == 30) {//未认证
-                result.setMessage("亲爱的用户，请先认证成为合格投资人才能申请成为专职顾问哦！");
+                result.setMessage("亲爱的用户，请先认证成为合格投资人才能查看联系方式哦！");
                 result.setCode(-4);
                 return result.toString();
             }
