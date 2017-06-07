@@ -41,7 +41,7 @@ public class MixcomServiceImpl implements MixcomService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MixcomServiceImpl.class);
 
-    private final String serverRoot = "http://api.mixcom.cn/v2";
+    private final String serverRoot = "http://api.mixcaller.com/v2";
     @Autowired
     private BindMapService bindMapService;
     @Autowired
