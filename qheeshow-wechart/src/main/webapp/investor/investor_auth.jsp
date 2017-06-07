@@ -84,7 +84,7 @@
         if (counter > 0)
             return;
         var mobile = $("#mobile").val();
-        if (mobile == null || mobile == '') {
+        if (isEmpty(mobile)) {
             openTip({'message': '对不起，请输入手机号', 'data': {'link': 'close', 'action': '知道了'}});
             return;
         }

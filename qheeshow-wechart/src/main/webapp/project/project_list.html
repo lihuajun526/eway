@@ -26,6 +26,7 @@
 </script>
 <script>
     index = 1;
+    $("#more").empty();
     function listPro() {
         $.getJSON(appPath + '/project/do/list/' + index, function (result) {
             if (result.code >= 0) {

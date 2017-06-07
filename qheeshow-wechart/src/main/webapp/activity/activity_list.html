@@ -16,6 +16,7 @@
     {{ } }}
 </script>
 <script>
+    $("#more").empty();
     $.getJSON(appPath + '/activity/do/list/1', function (result) {
         if (result.code >= 0) {
             var tpl = $('#projects_tmpl').html();

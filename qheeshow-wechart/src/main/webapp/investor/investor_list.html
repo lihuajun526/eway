@@ -1,6 +1,7 @@
 <div class="wtwx-investors-tit">
     投资人关注领域
-    <a onclick="javascript:$('#container').load('/investor/investor_search_list.html')" class="wtwx-investors-searicon"></a>
+    <a onclick="javascript:$('#container').load('/investor/investor_search_list.html')"
+       class="wtwx-investors-searicon"></a>
 </div>
 <ul id="indus" class="wtwx-investors-lst1"></ul>
 <script id="i_tmpl" type="text/template" charset="utf-8">
@@ -27,6 +28,7 @@
     {{ } }}
 </script>
 <script>
+    $("#more").empty();
     $.getJSON(appPath + '/classinfo/industry/list/6', function (result) {
         if (result.code >= 0) {
             var tpl = $('#i_tmpl').html();
@@ -41,12 +43,16 @@
                 $(this).removeClass("on");
             });
             $(obj).attr("class", "on");
+            index = 1;
         }
         $.getJSON(appPath + '/investor/do/list/' + id + '/' + index, function (result) {
             if (result.code >= 0) {
                 var tpl = $('#investors_tmpl').html();
                 var tempFn = doT.template(tpl);
-                $("#investors").append(tempFn(result.data));
+                if (obj != null)
+                    $("#investors").html(tempFn(result.data));
+                else
+                    $("#investors").append(tempFn(result.data));
                 if (result.data.length < 10) {
                     $("#more").html("没有更多了");
                 } else {
