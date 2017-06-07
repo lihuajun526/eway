@@ -186,16 +186,32 @@
             <div class="g-invest-rone">
                 <div class="g-invest-rt">常见问题</div>
                 <ul class="g-invest-rlst2">
-                    <%
-                        for (ProjectQa commonQa : commonQas) {
-                    %>
-                    <li><span class="on1"></span><span><a href="#"><%=commonQa.getQuestion()%>
-                    </a></span></li>
-                    <%
-                        }
-                    %>
+                    <li>
+                        <span class="on1"></span>
+                        <span>
+                            <a href="<%=appPath%>/about/common_qa.jsp#2F">梧桐e路的优势是什么呢？</a>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="on1"></span>
+                        <span>
+                            <a href="<%=appPath%>/about/common_qa.jsp#20F">梧桐e路是如何收费得？</a>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="on1"></span>
+                        <span>
+                            <a href="<%=appPath%>/about/common_qa.jsp#7F">相对于企业自己寻找资金方，平台的优势在哪儿？</a>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="on1"></span>
+                        <span>
+                            <a href="<%=appPath%>/about/common_qa.jsp#6F">企业融资周期要多久，是不是一定能获得融资？</a>
+                        </span>
+                    </li>
                 </ul>
-                <div class="g-invest-rmore"><a href="#">更多问题</a></div>
+                <div class="g-invest-rmore"><a href="<%=appPath%>/about/common_qa.jsp">更多问题</a></div>
             </div>
         </div>
     </div>

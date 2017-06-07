@@ -9,7 +9,7 @@
                 <li><a href="#">风险提示</a></li>
             </ul>
             <ul class="g-fl-lst">
-                <li><a href="#">常见问题</a></li>
+                <li><a href="<%=appPath%>/about/common_qa.jsp">常见问题</a></li>
                 <li><a href="#">合作与建议</a></li>
                 <li><a href="#">加入我们</a></li>
                 <li><a href="#">合作伙伴</a></li>
@@ -28,7 +28,7 @@
                 <li><a target="_blank" href="http://business.sohu.com/">搜狐财经</a></li>
                 <li><a target="_blank" href="http://www.sina.com.cn/">新浪网</a></li>
             </ul>
-            <div class="g-fr-ewm">不错过任何一个好产品<span><img width="128" height="128" src="<%=appPath%>/images/wt-ewm.png"></span></div>
+            <div class="g-fr-ewm">不错过任何一个好项目<span><img width="128" height="128" src="<%=appPath%>/images/wt-ewm.png"></span></div>
         </div>
     </div>
 </div>

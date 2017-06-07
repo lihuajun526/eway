@@ -51,7 +51,7 @@ public class MixcomController extends BaseController {
         }
         if (loginUser.getRoleid().intValue() == 20) {//企业/创业者
             if (user.getRoleid().intValue() == 20) {//企业/创业者
-                result.setMessage("您不能获得企业/创业者的联系方式");
+                result.setMessage("您的身份是企业，所以您不能获得其它企业的联系电话");
                 return result.toString();
             }
             if (loginUser.getCallTime().intValue() <= 0) {
@@ -68,7 +68,7 @@ public class MixcomController extends BaseController {
             }
         } else if (loginUser.getRoleid().intValue() >= 30 && loginUser.getRoleid().intValue() < 40) {//投资人
             if (user.getRoleid().intValue() >= 30 && user.getRoleid().intValue() < 40) {//投资人
-                result.setMessage("您不能获得投资人的联系方式");
+                result.setMessage("您的身份是投资人，所以您不能获得其它投资人的联系电话");
                 return result.toString();
             }
             if (loginUser.getRoleid().intValue() == 30) {//未认证
