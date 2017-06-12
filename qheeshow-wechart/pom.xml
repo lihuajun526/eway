@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>qheeshow-wechart</artifactId>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
@@ -44,7 +45,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>qheeshow-wechart</finalName>
+        <finalName>wechart</finalName>
         <resources>
             <resource>
                 <directory>src/main/filters/${env}</directory>
