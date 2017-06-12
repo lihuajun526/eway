@@ -137,4 +137,22 @@ public class ProjectAdviserServiceImpl implements ProjectAdviserService {
     public void update(ProjectAdviser projectAdviser) {
         projectAdviserMapper.updateByPrimaryKeySelective(projectAdviser);
     }
+
+    @Override
+    public List<Investor> listByProject(Integer projectid) {
+
+        ProjectAdviserExample example = new ProjectAdviserExample();
+        ProjectAdviserExample.Criteria criteria = example.createCriteria();
+        criteria.andProjectidEqualTo(projectid);
+        List<ProjectAdviser> list = projectAdviserMapper.selectByExample(example);
+
+        List<Integer> ids = new ArrayList<>();
+        for (ProjectAdviser projectAdviser : list)
+            ids.add(projectAdviser.getId());
+
+        InvestorExample example1 = new InvestorExample();
+        InvestorExample.Criteria criteria1 = example1.createCriteria();
+        criteria1.andIdIn(ids);
+        return investorMapper.selectByExample(example1);
+    }
 }

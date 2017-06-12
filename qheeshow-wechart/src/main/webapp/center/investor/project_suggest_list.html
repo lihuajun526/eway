@@ -1,0 +1,53 @@
+<script id="projects_tmpl" type="text/template" charset="utf-8">
+    {{ for(var i=0; i < it.length; i++) { }}
+    <div id="div_{{=it[i].id}}" class="wtwx-mgement-cnt1">
+        <div class="wtwx-mgement-l"><a href="../../project/do/{{=it[i].id}}"><img src="{{=it[i].logo}}" width="64" height="64"/></a></div>
+        <div class="wtwx-mgement-r">
+            <a href="../../project/do/{{=it[i].id}}"><h1>{{=it[i].title}}</h1></a>
+            <p>{{=it[i].demand}}</p>
+            <a onclick="unSuggest({{=it[i].id}})" class="wtwx-mgement-hobby">不感兴趣</a>
+        </div>
+    </div>
+    {{ } }}
+</script>
+<script>
+    index = 1;
+    $("#more").empty();
+    function listPro() {
+        $.getJSON(appPath + '/user/center/do/project/suggest/list/' + index, function (result) {
+            if (result.code >= 0) {
+                if (result.data.length == 0) {
+                    $("#container").html("<div class='wx-callmmone'><img src='" + appPath + "/images/wtwx-icon54.png' width='212' height='152'/><span>暂无推荐的项目</span>");
+                    return;
+                }
+                var tpl = $('#projects_tmpl').html();
+                var tempFn = doT.template(tpl);
+                $("#container").append(tempFn(result.data));
+                if (result.data.length < 10) {
+                    $("#more").html("没有更多了");
+                } else {
+                    $("#more").html("点击加载更多");
+                    $('#more').unbind("click");
+                    $("#more").bind("click", function () {
+                        index++;
+                        listPro();
+                    });
+                }
+            }
+        });
+    }
+    listPro();
+    function unSuggest(projectid) {
+        $.get("/user/center/do/unsuggest/" + projectid, function (result) {
+            if (result.code >= 0) {
+                $("#div_" + projectid).remove();
+                if ($("#container").children("div").length == 0) {
+                    $("#container").html("<div class='wx-callmmone'><img src='" + appPath + "/images/wtwx-icon54.png' width='212' height='152'/><span>暂无推荐的项目</span>");
+                    $("#more").empty();
+                }
+            }
+        },"json");
+    }
+</script>
+
+

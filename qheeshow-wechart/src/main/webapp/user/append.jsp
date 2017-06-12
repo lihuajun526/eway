@@ -18,8 +18,10 @@
 <%@include file="../pub/head.jsp" %>
 <div>
     <form id="userForm">
+        <input type="hidden" id="roleid" name="roleid" value="20"/>
+
         <div class="wx-buycl-topbtn">
-            <a class="on1">企业家</a><a class="on2">投资人</a>
+            <a id="r1" onclick="setRole(20)" class="on1">企业/创业者</a><a id="r2" onclick="setRole(30)" class="on2">投资人</a>
         </div>
         <ul class="wx-buycl-3">
             <li>
@@ -28,7 +30,8 @@
             </li>
             <li>
                 <div class="wx-buycl-1">手机号码</div>
-                <div class="wx-buycl-2"><input id="mobile" name="mobile" placeholder="请输入手机号码" class="wx-buycl-ipt"/></div>
+                <div class="wx-buycl-2"><input id="mobile" name="mobile" placeholder="请输入手机号码" class="wx-buycl-ipt"/>
+                </div>
             </li>
             <li>
                 <div class="wx-buycl-1">短信验证码</div>
@@ -42,7 +45,7 @@
                 <div class="wx-buycl-2"><input id="email" name="email" placeholder="请输入邮箱" class="wx-buycl-ipt"/></div>
             </li>
         </ul>
-        <div class="wx-invest-btn3"><a href="#">确认</a></div>
+        <div class="wx-invest-btn3"><a onclick="append()">确认</a></div>
     </form>
 </div>
 </body>
@@ -77,7 +80,7 @@
             $("#counter").html("获取验证码");
         }
     }
-    function auth() {
+    function append() {
         var name = $("#name").val();
         var mobile = $("#mobile").val();
         var smsCode = $("#smsCode").val();
@@ -102,6 +105,18 @@
             openTip(result);
         }, "json");
     }
+
+    function setRole(v) {
+        if (v == 20) {
+            $("#r1").attr("class", "on1");
+            $("#r2").attr("class", "on2");
+        } else {
+            $("#r1").attr("class", "on2");
+            $("#r2").attr("class", "on1");
+        }
+        $("#roleid").val(v);
+    }
+
     function isEmpty(str) {
         if (str == null || str == '')
             return true;

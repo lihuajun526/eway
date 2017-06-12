@@ -53,6 +53,10 @@ public class UserController extends BaseController {
         Tip tip = new Tip();
         result.setData(tip);
 
+        if (user.getRoleid() == null) {
+            result.setMessage("对不起，用户身份不能为空");
+            return result.toString();
+        }
         if (StringUtils.isEmpty(user.getName())) {
             result.setMessage("对不起，真实姓名不能为空");
             return result.toString();
@@ -80,13 +84,19 @@ public class UserController extends BaseController {
             return result.toString();
         }
         User loginUser = (User) session.getAttribute("loginUser");
-        loginUser.setName(user.getName());
-        loginUser.setMobile(user.getMobile());
-        loginUser.setEmail(user.getEmail());
-
-        userService.update(loginUser);
-
-        tip.setLink("window.history.go(-1);");
+        User dbUser = userService.getByMobile(user.getMobile());
+        if (dbUser == null) {
+            loginUser.setName(user.getName());
+            loginUser.setMobile(user.getMobile());
+            loginUser.setEmail(user.getEmail());
+            loginUser.setRoleid(user.getRoleid());
+            loginUser.setStatus(1);
+            userService.update(loginUser);
+            session.setAttribute("loginUser", loginUser);
+        } else {//合并用户
+            session.setAttribute("loginUser", userService.merge(dbUser, loginUser));
+        }
+        tip.setLink("javascript:self.location=document.referrer;");
         tip.setAction("返回");
         result.setMessage("恭喜，您的个人信息补存成功");
 

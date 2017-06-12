@@ -9,6 +9,8 @@ import com.qheeshow.eway.wechart.constant.Constant;
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -19,10 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@Service
 public class AuthFilter implements Filter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthFilter.class);
-
 
     public void destroy() {
     }
@@ -45,13 +47,21 @@ public class AuthFilter implements Filter {
                 JSONObject jsonObject = JSONObject.parseObject(result);
                 String openid = jsonObject.getString("openid");
                 if (StringUtils.isEmpty(openid)) {
-                    LOGGER.error("伪造的code={}",code);
+                    LOGGER.error("伪造的code={}", code);
                     request.getRequestDispatcher("/pub/404").forward(request, response);
                     return;
                 }
                 WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletRequest.getServletContext());
                 UserService userService = (UserService) webApplicationContext.getBean("userService");
-                User loginUser = userService.getByGzhOpenid(openid);
+                User loginUser = userService.getByUnionid(jsonObject.getString("unionid"));
+                if (loginUser == null)
+                    loginUser = userService.getByGzhOpenid(openid);
+                else {
+                    if (StringUtils.isEmpty(loginUser.getGzhOpenid())) {
+                        loginUser.setGzhOpenid(openid);
+                        userService.update(loginUser);
+                    }
+                }
                 if (loginUser == null) {
                     loginUser = new User();
                     //获取用户基本信息
@@ -64,8 +74,9 @@ public class AuthFilter implements Filter {
                     loginUser.setProvince(jsonObject.getString("province"));
                     loginUser.setCountry(jsonObject.getString("country"));
                     loginUser.setHeadimgurl(jsonObject.getString("headimgurl"));
-                    loginUser.setUnionid(jsonObject.getString("headimgurl"));
+                    loginUser.setUnionid(jsonObject.getString("unionid"));
                     loginUser.setSubscribe(jsonObject.getInteger("subscribe"));
+                    userService.saveFromGzh(loginUser);
                 }
                 session.setAttribute("loginUser", loginUser);
             } catch (Exception e) {
@@ -74,42 +85,32 @@ public class AuthFilter implements Filter {
         }
 
         if (url.indexOf("/v_auth") == -1) {//放行
-            try {
-                chain.doFilter(request, response);
-            } finally {
+            chain.doFilter(request, response);
+            return;
+        }
+        Object o = session.getAttribute("loginUser");
+        if (url.indexOf("/v_authj") != -1) {
+            if (o == null) {
+                request.getRequestDispatcher("/user/appendj").forward(request, response);
+                return;
+            }
+            User loginUser = (User) o;
+            if (loginUser.getRoleid() == null) {
+                request.getRequestDispatcher("/user/appendj").forward(request, response);
+                return;
             }
         } else {
-            Object o = session.getAttribute("loginUser");
-            if (url.indexOf("/v_authj") != -1) {
-                if (o == null)
-                    request.getRequestDispatcher("/user/appendj").forward(request, response);
-                else {
-                    User loginUser = (User) o;
-                    if (loginUser.getRoleid() == null) {
-                        request.getRequestDispatcher("/user/appendj").forward(request, response);
-                    } else {//放行
-                        try {
-                            chain.doFilter(request, response);
-                        } finally {
-                        }
-                    }
-                }
-            } else {
-                if (o == null)
-                    request.getRequestDispatcher("/user/append").forward(request, response);
-                else {
-                    User loginUser = (User) o;
-                    if (loginUser.getRoleid() == null) {
-                        request.getRequestDispatcher("/user/append").forward(request, response);
-                    } else {//放行
-                        try {
-                            chain.doFilter(request, response);
-                        } finally {
-                        }
-                    }
-                }
+            if (o == null) {
+                request.getRequestDispatcher("/user/append").forward(request, response);
+                return;
+            }
+            User loginUser = (User) o;
+            if (loginUser.getRoleid() == null) {
+                request.getRequestDispatcher("/user/append").forward(request, response);
+                return;
             }
         }
+        chain.doFilter(request, response);
     }
 
 }

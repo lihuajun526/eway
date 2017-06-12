@@ -195,7 +195,7 @@
                     <li>
                         <span class="on1"></span>
                         <span>
-                            <a href="<%=appPath%>/about/common_qa.jsp#20F">梧桐e路是如何收费得？</a>
+                            <a href="<%=appPath%>/about/common_qa.jsp#20F">梧桐e路是如何收费的？</a>
                         </span>
                     </li>
                     <li>

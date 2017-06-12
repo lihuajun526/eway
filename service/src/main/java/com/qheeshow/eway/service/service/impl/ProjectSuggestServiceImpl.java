@@ -57,7 +57,7 @@ public class ProjectSuggestServiceImpl implements ProjectSuggestService {
             Integer investorid = Integer.valueOf(id);
             boolean flag = true;
             for (ProjectSuggest projectSuggest : list) {
-                if (projectSuggest.getInvestorid().intValue() == investorid.intValue()) {
+                if (projectSuggest.getInvestorid().intValue() == investorid.intValue() && projectSuggest.getStatus().intValue() == 0) {
                     flag = false;
                     break;
                 }

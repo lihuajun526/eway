@@ -21,10 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by lihuajun on 2017/2/26.
@@ -168,5 +165,18 @@ public class OrderServiceImpl implements OrderService {
         } else {
             orderMapper.updateByPrimaryKeySelective(order);
         }
+    }
+
+    @Override
+    public List<Order> listByUser(Integer userid) {
+        OrderExample example = new OrderExample();
+        OrderExample.Criteria criteria = example.createCriteria();
+        criteria.andUseridEqualTo(userid);
+        List<Integer> status = new ArrayList<>();
+        status.add(1);
+        status.add(2);
+        criteria.andStatusIn(status);
+        example.setOrderByClause("create_time desc");
+        return orderMapper.selectByExample(example);
     }
 }

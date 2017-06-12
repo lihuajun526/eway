@@ -30,4 +30,6 @@ public interface ProjectAdviserService {
 
     void update(ProjectAdviser projectAdviser);
 
+    List<Investor> listByProject(Integer projectid);
+
 }

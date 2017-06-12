@@ -4,6 +4,7 @@ import com.qheeshow.eway.common.bean.wechat.pay.exception.OrderWechatException;
 import com.qheeshow.eway.service.model.Order;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,5 +29,5 @@ public interface OrderService {
 
     void save(Order order);
 
-
+    List<Order> listByUser(Integer userid);
 }
