@@ -9,14 +9,14 @@
     {{ for(var i=0; i < it.length; i++) { }}
     <li onclick="q({{=it[i].classinfoid}},this)"><a>{{=it[i].cname}}</a></li>
     {{ } }}
-    <li><a href="/investor/do/industry/list">更多</a></li>
+    <li><a href="investor/do/industry/list">更多</a></li>
 </script>
 <div id="investors"></div>
 <script id="investors_tmpl" type="text/template" charset="utf-8">
     {{ for(var i=0; i < it.length; i++) { }}
     <div class="wtwx-investors-cnt1">
         <div class="wtwx-investors-cnt1-l"><img src="{{=it[i].photo}}" width="48" height="48"/></div>
-        <a href="/investor/do/{{=it[i].id}}">
+        <a href="investor/do/{{=it[i].id}}">
             <div class="wtwx-investors-cnt1-r">
                 <h1>{{=it[i].trueName}}</h1>
                 <h4>{{=it[i].companyName}}／{{=it[i].companyRank}}</h4>
