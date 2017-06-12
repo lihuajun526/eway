@@ -48,7 +48,7 @@ public class AuthFilter implements Filter {
                 String openid = jsonObject.getString("openid");
                 if (StringUtils.isEmpty(openid)) {
                     LOGGER.error("伪造的code={}", code);
-                    request.getRequestDispatcher(Config.get("app.path") + "/pub/404").forward(request, response);
+                    request.getRequestDispatcher("/pub/404").forward(request, response);
                     return;
                 }
                 WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletRequest.getServletContext());
@@ -91,22 +91,22 @@ public class AuthFilter implements Filter {
         Object o = session.getAttribute("loginUser");
         if (url.indexOf("/v_authj") != -1) {
             if (o == null) {
-                request.getRequestDispatcher(Config.get("app.path") + "/user/appendj").forward(request, response);
+                request.getRequestDispatcher("/user/appendj").forward(request, response);
                 return;
             }
             User loginUser = (User) o;
             if (loginUser.getRoleid() == null) {
-                request.getRequestDispatcher(Config.get("app.path") + "/user/appendj").forward(request, response);
+                request.getRequestDispatcher("/user/appendj").forward(request, response);
                 return;
             }
         } else {
             if (o == null) {
-                request.getRequestDispatcher(Config.get("app.path") + "/user/append").forward(request, response);
+                request.getRequestDispatcher("/user/append").forward(request, response);
                 return;
             }
             User loginUser = (User) o;
             if (loginUser.getRoleid() == null) {
-                request.getRequestDispatcher(Config.get("app.path") + "/user/append").forward(request, response);
+                request.getRequestDispatcher("/user/append").forward(request, response);
                 return;
             }
         }
