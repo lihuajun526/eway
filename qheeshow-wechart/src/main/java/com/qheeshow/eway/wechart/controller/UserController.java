@@ -1,5 +1,6 @@
 package com.qheeshow.eway.wechart.controller;
 
+import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.UserService;
 import com.qheeshow.eway.wechart.base.BaseController;
@@ -36,7 +37,7 @@ public class UserController extends BaseController {
         result.setCode(-1);
 
         Tip tip = new Tip();
-        tip.setLink("/user/append.jsp");
+        tip.setLink(Config.get("app.path") + "/user/append.jsp");
         tip.setAction("去完善");
 
         result.setMessage("请先完善您的个人信息");
