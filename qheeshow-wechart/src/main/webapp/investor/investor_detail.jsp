@@ -29,7 +29,7 @@
         <h1>选择要投递的项目</h1>
 
         <div id="pros" class="wtwx-project2-lst2a"></div>
-        <div class="wtwx-project2-btn3"><a href="#">确定</a></div>
+        <div class="wtwx-project2-btn3"><a onclick="postPro()">确定</a></div>
     </div>
 </div>
 

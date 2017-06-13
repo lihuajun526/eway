@@ -361,7 +361,12 @@ public class InvestorController extends BaseController {
 
         for (Comment comment : comments) {
             User user = userService.get(comment.getUserid());
-            comment.setPhoto(user.getPhoto());
+            if (!StringUtils.isEmpty(user.getPhoto())) {
+                comment.setPhoto(user.getPhoto());
+            } else if (!StringUtils.isEmpty(user.getHeadimgurl())) {
+                comment.setPhoto(user.getHeadimgurl());
+            } else
+                comment.setPhoto(Config.get("app.path") + "/images/df.jpg");
             comment.setName(user.getName());
         }
 

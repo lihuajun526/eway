@@ -108,7 +108,7 @@ public class UserController extends BaseController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public String login(User user) {
+    public String login(User user, HttpSession session) {
 
         Result<Tip> result = new Result<>();
         Tip tip = new Tip();
@@ -134,6 +134,9 @@ public class UserController extends BaseController {
             result.setMessage("账号或密码错误");
             return result.toString();
         }
+
+        session.setAttribute("loginUser", list.get(0));
+
         tip.setLink("javascript:self.location=document.referrer;");
         tip.setAction("返回");
         result.setMessage("登录成功");

@@ -39,7 +39,7 @@ public class AuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
         String url = request.getRequestURI();
-        if (url.indexOf("/v_auth") == -1) {
+        if (url.indexOf("/v_auth") == -1 && url.indexOf("/v_login") == -1) {
             chain.doFilter(request, response);
             return;
         }
@@ -91,25 +91,10 @@ public class AuthFilter implements Filter {
                 LOGGER.error("获取openid或用户基本信息失败:", e);
             }
         }
-        Object o = session.getAttribute("loginUser");
+        User loginUser = (User) session.getAttribute("loginUser");
         if (url.indexOf("/v_authj") != -1) {
-            if (o == null) {
-                request.getRequestDispatcher("/user/appendj").forward(request, response);
-                return;
-            }
-            User loginUser = (User) o;
             if (loginUser.getRoleid() == null) {
                 request.getRequestDispatcher("/user/appendj").forward(request, response);
-                return;
-            }
-        } else {
-            if (o == null) {
-                request.getRequestDispatcher("/user/append").forward(request, response);
-                return;
-            }
-            User loginUser = (User) o;
-            if (loginUser.getRoleid() == null) {
-                request.getRequestDispatcher("/user/append").forward(request, response);
                 return;
             }
         }

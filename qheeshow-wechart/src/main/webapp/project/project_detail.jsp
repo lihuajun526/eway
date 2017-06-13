@@ -195,17 +195,9 @@
             openTip({'message': '请输入您的问题', 'data': {'action': '知道了', 'link': 'close'}});
             return;
         }
-        /*$.post("
-        <%=appPath%>/project/do/q/
-        <%=project.getId()%>/v_authj", function (result) {
-         openTip(result);
-         }, "json");
-
-         $.post('
-        <%=appPath%>/project/do/q/
-        <%=project.getId()%>/v_authj', {sample: 'payload'}, function (response) {
-         // process response
-         })*/
+        $.post("<%=appPath%>/project/do/q/<%=project.getId()%>/v_login", function (result) {
+            openTip(result);
+        }, "json");
     }
 </script>
 </body>
