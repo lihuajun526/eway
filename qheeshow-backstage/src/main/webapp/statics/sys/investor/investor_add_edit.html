@@ -11,6 +11,9 @@
     <script type="text/javascript" src="../../jquery/ajaxfileupload.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../js/config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../ueditor/lang/zh-cn/zh-cn.js"></script>
 </head>
 <body>
 <form id="investorForm">
@@ -19,6 +22,7 @@
     <input type="hidden" id="industryId" name="industryId" value=""/>
     <input type="hidden" id="cityId" name="cityId" value=""/>
     <input type="hidden" id="stageId" name="stageId" value=""/>
+    <input type="hidden" id="personalProfile_" name="personalProfile" value=""/>
     <table>
         <tbody>
         <tr class="firstRow">
@@ -61,7 +65,8 @@
                 个人简介：
             </td>
             <td>
-                <textarea cols="80" rows="2" id="personalProfile" name="personalProfile" placeholder="个人简介"></textarea>
+                <!--<textarea cols="80" rows="2" id="personalProfile" name="personalProfile" placeholder="个人简介"></textarea>-->
+                <script id="personalProfile" type="text/plain" style="width:582px;"></script>
             </td>
         </tr>
         <tr>
@@ -114,6 +119,18 @@
     </table>
 </form>
 <script>
+    var personalProfile = UE.getEditor('personalProfile', {
+        //这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
+        toolbars: [['Source', 'Undo', 'Redo', 'bold', 'test']],
+        //focus时自动清空初始化时的内容
+        autoClearinitialContent: true,
+        //关闭字数统计
+        wordCount: false,
+        //关闭elementPath
+        elementPathEnabled: false,
+        //默认的编辑区域高度
+        initialFrameHeight: 60
+    });
     function closeTab() {
         parent.closeTab('编辑投资人');
     }
@@ -130,7 +147,7 @@
             alert("请输入头衔");
             return false;
         }
-        if (!$("#personalProfile").val().length) {
+        if (!$("#personalProfile_").val().length) {
             alert("请输入个人简介");
             return false;
         }
@@ -170,6 +187,7 @@
             }
         });
         $("#industryId").val(industrys);
+        $("#personalProfile_").val(UE.getEditor('personalProfile').getContent());
         if (!validate())
             return;
         $.ajax({
@@ -186,125 +204,129 @@
             }
         });
     }
-    //获得行业信息
-    $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_industry, function (result) {
-        if (result.code < 0) {
-            alert(result.message);
-            return;
-        }
-        var industrys = $('#industrys');
-        industrys.html("");
-        for (var i = 0; i < result.data.length; i++) {
-            industrys.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
-        }
-        //获得地域信息
-        $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_area, function (result) {
+    personalProfile.ready(function () {
+        //获得行业信息
+        $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_industry, function (result) {
             if (result.code < 0) {
                 alert(result.message);
                 return;
             }
-            var citys = $('#citys');
-            citys.html("");
+            var industrys = $('#industrys');
+            industrys.html("");
             for (var i = 0; i < result.data.length; i++) {
-                citys.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
+                industrys.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
             }
-            //获得融资阶段信息
-            $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_stage, function (result) {
+            //获得地域信息
+            $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_area, function (result) {
                 if (result.code < 0) {
                     alert(result.message);
                     return;
                 }
-                var stages = $('#stages');
-                stages.html("");
+                var citys = $('#citys');
+                citys.html("");
                 for (var i = 0; i < result.data.length; i++) {
-                    stages.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
+                    citys.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
                 }
-                //获得单笔投资金额
-                $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_financing_limit, function (result) {
+                //获得融资阶段信息
+                $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_stage, function (result) {
                     if (result.code < 0) {
                         alert(result.message);
                         return;
                     }
-                    var singles = $('#singlePriceId');
-                    singles.html("");
+                    var stages = $('#stages');
+                    stages.html("");
                     for (var i = 0; i < result.data.length; i++) {
-                        singles.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+                        stages.append("<input type='checkbox' value='" + result.data[i].classinfoid + "'/>" + result.data[i].cname + "&nbsp;");
                     }
-                    //获得投资风格
-                    $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_style, function (result) {
+                    //获得单笔投资金额
+                    $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_financing_limit, function (result) {
                         if (result.code < 0) {
                             alert(result.message);
                             return;
                         }
-                        var styles = $('#styleId');
-                        styles.html("");
+                        var singles = $('#singlePriceId');
+                        singles.html("");
                         for (var i = 0; i < result.data.length; i++) {
-                            styles.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
+                            singles.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
                         }
-                        if (parent.investorid == 0) {
-                            return;
-                        }
-                        $.get(appPath + "/investor/get/" + parent.investorid, function (result) {
-                            if (result.code != 0) {
-                                alert("获取投资人信息失败");
+                        //获得投资风格
+                        $.get(appPath + "/classinfo/list/root/" + classinfo_rootid_style, function (result) {
+                            if (result.code < 0) {
+                                alert(result.message);
                                 return;
                             }
-                            var data = result.data;
-                            $("#trueName").val(data.trueName);
-                            $("#photo").attr("src", data.photo);
-                            $("#investorType").val(data.investorType);
-                            $("#companyName").val(data.companyName);
-                            $("#companyRank").val(data.companyRank);
-                            $("#wechatId").val(data.wechatId);
-                            $("#singlePriceId").val(data.singlePriceId);
-                            $("#styleId").val(data.styleId);
-                            $("#recommender").val(data.recommender);
-                            $("#investorCase").val(data.investorCase);
-                            $("#personalProfile").val(data.personalProfile);
-                            $("#businessCardPositive").attr("src", data.businessCardPositive);
-                            $("#businessCardOpposite").attr("src", data.businessCardOpposite);
-                            $("#mobile").val(data.mobile);
-                            $("#email").val(data.email);
-                            $("#idCard").val(data.idCard);
-                            if (!isEmpty(data.industryId)) {
-                                var indus = data.industryId.split("#");
-                                $("#industrys").children('input').each(function () {
-                                    for (var i = 0; i < indus.length; i++) {
-                                        if (!indus[i].length)
-                                            continue;
-                                        if ($(this).val() == indus[i])
-                                            $(this).attr("checked", "checked");
-                                    }
-                                });
+                            var styles = $('#styleId');
+                            styles.html("");
+                            for (var i = 0; i < result.data.length; i++) {
+                                styles.append("<option value='" + result.data[i].classinfoid + "'>" + result.data[i].cname + "</option>");
                             }
-                            if (!isEmpty(data.cityId)) {
-                                var citys = data.cityId.split("#");
-                                $("#citys").children('input').each(function () {
-                                    for (var i = 0; i < citys.length; i++) {
-                                        if (!citys[i].length)
-                                            continue;
-                                        if ($(this).val() == citys[i])
-                                            $(this).attr("checked", "checked");
-                                    }
-                                });
+                            if (parent.investorid == 0) {
+                                return;
                             }
-                            if (!isEmpty(data.stageId)) {
-                                var stages = data.stageId.split("#");
-                                $("#stages").children('input').each(function () {
-                                    for (var i = 0; i < stages.length; i++) {
-                                        if (!stages[i].length)
-                                            continue;
-                                        if ($(this).val() == stages[i])
-                                            $(this).attr("checked", "checked");
-                                    }
-                                });
-                            }
+                            $.get(appPath + "/investor/get/" + parent.investorid, function (result) {
+                                if (result.code != 0) {
+                                    alert("获取投资人信息失败");
+                                    return;
+                                }
+                                var data = result.data;
+                                $("#trueName").val(data.trueName);
+                                $("#photo").attr("src", data.photo);
+                                $("#investorType").val(data.investorType);
+                                $("#companyName").val(data.companyName);
+                                $("#companyRank").val(data.companyRank);
+                                $("#wechatId").val(data.wechatId);
+                                $("#singlePriceId").val(data.singlePriceId);
+                                $("#styleId").val(data.styleId);
+                                $("#recommender").val(data.recommender);
+                                $("#investorCase").val(data.investorCase);
+                                //$("#personalProfile").val(data.personalProfile);
+                                personalProfile.setContent(data.personalProfile);
+                                $("#businessCardPositive").attr("src", data.businessCardPositive);
+                                $("#businessCardOpposite").attr("src", data.businessCardOpposite);
+                                $("#mobile").val(data.mobile);
+                                $("#email").val(data.email);
+                                $("#idCard").val(data.idCard);
+                                if (!isEmpty(data.industryId)) {
+                                    var indus = data.industryId.split("#");
+                                    $("#industrys").children('input').each(function () {
+                                        for (var i = 0; i < indus.length; i++) {
+                                            if (!indus[i].length)
+                                                continue;
+                                            if ($(this).val() == indus[i])
+                                                $(this).attr("checked", "checked");
+                                        }
+                                    });
+                                }
+                                if (!isEmpty(data.cityId)) {
+                                    var citys = data.cityId.split("#");
+                                    $("#citys").children('input').each(function () {
+                                        for (var i = 0; i < citys.length; i++) {
+                                            if (!citys[i].length)
+                                                continue;
+                                            if ($(this).val() == citys[i])
+                                                $(this).attr("checked", "checked");
+                                        }
+                                    });
+                                }
+                                if (!isEmpty(data.stageId)) {
+                                    var stages = data.stageId.split("#");
+                                    $("#stages").children('input').each(function () {
+                                        for (var i = 0; i < stages.length; i++) {
+                                            if (!stages[i].length)
+                                                continue;
+                                            if ($(this).val() == stages[i])
+                                                $(this).attr("checked", "checked");
+                                        }
+                                    });
+                                }
+                            }, "json");
                         }, "json");
                     }, "json");
                 }, "json");
             }, "json");
         }, "json");
-    }, "json");
+    });
+
 </script>
 </body>
 </html>
