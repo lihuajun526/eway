@@ -320,6 +320,13 @@
                                         %>
                 } else if (result.code == -3) {
                     xalert(result.message);
+                } else if (result.code == -4) {
+                    <%
+                        if(loginUser!=null){
+                        %>xalert1(result.message, "去完善", "<%=appPath%>/investor/<%=loginUser.getId()%>/add/edit/1/auth");
+                    <%
+                                            }
+                                        %>
                 }
                 else
                     xalert(result.message);
