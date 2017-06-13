@@ -31,7 +31,7 @@
         for (Investor investor : investors) {
     %>
     <div id="inv_<%=investor.getId()%>" class="wtwx-investors-cnt1">
-        <a href="/investor/do/<%=investor.getId()%>">
+        <a href="<%=appPath%>/investor/do/<%=investor.getId()%>">
             <div class="wtwx-adviser-l"><img src="<%=investor.getPhoto()%>" width="41" height="41"/></div>
             <div class="wtwx-adviser-r"><%=investor.getTrueName()%><span>|</span><span><%=investor.getCompanyName()%> <%=investor.getCompanyRank()%></span>
             </div>
@@ -48,7 +48,7 @@
 <script>
     var size = <%=size%>;
     function unF(id) {
-        $.get('/user/center/do/unfollow/' + id, function (result) {
+        $.get('<%=appPath%>/user/center/do/unfollow/' + id, function (result) {
             if (result.code >= 0) {
                 $("#inv_" + id).remove();
                 size--;

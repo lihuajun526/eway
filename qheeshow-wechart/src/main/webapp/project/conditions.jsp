@@ -9,7 +9,7 @@
     List<Xwcmclassinfo> industrys = (List<Xwcmclassinfo>) request.getAttribute("industrys");
 
     Integer iType = session.getAttribute("type") == null ? 0 : (Integer) session.getAttribute("type");
-    Integer iAreaid = session.getAttribute("areaid") == null ? 0 : (Integer) session.getAttribute("areaid");
+    Integer iAreaid = session.getAttribute("area") == null ? 0 : (Integer) session.getAttribute("area");
     Integer iFinancingLimit = session.getAttribute("financingLimit") == null ? 0 : (Integer) session.getAttribute("financingLimit");
     Integer iIndustry = session.getAttribute("industry") == null ? 0 : (Integer) session.getAttribute("industry");
     String keyword = session.getAttribute("keyword") == null ? "" : (String) session.getAttribute("keyword");

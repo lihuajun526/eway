@@ -15,7 +15,7 @@
 } else {
     for (Investor investor : investorList) {
 %>
-<a href="/investor/do/<%=investor.getId()%>">
+<a href="<%=appPath%>/investor/do/<%=investor.getId()%>">
 <div class="wtwx-investors-cnt1">
     <div class="wtwx-adviser-l"><img src="<%=investor.getPhoto()%>" width="41" height="41"/></div>
     <div class="wtwx-adviser-r"><%=investor.getTrueName()%>
