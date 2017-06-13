@@ -38,7 +38,7 @@ public class ProjectAdviserServiceImpl implements ProjectAdviserService {
         List<Investor> list = investorMapper.selectByExample(investorExample);
         Investor investor = list.size() > 0 ? list.get(0) : null;
         if (investor == null) {
-            throw new CommonException(ExceptionTypeEnum.Is_Not_Adviser_ERROR);
+            throw new CommonException(ExceptionTypeEnum.Adviser_Info_Not_Full);
         }
         if (investor.getAuthStatus().intValue() != 2) {//尚未认证
             throw new CommonException(ExceptionTypeEnum.Investor_Not_Auth_ERROR);
