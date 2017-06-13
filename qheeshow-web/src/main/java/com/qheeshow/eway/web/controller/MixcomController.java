@@ -5,6 +5,7 @@ import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.service.model.CallRecord;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.BindMapService;
+import com.qheeshow.eway.service.service.InvestorService;
 import com.qheeshow.eway.service.service.MixcomService;
 import com.qheeshow.eway.service.service.UserService;
 import com.qheeshow.eway.web.base.BaseController;
@@ -31,6 +32,8 @@ public class MixcomController extends BaseController {
     private UserService userService;
     @Autowired
     private MixcomService mixcomService;
+    @Autowired
+    private InvestorService investorService;
 
     @RequestMapping("/bound/{userid}/authj")
     @ResponseBody
@@ -54,7 +57,7 @@ public class MixcomController extends BaseController {
         }
         if (loginUser.getRoleid().intValue() == 20) {//企业/创业者
             if (user.getRoleid().intValue() == 20) {//企业/创业者
-                result.setMessage("您不能获得企业的联系方式");
+                result.setMessage("对不起，您是企业/创业者，所以您不能获得企业的联系方式");
                 return result.toString();
             }
             if (loginUser.getCallTime().intValue() <= 0) {
@@ -70,12 +73,18 @@ public class MixcomController extends BaseController {
             }
         } else if (loginUser.getRoleid().intValue() >= 30 && loginUser.getRoleid().intValue() < 40) {//投资人
             if (user.getRoleid().intValue() >= 30 && user.getRoleid().intValue() < 40) {//投资人
-                result.setMessage("您不能获得投资人的联系方式");
+                result.setMessage("对不起，您是投资人，所以您不能获得投资人的联系方式");
                 return result.toString();
             }
             if (loginUser.getRoleid().intValue() == 30) {//未认证
-                result.setMessage("亲爱的用户，请先认证成为合格投资人才能查看联系方式哦！");
-                result.setCode(-4);
+                if (investorService.getByUser(loginUser.getId()) == null) {
+                    result.setMessage("亲爱的投资人，请先完善并认证您的信息！");
+                    result.setCode(-5);
+                }else{
+                    result.setMessage("亲爱的投资人，请先认证成为合格投资人才能查看联系方式哦！");
+                    result.setCode(-4);
+                }
+
                 return result.toString();
             }
         }

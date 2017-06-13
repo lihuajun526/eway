@@ -41,8 +41,10 @@ public class ProjectAdviserController extends BaseController {
         } catch (CommonException e) {
             if (e.getCode().equals(ExceptionTypeEnum.Investor_Not_Auth_ERROR)) {
                 result.set(-2, "亲爱的用户，请先认证成为合格投资人才能申请成为专职顾问哦！");
+            } else if (e.getCode().equals(ExceptionTypeEnum.Is_Not_Adviser_ERROR)) {
+                result.set(-3, "对不起，您的身份不是投资人不能申请成为专职顾问");
             } else {
-                result.set(-3, e.getDesc());
+                result.set(-4, e.getDesc());
             }
             return result.toString();
         }

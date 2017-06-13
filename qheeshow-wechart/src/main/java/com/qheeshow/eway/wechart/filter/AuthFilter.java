@@ -39,7 +39,15 @@ public class AuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
         String url = request.getRequestURI();
+        if (url.indexOf("/v_auth") == -1) {
+            chain.doFilter(request, response);
+            return;
+        }
         String code = request.getParameter("code");
+        if (session.getAttribute("loginUser") == null && StringUtils.isEmpty(code)) {
+            request.getRequestDispatcher("/user/login.jsp").forward(request, response);
+            return;
+        }
         if (session.getAttribute("loginUser") == null && !StringUtils.isEmpty(code)) {
             try {
                 String result = XHttpClient.doRequest(new HttpGet("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + Config.get("wechat.appid") + "&secret=" + Config.get("wechat.secret") + "&code=" + code + "&grant_type=authorization_code"));
@@ -48,7 +56,7 @@ public class AuthFilter implements Filter {
                 String openid = jsonObject.getString("openid");
                 if (StringUtils.isEmpty(openid)) {
                     LOGGER.error("伪造的code={}", code);
-                    request.getRequestDispatcher("/pub/404").forward(request, response);
+                    request.getRequestDispatcher("/pub/404.jsp").forward(request, response);
                     return;
                 }
                 WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletRequest.getServletContext());
@@ -82,11 +90,6 @@ public class AuthFilter implements Filter {
             } catch (Exception e) {
                 LOGGER.error("获取openid或用户基本信息失败:", e);
             }
-        }
-
-        if (url.indexOf("/v_auth") == -1) {//放行
-            chain.doFilter(request, response);
-            return;
         }
         Object o = session.getAttribute("loginUser");
         if (url.indexOf("/v_authj") != -1) {

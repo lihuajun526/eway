@@ -29,10 +29,10 @@
         <%
             if (loginUser.getRoleid().intValue() >= 30 && loginUser.getRoleid().intValue() < 40) {//投资人
         %>
-        <li class="on7"><a href="<%=appPath%>/center/investor/project_mgr.jsp">项目管理</a></li>
-        <li class="on9"><a href="<%=appPath%>/center/investor/project_of_adviser_list.html">我是金融顾问</a></li>
+        <li onclick="op('<%=appPath%>/center/investor/project_mgr.jsp')" class="on7"><a>项目管理</a></li>
+        <li onclick="op('<%=appPath%>/center/investor/project_of_adviser_list.html')" class="on9"><a>我是金融顾问</a></li>
         <%--<li class="on10"><a href="#">服务过的项目</a></li>--%>
-        <li class="on10"><a href="/user/center/do/order/list">订单</a></li>
+        <li onclick="op('<%=appPath%>/user/center/do/order/list')" class="on10"><a>订单</a></li>
         <%
         } else if (loginUser.getRoleid().intValue() >= 20 && loginUser.getRoleid().intValue() < 30) {//创业者
         %>
@@ -41,13 +41,12 @@
             <a href="/goods/do/list/0" class="wtwx-user-btn">充值</a>
         </li>
         <li class="on2"><a href="#">购买的服务</a></li>
-        <li class="on3"><a href="/user/center/do/projects/advisers">我的金融顾问</a></li>
-        <li class="on4"><a href="/user/center/do/follow/list">关注的投资人</a></li>
-        <li class="on5"><a href="/user/center/do/order/list">订单</a></li>
+        <li onclick="op('<%=appPath%>/user/center/do/projects/advisers')" class="on3"><a>我的金融顾问</a></li>
+        <li onclick="op('<%=appPath%>/user/center/do/follow/list')" class="on4"><a>关注的投资人</a></li>
+        <li onclick="op('<%=appPath%>/user/center/do/order/list')" class="on5"><a>订单</a></li>
         <%
             }
         %>
-
     </ul>
 </div>
 <%
@@ -55,5 +54,8 @@
 %>
 <script>
     $("#more").empty();
+    function op(url) {
+        window.location.href = url;
+    }
 </script>
 

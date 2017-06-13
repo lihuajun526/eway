@@ -142,7 +142,7 @@
     }
     function setCondition() {
         $.get(appPath + '/project/do/condition/set/' + type + '/' + area + '/' + financingLimit + '/' + industry + '?keyword=' + $("#keyword").val(), function () {
-            window.location.href = appPath + '/index.jsp?m=' + encodeURIComponent('project/project_list.html');
+            window.location.href = appPath + '/index.jsp?m=1';
         });
     }
 </script>

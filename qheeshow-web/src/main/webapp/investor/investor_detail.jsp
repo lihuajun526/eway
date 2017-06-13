@@ -260,7 +260,7 @@
                 return;
             }
             if (result.data.length == 0) {
-                xalert("您尚未创建项目，请先创建项目");
+                xalert1("您尚未创建项目，请先创建项目", "去创建", "<%=appPath%>/project/0/add/edit/1/auth");
                 return;
             }
             for (var i = 0; i < result.data.length; i++) {

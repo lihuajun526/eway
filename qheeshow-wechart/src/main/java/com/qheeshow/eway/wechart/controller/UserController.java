@@ -1,5 +1,6 @@
 package com.qheeshow.eway.wechart.controller;
 
+import com.qheeshow.eway.common.exception.CryptoException;
 import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by lihuajun on 16-7-6.
@@ -100,6 +102,41 @@ public class UserController extends BaseController {
         tip.setLink("javascript:self.location=document.referrer;");
         tip.setAction("返回");
         result.setMessage("恭喜，您的个人信息补存成功");
+
+        return result.toString();
+    }
+
+    @RequestMapping("/login")
+    @ResponseBody
+    public String login(User user) {
+
+        Result<Tip> result = new Result<>();
+        Tip tip = new Tip();
+        result.setData(tip);
+
+        if (StringUtils.isEmpty(user.getMobile())) {
+            result.setMessage("对不起，手机号不能为空");
+            return result.toString();
+        }
+        if (StringUtils.isEmpty(user.getPassword())) {
+            result.setMessage("对不起，密码不能为空");
+            return result.toString();
+        }
+        List<User> list = null;
+        try {
+            list = userService.login(user);
+        } catch (CryptoException e) {
+            LOGGER.error("密码[{}]加密失败", user.getPassword());
+            result.setMessage("对不起，系统出错了，麻烦您联系梧桐小e，电话<a href='tel:" + Config.get("customer.tel") + "'>" + Config.get("customer.tel") + "</a>");
+            return result.toString();
+        }
+        if (list == null || list.size() == 0) {
+            result.setMessage("账号或密码错误");
+            return result.toString();
+        }
+        tip.setLink("javascript:self.location=document.referrer;");
+        tip.setAction("返回");
+        result.setMessage("登录成功");
 
         return result.toString();
     }
