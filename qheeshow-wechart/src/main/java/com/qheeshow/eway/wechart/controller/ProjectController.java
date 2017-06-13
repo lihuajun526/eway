@@ -66,7 +66,7 @@ public class ProjectController extends BaseController {
         int pageSize = 10;
 
         Integer type = session.getAttribute("type") == null ? 0 : (Integer) session.getAttribute("type");
-        Integer areaid = session.getAttribute("areaid") == null ? 0 : (Integer) session.getAttribute("areaid");
+        Integer areaid = session.getAttribute("area") == null ? 0 : (Integer) session.getAttribute("area");
         Integer financingLimit = session.getAttribute("financingLimit") == null ? 0 : (Integer) session.getAttribute("financingLimit");
         Integer industry = session.getAttribute("industry") == null ? 0 : (Integer) session.getAttribute("industry");
         String keyword = session.getAttribute("keyword") == null ? "" : (String) session.getAttribute("keyword");
