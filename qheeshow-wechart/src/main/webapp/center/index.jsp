@@ -40,7 +40,7 @@
             剩余通话时间<span class="wtwx-user-num"><%=loginUser.getCallTime()%>分钟</span>
             <a href="/goods/do/list/0" class="wtwx-user-btn">充值</a>
         </li>
-        <li class="on2"><a href="#">购买的服务</a></li>
+        <li onclick="op('<%=appPath%>/user/center/do/projects/services')" class="on2"><a href="#">购买的服务</a></li>
         <li onclick="op('<%=appPath%>/user/center/do/projects/advisers')" class="on3"><a>我的金融顾问</a></li>
         <li onclick="op('<%=appPath%>/user/center/do/follow/list')" class="on4"><a>关注的投资人</a></li>
         <li onclick="op('<%=appPath%>/user/center/do/order/list')" class="on5"><a>订单</a></li>

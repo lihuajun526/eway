@@ -212,7 +212,6 @@
         $.post("<%=appPath%>/project/do/a/<%=project.getId()%>/" + quserid + "/" + qid + "/v_login", {
             'content': $("#content" + qid).val()
         }, function (result) {
-            openTip(result);
             if (result.code >= 0) {
                 listQas();
             }

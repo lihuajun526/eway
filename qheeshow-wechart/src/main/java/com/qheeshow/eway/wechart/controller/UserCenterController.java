@@ -174,21 +174,67 @@ public class UserCenterController extends BaseController {
         return result.toString();
     }
 
-    @RequestMapping("/myservices/{projectid}")
-    public ModelAndView myServices(@PathVariable Integer projectid, HttpSession session) {
+    /**************************************************************
+     * 企业/创业者
+     **************************************************************/
+
+    /**
+     * 我的金融顾问
+     * @param session
+     * @return
+     */
+    @RequestMapping("/projects/advisers")
+    public ModelAndView proAndAdvs(HttpSession session) {
+
         User loginUser = (User) session.getAttribute("loginUser");
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("center/user_service_list");
+
         List<Project> projects = projectService.listByUser(loginUser.getId());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("center/company/adviser_list");
         modelAndView.addObject("projects", projects);
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/advisers/{projectid}")
+    public ModelAndView advisers(@PathVariable Integer projectid) {
+
+        List<Investor> investors = projectAdviserService.listByProject(projectid);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("center/company/advisers");
+        modelAndView.addObject("investors", investors);
+
+        return modelAndView;
+    }
+
+    /**
+     * 我购买的服务
+     * @param session
+     * @return
+     */
+    @RequestMapping("/projects/services")
+    public ModelAndView proAndSrvs(HttpSession session) {
+
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        List<Project> projects = projectService.listByUser(loginUser.getId());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("center/company/service_list");
+        modelAndView.addObject("projects", projects);
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/services/{projectid}")
+    public ModelAndView services(@PathVariable Integer projectid) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("center/company/services");
         modelAndView.addObject("goodsItems", new ArrayList<GoodsItem>());
         modelAndView.addObject("investors", new ArrayList<Investor>());
-        if (projects.isEmpty())
-            return modelAndView;
-        //查询为某个项目购买的服务
-        if (projectid.intValue() == 0)
-            projectid = projects.get(0).getId();
-        modelAndView.addObject("projectid", projectid);
         List<OrderDetail> orderDetails = orderDetailService.listByProject(projectid);
         if (orderDetails.isEmpty())
             return modelAndView;
@@ -222,35 +268,6 @@ public class UserCenterController extends BaseController {
         List<Investor> investors = investorService.listSuggest(projectid);
         modelAndView.addObject("goodsItems", goodsItems);
         modelAndView.addObject("investors", investors);
-        return modelAndView;
-    }
-
-    /**************************************************************
-     * 企业/创业者
-     **************************************************************/
-    @RequestMapping("/projects/advisers")
-    public ModelAndView proAndAdvs(HttpSession session) {
-
-        User loginUser = (User) session.getAttribute("loginUser");
-
-        List<Project> projects = projectService.listByUser(loginUser.getId());
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("center/company/adviser_list");
-        modelAndView.addObject("projects", projects);
-
-        return modelAndView;
-    }
-
-    @RequestMapping("/advisers/{projectid}")
-    public ModelAndView advisers(@PathVariable Integer projectid) {
-
-        List<Investor> investors = projectAdviserService.listByProject(projectid);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("center/company/advisers");
-        modelAndView.addObject("investors", investors);
-
         return modelAndView;
     }
 
