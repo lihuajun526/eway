@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.net.URLDecoder" %>
 <%
     List<ProjectQa> qs = (List<ProjectQa>) request.getAttribute("qs");
     Map<Integer, ProjectQa> aMap = (Map<Integer, ProjectQa>) request.getAttribute("aMap");
@@ -14,7 +15,7 @@
 <div class="wtwx-project-cnt3">
     <div class="wtwx-project-cnt3-l"><img src="<%=q.getPhoto()%>" width="36" height="36"/></div>
     <div class="wtwx-project-cnt3-r">
-        <h1><%=q.getName()%>
+        <h1><%=URLDecoder.decode(q.getName(),"utf-8")%>
         </h1>
 
         <div class="wtwx-project-cnt3-rcnt">
@@ -40,7 +41,7 @@
             ProjectQa a = aMap.get(q.getId());
         %>
         <div class="wtwx-project-cnt3-rcnt2">
-            <span><%=a.getName()%>：</span><%=a.getContent()%>
+            <span><%=URLDecoder.decode(a.getName(), "utf-8")%>：</span><%=a.getContent()%>
         </div>
         <%
             }
