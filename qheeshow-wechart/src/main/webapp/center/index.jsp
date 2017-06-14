@@ -38,7 +38,7 @@
         %>
         <li class="on6">
             剩余通话时间<span class="wtwx-user-num"><%=loginUser.getCallTime()%>分钟</span>
-            <a href="/goods/do/list/0" class="wtwx-user-btn">充值</a>
+            <a href="<%=appPath%>/goods/do/list/0" class="wtwx-user-btn">充值</a>
         </li>
         <li onclick="op('<%=appPath%>/user/center/do/projects/services')" class="on2"><a href="#">购买的服务</a></li>
         <li onclick="op('<%=appPath%>/user/center/do/projects/advisers')" class="on3"><a>我的金融顾问</a></li>
