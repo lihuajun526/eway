@@ -291,6 +291,8 @@ public class ProjectController extends BaseController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("aMap", aMap);
         modelAndView.addObject("qs", qs);
+        Project project = projectService.get(projectid);
+        modelAndView.addObject("cruser", project == null ? 0 : project.getUserid());
         modelAndView.setViewName("/project/qa_list");
 
         return modelAndView;

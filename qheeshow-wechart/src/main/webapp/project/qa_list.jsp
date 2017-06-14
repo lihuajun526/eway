@@ -4,10 +4,18 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.net.URLDecoder" %>
+<%@ page import="com.qheeshow.eway.service.model.User" %>
 <%
     List<ProjectQa> qs = (List<ProjectQa>) request.getAttribute("qs");
     Map<Integer, ProjectQa> aMap = (Map<Integer, ProjectQa>) request.getAttribute("aMap");
     SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm");
+    Integer cruser = (Integer) request.getAttribute("cruser");
+    Object o = session.getAttribute("loginUser");
+    boolean canR = false;
+    if (o != null) {
+        User loginUser = (User) o;
+        canR = loginUser.getId().intValue() == cruser.intValue();
+    }
 %>
 <%
     for (ProjectQa q : qs) {
@@ -15,13 +23,13 @@
 <div class="wtwx-project-cnt3">
     <div class="wtwx-project-cnt3-l"><img src="<%=q.getPhoto()%>" width="36" height="36"/></div>
     <div class="wtwx-project-cnt3-r">
-        <h1><%=URLDecoder.decode(q.getName(),"utf-8")%>
+        <h1><%=URLDecoder.decode(q.getName(), "utf-8")%>
         </h1>
 
         <div class="wtwx-project-cnt3-rcnt">
             <%=q.getContent()%>
             <%
-                if (aMap.get(q.getId()) == null) {
+                if (aMap.get(q.getId()) == null && canR) {
             %>
             <div class="wtwx-project-cancel"><a href="#<%=q.getId()%>F"
                                                 onclick="openOrClose(<%=q.getId()%>,this)">回复</a></div>
