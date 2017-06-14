@@ -195,8 +195,27 @@
             openTip({'message': '请输入您的问题', 'data': {'action': '知道了', 'link': 'close'}});
             return;
         }
-        $.post("<%=appPath%>/project/do/q/<%=project.getId()%>/v_login", function (result) {
+        $.post("<%=appPath%>/project/do/q/<%=project.getId()%>/v_login", {
+            'content': $("#question").val()
+        }, function (result) {
             openTip(result);
+            if (result.code >= 0) {
+                listQas();
+            }
+        }, "json");
+    }
+    function a(qid, quserid) {
+        if (!$("#content" + qid).val().length) {
+            openTip({'message': '请输入您的回复', 'data': {'action': '知道了', 'link': 'close'}});
+            return;
+        }
+        $.post("<%=appPath%>/a/<%=project.getId()%>/" + quserid + "/" + qid + "/v_login", {
+            'content': $("#content" + qid).val()
+        }, function (result) {
+            openTip(result);
+            if (result.code >= 0) {
+                listQas();
+            }
         }, "json");
     }
 </script>

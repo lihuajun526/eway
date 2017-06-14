@@ -33,7 +33,7 @@
         %>
         <div id="<%=q.getId()%>F" class="wtwx-project-cnt3-warp" style="display: none">
             <input id="content<%=q.getId()%>" class="ipt" placeholder="请输入回复"/>
-            <a onclick="a(<%=q.getId()%>)" class="btn">确定</a>
+            <a onclick="a(<%=q.getId()%>,<%=q.getUserid()%>)" class="btn">确定</a>
         </div>
         <%
         } else {

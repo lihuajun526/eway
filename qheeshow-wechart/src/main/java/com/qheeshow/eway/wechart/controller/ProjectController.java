@@ -45,6 +45,8 @@ public class ProjectController extends BaseController {
     private XwcmclassinfoService xwcmclassinfoService;
     @Autowired
     private ProjectQaService projectQaService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 根据条件过滤项目
@@ -292,6 +294,94 @@ public class ProjectController extends BaseController {
         modelAndView.setViewName("/project/qa_list");
 
         return modelAndView;
+    }
+
+    /**
+     * 提问
+     *
+     * @param projectid
+     * @param content
+     * @param session
+     * @return
+     */
+    @RequestMapping("/q/{projectid}/v_login")
+    @ResponseBody
+    public String q(@PathVariable Integer projectid, String content, HttpSession session) {
+
+        Result<Tip> result = new Result<>();
+        Tip tip = new Tip();
+        result.setData(tip);
+        result.setCode(-1);
+        result.setMessage("提问失败");
+
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        ProjectQa projectQa = new ProjectQa();
+        projectQa.setParentid(0);
+        projectQa.setProjectid(projectid);
+        projectQa.setContent(content);
+        projectQa.setUserid(loginUser.getId());
+        projectQa.setName(loginUser.getName());
+        if (!StringUtils.isEmpty(loginUser.getPhoto()))
+            projectQa.setPhoto(loginUser.getPhoto());
+        else if (!StringUtils.isEmpty(loginUser.getHeadimgurl()))
+            projectQa.setPhoto(loginUser.getHeadimgurl());
+        else
+            projectQa.setPhoto(Config.get("app.path") + "/images/df.jpg");
+        projectQa.setStatus(1);
+
+        projectQaService.save(projectQa);
+
+        result.setCode(0);
+        result.setMessage("提问成功");
+        return result.toString();
+    }
+
+    /**
+     * 回复
+     * @param projectid
+     * @param quserid
+     * @param qid
+     * @param content
+     * @param session
+     * @return
+     */
+    @RequestMapping("/a/{projectid}/{quserid}/{qid}/v_login")
+    @ResponseBody
+    public String a(@PathVariable Integer projectid, @PathVariable Integer quserid, @PathVariable Integer qid, String content, HttpSession session) {
+
+        Result<Tip> result = new Result<>();
+        Tip tip = new Tip();
+        result.setData(tip);
+        result.setCode(-1);
+        result.setMessage("回复失败");
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        ProjectQa q = projectQaService.get(qid);
+        User qUser = userService.get(quserid);
+
+        ProjectQa projectQa = new ProjectQa();
+        projectQa.setParentid(qid);
+        projectQa.setProjectid(projectid);
+        projectQa.setQuestion(q.getContent());
+        projectQa.setContent(content);
+        projectQa.setqUserid(qUser.getId());
+        projectQa.setqName(qUser.getName());
+        projectQa.setUserid(loginUser.getId());
+        projectQa.setName(loginUser.getName());
+        if (!StringUtils.isEmpty(loginUser.getPhoto()))
+            projectQa.setPhoto(loginUser.getPhoto());
+        else if (!StringUtils.isEmpty(loginUser.getHeadimgurl()))
+            projectQa.setPhoto(loginUser.getHeadimgurl());
+        else
+            projectQa.setPhoto(Config.get("app.path") + "/images/df.jpg");
+        projectQa.setStatus(1);
+
+        projectQaService.save(projectQa);
+
+        result.setCode(0);
+        result.setMessage("回复成功");
+        return result.toString();
     }
 
     /**
