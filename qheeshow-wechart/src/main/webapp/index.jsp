@@ -40,6 +40,7 @@
     }
     function center(obj, url) {
         $.get("<%=appPath%>/user/center/do/v_authj", function (result) {
+            window.location.href = "#";
             if (result.code < 0) {
                 openTip(result);
                 return;

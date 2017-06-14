@@ -209,7 +209,7 @@
             openTip({'message': '请输入您的回复', 'data': {'action': '知道了', 'link': 'close'}});
             return;
         }
-        $.post("<%=appPath%>/a/<%=project.getId()%>/" + quserid + "/" + qid + "/v_login", {
+        $.post("<%=appPath%>/project/do/a/<%=project.getId()%>/" + quserid + "/" + qid + "/v_login", {
             'content': $("#content" + qid).val()
         }, function (result) {
             openTip(result);
