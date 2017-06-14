@@ -321,7 +321,7 @@ public class ProjectController extends BaseController {
         projectQa.setProjectid(projectid);
         projectQa.setContent(content);
         projectQa.setUserid(loginUser.getId());
-        projectQa.setName(loginUser.getName());
+        projectQa.setName(StringUtils.isEmpty(loginUser.getName()) ? loginUser.getNickname() : loginUser.getName());
         if (!StringUtils.isEmpty(loginUser.getPhoto()))
             projectQa.setPhoto(loginUser.getPhoto());
         else if (!StringUtils.isEmpty(loginUser.getHeadimgurl()))
@@ -339,6 +339,7 @@ public class ProjectController extends BaseController {
 
     /**
      * 回复
+     *
      * @param projectid
      * @param quserid
      * @param qid
@@ -366,9 +367,10 @@ public class ProjectController extends BaseController {
         projectQa.setQuestion(q.getContent());
         projectQa.setContent(content);
         projectQa.setqUserid(qUser.getId());
-        projectQa.setqName(qUser.getName());
+        projectQa.setqName(StringUtils.isEmpty(qUser.getName()) ? qUser.getNickname() : qUser.getName());
         projectQa.setUserid(loginUser.getId());
-        projectQa.setName(loginUser.getName());
+        projectQa.setName(StringUtils.isEmpty(loginUser.getName()) ? loginUser.getNickname() : loginUser.getName());
+
         if (!StringUtils.isEmpty(loginUser.getPhoto()))
             projectQa.setPhoto(loginUser.getPhoto());
         else if (!StringUtils.isEmpty(loginUser.getHeadimgurl()))

@@ -115,7 +115,7 @@
     %>
 </div>
 
-<div class="wtwx-activity-tit">提问互动<a onclick="javascript:$('#q_').show()" class="wtwx-project-add">点击提问</a></div>
+<div class="wtwx-activity-tit">提问互动<a href="#qas" onclick="javascript:$('#q_').show()" class="wtwx-project-add">点击提问</a></div>
 <div id="q_" class="wtwx-project-textarea" style="display: none">
     <textarea id="question" class="wtwx-project-textareacnt" placeholder="填写您的问题..."></textarea>
 
