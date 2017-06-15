@@ -207,24 +207,29 @@ public class ProjectController extends BaseController {
         result.setData(tip);
 
         User loginUser = (User) session.getAttribute("loginUser");
+
+        if (loginUser.getRoleid().intValue() < 30 || loginUser.getRoleid() >= 40) {
+            result.setMessage("对不起，您不是投资人，不能申请");
+            return result.toString();
+        }
         try {
             projectAdviserService.apply(projectid, loginUser.getId());
         } catch (CommonException e) {
-            if (e.getCode().equals(ExceptionTypeEnum.Is_Not_Adviser_ERROR)) {
-                result.setMessage("对不起，您不是投资人，不能申请");
+            if (e.getCode().equals(ExceptionTypeEnum.Adviser_Info_Not_Full.getCode())) {
+                result.setMessage("您尚未填写个人详细信息，请在电脑端补充完善");
                 return result.toString();
             }
-            if (e.getCode().equals(ExceptionTypeEnum.Investor_Not_Auth_ERROR)) {
+            if (e.getCode().equals(ExceptionTypeEnum.Investor_Not_Auth_ERROR.getCode())) {
                 result.setMessage("对不起，您的投资人身份尚未认证");
                 tip.setAction("去认证");
                 tip.setLink("/investor/investor_auth");
                 return result.toString();
             }
-            if (e.getCode().equals(ExceptionTypeEnum.Project_Adviser_Apply_Exist_ERROR)) {
+            if (e.getCode().equals(ExceptionTypeEnum.Project_Adviser_Apply_Exist_ERROR.getCode())) {
                 result.setMessage("您已申请，不能重复申请");
                 return result.toString();
             }
-            if (e.getCode().equals(ExceptionTypeEnum.Project_Adviser_Full_ERROR)) {
+            if (e.getCode().equals(ExceptionTypeEnum.Project_Adviser_Full_ERROR.getCode())) {
                 result.setMessage("对不起，顾问人数已满");
                 return result.toString();
             }
