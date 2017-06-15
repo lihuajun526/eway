@@ -150,6 +150,9 @@ public class ProjectAdviserServiceImpl implements ProjectAdviserService {
         for (ProjectAdviser projectAdviser : list)
             ids.add(projectAdviser.getId());
 
+        if (ids.size() == 0)
+            return new ArrayList<>();
+
         InvestorExample example1 = new InvestorExample();
         InvestorExample.Criteria criteria1 = example1.createCriteria();
         criteria1.andIdIn(ids);
