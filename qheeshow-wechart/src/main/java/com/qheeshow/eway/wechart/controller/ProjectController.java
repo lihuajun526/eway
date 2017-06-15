@@ -124,7 +124,7 @@ public class ProjectController extends BaseController {
         if (loginUser.getRoleid().intValue() == 30) {
             result.setMessage("您的投资人身份尚未认证，请登录PC网站在个人中心进行认证");
             tip.setAction("去认证");
-            tip.setLink("");
+            tip.setLink(Config.get("app.path") + "/investor/investor_auth");
             return result.toString();
         }
 
@@ -222,7 +222,7 @@ public class ProjectController extends BaseController {
             if (e.getCode().equals(ExceptionTypeEnum.Investor_Not_Auth_ERROR.getCode())) {
                 result.setMessage("对不起，您的投资人身份尚未认证");
                 tip.setAction("去认证");
-                tip.setLink("/investor/investor_auth");
+                tip.setLink(Config.get("app.path") + "/investor/investor_auth");
                 return result.toString();
             }
             if (e.getCode().equals(ExceptionTypeEnum.Project_Adviser_Apply_Exist_ERROR.getCode())) {
