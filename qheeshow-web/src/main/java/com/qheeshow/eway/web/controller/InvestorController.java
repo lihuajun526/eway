@@ -65,7 +65,7 @@ public class InvestorController extends BaseController {
         modelAndView.addObject("financingLimits", financingLimits);
         modelAndView.addObject("stages", stages);
         modelAndView.addObject("styles", styles);
-        modelAndView.addObject("investor", id.intValue() == 0 ? null : investorService.get(id));
+        modelAndView.addObject("investor", id.intValue() == 0 ? null : investorService.getByUser(id));
         modelAndView.setViewName("/investor/investor_add_edit_one");
 
         return modelAndView;
@@ -75,7 +75,7 @@ public class InvestorController extends BaseController {
     public ModelAndView addOrEditTwo(@PathVariable Integer id) {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("investor", investorService.get(id));
+        modelAndView.addObject("investor", investorService.getByUser(id));
         modelAndView.setViewName("/investor/investor_add_edit_two");
 
         return modelAndView;
