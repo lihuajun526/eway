@@ -26,12 +26,12 @@
                 <div class="g-lgin-cnt3">
                     <div class="g-lgin-tit">找回密码</div>
                     <ul class="g-lgin-lst">
-                        <li><input id="mobile" name="mobile" type="text" class="g-lgin-ipt2" placeholder="手机号"/><em
+                        <li><input id="mobile" name="mobile" type="text" class="g-lgin-ipt2" placeholder="请输入手机号"/><em
                                 class="g-lgin-left-top"></em><em
                                 class="g-lgin-right-top"></em><em class="g-lgin-right-bottom"></em><em
                                 class="g-lgin-left-bottom"></em></li>
                         <li><input id="smsCode" name="smsCode" type="text" class="g-lgin-ipt2"
-                                   placeholder="手机验证码"/><span onclick="getSmsCode();"><a id="counter">获取验证码</a></span>
+                                   placeholder="请输入手机验证码"/><span onclick="getSmsCode();"><a id="counter">获取验证码</a></span>
                             <%--<em class="g-lgin-left-top"></em><em class="g-lgin1-right-top"></em><em
                                     class="g-lgin1-right-bottom"></em><em class="g-lgin-left-bottom"></em>--%>
                         </li>
