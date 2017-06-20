@@ -12,13 +12,18 @@ import com.qheeshow.eway.service.service.ActivityService;
 import com.qheeshow.eway.service.service.ActivitySignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -116,7 +121,7 @@ public class ActivityController extends BaseController {
         return result.toString();
     }
 
-    @RequestMapping("/activity/sign/list/{activityid}")
+    @RequestMapping("/sign/list/{activityid}")
     @ResponseBody
     public String listSign(@PathVariable Integer activityid, Integer page, Integer rows) {
 
@@ -128,6 +133,36 @@ public class ActivityController extends BaseController {
         activitySign.setActivityId(activityid);
         Map<String, Object> map = activitySignService.listByActivityAndPage(activitySign);
         resultDg.setTotal((Integer) map.get("count"));
+
+        List<User> userList = (List<User>) map.get("users");
+        if (userList == null || userList.size() == 0) {
+            resultDg.setRows(new ArrayList<>());
+            return JSON.toJSONString(resultDg);
+        }
+        for (User user : userList) {
+            if (StringUtils.isEmpty(user.getName())) {
+                if (!StringUtils.isEmpty(user.getNickname())) {
+                    try {
+                        user.setName(URLDecoder.decode(user.getNickname(), "utf-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                } else
+                    user.setName("");
+            }
+            if (StringUtils.isEmpty(user.getMobile())) {
+                if (!StringUtils.isEmpty(user.getNickname())) {
+                    try {
+                        user.setMobile("微信昵称：" + URLDecoder.decode(user.getNickname(), "utf-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    user.setMobile("");
+                }
+            }
+        }
+
         resultDg.setRows((List<User>) map.get("users"));
 
         return JSON.toJSONString(resultDg);

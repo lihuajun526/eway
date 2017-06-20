@@ -5,6 +5,19 @@
 </head>
 <body>
 <table id="datagrid"></table>
+<div id="sign" class="easyui-window" title="报名列表" data-options="modal:true,closed:true,iconCls:'icon-save'"
+     style="width:600px;height:420px;padding:20px;">
+    <table id="signDatagrid" buttons="#dlg-buttons"></table>
+    <div id="dlg-buttons" style="padding-top: 10px;">
+        <table cellpadding="0" cellspacing="0" style="width:100%">
+            <tr>
+                <td style="text-align:center">
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="checkInvestor();">确定</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 <script>
     var activityid = 0;
     var activityClass = 3;
@@ -44,7 +57,8 @@
                 {
                     field: 'opt', title: '操作', align: 'center',
                     formatter: function (value, rec) {
-                        var btn = '<a class="editcls" onclick="modify(' + rec.id + ')" href="javascript:void(0)">编辑</a>&nbsp&nbsp';
+                        var btn = '<a class="editcls" onclick="listSigns(' + rec.id + ')" href="javascript:void(0)">报名用户</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="modify(' + rec.id + ')" href="javascript:void(0)">编辑</a>&nbsp&nbsp';
                         if (rec.docStatus == 10)
                             btn += '<a class="editcls" onclick="updateStatus(' + rec.id + ',20)" href="javascript:void(0)">发布</a>&nbsp&nbsp';
                         else if (rec.docStatus == 20)
@@ -92,6 +106,47 @@
         });
     }
     listActivity();
+    function listSigns(id) {
+        var list = $('#signDatagrid').datagrid({
+            border: false,
+            fitColumns: true,
+            singleSelect: false,
+            pagination: true,
+            url: appPath + '/activity/sign/list/' + id,
+            columns: [[
+                {
+                    field: 'id', title: '编号', width: 1
+                },
+                {
+                    field: 'roleid', title: '身份', width: 5,
+                    formatter: function (value, rec) {
+                        var v = "";
+                        if (rec.roleid >= 20 && rec.roleid < 30)
+                            v = "企业/创业者";
+                        else if (rec.roleid >= 30 && rec.roleid < 40)
+                            v = "投资人";
+                        return v;
+                    }
+                },
+                {
+                    field: 'name', title: '姓名', width: 8
+                },
+                {
+                    field: 'mobile', title: '联系方式'
+                }
+            ]]
+        });
+        var pager = list.datagrid('getPager');
+        pager.pagination({
+            pageSize: 20,
+            pageNumber: 1,
+            pageList: [20],
+            /*onSelectPage: function (pageNum, pageSize) {
+
+             }*/
+        });
+        $('#sign').window('open');
+    }
 </script>
 </body>
 </html>
