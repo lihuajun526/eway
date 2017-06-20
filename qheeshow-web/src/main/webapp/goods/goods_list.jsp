@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="<%=appPath%>/images/wt_index.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/project.css"/>
     <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/images/bootstrap.min.js"></script>
 </head>
 <body>
 <%@include file="../pub/head.jsp" %>

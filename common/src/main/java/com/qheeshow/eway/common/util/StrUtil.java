@@ -116,6 +116,10 @@ public class StrUtil {
     public static String sign(Map<String, String> map) {
         StringBuffer sb = new StringBuffer();
         for (Map.Entry entry : map.entrySet()) {
+
+            if (StringUtils.isEmpty(entry.getValue()))
+                continue;
+
             sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
         }
         sb.append("key=").append(Config.get("wechat.key"));

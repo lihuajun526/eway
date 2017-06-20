@@ -24,14 +24,14 @@
         <li class="on2" title="<%=project.getTitle()%>">
             <%=project.getTitle().length() > 11 ? project.getTitle().substring(0, 10) + "..." : project.getTitle()%>
         </li>
-        <li class="on3">
+        <%--<li class="on3">
             <a href="#">公开</a>
             <!-- ----------下拉 隐藏了---------->
             <ul class="g-mgen-lst1" style="display:none;">
                 <li><a href="#">公开</a></li>
                 <li><a href="#">不公开</a></li>
             </ul>
-        </li>
+        </li>--%>
     </ul>
     <a href="<%=appPath%>/project/<%=project.getId()%>/add/edit/1/auth" target="_blank" class="g-mgen-1">编辑</a>
 

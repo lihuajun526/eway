@@ -62,7 +62,7 @@
             <div id="t_action" class="modal-footer">
                 <%--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
                 <%--<button type="button" class="btn btn-primary" data-dismiss="modal">知道了</button>--%>
-                <a href="http://www.baidu.com" class="btn btn-primary">知道了1</a>
+                <%--<a href="http://www.baidu.com" class="btn btn-primary">知道了1</a>--%>
             </div>
         </div>
     </div>
