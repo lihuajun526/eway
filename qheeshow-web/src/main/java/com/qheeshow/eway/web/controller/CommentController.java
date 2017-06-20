@@ -5,14 +5,20 @@ import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.CommentService;
 import com.qheeshow.eway.service.service.InvestorService;
+import com.qheeshow.eway.service.service.UserService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-6-14.
@@ -25,6 +31,8 @@ public class CommentController extends BaseController {
     private CommentService commentService;
     @Autowired
     private InvestorService investorService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/save/authj")
     @ResponseBody
@@ -39,7 +47,7 @@ public class CommentController extends BaseController {
             return result.toString();
         }
 
-        if(commentService.listByUserAndInvestor(loginUser.getId(),comment.getInvestorid()).size()>0){
+        if (commentService.listByUserAndInvestor(loginUser.getId(), comment.getInvestorid()).size() > 0) {
             result.set(-1, "您已评价过，不能重复评价");
             return result.toString();
         }
@@ -51,6 +59,36 @@ public class CommentController extends BaseController {
         comment.setUserid(loginUser.getId());
         commentService.save(comment);
         return result.toString();
+    }
+
+    @RequestMapping("/list/{investorid}/{pageIndex}")
+    public ModelAndView list(@PathVariable Integer investorid, @PathVariable Integer pageIndex) {
+
+        int pageSize = 5;
+        int recordCount = 0;
+
+        Comment comment = new Comment();
+        comment.setInvestorid(investorid);
+        comment.setPageSize(pageSize);
+        comment.setStartRow((pageIndex - 1) * pageSize);
+        Map<String, Object> map = commentService.listByPage(comment);
+        List<Comment> comments = (List<Comment>) map.get("comments");
+        recordCount = (Integer) map.get("count");
+
+        for (Comment comment1 : comments) {
+            User user = userService.get(comment1.getUserid());
+            comment1.setName(user.getName());
+            comment1.setPhoto(user.getPhoto());
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("investor/comment_list");
+        modelAndView.addObject("comments", comments);
+        modelAndView.addObject("pageSize", pageSize);
+        modelAndView.addObject("pageIndex", pageIndex);
+        modelAndView.addObject("recordCount", recordCount);
+        modelAndView.addObject("pageCount", recordCount % pageSize == 0 ? recordCount / pageSize : (recordCount / pageSize + 1));
+        return modelAndView;
     }
 
 }

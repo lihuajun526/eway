@@ -49,7 +49,7 @@
                 <ul class="inv-one-lst">
                     <li class="on1">邮箱：</li>
                     <li class="on2">
-                        <input id="email" name="email" class="inv-one-ipt"
+                        <input readonly id="email" name="email" class="inv-one-ipt"
                                value="<%=StringUtils.isEmpty(investor.getEmail())?"":investor.getEmail()%>"
                                placeholder="请输入邮箱"/>
                         <span class="pro1-left-top"></span><span class="pro1-right-top"></span><span

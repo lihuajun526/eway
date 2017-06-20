@@ -134,8 +134,9 @@ public class ActivityController extends BaseController {
         Map<String, Object> map = activitySignService.listByActivityAndPage(activitySign);
         resultDg.setTotal((Integer) map.get("count"));
 
-        List<User> userList = (List<User>) map.get("users");
-        if (userList == null || userList.size() == 0) {
+        Object o = map.get("users");
+        List<User> userList = null;
+        if (o == null || (userList = (List<User>) o).size() == 0) {
             resultDg.setRows(new ArrayList<>());
             return JSON.toJSONString(resultDg);
         }

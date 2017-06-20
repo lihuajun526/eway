@@ -57,16 +57,16 @@
 </div>
 <script>
     function unFollow(projectid) {
-        $.get("<%=appPath%>/center/unfollow/" + projectid, function (result) {
-            load("/center/project/2/1/<%=index%>");
+        $.get("<%=appPath%>/project/unfollow/" + projectid, function (result) {
+            load("/center/project/2/5/<%=index%>");
         });
     }
     function goto(index) {
         if (index <= 0 || index ><%=pageCount%>)
             return;
-        load("<%=appPath%>/center/project/2/1/" + index);
+        load("<%=appPath%>/center/project/2/5/" + index);
     }
     function setType(v) {
-        load("<%=appPath%>/center/project/" + v + "/1/1");
+        load("<%=appPath%>/center/project/" + v + "/5/1");
     }
 </script>

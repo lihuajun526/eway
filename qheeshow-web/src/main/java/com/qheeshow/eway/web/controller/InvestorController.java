@@ -136,12 +136,13 @@ public class InvestorController extends BaseController {
         investor.setStageName(stages.toString());
         investor.setIndustryName(industrys.toString());
         investor.setSinglePrice(singlePrice);
+        investor.setEmail(loginUser.getEmail());
         //investor.setStyle(style);
 
         loginUser.setPhoto(investor.getPhoto());
 
         investorService.save(investor);
-        result.setData(investor.getId());
+        result.setData(loginUser.getId());
         return result.toString();
     }
 

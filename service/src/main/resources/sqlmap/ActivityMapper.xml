@@ -594,6 +594,7 @@
         select
         id,logo,title,summary
         from t_activity
+        where doc_status = 20
         ORDER by create_time DESC
         limit 0,#{num,jdbcType=INTEGER}
     </select>

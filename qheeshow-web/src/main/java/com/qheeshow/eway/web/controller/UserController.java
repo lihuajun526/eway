@@ -8,7 +8,9 @@ import com.qheeshow.eway.common.http.XHttpClient;
 import com.qheeshow.eway.common.util.AESCryptoUtil;
 import com.qheeshow.eway.common.util.Config;
 import com.qheeshow.eway.common.web.HaResponse;
+import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.User;
+import com.qheeshow.eway.service.service.InvestorService;
 import com.qheeshow.eway.service.service.UserService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
@@ -34,6 +36,8 @@ public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private InvestorService investorService;
 
     @RequestMapping(value = "/regist", method = RequestMethod.POST)
     @ResponseBody
@@ -412,6 +416,12 @@ public class UserController extends BaseController {
         loginUser.setEmail(email);
 
         userService.update(user);
+
+        Investor investor = investorService.getByUser(loginUser.getId());
+        if (investor != null) {
+            investor.setEmail(email);
+            investorService.update(investor);
+        }
         return result.toString();
     }
 

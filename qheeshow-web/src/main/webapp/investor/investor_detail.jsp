@@ -130,24 +130,41 @@
                         </div>
                     </div>
                 </form>
+                <div id="coms"></div>
                 <div class="g-invest-two2"></div>
             </div>
         </div>
         <!--*************************right star************************-->
         <div class="g-invest-r">
             <div class="g-invest-rone">
-                <div class="g-invest-rt">参投项目</div>
-                <ul class="g-invest-rlst">
-                    <li><span class="on1">1</span><span class="on2">金融网</span><span class="on3"><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></span>
+                <div class="g-invest-rt">常见问题</div>
+                <ul class="g-invest-rlst2">
+                    <li>
+                        <span class="on1"></span>
+                        <span>
+                            <a href="<%=appPath%>/about/common_qa.jsp#2F">梧桐e路的优势是什么呢？</a>
+                        </span>
                     </li>
-                    <li><span class="on1">2</span><span class="on2">金融网</span><span class="on3"><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></span>
+                    <li>
+                        <span class="on1"></span>
+                        <span>
+                            <a href="<%=appPath%>/about/common_qa.jsp#20F">梧桐e路是如何收费的？</a>
+                        </span>
                     </li>
-                    <li><span class="on1">3</span><span class="on2">金融网</span><span class="on3"><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></span>
+                    <li>
+                        <span class="on1"></span>
+                        <span>
+                            <a href="<%=appPath%>/about/common_qa.jsp#7F">相对于企业自己寻找资金方，平台的优势在哪儿？</a>
+                        </span>
                     </li>
-                    <li><span class="on1">4</span><span class="on2">金融网</span><span class="on3"><a href="#">逸是一站式微信办公平台，为企业提供整体微信办公解决方案。</a></span>
+                    <li>
+                        <span class="on1"></span>
+                        <span>
+                            <a href="<%=appPath%>/about/common_qa.jsp#6F">企业融资周期要多久，是不是一定能获得融资？</a>
+                        </span>
                     </li>
                 </ul>
-                <div class="g-invest-rmore"><a href="#">更多项目</a></div>
+                <div class="g-invest-rmore"><a href="<%=appPath%>/about/common_qa.jsp">更多问题</a></div>
             </div>
         </div>
     </div>
@@ -209,6 +226,7 @@
                 }
                 $("#content").val("");
                 xalert("评论成功");
+                listComs(1);
             }
         });
     }
@@ -286,5 +304,10 @@
             xalert("投递成功");
         }, "json");
     }
+
+    function listComs(index) {
+        $("#coms").load("<%=appPath%>/comment/list/<%=investor.getId()%>/" + index);
+    }
+    listComs(1);
 </script>
 </html>

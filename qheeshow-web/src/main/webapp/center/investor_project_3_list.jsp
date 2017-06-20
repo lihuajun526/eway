@@ -59,9 +59,9 @@
     function goto(index) {
         if (index <= 0 || index ><%=pageCount%>)
             return;
-        load("<%=appPath%>/center/project/3/1/" + index);
+        load("<%=appPath%>/center/project/3/5/" + index);
     }
     function setType(v) {
-        load("<%=appPath%>/center/project/" + v + "/1/1");
+        load("<%=appPath%>/center/project/" + v + "/5/1");
     }
 </script>

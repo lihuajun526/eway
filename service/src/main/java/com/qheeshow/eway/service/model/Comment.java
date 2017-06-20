@@ -2,7 +2,7 @@ package com.qheeshow.eway.service.model;
 
 import java.util.Date;
 
-public class Comment {
+public class Comment extends BaseModel{
     private Integer id;
 
     private Integer userid;

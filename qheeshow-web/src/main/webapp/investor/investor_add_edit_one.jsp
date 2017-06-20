@@ -40,7 +40,6 @@
         <input type="hidden" id="photo" name="photo" value="<%=isNull?"":investor.getPhoto()%>"/>
         <input type="hidden" id="singlePriceId" name="singlePriceId"
                value="<%=isNull?"":investor.getSinglePriceId()%>"/>
-        <input type="hidden" id="styleId" name="styleId" value="<%=isNull?"":investor.getStyleId()%>"/>
         <input type="hidden" name="trueName" value="<%=loginUser.getName()%>"/>
 
         <div class="inv-wap">

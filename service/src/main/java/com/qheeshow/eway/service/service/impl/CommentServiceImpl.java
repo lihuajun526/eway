@@ -7,7 +7,9 @@ import com.qheeshow.eway.service.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 17-3-15.
@@ -39,5 +41,13 @@ public class CommentServiceImpl implements CommentService {
         criteria.andUseridEqualTo(userid);
         criteria.andInvestoridEqualTo(investorid);
         return commentMapper.selectByExample(example);
+    }
+
+    @Override
+    public Map<String, Object> listByPage(Comment comment) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("comments", commentMapper.listByPage(comment));
+        map.put("count", commentMapper.countByPage(comment).size());
+        return map;
     }
 }

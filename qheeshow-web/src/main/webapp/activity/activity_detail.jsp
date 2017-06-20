@@ -74,7 +74,9 @@
 <script>
     function activitySign(actid) {
         $.get("<%=appPath%>/activity/sign/" + actid + "/authj", function (result) {
-            if (result.code == 1) {
+            if (result.code == -1) {
+                xalert1(result.message, "去登录", "<%=appPath%>/user/login.jsp");
+            } else if (result.code == 1) {
                 $("#signBtn").val("已报名");
                 $("#signBtn").attr("class", "g-actlst-btn2");
             } else {
