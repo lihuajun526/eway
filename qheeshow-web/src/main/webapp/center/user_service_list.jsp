@@ -4,6 +4,7 @@
 <%@ page import="com.qheeshow.eway.service.model.GoodsItem" %>
 <%@ page import="com.qheeshow.eway.service.model.Investor" %>
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
+<%@ page import="org.springframework.util.StringUtils" %>
 <%
     String appPath = Config.get("app.path");
     List<Project> projects = (List<Project>) request.getAttribute("projects");
@@ -11,14 +12,14 @@
     List<GoodsItem> goodsItems = (List<GoodsItem>) request.getAttribute("goodsItems");
     List<Investor> investors = (List<Investor>) request.getAttribute("investors");
 %>
-<div class="g-mg-rwap">
+<div class="g-mg-rwap" onclick="hid()">
     <ul class="g-mg-rtitlst">
         <%
             for (int i = 0; i < 4 && i < projects.size(); i++) {
                 Project project = projects.get(i);
                 if (projectid.intValue() == project.getId().intValue()) {
         %>
-        <li class="on">
+        <li class="on" title="<%=project.getTitle()%>">
             <a><%=project.getTitle().length() > 9 ? project.getTitle().substring(0, 8) + "..." : project.getTitle()%>
             </a></li>
         <%
@@ -46,16 +47,23 @@
                 <%
                     for (int i = 0; i < 10 && i < investors.size(); i++) {
                         Investor investor = investors.get(i);
+                        String inro = "";
+                        if (!StringUtils.isEmpty(investor.getCompanyName()))
+                            inro = investor.getCompanyName();
+                        if (!StringUtils.isEmpty(investor.getCompanyRank()))
+                            inro += investor.getCompanyRank();
+                        if (inro.length() > 10)
+                            inro = inro.substring(0, 9);
                 %>
                 <li id="img_<%=investor.getId()%>">
                     <a><img onclick="show(<%=investor.getId()%>);" src="<%=investor.getPhoto()%>" width="42"
-                            height="42"/></a>
+                            height="42" title="<%=investor.getTrueName()%>"/></a>
                     <!--弹出详细-->
                     <div class="g-sev-ico"></div>
                     <ul id="more_<%=investor.getId()%>" class="g-sev-ov" style="display: none;">
                         <li class="on1"><img src="<%=investor.getPhoto()%>" width="60" height="60"/></li>
                         <li class="on2"><span><%=investor.getTrueName()%></span><span class="g-sev-sline">|</span><span
-                                class="g-sev-post"><%=investor.getCompanyName()%><%=investor.getCompanyRank()%></span>
+                                class="g-sev-post"><%=inro%></span>
                         </li>
                         <li class="on3"></li>
                         <li class="on4"><a href="<%=appPath%>/investor/<%=investor.getId()%>" target="_blank">查看详情</a>
@@ -79,7 +87,7 @@
         <%
             if (goodsItem.getType().intValue() == 4) {
         %>
-        <div class="g-sev-one"><a class="g-sev-btn">预约排期</a></div>
+        <%--<div class="g-sev-one"><a class="g-sev-btn">预约排期</a></div>--%>
         <%
             }
         %>
@@ -90,40 +98,19 @@
     %>
 </div>
 <script>
+    var flag = 0;
     var moreid = 0;
     function show(id) {
+        flag = 1;
         $(".g-sev-ov").each(function () {
             $(this).hide();
         });
         $("#more_" + id).show();
         moreid = id;
     }
-    /*function hid(event) {
-     if (moreid == 0)
-     return;
-     var div = document.getElementById("more_" + moreid);
-     var x = $(event).offset().left;
-     var y = $(event).offset().top;
-     var divx1 = div.offsetLeft;
-     var divy1 = div.offsetTop;
-     var divx2 = div.offsetLeft + div.offsetWidth;
-     var divy2 = div.offsetTop + div.offsetHeight;
-
-     debugger;
-
-     var img = document.getElementById("img_" + moreid);
-     var imgx1 = $('#img_'+moreid).offset().left;
-     var imgy1 = $('#img_'+moreid).offset().top;
-
-     var imgx2 = imgx1 + img.offsetWidth;
-     var imgy2 = imgy1 + img.offsetHeight;
-
-     alert((x < divx1 || x > divx2 || y < divy1 || y > divy2));
-     alert(x < imgx1 || x > imgx2 || y < imgy1 || y > imgy2);
-
-     if ((x < divx1 || x > divx2 || y < divy1 || y > divy2) && (x < imgx1 || x > imgx2 || y < imgy1 || y > imgy2)) {
-     $("#more_" + moreid).hide();
-     moreid = 0;
-     }
-     }*/
+    function hid() {
+        if (flag == 0 && moreid != 0)
+            $("#more_" + moreid).hide();
+        flag = 0;
+    }
 </script>

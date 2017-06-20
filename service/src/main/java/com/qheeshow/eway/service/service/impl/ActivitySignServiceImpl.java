@@ -5,10 +5,7 @@ import com.qheeshow.eway.common.bean.wechat.pay.exception.OrderWechatException;
 import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.common.exception.RequestException;
 import com.qheeshow.eway.common.util.StrUtil;
-import com.qheeshow.eway.service.dao.ActivityMapper;
-import com.qheeshow.eway.service.dao.ActivitySignMapper;
-import com.qheeshow.eway.service.dao.OrderDetailMapper;
-import com.qheeshow.eway.service.dao.OrderMapper;
+import com.qheeshow.eway.service.dao.*;
 import com.qheeshow.eway.service.model.*;
 import com.qheeshow.eway.service.service.ActivitySignService;
 import com.qheeshow.eway.service.service.PayService;
@@ -21,7 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 2017/3/25.
@@ -41,6 +41,8 @@ public class ActivitySignServiceImpl implements ActivitySignService {
     private OrderDetailMapper orderDetailMapper;
     @Autowired
     private PayService payService;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public int save(ActivitySign activitySign) {
@@ -117,5 +119,27 @@ public class ActivitySignServiceImpl implements ActivitySignService {
 
         }
         return resultOrder;
+    }
+
+    @Override
+    public Map<String, Object> listByActivityAndPage(ActivitySign activitySign) {
+        Map<String, Object> map = new HashMap<>();
+        List<ActivitySign> signs = activitySignMapper.listByActivityAndPage(activitySign);
+
+        List<Integer> ids = new ArrayList<>();
+        for (ActivitySign sign : signs) {
+            ids.add(sign.getUserid());
+        }
+        if (ids.size() == 0) {
+            map.put("signs", new ArrayList<>());
+        } else {
+            UserExample example = new UserExample();
+            UserExample.Criteria criteria = example.createCriteria();
+            criteria.andIdIn(ids);
+            List<User> users = userMapper.selectByExample(example);
+            map.put("users", users);
+        }
+        map.put("count", activitySignMapper.countByActivityAndPage(activitySign));
+        return map;
     }
 }

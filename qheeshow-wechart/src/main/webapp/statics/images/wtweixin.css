@@ -782,7 +782,8 @@
 	width:100%;
 }
 .wtwx-activity-cnt2 h1 {
-	margin-bottom:20px;
+	/*margin-bottom:20px;*/
+	margin:20px;
 }
 .wtwx-activity-lst2 {
 	padding:0 20px;

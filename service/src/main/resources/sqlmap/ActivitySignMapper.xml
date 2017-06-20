@@ -194,4 +194,21 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="listByActivityAndPage" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ActivitySign">
+    select
+    <include refid="Base_Column_List"/>
+    from t_activity_sign
+    where activity_id = #{activityId,jdbcType=INTEGER}
+    order by create_time desc
+    limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="countByActivityAndPage" resultType="java.lang.Integer" parameterType="com.qheeshow.eway.service.model.ActivitySign">
+    select
+    count(id)
+    from t_activity_sign
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </select>
 </mapper>

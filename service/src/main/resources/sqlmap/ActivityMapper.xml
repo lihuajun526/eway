@@ -586,6 +586,7 @@
         <if test="status != null">
             and status =#{status,jdbcType=INTEGER}
         </if>
+        and doc_status = 20
         ORDER by create_time DESC
         limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>

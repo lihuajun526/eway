@@ -36,8 +36,11 @@
                     field: 'ck', title: '选择', width: 3, checkbox: true
                 },
                 {
-                    field: 'trueName', title: '投资人', width: 18
-                },
+                    field: 'trueName', title: '投资人', width: 12,
+                    formatter: function (value, rec) {
+                        return "<a target='_blank' href='http://www.qheeshow.com/web/investor/" + rec.id + "'>" + value + "</a>";
+                    }
+                }
             ]]
         });
         var pager = list.datagrid('getPager');

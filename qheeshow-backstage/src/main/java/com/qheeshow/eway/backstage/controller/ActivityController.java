@@ -6,6 +6,8 @@ import com.qheeshow.eway.backstage.base.BaseController;
 import com.qheeshow.eway.backstage.base.Result;
 import com.qheeshow.eway.backstage.base.ResultDg;
 import com.qheeshow.eway.service.model.Activity;
+import com.qheeshow.eway.service.model.ActivitySign;
+import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.ActivityService;
 import com.qheeshow.eway.service.service.ActivitySignService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,4 +115,23 @@ public class ActivityController extends BaseController {
         result.setData(true);
         return result.toString();
     }
+
+    @RequestMapping("/activity/sign/list/{activityid}")
+    @ResponseBody
+    public String listSign(@PathVariable Integer activityid, Integer page, Integer rows) {
+
+        ResultDg<List<User>> resultDg = new ResultDg<>();
+
+        ActivitySign activitySign = new ActivitySign();
+        activitySign.setPageSize(rows);
+        activitySign.setStartRow(rows * (page - 1));
+        activitySign.setActivityId(activityid);
+        Map<String, Object> map = activitySignService.listByActivityAndPage(activitySign);
+        resultDg.setTotal((Integer) map.get("count"));
+        resultDg.setRows((List<User>) map.get("users"));
+
+        return JSON.toJSONString(resultDg);
+    }
+
+
 }

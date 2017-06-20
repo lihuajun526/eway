@@ -27,4 +27,8 @@ public interface ActivitySignMapper {
     int updateByPrimaryKeySelective(ActivitySign record);
 
     int updateByPrimaryKey(ActivitySign record);
+
+    List<ActivitySign> listByActivityAndPage(ActivitySign activitySign);
+
+    int countByActivityAndPage(ActivitySign activitySign);
 }

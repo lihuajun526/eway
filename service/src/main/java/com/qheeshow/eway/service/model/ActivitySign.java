@@ -1,6 +1,6 @@
 package com.qheeshow.eway.service.model;
 
-public class ActivitySign {
+public class ActivitySign extends BaseModel{
     private Integer id;
 
     private Integer activityId;
@@ -40,4 +40,6 @@ public class ActivitySign {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+
 }
