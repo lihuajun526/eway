@@ -46,4 +46,6 @@ public interface ProjectService {
 
     void addCase(Integer projectid);
 
+    List<Project> listPayProject(int pageSize, int pageIndex);
+
 }

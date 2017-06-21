@@ -1,11 +1,13 @@
 package com.qheeshow.eway.service.service.impl;
 
+import com.qheeshow.eway.service.dao.OrderMapper;
 import com.qheeshow.eway.service.dao.ProjectMapper;
 import com.qheeshow.eway.service.model.*;
 import com.qheeshow.eway.service.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectMapper projectMapper;
+    @Autowired
+    private OrderMapper orderMapper;
 
     @Override
     public void save(Project project) {
@@ -161,6 +165,46 @@ public class ProjectServiceImpl implements ProjectService {
         project.setId(projectid);
         project.setIsCase(1);
         projectMapper.updateByPrimaryKeySelective(project);
+    }
+
+    @Override
+    public List<Project> listPayProject(int pageSize, int pageIndex) {
+
+        //获得付费项目
+        Order orderQuery = new Order();
+        orderQuery.setPageSize(pageSize);
+        orderQuery.setStartRow((pageIndex - 1) * pageSize);
+        List<Order> orderList = orderMapper.selectProjectid(orderQuery);
+
+        List<Integer> projectids = new ArrayList<>();
+        for (Order order : orderList) {
+            projectids.add(order.getProjectid());
+        }
+
+        if (projectids.size() == 0) {
+            return new ArrayList<>();
+        }
+
+        ProjectExample projectExample = new ProjectExample();
+        ProjectExample.Criteria criteria = projectExample.createCriteria();
+        criteria.andIdIn(projectids);
+        List<Project> projects = projectMapper.selectByExample(projectExample);
+
+        for (Project project : projects) {
+            OrderExample orderExample = new OrderExample();
+            OrderExample.Criteria criteria1 = orderExample.createCriteria();
+            criteria1.andProjectidEqualTo(project.getId());
+            criteria1.andStatusEqualTo(2);
+            List<Order> list = orderMapper.selectByExample(orderExample);
+
+            StringBuffer title = new StringBuffer("");
+            for (Order order : list) {
+                title.append(order.getTitle()).append("、");
+            }
+            project.setGoodsName(title.toString());
+        }
+
+        return projects;
     }
 
 }

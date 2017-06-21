@@ -363,6 +363,9 @@
     function openA(id) {
         $("#reply_" + id).show();
     }
+    function closeA(id) {
+        $("#reply_" + id).hide();
+    }
     function a(id) {
         if (!$("#content_" + id).val().length) {
             xalert("请输入您的回复");

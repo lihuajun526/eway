@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +29,7 @@ import java.util.Map;
 public class ProjectQaController extends BaseController {
 
     @Autowired
-    private ProjectQaService commonQaService;
+    private ProjectQaService projectQaService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -38,20 +40,35 @@ public class ProjectQaController extends BaseController {
 
         ProjectQa projectQa = new ProjectQa();
         projectQa.setPageSize(6);
+        projectQa.setStartRow((index - 1) * projectQa.getPageSize());
         projectQa.setProjectid(projectid);
 
         Project project = projectService.get(projectid);
 
-        Map map = commonQaService.listByPage(projectQa, index);
+        //问题
+        Map map = projectQaService.listQByProjectAndPage(projectQa);
         Integer count = (Integer) map.get("count");
+        List<ProjectQa> projectQs = (List<ProjectQa>) map.get("projectQs");
+        //答案
+        List<Integer> ids = new ArrayList<>();
+        for (ProjectQa q : projectQs) {
+            ids.add(q.getId());
+        }
+        List<ProjectQa> as = ids.size() > 0 ? projectQaService.listA(ids) : new ArrayList<>();
+
+        Map<Integer, ProjectQa> aMap = new HashMap<>();
+        for (ProjectQa a : as) {
+            aMap.put(a.getParentid(), a);
+        }
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("project/project_qa");
-        modelAndView.addObject("commonQas", (List<ProjectQa>) map.get("commonQas"));
+        modelAndView.addObject("projectQs", projectQs);
         modelAndView.addObject("projectid", projectid);
         modelAndView.addObject("userid", project.getUserid());
         modelAndView.addObject("pageIndex", index);
         modelAndView.addObject("count", count);
+        modelAndView.addObject("aMap", aMap);
         modelAndView.addObject("pageCount", count % 6 == 0 ? count / 6 : (count / 6 + 1));
 
         return modelAndView;
@@ -78,7 +95,7 @@ public class ProjectQaController extends BaseController {
         projectQa.setPhoto(loginUser.getPhoto());
         projectQa.setStatus(1);
 
-        commonQaService.save(projectQa);
+        projectQaService.save(projectQa);
 
         return result.toString();
     }
@@ -91,10 +108,11 @@ public class ProjectQaController extends BaseController {
      * @return
      */
     @RequestMapping("/a/authj")
+    @ResponseBody
     public String a(ProjectQa projectQa, HttpSession session) {
         Result result = new Result();
 
-        ProjectQa q = commonQaService.get(projectQa.getParentid());
+        ProjectQa q = projectQaService.get(projectQa.getParentid());
         User qUser = userService.get(projectQa.getqUserid());
         User loginUser = (User) session.getAttribute("loginUser");
 
@@ -105,7 +123,7 @@ public class ProjectQaController extends BaseController {
         projectQa.setPhoto(loginUser.getPhoto());
         projectQa.setStatus(1);
 
-        commonQaService.save(projectQa);
+        projectQaService.save(projectQa);
 
         return result.toString();
     }

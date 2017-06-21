@@ -307,4 +307,9 @@
     update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectProjectid" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Order">
+    select distinct projectid from t_order where projectid is not null and status=2 order by id desc
+    limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -3,7 +3,7 @@ package com.qheeshow.eway.service.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Order {
+public class Order extends BaseModel{
     private Integer id;
 
     private String orderNo;

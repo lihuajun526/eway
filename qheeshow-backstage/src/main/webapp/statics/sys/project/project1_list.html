@@ -57,7 +57,7 @@
             fitColumns: true,
             singleSelect: false,
             pagination: true,
-            url: appPath + '/project/list/1',
+            url: appPath + '/project/list/pay1',
             columns: [[
                 {
                     field: 'id', title: '编号', width: 3
@@ -69,6 +69,9 @@
                     }
                 },
                 {
+                    field: 'goodsName', title: '购买的商品', width: 18
+                },
+                {
                     field: 'username', title: '项目联系人', width: 8
                 },
                 {
@@ -78,7 +81,7 @@
                     }
                 },
                 {
-                    field: 'opt', title: '操作', align: 'center',
+                    field: 'opt', title: '操作', align: 'left',
                     formatter: function (value, rec) {
                         var btn = '';
                         btn += '<a class="editcls" onclick="listInvestor(' + rec.id + ',' + rec.status + ')" href="javascript:void(0)">推荐投资人</a>&nbsp&nbsp';

@@ -36,7 +36,7 @@ public class OrderController extends BaseController {
      * @param session
      * @return
      */
-    @RequestMapping("/place/{projectid}/{count1}/{count2}/{count3}/{count4}/{payType}")
+    @RequestMapping("/place/{projectid}/{count1}/{count2}/{count3}/{count4}/{payType}/authj")
     @ResponseBody
     public String place(@PathVariable Integer projectid, @PathVariable Integer count1, @PathVariable Integer count2, @PathVariable Integer count3, @PathVariable Integer count4, @PathVariable String payType, HttpSession session) {
         //goodsid_count#goodsid_count#goodsid_count

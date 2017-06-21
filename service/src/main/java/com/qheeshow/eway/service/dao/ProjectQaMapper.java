@@ -28,9 +28,9 @@ public interface ProjectQaMapper {
 
     int updateByPrimaryKey(ProjectQa record);
 
-    List<ProjectQa> listByPage(ProjectQa commonQa);
+    List<ProjectQa> listQByProjectAndPage(ProjectQa projectQa);
 
-    int countByPage(ProjectQa commonQa);
+    List<ProjectQa> countQByProjectAndPage(ProjectQa projectQa);
 
     List<ProjectQa> listQByProject(Integer projectid);
 }

@@ -33,7 +33,10 @@
         <div class="g-pw-radius-top"></div>
         <div class="g-pw2">
             <div id="qr_txt" class="g-pw2-w2">微信支付</div>
-            <div class="g-pw2-w3"><img id="qr_code" src="" width="275" height="275"/><span id="qr_tip">扫描支付</span></div>
+            <div class="g-pw2-w3">
+                <img id="qr_code" src="" width="275" height="275"/>
+                <span><font id="qr_tip">微信扫码支付</font>&nbsp;<a onclick="javascript:$('#qr_div').hide()">取消</a></span>
+            </div>
         </div>
         <div class="g-pw-radius-bottom"></div>
     </div>
@@ -432,7 +435,8 @@
     draw();
     var orderid = 0;
     function place(payType) {
-        $.get("<%=appPath%>/order/place/" + projectid + "/" + count1 + "/" + count2 + "/" + count3 + "/" + count4 + "/" + payType, function (result) {
+        $.get("<%=appPath%>/order/place/" + projectid + "/" + count1 + "/" + count2 + "/" + count3 + "/" + count4 + "/" + payType + "/authj", function (result) {
+            window.location.href = "#";
             if (result.code < 0) {
                 xalert(result.message);
                 return;

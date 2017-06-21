@@ -11,4 +11,6 @@ public interface OrderDetailService {
 
     List<OrderDetail> listByProject(Integer projectid);
 
+    List<OrderDetail> listByOrder(Integer orderid);
+
 }

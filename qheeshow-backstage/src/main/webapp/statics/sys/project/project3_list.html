@@ -81,7 +81,7 @@
                     }
                 },
                 {
-                    field: 'opt', title: '项目类型', align: 'center',
+                    field: 'opt', title: '项目类型', align: 'left',
                     formatter: function (value, rec) {
                         var btn = "";
                         if (rec.type == 3)
@@ -103,11 +103,12 @@
                     }
                 },
                 {
-                    field: 'opt1', title: '操作', align: 'center',
+                    field: 'opt1', title: '操作', align: 'left',
                     formatter: function (value, rec) {
-                        var btn = '<a class="editcls" onclick="openUpdate(\'' + rec.id + '\')" href="javascript:void(0)">问答管理</a>&nbsp&nbsp';
+                        //var btn = '<a class="editcls" onclick="openUpdate(\'' + rec.id + '\')" href="javascript:void(0)">问答管理</a>&nbsp&nbsp';
+                        var btn = '';
                         if (rec.recommend == 0) {
-                            btn += '<a class="editcls" onclick="recommend(' + rec.id + ')" href="javascript:void(0)">推荐</a>&nbsp&nbsp';
+                            btn += '<a class="editcls" onclick="recommend(' + rec.id + ')" href="javascript:void(0)">首页推荐</a>&nbsp&nbsp';
                         } else if (rec.recommend == 1) {
                             btn += '<a class="editcls" onclick="unrecommend(' + rec.id + ')" href="javascript:void(0)">取消推荐</a>&nbsp&nbsp';
                         }

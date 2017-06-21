@@ -26,12 +26,11 @@ public class ProjectQaServiceImpl implements ProjectQaService {
     }
 
     @Override
-    public Map<String, Object> listByPage(ProjectQa commonQa, Integer pageIndex) {
+    public Map<String, Object> listQByProjectAndPage(ProjectQa projectQa) {
 
-        commonQa.setStartRow((pageIndex - 1) * commonQa.getPageSize());
         Map<String, Object> map = new HashMap<>();
-        map.put("commonQas", projectQaMapper.listByPage(commonQa));
-        map.put("count", projectQaMapper.countByPage(commonQa));
+        map.put("projectQs", projectQaMapper.listQByProjectAndPage(projectQa));
+        map.put("count", projectQaMapper.countQByProjectAndPage(projectQa).size());
         return map;
     }
 

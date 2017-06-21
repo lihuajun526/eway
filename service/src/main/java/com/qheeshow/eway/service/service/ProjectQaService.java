@@ -12,7 +12,7 @@ public interface ProjectQaService {
 
     List<ProjectQa> list();
 
-    Map<String, Object> listByPage(ProjectQa commonQa, Integer index);
+    Map<String, Object> listQByProjectAndPage(ProjectQa projectQa);
 
     ProjectQa get(Integer id);
 

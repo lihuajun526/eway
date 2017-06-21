@@ -58,7 +58,7 @@
 <script>
     function unFollow(projectid) {
         $.get("<%=appPath%>/project/unfollow/" + projectid, function (result) {
-            load("/center/project/2/5/<%=index%>");
+            load("<%=appPath%>/center/project/2/5/<%=index%>");
         });
     }
     function goto(index) {

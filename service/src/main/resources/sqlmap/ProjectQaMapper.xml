@@ -336,21 +336,6 @@
     update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="listByPage" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectQa">
-    select
-    <include refid="Base_Column_List"/>
-    from t_project_qa
-    where status = 1 and projectid = #{projectid,jdbcType=INTEGER}
-    order by create_time desc
-    limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
-  </select>
-
-  <select id="countByPage" resultType="java.lang.Integer" parameterType="com.qheeshow.eway.service.model.ProjectQa">
-    select
-    count(*)
-    from t_project_qa
-    where status = 1 and projectid = #{projectid,jdbcType=INTEGER}
-  </select>
 
   <select id="listQByProject" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select
@@ -359,5 +344,21 @@
     where status = 1 and projectid = #{projectid,jdbcType=INTEGER} and parentid = 0
     order by create_time desc
     limit 0,20
+  </select>
+
+  <select id="listQByProjectAndPage" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectQa">
+    select
+    <include refid="Base_Column_List"/>
+    from t_project_qa
+    where status = 1 and projectid = #{projectid,jdbcType=INTEGER} and parentid = 0
+    order by create_time desc
+    limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="countQByProjectAndPage" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.ProjectQa">
+    select
+    id
+    from t_project_qa
+    where status = 1 and projectid = #{projectid,jdbcType=INTEGER} and parentid = 0
   </select>
 </mapper>

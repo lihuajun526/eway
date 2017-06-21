@@ -9,6 +9,8 @@
     <result column="order_no" property="orderNo" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
+    <result column="gtype" property="gtype" jdbcType="INTEGER" />
+    <result column="activityid" property="activityid" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -74,7 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, price, content, order_no, status, discount_price, create_time, update_time
+    id, title, price, content, order_no, status, discount_price, gtype, activityid, create_time,
+    update_time
   </sql>
   <sql id="Blob_Column_List" >
     goods_describe
@@ -112,7 +115,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -133,14 +136,16 @@
     <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
       SELECT LAST_INSERT_ID() AS id
     </selectKey>
-    insert into t_goods (id, title, price, 
-      content, order_no, status, 
-      discount_price, create_time, update_time, 
-      goods_describe)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
-      #{content,jdbcType=VARCHAR}, #{orderNo,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{discountPrice,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{goodsDescribe,jdbcType=LONGVARCHAR})
+    insert into t_goods (id, title, price,
+    content, order_no, status,
+    discount_price, gtype, activityid,
+    create_time, update_time, goods_describe
+    )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},
+    #{content,jdbcType=VARCHAR}, #{orderNo,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+    #{discountPrice,jdbcType=DECIMAL}, #{gtype,jdbcType=INTEGER}, #{activityid,jdbcType=INTEGER},
+    #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{goodsDescribe,jdbcType=LONGVARCHAR}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Goods" >
     insert into t_goods
@@ -165,6 +170,12 @@
       </if>
       <if test="discountPrice != null" >
         discount_price,
+      </if>
+      <if test="gtype != null" >
+        gtype,
+      </if>
+      <if test="activityid != null" >
+        activityid,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -197,6 +208,12 @@
       </if>
       <if test="discountPrice != null" >
         #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="gtype != null" >
+        #{gtype,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null" >
+        #{activityid,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -239,6 +256,12 @@
       <if test="record.discountPrice != null" >
         discount_price = #{record.discountPrice,jdbcType=DECIMAL},
       </if>
+      <if test="record.gtype != null" >
+        gtype = #{record.gtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityid != null" >
+        activityid = #{record.activityid,jdbcType=INTEGER},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -256,15 +279,17 @@
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update t_goods
     set id = #{record.id,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DECIMAL},
-      content = #{record.content,jdbcType=VARCHAR},
-      order_no = #{record.orderNo,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
-      discount_price = #{record.discountPrice,jdbcType=DECIMAL},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      goods_describe = #{record.goodsDescribe,jdbcType=LONGVARCHAR}
+    title = #{record.title,jdbcType=VARCHAR},
+    price = #{record.price,jdbcType=DECIMAL},
+    content = #{record.content,jdbcType=VARCHAR},
+    order_no = #{record.orderNo,jdbcType=INTEGER},
+    status = #{record.status,jdbcType=INTEGER},
+    discount_price = #{record.discountPrice,jdbcType=DECIMAL},
+    gtype = #{record.gtype,jdbcType=INTEGER},
+    activityid = #{record.activityid,jdbcType=INTEGER},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP},
+    update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+    goods_describe = #{record.goodsDescribe,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -272,14 +297,16 @@
   <update id="updateByExample" parameterType="map" >
     update t_goods
     set id = #{record.id,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DECIMAL},
-      content = #{record.content,jdbcType=VARCHAR},
-      order_no = #{record.orderNo,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
-      discount_price = #{record.discountPrice,jdbcType=DECIMAL},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    title = #{record.title,jdbcType=VARCHAR},
+    price = #{record.price,jdbcType=DECIMAL},
+    content = #{record.content,jdbcType=VARCHAR},
+    order_no = #{record.orderNo,jdbcType=INTEGER},
+    status = #{record.status,jdbcType=INTEGER},
+    discount_price = #{record.discountPrice,jdbcType=DECIMAL},
+    gtype = #{record.gtype,jdbcType=INTEGER},
+    activityid = #{record.activityid,jdbcType=INTEGER},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP},
+    update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -305,6 +332,12 @@
       <if test="discountPrice != null" >
         discount_price = #{discountPrice,jdbcType=DECIMAL},
       </if>
+      <if test="gtype != null" >
+        gtype = #{gtype,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null" >
+        activityid = #{activityid,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -320,26 +353,39 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qheeshow.eway.service.model.Goods" >
     update t_goods
     set title = #{title,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
-      content = #{content,jdbcType=VARCHAR},
-      order_no = #{orderNo,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      discount_price = #{discountPrice,jdbcType=DECIMAL},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      goods_describe = #{goodsDescribe,jdbcType=LONGVARCHAR}
+    price = #{price,jdbcType=DECIMAL},
+    content = #{content,jdbcType=VARCHAR},
+    order_no = #{orderNo,jdbcType=INTEGER},
+    status = #{status,jdbcType=INTEGER},
+    discount_price = #{discountPrice,jdbcType=DECIMAL},
+    gtype = #{gtype,jdbcType=INTEGER},
+    activityid = #{activityid,jdbcType=INTEGER},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    goods_describe = #{goodsDescribe,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.qheeshow.eway.service.model.Goods" >
     update t_goods
     set title = #{title,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
-      content = #{content,jdbcType=VARCHAR},
-      order_no = #{orderNo,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      discount_price = #{discountPrice,jdbcType=DECIMAL},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    price = #{price,jdbcType=DECIMAL},
+    content = #{content,jdbcType=VARCHAR},
+    order_no = #{orderNo,jdbcType=INTEGER},
+    status = #{status,jdbcType=INTEGER},
+    discount_price = #{discountPrice,jdbcType=DECIMAL},
+    gtype = #{gtype,jdbcType=INTEGER},
+    activityid = #{activityid,jdbcType=INTEGER},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getByActivity" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_goods
+    where activityid = #{activityid,jdbcType=INTEGER}
+    and status = 1
+    and gtype = 2
+  </select>
 </mapper>

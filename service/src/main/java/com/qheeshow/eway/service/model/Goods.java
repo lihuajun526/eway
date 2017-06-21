@@ -20,6 +20,8 @@ public class Goods {
 
     private BigDecimal discountPrice;
 
+    private Integer activityid;
+
     private Date createTime;
 
     private Date updateTime;
@@ -112,5 +114,13 @@ public class Goods {
 
     public void setGoodsDescribe(String goodsDescribe) {
         this.goodsDescribe = goodsDescribe == null ? null : goodsDescribe.trim();
+    }
+
+    public Integer getActivityid() {
+        return activityid;
+    }
+
+    public void setActivityid(Integer activityid) {
+        this.activityid = activityid;
     }
 }

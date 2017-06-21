@@ -1,17 +1,18 @@
-<%@ page import="com.qheeshow.eway.service.model.ProjectQa" %>
-<%@ page import="java.util.List" %>
-<%@ page import="org.springframework.util.StringUtils" %>
-<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
+<%@ page import="com.qheeshow.eway.service.model.ProjectQa" %>
 <%@ page import="com.qheeshow.eway.service.model.User" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<ProjectQa> list = (List<ProjectQa>) request.getAttribute("commonQas");
+    List<ProjectQa> projectQs = (List<ProjectQa>) request.getAttribute("projectQs");
     Integer count = (Integer) request.getAttribute("count");
     Integer pageCount = (Integer) request.getAttribute("pageCount");
     Integer projectid = (Integer) request.getAttribute("projectid");
     Integer userid = (Integer) request.getAttribute("userid");
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Map<Integer, ProjectQa> aMap = (Map<Integer, ProjectQa>)request.getAttribute("aMap");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     String appPath = Config.get("app.path");
     User loginUser = session.getAttribute("loginUser") == null ? null : (User) session.getAttribute("loginUser");
 %>
@@ -32,46 +33,55 @@
     </form>
 </div>
 <%
-    for (ProjectQa commonQa : list) {
+    for (ProjectQa q : projectQs) {
+        ProjectQa a = aMap.get(q.getId());
 %>
 <div class="g-invest-tre">
-    <form id="aForm_<%=commonQa.getId()%>">
-        <input type="hidden" name="projectid" value="<%=projectid%>"/>
-        <input type="hidden" name="parentid" value="<%=commonQa.getId()%>"/>
-        <input type="hidden" name="qUserid" value="<%=commonQa.getUserid()%>"/>
-        <div class="g-invest-treimg"><img src="<%=StringUtils.isEmpty(commonQa.getPhoto())?"../../images/bg-new1.png":commonQa.getPhoto()%>" width="60" height="60"/></div>
+    <%
+        if(a!=null){//已答复
+    %>
+    <div class="g-invest-tre">
+        <div class="g-invest-treimg"><img src="<%=a.getPhoto()%>" width="60" height="60"/></div>
         <div class="g-invest-tre-r">
-            <div class="g-invest-tre-rt"><span class="on1"><%=commonQa.getName()%></span><span
-                    class="on2"><%=sdf.format(commonQa.getCreateTime())%></span></div>
-            <%
-                if (!StringUtils.isEmpty(commonQa.getQuestion())) {
-            %>
-            <div class="g-proj-subtitle">@<%=commonQa.getqName() + " " + commonQa.getQuestion()%>
-            </div>
-            <%
-                }
-            %>
-            <div class="g-invest-tre-rcnt"><a><%=commonQa.getContent()%>
-            </a></div>
-            <%
-                if (loginUser != null && loginUser.getId().intValue() == userid.intValue()) {
-            %>
-            <div class="g-proj-reply"><a onclick="openA(<%=commonQa.getId()%>);">回复</a></div>
-            <%
-                }
-            %>
-            <div style="display: none;" id="reply_<%=commonQa.getId()%>">
-                <div class="g-proj-texwap">
-                    <textarea id="content_<%=commonQa.getId()%>" name="content" class="g-proj-textarea"></textarea>
+            <div class="g-invest-tre-rt"><span class="on1"><%=a.getName()%></span><span class="on2"><%=sdf.format(a.getCreateTime())%></span></div>
+            <div class="g-proj-subtitle">@<%=q.getName()%>   <%=q.getContent()%></div>
+            <div class="g-invest-tre-rcnt"><a><%=a.getContent()%></a></div>
+        </div>
+    </div>
+    <%
+        }else{//未答复
+    %>
+    <form id="aForm_<%=q.getId()%>">
+        <input type="hidden" name="projectid" value="<%=projectid%>"/>
+        <input type="hidden" name="parentid" value="<%=q.getId()%>"/>
+        <input type="hidden" name="qUserid" value="<%=q.getUserid()%>"/>
+        <div class="g-invest-tre">
+            <div class="g-invest-treimg"><img src="<%=q.getPhoto()%>" width="60" height="60"/></div>
+            <div class="g-invest-tre-r">
+                <div class="g-invest-tre-rt"><span class="on1"><%=q.getName()%></span><span class="on2"><%=sdf.format(q.getCreateTime())%></span></div>
+                <div class="g-invest-tre-rcnt"><a><%=q.getContent()%></a></div>
+                <%
+                    if (loginUser != null && loginUser.getId().intValue() == userid.intValue()) {
+                %>
+                <div class="g-proj-reply"><a onclick="openA(<%=q.getId()%>);">回复</a></div>
+                <%
+                    }
+                %>
+                <div style="display: none;" id="reply_<%=q.getId()%>">
+                    <div class="g-proj-texwap">
+                        <textarea id="content_<%=q.getId()%>" name="content" class="g-proj-textarea"></textarea>
+                        <div class="g-proj-texcru">最多输入<span>150</span>个字</div>
+                    </div>
+                    <div class="g-proj-texbtn"><a onclick="closeA(<%=q.getId()%>);" class="on1">取消</a><a class="on2" onclick="a(<%=q.getId()%>)">回复</a>
+                    </div>
+                </div>
 
-                    <div class="g-proj-texcru">最多输入<span>150</span>个字</div>
-                </div>
-                <div class="g-proj-texbtn"><a href="#" class="on1">取消</a><a class="on2"
-                                                                            onclick="a(<%=commonQa.getId()%>)">回复</a>
-                </div>
             </div>
         </div>
     </form>
+    <%
+        }
+    %>
 </div>
 <%
     }

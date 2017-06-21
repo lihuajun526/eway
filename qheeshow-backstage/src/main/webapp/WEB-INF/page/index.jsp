@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     String appPath = Config.get("app.path");
+    String webPath = Config.get("web.path");
     String appDomain = Config.get("app.domain");
 %>
 <html>
@@ -166,6 +167,7 @@
 
     appPath = "<%=appPath%>";
     appDomain = "<%=appDomain%>";
+    webPath = "<%=webPath%>";
 </script>
 </body>
 </html>

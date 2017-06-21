@@ -14,6 +14,7 @@ public interface OrderService {
 
     /**
      * 下单
+     *
      * @param userid
      * @param projectid
      * @param orderStr
@@ -21,7 +22,18 @@ public interface OrderService {
      * @return
      * @throws UnsupportedEncodingException
      */
-    Map<String,String> place(Integer userid, Integer projectid, String orderStr, String payType) throws OrderWechatException;
+    Map<String, String> place(Integer userid, Integer projectid, String orderStr, String payType) throws OrderWechatException;
+
+    /**
+     * 活动报名
+     *
+     * @param userid
+     * @param activityid
+     * @param payType
+     * @return
+     * @throws OrderWechatException
+     */
+    Map<String, String> signActivity(Integer userid, Integer activityid, String payType) throws OrderWechatException;
 
     Order get(Integer id);
 

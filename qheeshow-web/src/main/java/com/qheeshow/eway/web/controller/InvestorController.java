@@ -345,9 +345,9 @@ public class InvestorController extends BaseController {
         postRecordService.save(postRecord);
         //发送邮件
         MailBean mailBean = new MailBean();
-        mailBean.setSubject(project.getTitle() + "商业计划书");
+        mailBean.setSubject("【"+project.getTitle() + "】商业计划书—梧桐e路");
         mailBean.setToAddress(investor.getEmail());
-        mailBean.setContent("<body><h1>" + investor.getTrueName() + "，您好</h1><br/><a href='" + project.getBp() + "'>点击下载</a>" + project.getTitle() + "商业计划书</body>");
+        mailBean.setContent("<body><center><div><div><h3>尊敬的" + investor.getTrueName() + "，您好</h3><p>梧桐e路平台的企业给您投递了项目计划书，<a href='" + project.getBp() + "'>请点击下载</a>【" + project.getTitle() + "】项目的商业计划书</p></div><div><a target='_blank' href='http://www.qheeshow.com'>进入梧桐e路官网</a></div></div></center></body>");
         mailService.sendHtmlMail(mailBean);
 
         result.setData(true);

@@ -5,6 +5,7 @@ import com.qheeshow.eway.service.model.ActivitySign;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.ActivityService;
 import com.qheeshow.eway.service.service.ActivitySignService;
+import com.qheeshow.eway.service.service.OrderService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-6-14.
@@ -28,6 +30,8 @@ public class ActivityController extends BaseController {
     private ActivityService activityService;
     @Autowired
     private ActivitySignService activitySignService;
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping("/list/{activityClass}/{pageIndex}/{pageSize}")
     @ResponseBody
@@ -76,20 +80,25 @@ public class ActivityController extends BaseController {
     @RequestMapping("/sign/{activityid}/authj")
     @ResponseBody
     public String sign(@PathVariable Integer activityid, HttpSession session) {
+        User loginUser = (User) session.getAttribute("loginUser");
 
-        Result<String> result = new Result<>();
-        /*Object o = session.getAttribute("loginUser");
-        if (o == null) {//未登录
-            result.setMessage("微信端扫码报名，敬请期待");
+        Activity activity = activityService.get(activityid);
+
+        if (activity.getCost().floatValue() > 0) {//收费
+            Result<Map<String, String>> result = new Result<>();
+            try {
+                Map<String, String> map = orderService.signActivity(loginUser.getId(), activityid, "WECHAT");
+                result.setCode(2);
+                result.setData(map);
+            } catch (Exception e) {
+                LOGGER.error("报名失败:", e);
+                result.setCode(-1);
+                result.setMessage("报名失败");
+            }
             return result.toString();
         }
-        User loginUser = (User) o;
-        Activity activity = activityService.get(activityid);
-        if (activity.getCost().intValue() > 0) {
-            result.setMessage("微信端扫支付报名费，敬请期待");
-            return result.toString();
-        }*/
-        User loginUser = (User) session.getAttribute("loginUser");
+
+        Result<String> result = new Result<>();
         ActivitySign activitySign = new ActivitySign();
         activitySign.setActivityId(activityid);
         activitySign.setStatus(1);

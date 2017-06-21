@@ -76,14 +76,9 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
     public void save(Activity activity) throws IOException, WriterException {
-        //添加一个新商品
-        Goods goods = new Goods();
-        goods.setTitle("报名费-" + activity.getTitle());
-        goods.setPrice(activity.getCost());
-        goods.setGtype(2);
-        goodsMapper.insert(goods);
+
         //生成支付二维码
-        Map<String, String> params = new TreeMap<>();
+        /*Map<String, String> params = new TreeMap<>();
         params.put("appid", Config.get("wechat.appid"));
         params.put("mch_id", Config.get("wechat.mchid"));
         params.put("product_id", String.valueOf(goods.getId()));
@@ -91,13 +86,37 @@ public class ActivityServiceImpl implements ActivityService {
         params.put("time_stamp", String.valueOf(System.currentTimeMillis() / 1000));
         params.put("sign", StrUtil.sign(params));
         String url = StrUtil.map2Url("weixin://wxpay/bizpayurl", params);
-        String qrcodeurl = payService.createWechatORCode(url, "actcode");
+        String qrcodeurl = payService.createWechatORCode(url, "actcode");*/
+
         //保存活动
-        activity.setQrcode(qrcodeurl);
+        //activity.setQrcode(qrcodeurl);
         if (activity.getId() == null) {
             activityMapper.insert(activity);
+            //添加一个新商品
+            Goods goods = new Goods();
+            goods.setTitle("报名费-" + activity.getTitle());
+            goods.setPrice(activity.getCost());
+            goods.setGtype(2);
+            goods.setStatus(1);
+            goods.setActivityid(activity.getId());
+            goodsMapper.insert(goods);
         } else {
             activityMapper.updateByPrimaryKeySelective(activity);
+            //更新商品
+            Goods goods = goodsMapper.getByActivity(activity.getId());
+            if (goods == null) {
+                goods = new Goods();
+                goods.setTitle("报名费-" + activity.getTitle());
+                goods.setPrice(activity.getCost());
+                goods.setGtype(2);
+                goods.setStatus(1);
+                goods.setActivityid(activity.getId());
+                goodsMapper.insert(goods);
+            } else {
+                goods.setTitle("报名费-" + activity.getTitle());
+                goods.setPrice(activity.getCost());
+                goodsMapper.updateByPrimaryKeySelective(goods);
+            }
         }
     }
 

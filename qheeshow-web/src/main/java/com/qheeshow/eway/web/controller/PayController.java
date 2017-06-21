@@ -4,10 +4,10 @@ import com.qheeshow.eway.common.bean.wechat.pay.WechatNotify;
 import com.qheeshow.eway.common.bean.wechat.pay.WechatNotifyTwo;
 import com.qheeshow.eway.common.util.Bean2Xml;
 import com.qheeshow.eway.common.util.StrUtil;
+import com.qheeshow.eway.service.model.ActivitySign;
 import com.qheeshow.eway.service.model.Order;
-import com.qheeshow.eway.service.service.GoodsService;
-import com.qheeshow.eway.service.service.OrderService;
-import com.qheeshow.eway.service.service.PayService;
+import com.qheeshow.eway.service.model.OrderDetail;
+import com.qheeshow.eway.service.service.*;
 import com.qheeshow.eway.web.base.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -36,6 +37,10 @@ public class PayController extends BaseController {
     private GoodsService goodsService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderDetailService orderDetailService;
+    @Autowired
+    private ActivitySignService activitySignService;
 
     /**
      * 模式一回调
@@ -135,6 +140,19 @@ public class PayController extends BaseController {
 
         orderService.save(order);
 
+        if (order.getProjectid() == null) {
+            List<OrderDetail> list = orderDetailService.listByOrder(order.getId());
+            if (list.size() == 1) {
+                OrderDetail orderDetail = list.get(0);
+                if (orderDetail.getActivityid() != null) {//添加报名
+                    ActivitySign activitySign = new ActivitySign();
+                    activitySign.setActivityId(orderDetail.getActivityid());
+                    activitySign.setStatus(1);
+                    activitySign.setUserid(order.getUserid());
+                    activitySignService.save(activitySign);
+                }
+            }
+        }
         return StrUtil.map2Xml(result);
     }
 

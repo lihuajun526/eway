@@ -139,6 +139,70 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
+    public Map<String, String> signActivity(Integer userid, Integer activityid, String payType) throws OrderWechatException {
+
+        Map<String, String> map = new HashMap<>();
+
+        Goods goods = goodsMapper.getByActivity(activityid);
+
+        //保存订单
+        Order order = new Order();
+        order.setTitle(goods.getTitle());
+        order.setStatus(1);
+        order.setFlag(0);
+        order.setUserid(userid);
+        order.setOrderNo(StrUtil.getOrderno());
+        order.setPrice(goods.getPrice());
+        Date begin = new Date();
+        order.setCreateTime(begin);
+        orderMapper.insert(order);
+        map.put("orderid", String.valueOf(order.getId()));
+
+        //保存订单明细
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setOrderid(order.getId());
+        orderDetail.setGoodsid(goods.getId());
+        orderDetail.setActivityid(activityid);
+        orderDetail.setPrice(goods.getPrice());
+        orderDetail.setCount(1);
+        orderDetailMapper.insert(orderDetail);
+
+        //统一下单
+        String qrcode = null;
+        if (payType.equalsIgnoreCase("WECHAT")) {
+            OrderWechat orderWechat = new OrderWechat();
+            orderWechat.setDescription("活动报名费");
+            orderWechat.setOrderno(order.getOrderNo());
+            orderWechat.setTotalFee(String.valueOf(goods.getPrice().multiply(new BigDecimal(100)).intValue()));
+            orderWechat.setTradeType("NATIVE");
+            try {
+                ResultOrder resultOrder = payService.order(orderWechat);
+                qrcode = resultOrder.getCode_url();
+            } catch (UnsupportedEncodingException e) {
+                LOGGER.error("error:", e);
+                throw new OrderWechatException();
+            } catch (RequestException e) {
+                LOGGER.error("error:", e);
+                throw new OrderWechatException();
+            } catch (CommonException e) {
+                LOGGER.error("error code:{}", e.getCode());
+                throw new OrderWechatException();
+            }
+        } else if (payType.equalsIgnoreCase("ALIPAY")) {
+
+        }
+        //生成支付二维码
+        try {
+            map.put("qrcode", payService.createWechatORCode(qrcode, "qrcode"));
+        } catch (Exception e) {
+            LOGGER.error("error:", e);
+            throw new OrderWechatException();
+        }
+        return map;
+    }
+
+    @Override
     public Order get(Integer id) {
         return orderMapper.selectByPrimaryKey(id);
     }

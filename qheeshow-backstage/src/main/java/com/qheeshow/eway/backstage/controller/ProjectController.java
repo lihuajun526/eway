@@ -50,6 +50,16 @@ public class ProjectController extends BaseController {
         return JSON.toJSONString(resultDg);
     }
 
+    @RequestMapping("/list/pay1")
+    @ResponseBody
+    public String listPay(Integer page, Integer rows) {
+        ResultDg<List<Project>> resultDg = new ResultDg<>();
+
+        List<Project> projects = projectService.listPayProject(rows,page);
+        resultDg.setRows(projects);
+        return JSON.toJSONString(resultDg);
+    }
+
     @RequestMapping("/get/{id}")
     @ResponseBody
     public String get(@PathVariable Integer id) {
