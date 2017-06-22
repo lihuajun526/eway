@@ -108,6 +108,11 @@ public class ActivityController extends BaseController {
         activitySign.setUserid(loginUser.getId());
         activitySign.setActivityId(activityid);
 
+        if (activitySignService.issign(activitySign)) {
+            result.setMessage("您已报名，谢谢");
+            return result.toString();
+        }
+
         ResultOrder resultOrder = null;
 
         try {
