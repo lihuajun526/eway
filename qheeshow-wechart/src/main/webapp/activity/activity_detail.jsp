@@ -86,7 +86,7 @@
     %>
     }
     function preOrder() {
-        $.get("<%=appPath%>/activity/do/preorder/wechat/<%=activity.getId()%>/v_authj", function (result) {
+        $.get("<%=appPath%>/activity/do/preorder/wechat/<%=activity.getId()%>/v_login", function (result) {
             if (result.code < 0) {
                 openTip(result);
                 return;
