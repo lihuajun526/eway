@@ -29,7 +29,7 @@
             <div id="qr_txt" class="g-pw2-w2">微信支付</div>
             <div class="g-pw2-w3">
                 <img id="qr_code" src="" width="275" height="275"/>
-                <span><font id="qr_tip">微信扫码支付</font>&nbsp;<a onclick="javascript:$('#qr_div').hide()">取消</a></span>
+                <span><font id="qr_tip">微信扫码支付</font>&nbsp;<a id="cancle_" onclick="javascript:$('#qr_div').hide()">取消</a></span>
             </div>
         </div>
         <div class="g-pw-radius-bottom"></div>
@@ -131,6 +131,7 @@
         }
         $.get("<%=appPath%>/order/status/" + orderid + "?r=" + Math.random(), function (result) {
             if (result.code >= 0 && result.data == 2) {
+                $("#cancle_").hide();
                 $("#qr_tip").html("支付成功&nbsp;<a onclick='refres();'>返回</a>");
             }
         }, "json");

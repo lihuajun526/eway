@@ -82,6 +82,17 @@ public class ActivityController extends BaseController {
     public String sign(@PathVariable Integer activityid, HttpSession session) {
         User loginUser = (User) session.getAttribute("loginUser");
 
+        ActivitySign activitySignQ = new ActivitySign();
+        activitySignQ.setUserid(loginUser.getId());
+        activitySignQ.setActivityId(activityid);
+
+        if (activitySignService.issign(activitySignQ)) {
+            Result result = new Result<>();
+            result.setMessage("您已报名，谢谢");
+            result.setCode(-2);
+            return result.toString();
+        }
+
         Activity activity = activityService.get(activityid);
 
         if (activity.getCost().floatValue() > 0) {//收费
