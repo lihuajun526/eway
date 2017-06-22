@@ -55,6 +55,7 @@ public class ActivitySignServiceImpl implements ActivitySignService {
         ActivitySignExample.Criteria criteria = example.createCriteria();
         criteria.andUseridEqualTo(activitySign.getUserid());
         criteria.andActivityIdEqualTo(activitySign.getActivityId());
+        criteria.andStatusEqualTo(1);
 
         List list = activitySignMapper.selectByExample(example);
         if (list != null && list.size() > 0)
@@ -141,5 +142,16 @@ public class ActivitySignServiceImpl implements ActivitySignService {
         }
         map.put("count", activitySignMapper.countByActivityAndPage(activitySign));
         return map;
+    }
+
+    @Override
+    public int countSign(Integer activityid) {
+
+        ActivitySignExample example = new ActivitySignExample();
+        ActivitySignExample.Criteria criteria = example.createCriteria();
+        criteria.andActivityIdEqualTo(activityid);
+        criteria.andStatusEqualTo(1);
+
+        return activitySignMapper.selectByExample(example).size();
     }
 }

@@ -22,4 +22,6 @@ public interface ActivitySignService {
 
     Map<String, Object> listByActivityAndPage(ActivitySign activitySign);
 
+    int countSign(Integer activityid);
+
 }

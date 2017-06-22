@@ -66,7 +66,19 @@ public class ActivityController extends BaseController {
     public ModelAndView get(@PathVariable Integer id) {
 
         Activity activity = activityService.get(id);
-        activity.setStyle(activity.getSignEndTime().getTime() > System.currentTimeMillis() ? "on1" : "on2");
+        activity.setStyle("on1");
+        activity.setTip("立即报名");
+
+        if (activity.getSignEndTime().getTime() <= System.currentTimeMillis()) {
+            activity.setTip("已结束");
+            activity.setStyle("on2");
+        }
+
+        int signed = activitySignService.countSign(id);
+        if (signed >= activity.getLimitNum()) {
+            activity.setTip("已爆满");
+            activity.setStyle("on2");
+        }
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("activity/activity_detail");
@@ -75,7 +87,7 @@ public class ActivityController extends BaseController {
     }
 
     /**
-     * 报名
+     * 付费报名
      *
      * @param payType
      * @param activityid
@@ -99,7 +111,7 @@ public class ActivityController extends BaseController {
         ResultOrder resultOrder = null;
 
         try {
-            resultOrder = activitySignService.preOrder(activitySign, payType,loginUser.getGzhOpenid());
+            resultOrder = activitySignService.preOrder(activitySign, payType, loginUser.getGzhOpenid());
             resultOrder.setTimeStamp(String.valueOf(System.currentTimeMillis()));
             //签名
             Map<String, String> params = new TreeMap<>();
@@ -120,6 +132,42 @@ public class ActivityController extends BaseController {
                 result.setMessage("对不起，报名失败，请联系主办方，电话：<a href='tel:" + activity.getTel() + "'>" + activity.getTel() + "</a>");
             }
         }
+
+        return result.toString();
+    }
+
+    /**
+     * 免费报名
+     *
+     * @param activityid
+     * @param session
+     * @return
+     */
+    @RequestMapping("/sign/{activityid}/v_login")
+    @ResponseBody
+    public String sign(@PathVariable Integer activityid, HttpSession session) {
+
+        Result<Tip<ResultOrder>> result = new Result<>();
+        Tip<ResultOrder> tip = new Tip<>();
+        result.setData(tip);
+
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        ActivitySign activitySign = new ActivitySign();
+        activitySign.setActivityId(activityid);
+        activitySign.setUserid(loginUser.getId());
+        if (activitySignService.issign(activitySign)) {
+            result.setMessage("您已报名，谢谢");
+            return result.toString();
+        }
+
+        ActivitySign activitySignDB = new ActivitySign();
+        activitySignDB.setUserid(loginUser.getId());
+        activitySignDB.setActivityId(activityid);
+        activitySignDB.setStatus(1);
+
+        activitySignService.save(activitySignDB);
+        result.setMessage("恭喜您，报名成功");
 
         return result.toString();
     }

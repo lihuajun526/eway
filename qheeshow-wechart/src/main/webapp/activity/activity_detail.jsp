@@ -63,13 +63,28 @@
 <%
 } else {
 %>
-<div class="wtwx-activity-ipt2"><a>已爆满</a></div>
+<div class="wtwx-activity-ipt2"><a><%=activity.getTip()%>
+</a></div>
 <%
     }
 %>
 </body>
 <script type="text/javascript" src="<%=appPath%>/zepto/zepto.js"></script>
 <script>
+    function sign() {
+        <%
+            if(activity.getCost().floatValue()>0){
+            %>preOrder()
+        <%
+                    }else{
+                    %>
+        $.get("<%=appPath%>/activity/do/sign/<%=activity.getId()%>/v_login", function (result) {
+            openTip(result);
+        }, "json");
+        <%
+        }
+    %>
+    }
     function preOrder() {
         $.get("<%=appPath%>/activity/do/preorder/wechat/<%=activity.getId()%>/v_authj", function (result) {
             if (result.code < 0) {

@@ -55,6 +55,8 @@ public class Activity extends BaseModel{
 
     private String style;
 
+    private String tip;
+
     public String getQrcode() {
         return qrcode;
     }
@@ -253,5 +255,13 @@ public class Activity extends BaseModel{
 
     public void setStyle(String style) {
         this.style = style;
+    }
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
     }
 }
