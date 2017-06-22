@@ -610,15 +610,15 @@
         $('#myUpload').ajaxSubmit({
             dataType: 'json',
             success: function (result) {
+                $('#logoFile').unwrap();
+                resetFileInput(file);
                 $('#' + imgid).attr("src", result.data.path);
                 $('#' + hiddenid).val(result.data.path);
-                $('#logoFile').unwrap();
-                resetFileInput(file);
             },
             error: function (xhr) {
-                alert('上传失败!');
                 $('#logoFile').unwrap();
                 resetFileInput(file);
+                alert('上传失败!');
             }
         });
     }
@@ -636,6 +636,8 @@
         $('#myUpload').ajaxSubmit({
             dataType: 'json',
             success: function (result) {
+                $('#bpFile').unwrap();
+                resetFileInput(file);
                 if (result.code == -1) {
                     xalert(result.message);
                     return;
@@ -643,13 +645,11 @@
                 $('#bp').val(result.data.path);
                 $('#bpName').val(result.data.name);
                 $('#fileName').html(result.data.name);
-                $('#bpFile').unwrap();
-                resetFileInput(file);
             },
             error: function (xhr) {
-                alert('上传失败!');
                 $('#bpFile').unwrap();
                 resetFileInput(file);
+                alert('上传失败!');
             }
         });
     }
@@ -735,7 +735,7 @@
             $("#two" + i + "_").hide();
         }
     }
-    function resetFileInput(file){
+    function resetFileInput(file) {
         file.after(file.clone().val(""));
         file.remove();
     }

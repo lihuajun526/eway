@@ -31,11 +31,11 @@
                     }
                 },
                 {
-                    field: 'opt', title: '操作', align: 'center',
+                    field: 'opt', title: '操作', align: 'left',
                     formatter: function (value, rec) {
                         var btn = '';
                         btn += '<a class="editcls" onclick="updateAuth(' + rec.userid + ',' + rec.id + ',3)" href="javascript:void(0)">认证不通过</a>&nbsp&nbsp';
-                        btn += '<a class="editcls" onclick="setBest(' + rec.id + ',1)" href="javascript:void(0)">推荐</a>&nbsp&nbsp';
+                        btn += '<a class="editcls" onclick="setBest(' + rec.id + ',1)" href="javascript:void(0)">优秀投资人</a>&nbsp&nbsp';
                         btn += '<a class="editcls" onclick="setSign(' + rec.userid + ',' + rec.id + ',1)" href="javascript:void(0)">签约</a>&nbsp&nbsp';
                         return btn;
                     }

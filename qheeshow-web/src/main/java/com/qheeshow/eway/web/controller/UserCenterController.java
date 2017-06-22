@@ -113,8 +113,11 @@ public class UserCenterController extends BaseController {
         User loginUser = (User) session.getAttribute("loginUser");
         ProjectSuggest projectSuggest = new ProjectSuggest();
         projectSuggest.setProjectid(projectid);
-        projectSuggest.setInvestorid(loginUser.getId());
-        projectSuggestService.del(projectSuggest);
+        Investor investor = investorService.getByUser(loginUser.getId());
+        if (investor != null) {
+            projectSuggest.setInvestorid(investor.getId());
+            projectSuggestService.del(projectSuggest);
+        }
         return result.toString();
     }
 

@@ -124,6 +124,8 @@
         $('#myUpload').ajaxSubmit({
             dataType: 'json',
             success: function (result) {
+                $('#' + fileid).unwrap();
+                resetFileInput(file);
                 if (result.code == -1) {
                     xalert(result.message);
                     return;
@@ -132,13 +134,11 @@
                 $.get("<%=appPath%>/user/photo/upload/authj?path=" + result.data.path, function (result) {
 
                 }, "json");
-                $('#' + fileid).unwrap();
-                resetFileInput(file);
             },
             error: function (xhr) {
-                xalert('上传失败!');
                 $('#' + fileid).unwrap();
                 resetFileInput(file);
+                xalert('上传失败!');
             }
         });
     }

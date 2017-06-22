@@ -4,6 +4,7 @@ import com.qheeshow.eway.common.constant.ExceptionTypeEnum;
 import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.service.model.Investor;
 import com.qheeshow.eway.service.model.ProjectAdviser;
+import com.qheeshow.eway.service.model.ProjectFollow;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.MessageService;
 import com.qheeshow.eway.service.service.ProjectAdviserService;
@@ -105,6 +106,30 @@ public class ProjectAdviserController extends BaseController {
 
         result.setData(isAble);
 
+        return result.toString();
+    }
+
+    @RequestMapping("/isApply/{projectid}")
+    @ResponseBody
+    public String isApply(@PathVariable Integer projectid, HttpSession session) {
+        Result<Boolean> result = new Result();
+        if (session.getAttribute("loginUser") == null) {
+            result.setData(false);
+            return result.toString();
+        }
+        User loginUser = (User) session.getAttribute("loginUser");
+        if(loginUser.getRoleid().intValue()<30 && loginUser.getRoleid().intValue()>=40){
+            result.setData(false);
+            return result.toString();
+        }
+
+
+        ProjectAdviser projectAdviser = new ProjectAdviser();
+        projectAdviser.setProjectid(projectid);
+        projectAdviser.setUserid(loginUser.getId());
+        projectAdviser.setStatus(1);
+        boolean isApply = projectAdviserService.isAdviser(projectAdviser);
+        result.setData(isApply);
         return result.toString();
     }
 

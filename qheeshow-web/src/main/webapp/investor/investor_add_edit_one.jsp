@@ -456,19 +456,19 @@
         $('#myUpload').ajaxSubmit({
             dataType:'json',
             success:function(result){
+                $('#photoFile').unwrap();
+                resetFileInput(file);
                 if (result.code == -1) {
                     xalert(result.message);
                     return;
                 }
                 $("#ul_photo").html("<li class='upload'><img src='"+result.data.path+"' width='130' height='130'/></li>");
                 $('#photo').val(result.data.path);
-                $('#photoFile').unwrap();
-                resetFileInput(file);
             },
             error:function(xhr){
-                xalert('上传失败!');
                 $('#photoFile').unwrap();
                 resetFileInput(file);
+                xalert('上传失败!');
             }
         });
     }

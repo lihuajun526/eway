@@ -240,19 +240,25 @@
         $('#myUpload').ajaxSubmit({
             dataType: 'json',
             success: function (result) {
+                $(obj).unwrap();
+                resetFileInput(file);
                 if (result.code == -1) {
                     xalert(result.message);
                     return;
                 }
                 $('#' + imgid).attr("src", result.data.path);
                 $('#' + hiddenid).val(result.data.path);
-                $(obj).unwrap();
             },
             error: function (xhr) {
-                xalert('上传失败!');
                 $(obj).unwrap();
+                resetFileInput(file);
+                xalert('上传失败!');
             }
         });
+    }
+    function resetFileInput(file) {
+        file.after(file.clone().val(""));
+        file.remove();
     }
 </script>
 </html>

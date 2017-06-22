@@ -58,7 +58,7 @@
             <a id="follow" class="g-invest-focus" onclick="follow();"></a>
             <ul class="g-proj-lst3">
                 <li>
-                    <a id="apply" onclick="applyAdviser(<%=project.getId()%>);">申请成为专职顾问</a>
+                    <a id="apply" onclick="applyAdviser(<%=project.getId()%>);"></a>
                     <span class="invest1-left-top"></span><span class="invest1-right-top"></span><span
                         class="invest1-right-bottom"></span><span class="invest1-left-bottom"></span>
                 </li>
@@ -228,6 +228,18 @@
                 $("#follow").html("+关注");
             } else {
                 $("#follow").html("已关注");
+            }
+        }
+    });
+    $.ajax({
+        type: 'GET',
+        url: '<%=appPath%>/project/adviser/isApply/<%=project.getId() %>',
+        dataType: 'json',
+        success: function (result) {
+            if (result.data) {
+                $("#apply").html("已申请专职顾问");
+            } else {
+                $("#apply").html("申请成为专职顾问");
             }
         }
     });

@@ -57,7 +57,7 @@
 </div>
 <script>
     function unSuggest(projectid) {
-        $.get("<%=appPath%>/center/unsuggest" + projectid, function (result) {
+        $.get("<%=appPath%>/center/unsuggest/" + projectid, function (result) {
             load("/center/project/1/5/<%=index%>");
         });
     }

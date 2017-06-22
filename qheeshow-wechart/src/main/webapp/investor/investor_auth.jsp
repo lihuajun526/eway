@@ -67,13 +67,15 @@
         $('#myUpload').ajaxSubmit({
             dataType: 'json',
             success: function (result) {
+                $('#' + fileid).unwrap();
+                resetFileInput(file);
                 $('#' + fileid + "_").attr("src", result.data.path);
                 $('#' + hiddenid).val(result.data.path);
-                $('#' + fileid).unwrap();
             },
             error: function (xhr) {
-                openTip({'message': '上传失败', 'data': {'link': 'close', 'action': '知道了'}});
                 $('#' + fileid).unwrap();
+                resetFileInput(file);
+                openTip({'message': '上传失败', 'data': {'link': 'close', 'action': '知道了'}});
             }
         });
     }
@@ -136,6 +138,9 @@
             return true;
         return false;
     }
-
+    function resetFileInput(file) {
+        file.after(file.clone().val(""));
+        file.remove();
+    }
 </script>
 </html>
