@@ -865,12 +865,13 @@
 	padding-bottom:12px;
 	overflow:hidden;
 }
+
 .wtwx-project-cnt1-lst4 li {
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	float:left;
-	width:21%;
-	margin:0 2%;
+	margin:0 1% 10px;
+	padding:0 7px;
 	text-align:center;
 	height:26px;
 	line-height:26px;
@@ -878,6 +879,7 @@
 	border-radius:13px;
 	font-size:12px;
 }
+
 .wtwx-project-cnt1-lst4 li a {
 	color:#707070;
 }

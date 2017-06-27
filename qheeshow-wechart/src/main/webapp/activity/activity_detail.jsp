@@ -59,7 +59,7 @@
 <%
     if (activity.getStyle().equals("on1")) {
 %>
-<div class="wtwx-activity-ipt1"><a onclick="preOrder()">立即报名</a></div>
+<div class="wtwx-activity-ipt1"><a onclick="sign()">立即报名</a></div>
 <%
 } else {
 %>
@@ -78,7 +78,7 @@
         <%
                     }else{
                     %>
-        $.get("<%=appPath%>/activity/do/sign/<%=activity.getId()%>/v_login", function (result) {
+        $.get("<%=appPath%>/activity/do/sign/<%=activity.getId()%>/v_authj", function (result) {
             openTip(result);
         }, "json");
         <%
@@ -86,7 +86,7 @@
     %>
     }
     function preOrder() {
-        $.get("<%=appPath%>/activity/do/preorder/wechat/<%=activity.getId()%>/v_login", function (result) {
+        $.get("<%=appPath%>/activity/do/preorder/wechat/<%=activity.getId()%>/v_authj", function (result) {
             if (result.code < 0) {
                 openTip(result);
                 return;

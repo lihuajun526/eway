@@ -95,7 +95,7 @@ public class InvestorController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping("/follow/{investorid}/v_auth")
+    @RequestMapping("/follow/{investorid}/v_authj")
     @ResponseBody
     public String follow(@PathVariable Integer investorid, HttpSession session) {
 
@@ -196,7 +196,7 @@ public class InvestorController extends BaseController {
      * @param session
      * @return
      */
-    @RequestMapping("/isable/post/v_auth")
+    @RequestMapping("/isable/post/v_login")
     @ResponseBody
     public String isAblePost(HttpSession session) {
 

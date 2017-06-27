@@ -99,7 +99,7 @@
     %><%=project.getDescription()%><%
         }
     } else {
-    %><img width="350" src="<%=project.getOnepage()%>"/><%
+    %><img width="100%" src="<%=project.getOnepage()%>"/><%
         }
     %>
     </div>
@@ -177,7 +177,8 @@
                 openTip(result);
                 isFollowed = true;
                 $("#follow_").html("已关注");
-            }
+            } else
+                openTip(result);
         }, "json");
     }
     function followOrNot() {
@@ -207,7 +208,7 @@
             openTip({'message': '请输入您的问题', 'data': {'action': '知道了', 'link': 'close'}});
             return;
         }
-        $.post("<%=appPath%>/project/do/q/<%=project.getId()%>/v_login", {
+        $.post("<%=appPath%>/project/do/q/<%=project.getId()%>/v_authj", {
             'content': $("#question").val()
         }, function (result) {
             openTip(result);
@@ -221,7 +222,7 @@
             openTip({'message': '请输入您的回复', 'data': {'action': '知道了', 'link': 'close'}});
             return;
         }
-        $.post("<%=appPath%>/project/do/a/<%=project.getId()%>/" + quserid + "/" + qid + "/v_login", {
+        $.post("<%=appPath%>/project/do/a/<%=project.getId()%>/" + quserid + "/" + qid + "/v_authj", {
             'content': $("#content" + qid).val()
         }, function (result) {
             if (result.code >= 0) {

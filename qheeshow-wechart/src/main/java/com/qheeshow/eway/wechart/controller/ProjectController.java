@@ -311,7 +311,7 @@ public class ProjectController extends BaseController {
      * @param session
      * @return
      */
-    @RequestMapping("/q/{projectid}/v_login")
+    @RequestMapping("/q/{projectid}/v_authj")
     @ResponseBody
     public String q(@PathVariable Integer projectid, String content, HttpSession session) {
 
@@ -354,7 +354,7 @@ public class ProjectController extends BaseController {
      * @param session
      * @return
      */
-    @RequestMapping("/a/{projectid}/{quserid}/{qid}/v_login")
+    @RequestMapping("/a/{projectid}/{quserid}/{qid}/v_authj")
     @ResponseBody
     public String a(@PathVariable Integer projectid, @PathVariable Integer quserid, @PathVariable Integer qid, String content, HttpSession session) {
 

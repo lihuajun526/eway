@@ -587,7 +587,7 @@
             and status =#{status,jdbcType=INTEGER}
         </if>
         and doc_status = 20
-        ORDER by create_time DESC
+        ORDER by begin_time DESC
         limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
     <select id="latest" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -622,7 +622,7 @@
         select
         <include refid="Base_Column_List"/>
         from t_activity
-        order by create_time desc
+        order by begin_time desc
         limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
 

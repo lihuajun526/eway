@@ -132,7 +132,7 @@
     function follow() {
         if (isFollowed)
             return;
-        $.get("<%=appPath%>/investor/do/follow/<%=investor.getId()%>/v_auth", function (result) {
+        $.get("<%=appPath%>/investor/do/follow/<%=investor.getId()%>/v_authj", function (result) {
             openTip(result);
             if (result.code >= 0) {
                 $("#follow_").html("已关注");
@@ -151,7 +151,7 @@
     }, "json");
     //是否可以投递项目
     function isAblePost() {
-        $.get("<%=appPath%>/investor/do/isable/post/v_auth", function (result) {
+        $.get("<%=appPath%>/investor/do/isable/post/v_login", function (result) {
             openTip(result);
             if (result.code >= 0) {
                 $("#pros").show();

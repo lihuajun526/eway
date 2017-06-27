@@ -77,7 +77,7 @@
         var data = result.data;
         for (var i = 0; i < data.length; i++) {
             var project = data[i];
-            $("#bestPros").append("<a href='<%=appPath%>/project/" + project.id + "'><li><span class='on1'><img src='" + project.logo + "' width='100' height='100'/></span><h1 class='on2'>" + project.title + "</h1><h3 class='on3'>" + project.demand + "</h3><span class='on4'></span><span class='on5'><div class='cont'>" + project.highlights + "</div></span></li></a>");
+            $("#bestPros").append("<a href='<%=appPath%>/project/" + project.id + "'><li><span class='on1'><img src='" + project.logo + "' width='100' height='100'/></span><h1 class='on2'>" + project.title + "</h1><h3 class='on3'>" + project.demand + "</h3></li></a>");
         }
     }, "json");
     $.get("<%=appPath%>/index/project/best/case", function (result) {

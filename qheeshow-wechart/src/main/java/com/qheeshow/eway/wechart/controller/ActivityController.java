@@ -94,7 +94,7 @@ public class ActivityController extends BaseController {
      * @param session
      * @return
      */
-    @RequestMapping("/preorder/{payType}/{activityid}/v_login")
+    @RequestMapping("/preorder/{payType}/{activityid}/v_authj")
     @ResponseBody
     public String preOrder(@PathVariable String payType, @PathVariable Integer activityid, HttpSession session) {
 
@@ -148,7 +148,7 @@ public class ActivityController extends BaseController {
      * @param session
      * @return
      */
-    @RequestMapping("/sign/{activityid}/v_login")
+    @RequestMapping("/sign/{activityid}/v_authj")
     @ResponseBody
     public String sign(@PathVariable Integer activityid, HttpSession session) {
 

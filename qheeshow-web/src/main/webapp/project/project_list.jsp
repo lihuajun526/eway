@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="<%=appPath%>/images/project.css"/>
     <script src="<%=appPath%>/jquery/jquery-1.11.1.js"></script>
     <script>
-        var type = 1;//项目类型
+        var type = 0;//项目类型
         var areaid = 0;//地区id
         var industryid = 0;//产业id
         var limitid = 0;//融资规模id
@@ -33,7 +33,7 @@
             type = value;
             keyword = $("#keyword").val();
             pageIndex = 1;
-            setCheck(value, obj, id);
+            setCheck1(value, obj, id);
             list();
         }
         function setArea(value, obj, id) {
@@ -59,6 +59,23 @@
             list();
         }
         function setCheck(value, obj, id) {
+            if (id) {
+                $("#" + id).children('li').each(function () {
+                    $(this).removeClass("on");
+                    $(this).children("span").remove();
+                });
+            } else {
+                $(obj).parent().children('li').each(function () {
+                    $(this).removeClass("on");
+                    $(this).children("span").remove();
+                });
+            }
+            if (id)
+                return;
+            $(obj).append("<span class='proj1-left-top'></span><span class='proj1-right-top'></span><span class='proj1-right-bottom'></span><span class='proj1-left-bottom'></span>");
+            $(obj).attr("class", "on");
+        }
+        function setCheck1(value, obj, id) {
             $(obj).parent().children('li').each(function () {
                 $(this).removeClass("ove");
                 $(obj).remove("span");
@@ -81,7 +98,8 @@
             <div class="g-proj-onel">项目类型：</div>
             <div class="g-proj-oner3">
                 <ul>
-                    <li onclick="setType(1,this);" class="ove"><a>平台推荐</a><span></span></li>
+                    <li onclick="setType(0,this);" class="ove"><a>全部</a><span></span></li>
+                    <li onclick="setType(1,this);"><a>平台推荐</a></li>
                     <li onclick="setType(2,this);"><a>机构关注</a></li>
                     <li onclick="setType(3,this);"><a>企业自荐</a></li>
                 </ul>

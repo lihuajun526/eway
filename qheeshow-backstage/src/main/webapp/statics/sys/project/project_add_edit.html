@@ -290,11 +290,14 @@
                                             $("#onepage").val(data.onepage);
                                             $("#status").val(data.status);
                                             //$("#demand").val(data.demand);
-                                            demand.setContent(data.demand);
+                                            if (data.demand)
+                                                demand.setContent(data.demand);
                                             //$("#highlights").val(data.highlights);
-                                            highlights.setContent(data.highlights);
+                                            if (data.highlights)
+                                                highlights.setContent(data.highlights);
                                             //$("#description").val(data.description);
-                                            description.setContent(data.description);
+                                            if (data.description)
+                                                description.setContent(data.description);
                                             $("#industry").val(data.industry);
                                             $("#area").val(data.area);
                                             $("#financingLimit").val(data.financingLimit);
@@ -385,10 +388,10 @@
             alert("请输入项目亮点");
             return false;
         }
-        if (!$("#description_").val().length) {
+        /*if (!$("#description_").val().length) {
             alert("请输入项目详述");
             return false;
-        }
+        }*/
         var counter = 0;
         $("#tags_").children('input').each(function () {
             if ($(this).attr("checked") == "checked") {

@@ -72,12 +72,14 @@ public class ImporterController extends BaseController {
             user.setStatus(2);
 
             Project project = new Project();
+            project.setRecommend(0);
+            project.setIsCase(0);
             project.setTitle(map.get("项目名称").trim());
             project.setDemand(map.get("解决需求").trim().replaceAll("\n", ""));
             project.setHighlights(map.get("项目亮点").trim().replaceAll("\n", ""));
             //project.setDescription("");
             project.setType(2);
-            List<Xwcmclassinfo> industrys = xwcmclassinfoService.getByName(map.get("所属行业").trim());
+            List<Xwcmclassinfo> industrys = xwcmclassinfoService.getByNameAndParent(map.get("所属行业").trim(), 20);
             if (industrys.size() == 0 || industrys.size() > 1) {
                 LOGGER.info("行业-" + industrys.size());
                 LOGGER.error("所属行业[{}]不存在或存在多个", map.get("所属行业").trim());
@@ -85,7 +87,7 @@ public class ImporterController extends BaseController {
             }
             project.setIndustry(industrys.get(0).getClassinfoid());
             project.setIndustryName(industrys.get(0).getCname());
-            List<Xwcmclassinfo> areas = xwcmclassinfoService.getByName(map.get("项目地点").trim());
+            List<Xwcmclassinfo> areas = xwcmclassinfoService.getByNameAndParent(map.get("项目地点").trim(), 21);
             if (areas.size() == 0 || areas.size() > 1) {
                 LOGGER.error("项目地点[{}]不存在或存在多个", map.get("项目地点").trim());
                 continue;
@@ -100,7 +102,7 @@ public class ImporterController extends BaseController {
             }
             project.setFinancingLimit(financingLimits.get(0).getClassinfoid());
             project.setFinancingLimitName(financingLimits.get(0).getCname());
-            List<Xwcmclassinfo> stages = xwcmclassinfoService.getByName(map.get("融资阶段").trim());
+            List<Xwcmclassinfo> stages = xwcmclassinfoService.getByNameAndParent(map.get("融资阶段").trim(), 44);
             if (stages.size() == 0 || stages.size() > 1) {
                 LOGGER.error("融资阶段[{}]不存在或存在多个", map.get("融资阶段").trim());
                 continue;
@@ -139,7 +141,7 @@ public class ImporterController extends BaseController {
             for (String tag : tags) {
                 if (StringUtils.isEmpty(tag))
                     continue;
-                List<Xwcmclassinfo> list = xwcmclassinfoService.getByName(tag.trim());
+                List<Xwcmclassinfo> list = xwcmclassinfoService.getByNameAndParent(tag.trim(), 1);
                 if (list == null || list.size() > 1) {
                     LOGGER.error("[tag={}]不存在或存在多个", tag);
                     continue;
