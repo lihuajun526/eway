@@ -3,7 +3,9 @@ package com.qheeshow.eway.service.service.impl;
 import com.qheeshow.eway.common.exception.CryptoException;
 import com.qheeshow.eway.common.util.AESCryptoUtil;
 import com.qheeshow.eway.common.util.StrUtil;
+import com.qheeshow.eway.service.dao.ProjectMapper;
 import com.qheeshow.eway.service.dao.UserMapper;
+import com.qheeshow.eway.service.model.Project;
 import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.model.UserExample;
 import com.qheeshow.eway.service.service.MailService;
@@ -29,9 +31,11 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
     @Autowired
-    MailService mailService;
+    private MailService mailService;
+    @Autowired
+    private ProjectMapper projectMapper;
 
     @Override
     public boolean isRegist(User user) {
@@ -87,6 +91,14 @@ public class UserServiceImpl implements UserService {
             }
         }
         userMapper.insert(user);
+    }
+
+    @Override
+    public void importUserAndPro(Project project, User user) {
+
+        userMapper.insert(user);
+        project.setUserid(user.getId());
+        projectMapper.insert(project);
     }
 
     @Override

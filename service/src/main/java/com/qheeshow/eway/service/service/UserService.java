@@ -3,6 +3,7 @@ package com.qheeshow.eway.service.service;
 import java.util.List;
 
 import com.qheeshow.eway.common.exception.CryptoException;
+import com.qheeshow.eway.service.model.Project;
 import com.qheeshow.eway.service.model.User;
 
 /**
@@ -35,5 +36,7 @@ public interface UserService {
 	void saveFromWechat(User user);
 
 	void saveFromGzh(User user);
+
+	void importUserAndPro(Project project,User user);
 
 }

@@ -15,5 +15,8 @@ public interface XwcmclassinfoService {
 
     Xwcmclassinfo get(Integer id);
 
+    List<Xwcmclassinfo> getByName(String name);
+
+    List<Xwcmclassinfo> getByNameAndParent(String name,Integer parentid);
 
 }

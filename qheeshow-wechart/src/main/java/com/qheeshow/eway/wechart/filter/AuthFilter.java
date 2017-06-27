@@ -29,7 +29,7 @@ public class AuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
         String url = request.getRequestURI();
-        if (url.indexOf("/v_auth") == -1 && url.indexOf("/v_login") == -1) {
+        if (url.indexOf("/v_auth") == -1 && url.indexOf("/v_login") == -1 && url.indexOf("/user/center/do/") == -1) {
             chain.doFilter(request, response);
             return;
         }

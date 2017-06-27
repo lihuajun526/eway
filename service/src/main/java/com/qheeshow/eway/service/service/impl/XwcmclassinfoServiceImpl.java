@@ -42,5 +42,24 @@ public class XwcmclassinfoServiceImpl implements XwcmclassinfoService {
         return xwcmclassinfoMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public List<Xwcmclassinfo> getByName(String name) {
+        XwcmclassinfoExample xwcmclassinfoExample = new XwcmclassinfoExample();
+        XwcmclassinfoExample.Criteria criteria = xwcmclassinfoExample.createCriteria();
+        criteria.andCnameEqualTo(name);
+        List<Xwcmclassinfo> list = xwcmclassinfoMapper.selectByExample(xwcmclassinfoExample);
+        return list;
+    }
+
+    @Override
+    public List<Xwcmclassinfo> getByNameAndParent(String name, Integer parentid) {
+        XwcmclassinfoExample xwcmclassinfoExample = new XwcmclassinfoExample();
+        XwcmclassinfoExample.Criteria criteria = xwcmclassinfoExample.createCriteria();
+        criteria.andCnameEqualTo(name);
+        criteria.andParentidEqualTo(parentid);
+        List<Xwcmclassinfo> list = xwcmclassinfoMapper.selectByExample(xwcmclassinfoExample);
+        return list;
+    }
+
 
 }
