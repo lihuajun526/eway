@@ -23,7 +23,7 @@
     <%
         if (projectList == null || projectList.size() == 0) {
     %>
-    <div class="wx-callmmone"><img src="<%=appPath%>/images/wtwx-icon54.png" width="212" height="152"/><span>您尚未创建项目，所以暂无金融顾问，请在电脑端创建项目</span>
+    <div class="wx-callmmone"><img src="<%=appPath%>/images/wtwx-icon54.png" width="212" height="152"/><span>您尚未创建项目，所以暂无金融顾问，请在电脑端创建项目（网址：http://www.qheeshow.com）</span>
     </div>
     <%
     } else {

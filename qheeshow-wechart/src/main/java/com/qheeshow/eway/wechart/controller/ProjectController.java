@@ -216,7 +216,7 @@ public class ProjectController extends BaseController {
             projectAdviserService.apply(projectid, loginUser.getId());
         } catch (CommonException e) {
             if (e.getCode().equals(ExceptionTypeEnum.Adviser_Info_Not_Full.getCode())) {
-                result.setMessage("您尚未填写个人详细信息，请在电脑端补充完善");
+                result.setMessage("您尚未填写个人详细信息，请在电脑端补充完善（网址：http://www.qheeshow.com）");
                 return result.toString();
             }
             if (e.getCode().equals(ExceptionTypeEnum.Investor_Not_Auth_ERROR.getCode())) {
@@ -410,7 +410,7 @@ public class ProjectController extends BaseController {
         User loginUser = (User) session.getAttribute("loginUser");
         List<Project> list = projectService.listByUser(loginUser.getId());
         if (list.size() == 0) {
-            result.setMessage("您尚未创建项目，请在电脑端登录梧桐e路网站进行创建");
+            result.setMessage("您尚未创建项目，请在电脑端登录梧桐e路进行创建（网址：http://www.qheeshow.com）");
             result.setCode(-2);
             return result.toString();
         }

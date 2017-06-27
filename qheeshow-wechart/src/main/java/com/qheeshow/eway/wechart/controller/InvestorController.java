@@ -250,7 +250,7 @@ public class InvestorController extends BaseController {
 
         Project project = projectService.get(projectid);
         if (StringUtils.isEmpty(project.getBp())) {
-            result.setMessage("对不起，该项目没有上传商业计划书，请在电脑端上传");
+            result.setMessage("对不起，该项目没有上传商业计划书，请在电脑端上传（网址：http://www.qheeshow.com）");
             return result.toString();
         }
 
