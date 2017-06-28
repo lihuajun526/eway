@@ -174,12 +174,27 @@ public class UserCenterController extends BaseController {
         return result.toString();
     }
 
+    @RequestMapping("/unfollow/{projectid}")
+    @ResponseBody
+    public String unfollow(@PathVariable Integer projectid, HttpSession session) {
+        Result result = new Result();
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        ProjectFollow projectFollow = new ProjectFollow();
+        projectFollow.setUserid(loginUser.getId());
+        projectFollow.setProjectid(projectid);
+        projectFollowService.del(projectFollow);
+
+        return result.toString();
+    }
+
     /**************************************************************
      * 企业/创业者
      **************************************************************/
 
     /**
      * 我的金融顾问
+     *
      * @param session
      * @return
      */
@@ -211,6 +226,7 @@ public class UserCenterController extends BaseController {
 
     /**
      * 我购买的服务
+     *
      * @param session
      * @return
      */

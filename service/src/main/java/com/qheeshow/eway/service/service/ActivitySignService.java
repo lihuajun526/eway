@@ -24,4 +24,6 @@ public interface ActivitySignService {
 
     int countSign(Integer activityid);
 
+    ActivitySign getByActivitySign(ActivitySign activitySign);
+
 }

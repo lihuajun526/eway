@@ -46,7 +46,10 @@ public class ActivitySignServiceImpl implements ActivitySignService {
 
     @Override
     public int save(ActivitySign activitySign) {
-        return activitySignMapper.insert(activitySign);
+        if (activitySign.getId() == null)
+            return activitySignMapper.insert(activitySign);
+        else
+            return activitySignMapper.updateByPrimaryKeySelective(activitySign);
     }
 
     @Override
@@ -95,6 +98,9 @@ public class ActivitySignServiceImpl implements ActivitySignService {
         orderDetail.setOrderid(order.getId());
         orderDetail.setActivityid(activitySign.getActivityId());
         orderDetailMapper.insert(orderDetail);
+        //保存报名记录
+        activitySign.setStatus(2);
+        activitySignMapper.insert(activitySign);
         //第三方支付下单
         if (payType.equalsIgnoreCase("WECHAT")) {
             OrderWechat orderWechat = new OrderWechat();
@@ -153,5 +159,18 @@ public class ActivitySignServiceImpl implements ActivitySignService {
         criteria.andStatusEqualTo(1);
 
         return activitySignMapper.selectByExample(example).size();
+    }
+
+    @Override
+    public ActivitySign getByActivitySign(ActivitySign activitySign) {
+        ActivitySignExample example = new ActivitySignExample();
+        ActivitySignExample.Criteria criteria = example.createCriteria();
+        criteria.andActivityIdEqualTo(activitySign.getActivityId());
+        criteria.andUseridEqualTo(activitySign.getUserid());
+        List<ActivitySign> list = activitySignMapper.selectByExample(example);
+        if (list.size() == 0)
+            return null;
+        else
+            return list.get(0);
     }
 }

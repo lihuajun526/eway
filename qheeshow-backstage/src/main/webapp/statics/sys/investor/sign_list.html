@@ -33,7 +33,7 @@
                 {
                     field: 'opt', title: '操作', align: 'center',
                     formatter: function (value, rec) {
-                        var btn = '<a class="editcls" onclick="setSign(' + rec.id + ',0)" href="javascript:void(0)">取消签约</a>&nbsp&nbsp';
+                        var btn = '<a class="editcls" onclick="setSign(' + rec.userid + ',' + rec.id + ',0)" href="javascript:void(0)">取消签约</a>&nbsp&nbsp';
                         if (rec.isBest == 0)
                             btn += '<a class="editcls" onclick="setBest(' + rec.id + ',1)" href="javascript:void(0)">推荐</a>&nbsp&nbsp';
                         else if (rec.isBest == 1)
@@ -64,9 +64,9 @@
             $('#tt').tabs('close', title);
         }
     }
-    function setBest(id, status) {
+    function setBest(userid, id, status) {
         $.ajax({
-            url: appPath + '/investor/best/' + id + '/' + status,
+            url: appPath + '/investor/best/' + userid + '/' + id + '/' + status,
             type: 'get',
             dataType: 'json',
             success: function (result) {

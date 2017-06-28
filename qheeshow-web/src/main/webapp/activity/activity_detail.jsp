@@ -1,11 +1,13 @@
 <%@ page import="com.qheeshow.eway.common.util.Config" %>
 <%@ page import="com.qheeshow.eway.service.model.Activity" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String appPath = Config.get("app.path");
     Activity activity = (Activity) request.getAttribute("activity");
     Boolean isFull = (Boolean) request.getAttribute("isFull");
     String flag = "4";
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
 <html>
 <head>
@@ -43,7 +45,7 @@
                 <h1><%=activity.getTitle()%>
                 </h1>
                 <ul class="g-actlst-onelst">
-                    <li class="on1">2017年3月28日 8:00-2017年3月28日 18:00</li>
+                    <li class="on1"><%=sdf.format(activity.getBeginTime())%>-<%=sdf.format(activity.getEndTime())%></li>
                     <li class="on2"><%=activity.getAddress()%>
                     </li>
                     <li class="on3">限额<%=activity.getLimitNum()%>人</li>

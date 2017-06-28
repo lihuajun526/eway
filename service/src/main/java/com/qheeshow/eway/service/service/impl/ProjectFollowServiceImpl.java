@@ -73,4 +73,13 @@ public class ProjectFollowServiceImpl implements ProjectFollowService {
         criteria1.andUseridIn(ids);
         return investorMapper.selectByExample(investorExample);
     }
+
+    @Override
+    public void del(ProjectFollow projectFollow) {
+        ProjectFollowExample example = new ProjectFollowExample();
+        ProjectFollowExample.Criteria criteria = example.createCriteria();
+        criteria.andProjectidEqualTo(projectFollow.getProjectid());
+        criteria.andUseridEqualTo(projectFollow.getUserid());
+        projectFollowMapper.deleteByExample(example);
+    }
 }

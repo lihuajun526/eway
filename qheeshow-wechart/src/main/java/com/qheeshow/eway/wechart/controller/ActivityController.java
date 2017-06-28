@@ -65,7 +65,7 @@ public class ActivityController extends BaseController {
     @RequestMapping("/get/v_login/{id}")
     public ModelAndView get(@PathVariable Integer id, HttpSession session) {
 
-        User loginUser = (User)session.getAttribute("loginUser");
+        User loginUser = (User) session.getAttribute("loginUser");
 
         Activity activity = activityService.get(id);
         activity.setStyle("on2");
@@ -86,7 +86,7 @@ public class ActivityController extends BaseController {
         ActivitySign activitySign = new ActivitySign();
         activitySign.setActivityId(id);
         activitySign.setUserid(loginUser.getId());
-        if(activitySignService.issign(activitySign)){
+        if (activitySignService.issign(activitySign)) {
             activity.setTip("已报名");
             return modelAndView;
         }
@@ -124,9 +124,15 @@ public class ActivityController extends BaseController {
         activitySign.setUserid(loginUser.getId());
         activitySign.setActivityId(activityid);
 
-        if (activitySignService.issign(activitySign)) {
-            result.setMessage("您已报名，谢谢");
-            return result.toString();
+        ActivitySign as = activitySignService.getByActivitySign(activitySign);
+        if (as != null) {
+            if (as.getStatus().intValue() == 1) {
+                result.setMessage("您已报名，谢谢");
+                return result.toString();
+            } else if (as.getStatus().intValue() == 2) {
+                result.setMessage("您已报名，但尚未支付，请在个人中心->订单中进行支付");
+                return result.toString();
+            }
         }
 
         ResultOrder resultOrder = null;

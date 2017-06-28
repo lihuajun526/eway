@@ -19,4 +19,6 @@ public interface ProjectFollowService {
 
     List<Investor> list(Integer projectid);
 
+    void del(ProjectFollow projectFollow);
+
 }

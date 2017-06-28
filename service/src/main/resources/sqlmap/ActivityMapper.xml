@@ -595,7 +595,7 @@
         id,logo,title,summary
         from t_activity
         where doc_status = 20
-        ORDER by create_time DESC
+        ORDER by begin_time DESC
         limit 0,#{num,jdbcType=INTEGER}
     </select>
     <select id="listByClassAndPage" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Activity">
@@ -622,6 +622,7 @@
         select
         <include refid="Base_Column_List"/>
         from t_activity
+        where doc_status = 20
         order by begin_time desc
         limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>

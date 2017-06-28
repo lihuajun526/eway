@@ -177,6 +177,7 @@ public class PayServiceImpl implements PayService {
 
     /**
      * 保存订单和可能的报名记录（微信端支付回调Controller调用）
+     *
      * @param order
      */
     @Override
@@ -190,6 +191,8 @@ public class PayServiceImpl implements PayService {
                 ActivitySign activitySign = new ActivitySign();
                 activitySign.setActivityId(orderDetail.getActivityid());
                 activitySign.setUserid(order.getUserid());
+
+                activitySign = activitySignService.getByActivitySign(activitySign);
                 activitySign.setStatus(1);
                 activitySignService.save(activitySign);
             }
