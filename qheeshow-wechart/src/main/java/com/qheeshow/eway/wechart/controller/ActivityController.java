@@ -80,6 +80,11 @@ public class ActivityController extends BaseController {
             activity.setStyle("on2");
         }
 
+        String content = activity.getContent();
+        if(!StringUtils.isEmpty(content)){
+            content = content.replaceAll("<img","<img width='100%'");
+            activity.setContent(content);
+        }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("activity/activity_detail");
         modelAndView.addObject("activity", activity);

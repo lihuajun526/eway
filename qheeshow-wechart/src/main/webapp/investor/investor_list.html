@@ -54,6 +54,7 @@
                 else
                     $("#investors").append(tempFn(result.data));
                 if (result.data.length < 10) {
+                    $('#more').unbind("click");
                     $("#more").html("没有更多了");
                 } else {
                     $("#more").html("点击加载更多");
