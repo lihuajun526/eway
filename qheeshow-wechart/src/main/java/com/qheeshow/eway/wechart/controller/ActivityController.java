@@ -62,32 +62,43 @@ public class ActivityController extends BaseController {
         return result.toString();
     }
 
-    @RequestMapping("/get/{id}")
-    public ModelAndView get(@PathVariable Integer id) {
+    @RequestMapping("/get/{id}/v_login")
+    public ModelAndView get(@PathVariable Integer id, HttpSession session) {
+
+        User loginUser = (User)session.getAttribute("loginUser");
 
         Activity activity = activityService.get(id);
-        activity.setStyle("on1");
-        activity.setTip("立即报名");
-
-        if (activity.getSignEndTime().getTime() <= System.currentTimeMillis()) {
-            activity.setTip("已结束");
-            activity.setStyle("on2");
-        }
-
-        int signed = activitySignService.countSign(id);
-        if (signed >= activity.getLimitNum()) {
-            activity.setTip("已爆满");
-            activity.setStyle("on2");
-        }
-
+        activity.setStyle("on2");
         String content = activity.getContent();
-        if(!StringUtils.isEmpty(content)){
-            content = content.replaceAll("<img","<img width='100%'");
+        if (!StringUtils.isEmpty(content)) {
+            content = content.replaceAll("<img", "<img width='100%'");
             activity.setContent(content);
         }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("activity/activity_detail");
         modelAndView.addObject("activity", activity);
+
+        if (activity.getSignEndTime().getTime() <= System.currentTimeMillis()) {
+            activity.setTip("已结束");
+            return modelAndView;
+        }
+
+        ActivitySign activitySign = new ActivitySign();
+        activitySign.setActivityId(id);
+        activitySign.setUserid(loginUser.getId());
+        if(activitySignService.issign(activitySign)){
+            activity.setTip("已报名");
+            return modelAndView;
+        }
+
+        int signed = activitySignService.countSign(id);
+        if (signed >= activity.getLimitNum()) {
+            activity.setTip("已爆满");
+            return modelAndView;
+        }
+
+        activity.setStyle("on1");
+        activity.setTip("立即报名");
         return modelAndView;
     }
 

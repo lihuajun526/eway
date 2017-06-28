@@ -43,7 +43,7 @@
     var activityClass = 0;
     var activityObj = null;
     function listActivity(type, obj, flag) {
-        if (activityClass != type)
+        if (activityClass != type || flag)
             pageIndex = 1;
         activityClass = type;
         activityObj = obj;

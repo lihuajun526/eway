@@ -59,7 +59,7 @@
 <%
     if (activity.getStyle().equals("on1")) {
 %>
-<div class="wtwx-activity-ipt1"><a onclick="sign()">立即报名</a></div>
+<div class="wtwx-activity-ipt1"><a href="#" onclick="sign()">立即报名</a></div>
 <%
 } else {
 %>
