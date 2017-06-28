@@ -62,7 +62,7 @@ public class ActivityController extends BaseController {
         return result.toString();
     }
 
-    @RequestMapping("/get/{id}/v_login")
+    @RequestMapping("/get/v_login/{id}")
     public ModelAndView get(@PathVariable Integer id, HttpSession session) {
 
         User loginUser = (User)session.getAttribute("loginUser");
