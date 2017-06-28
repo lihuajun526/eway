@@ -66,7 +66,7 @@
         </div>
         <%
             if (order.getStatus().intValue() == 1) {
-        %><span class="wtwx-order-on3" onclick="payOrder()">立即支付</span><%
+        %><span class="wtwx-order-on3" onclick="payOrder(<%=order.getId()%>)">立即支付</span><%
     } else {
     %><span class="wtwx-order-on1">已支付</span><%
         }
@@ -82,8 +82,6 @@
 <script type="text/javascript" src="<%=appPath%>/zepto/zepto.js"></script>
 <script>
     function payOrder(id) {
-        //
-
         $.get("<%=appPath%>/order/do/pay/WECHART/" + id + "/v_authj", function (result) {
             if (result.code < 0) {
                 openTip(result);

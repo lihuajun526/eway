@@ -41,7 +41,7 @@
     }
     listPro();
     function unFollow(projectid) {
-        $.get(appPath + "/user/center/do/unfollow/" + projectid, function (result) {
+        $.get(appPath + "/user/center/do/project/unfollow/" + projectid, function (result) {
             if (result.code >= 0) {
                 $("#div_" + projectid).remove();
                 if ($("#container").children("div").length == 0) {

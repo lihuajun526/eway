@@ -64,9 +64,9 @@
             $('#tt').tabs('close', title);
         }
     }
-    function setBest(userid, id, status) {
+    function setBest(id, status) {
         $.ajax({
-            url: appPath + '/investor/best/' + userid + '/' + id + '/' + status,
+            url: appPath + '/investor/best/' + id + '/' + status,
             type: 'get',
             dataType: 'json',
             success: function (result) {
@@ -78,9 +78,9 @@
             }
         });
     }
-    function setSign(id, status) {
+    function setSign(userid, id, status) {
         $.ajax({
-            url: appPath + '/investor/sign/' + id + '/' + status,
+            url: appPath + '/investor/sign/' + userid + '/' + id + '/' + status,
             type: 'get',
             dataType: 'json',
             success: function (result) {

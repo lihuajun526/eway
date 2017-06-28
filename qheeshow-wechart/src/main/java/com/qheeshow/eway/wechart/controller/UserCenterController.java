@@ -174,7 +174,7 @@ public class UserCenterController extends BaseController {
         return result.toString();
     }
 
-    @RequestMapping("/unfollow/{projectid}")
+    @RequestMapping("/project/unfollow/{projectid}")
     @ResponseBody
     public String unfollow(@PathVariable Integer projectid, HttpSession session) {
         Result result = new Result();
