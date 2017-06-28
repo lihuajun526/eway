@@ -5,7 +5,6 @@ import com.qheeshow.eway.common.util.Bean2Xml;
 import com.qheeshow.eway.common.util.StrUtil;
 import com.qheeshow.eway.service.model.Order;
 import com.qheeshow.eway.service.model.User;
-import com.qheeshow.eway.service.service.GoodsService;
 import com.qheeshow.eway.service.service.OrderService;
 import com.qheeshow.eway.service.service.PayService;
 import com.qheeshow.eway.service.service.UserService;
@@ -38,8 +37,6 @@ public class PayController extends BaseController {
 
     @Autowired
     private PayService payService;
-    @Autowired
-    private GoodsService goodsService;
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -106,9 +103,7 @@ public class PayController extends BaseController {
         //修改订单状态
         order.setStatus(2);
         order.setFlag(1);
-
-        orderService.save(order);
-
+        payService.saveOrderAndActivitySign(order);
         return StrUtil.map2Xml(result);
     }
 

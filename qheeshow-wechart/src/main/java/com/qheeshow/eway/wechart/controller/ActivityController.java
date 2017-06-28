@@ -182,14 +182,9 @@ public class ActivityController extends BaseController {
             return result.toString();
         }
 
-        ActivitySign activitySignDB = new ActivitySign();
-        activitySignDB.setUserid(loginUser.getId());
-        activitySignDB.setActivityId(activityid);
-        activitySignDB.setStatus(1);
-
-        activitySignService.save(activitySignDB);
+        activitySign.setStatus(1);
+        activitySignService.save(activitySign);
         result.setMessage("恭喜您，报名成功");
-
         return result.toString();
     }
 

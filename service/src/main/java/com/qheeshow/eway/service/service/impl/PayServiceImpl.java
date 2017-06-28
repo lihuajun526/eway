@@ -10,10 +10,8 @@ import com.qheeshow.eway.common.exception.RequestException;
 import com.qheeshow.eway.common.http.XHttpClient;
 import com.qheeshow.eway.common.util.*;
 import com.qheeshow.eway.service.dao.GoodsMapper;
-import com.qheeshow.eway.service.model.Goods;
-import com.qheeshow.eway.service.model.Order;
-import com.qheeshow.eway.service.model.OrderWechat;
-import com.qheeshow.eway.service.service.PayService;
+import com.qheeshow.eway.service.model.*;
+import com.qheeshow.eway.service.service.*;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
@@ -27,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -40,6 +39,12 @@ public class PayServiceImpl implements PayService {
 
     @Autowired
     private GoodsMapper goodsMapper;
+    @Autowired
+    private OrderDetailService orderDetailService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private ActivitySignService activitySignService;
 
     @Override
     public String createWechatORCode(String url, String fileType) throws IOException, WriterException {
@@ -168,6 +173,27 @@ public class PayServiceImpl implements PayService {
         //todo 暂时先到这里吧
 
 
+    }
+
+    /**
+     * 保存订单和可能的报名记录（微信端支付回调Controller调用）
+     * @param order
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
+    public void saveOrderAndActivitySign(Order order) {
+        orderService.save(order);
+        if (order.getProjectid() == null) {//保存报名记录
+            List<OrderDetail> orderDetailList = orderDetailService.listByOrder(order.getId());
+            if (orderDetailList.size() > 0) {
+                OrderDetail orderDetail = orderDetailList.get(0);
+                ActivitySign activitySign = new ActivitySign();
+                activitySign.setActivityId(orderDetail.getActivityid());
+                activitySign.setUserid(order.getUserid());
+                activitySign.setStatus(1);
+                activitySignService.save(activitySign);
+            }
+        }
     }
 
 

@@ -6,6 +6,7 @@ import com.qheeshow.eway.common.bean.wechat.pay.WechatNotify;
 import com.qheeshow.eway.common.bean.wechat.pay.exception.ResponseWechat;
 import com.qheeshow.eway.common.exception.CommonException;
 import com.qheeshow.eway.common.exception.RequestException;
+import com.qheeshow.eway.service.model.Order;
 import com.qheeshow.eway.service.model.OrderWechat;
 
 import java.io.IOException;
@@ -24,4 +25,6 @@ public interface PayService {
 
     //提现
     void draw(String openid, String trueName, Integer limit) throws CommonException;
+
+    void saveOrderAndActivitySign(Order order);
 }

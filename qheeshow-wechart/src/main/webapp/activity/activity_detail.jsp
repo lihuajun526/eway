@@ -26,21 +26,21 @@
     </h1>
 
     <div class="wtwx-activity-lst2">
-        <div class="time"><img src="../../../images/wtwx-icon7.png" width="18" height="18"/>时间：</div>
+        <div class="time"><img src="<%=appPath%>/images/wtwx-icon7.png" width="18" height="18"/>时间：</div>
         <div class="time-cnt"><%=sdf.format(activity.getBeginTime())%>
         </div>
     </div>
     <div class="wtwx-activity-lst2">
-        <div class="time"><img src="../../../images/wtwx-icon8.png" width="18" height="18"/>地点：</div>
+        <div class="time"><img src="<%=appPath%>/images/wtwx-icon8.png" width="18" height="18"/>地点：</div>
         <div class="time-cnt"><%=activity.getAddress()%>
         </div>
     </div>
     <div class="wtwx-activity-lst2">
-        <div class="number"><img src="../../../images/wtwx-icon9.png" width="18"
+        <div class="number"><img src="<%=appPath%>/images/wtwx-icon9.png" width="18"
                                  height="18"/>报名人数：<span>100/<%=activity.getLimitNum()%></span></div>
     </div>
     <div class="wtwx-activity-lst2">
-        <div class="number"><img src="../../../images/wtwx-icon10.png" width="18" height="18"/>报名费：<span
+        <div class="number"><img src="<%=appPath%>/images/wtwx-icon10.png" width="18" height="18"/>报名费：<span
                 class="red">￥<%=activity.getCost()%></span></div>
     </div>
 </div>
