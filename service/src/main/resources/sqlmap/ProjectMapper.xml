@@ -19,6 +19,7 @@
         <result column="stage" property="stage" jdbcType="INTEGER" />
         <result column="stage_name" property="stageName" jdbcType="VARCHAR" />
         <result column="video_link" property="videoLink" jdbcType="VARCHAR" />
+        <result column="video_ly" property="videoLy" jdbcType="VARCHAR" />
         <result column="pro_link" property="proLink" jdbcType="VARCHAR" />
         <result column="userid" property="userid" jdbcType="INTEGER" />
         <result column="username" property="username" jdbcType="VARCHAR" />
@@ -103,8 +104,9 @@
     <sql id="Base_Column_List" >
         id, title, demand, highlights, last_one, last_two, description, type, industry, industry_name,
         area, area_name, financing_limit, financing_limit_name, stage, stage_name, video_link,
-        pro_link, userid, username, status, logo, tags, bp, bp_name, percent, referee, last_investment,
-        last_stage, last_limit, recommend, is_case, focus, onepage, create_time, update_time
+        video_ly, pro_link, userid, username, status, logo, tags, bp, bp_name, percent, referee,
+        last_investment, last_stage, last_limit, recommend, is_case, focus, onepage, create_time,
+        update_time
     </sql>
     <sql id="Blob_Column_List" >
         content
@@ -168,27 +170,27 @@
         description, type, industry,
         industry_name, area, area_name,
         financing_limit, financing_limit_name, stage,
-        stage_name, video_link, pro_link,
-        userid, username, status,
-        logo, tags, bp, bp_name,
-        percent, referee, last_investment,
-        last_stage, last_limit, recommend,
-        is_case, focus, onepage,
-        create_time, update_time, content
-        )
+        stage_name, video_link, video_ly,
+        pro_link, userid, username,
+        status, logo, tags,
+        bp, bp_name, percent,
+        referee, last_investment, last_stage,
+        last_limit, recommend, is_case,
+        focus, onepage, create_time,
+        update_time, content)
         values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{demand,jdbcType=VARCHAR},
         #{highlights,jdbcType=VARCHAR}, #{lastOne,jdbcType=VARCHAR}, #{lastTwo,jdbcType=VARCHAR},
         #{description,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{industry,jdbcType=INTEGER},
         #{industryName,jdbcType=VARCHAR}, #{area,jdbcType=INTEGER}, #{areaName,jdbcType=VARCHAR},
         #{financingLimit,jdbcType=INTEGER}, #{financingLimitName,jdbcType=VARCHAR}, #{stage,jdbcType=INTEGER},
-        #{stageName,jdbcType=VARCHAR}, #{videoLink,jdbcType=VARCHAR}, #{proLink,jdbcType=VARCHAR},
-        #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
-        #{logo,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{bp,jdbcType=VARCHAR}, #{bpName,jdbcType=VARCHAR},
-        #{percent,jdbcType=INTEGER}, #{referee,jdbcType=VARCHAR}, #{lastInvestment,jdbcType=VARCHAR},
-        #{lastStage,jdbcType=VARCHAR}, #{lastLimit,jdbcType=VARCHAR}, #{recommend,jdbcType=INTEGER},
-        #{isCase,jdbcType=INTEGER}, #{focus,jdbcType=INTEGER}, #{onepage,jdbcType=VARCHAR},
-        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
-        )
+        #{stageName,jdbcType=VARCHAR}, #{videoLink,jdbcType=VARCHAR}, #{videoLy,jdbcType=VARCHAR},
+        #{proLink,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
+        #{status,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR},
+        #{bp,jdbcType=VARCHAR}, #{bpName,jdbcType=VARCHAR}, #{percent,jdbcType=INTEGER},
+        #{referee,jdbcType=VARCHAR}, #{lastInvestment,jdbcType=VARCHAR}, #{lastStage,jdbcType=VARCHAR},
+        #{lastLimit,jdbcType=VARCHAR}, #{recommend,jdbcType=INTEGER}, #{isCase,jdbcType=INTEGER},
+        #{focus,jdbcType=INTEGER}, #{onepage,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.qheeshow.eway.service.model.Project" >
         insert into t_project
@@ -243,6 +245,9 @@
             </if>
             <if test="videoLink != null" >
                 video_link,
+            </if>
+            <if test="videoLy != null" >
+                video_ly,
             </if>
             <if test="proLink != null" >
                 pro_link,
@@ -356,6 +361,9 @@
             </if>
             <if test="videoLink != null" >
                 #{videoLink,jdbcType=VARCHAR},
+            </if>
+            <if test="videoLy != null" >
+                #{videoLy,jdbcType=VARCHAR},
             </if>
             <if test="proLink != null" >
                 #{proLink,jdbcType=VARCHAR},
@@ -479,6 +487,9 @@
             <if test="record.videoLink != null" >
                 video_link = #{record.videoLink,jdbcType=VARCHAR},
             </if>
+            <if test="record.videoLy != null" >
+                video_ly = #{record.videoLy,jdbcType=VARCHAR},
+            </if>
             <if test="record.proLink != null" >
                 pro_link = #{record.proLink,jdbcType=VARCHAR},
             </if>
@@ -563,6 +574,7 @@
         stage = #{record.stage,jdbcType=INTEGER},
         stage_name = #{record.stageName,jdbcType=VARCHAR},
         video_link = #{record.videoLink,jdbcType=VARCHAR},
+        video_ly = #{record.videoLy,jdbcType=VARCHAR},
         pro_link = #{record.proLink,jdbcType=VARCHAR},
         userid = #{record.userid,jdbcType=INTEGER},
         username = #{record.username,jdbcType=VARCHAR},
@@ -606,6 +618,7 @@
         stage = #{record.stage,jdbcType=INTEGER},
         stage_name = #{record.stageName,jdbcType=VARCHAR},
         video_link = #{record.videoLink,jdbcType=VARCHAR},
+        video_ly = #{record.videoLy,jdbcType=VARCHAR},
         pro_link = #{record.proLink,jdbcType=VARCHAR},
         userid = #{record.userid,jdbcType=INTEGER},
         username = #{record.username,jdbcType=VARCHAR},
@@ -679,6 +692,9 @@
             </if>
             <if test="videoLink != null" >
                 video_link = #{videoLink,jdbcType=VARCHAR},
+            </if>
+            <if test="videoLy != null" >
+                video_ly = #{videoLy,jdbcType=VARCHAR},
             </if>
             <if test="proLink != null" >
                 pro_link = #{proLink,jdbcType=VARCHAR},
@@ -761,6 +777,7 @@
         stage = #{stage,jdbcType=INTEGER},
         stage_name = #{stageName,jdbcType=VARCHAR},
         video_link = #{videoLink,jdbcType=VARCHAR},
+        video_ly = #{videoLy,jdbcType=VARCHAR},
         pro_link = #{proLink,jdbcType=VARCHAR},
         userid = #{userid,jdbcType=INTEGER},
         username = #{username,jdbcType=VARCHAR},
@@ -801,6 +818,7 @@
         stage = #{stage,jdbcType=INTEGER},
         stage_name = #{stageName,jdbcType=VARCHAR},
         video_link = #{videoLink,jdbcType=VARCHAR},
+        video_ly = #{videoLy,jdbcType=VARCHAR},
         pro_link = #{proLink,jdbcType=VARCHAR},
         userid = #{userid,jdbcType=INTEGER},
         username = #{username,jdbcType=VARCHAR},
@@ -822,7 +840,6 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
-
     <select id="listByCondition" resultMap="BaseResultMap" parameterType="com.qheeshow.eway.service.model.Project">
         select
         <include refid="Base_Column_List"/>

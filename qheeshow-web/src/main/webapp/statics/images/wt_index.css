@@ -215,9 +215,9 @@
 	overflow:hidden;
 }
 .g-one1 .icon {
-	position:absolute;
-	bottom:16px;
-	right:20px;
+position:absolute;
+bottom:16px;
+right:20px;
 }
 /* two star */
 .g-mbg {
@@ -506,7 +506,7 @@
 	margin-top:23px;
 }
 .g-lst1 li h5 {
-	width:170px;
+	width:230px;
 	margin:0 auto;
 	border-bottom:1px solid #efefef;
 	height:33px;
@@ -1523,7 +1523,7 @@
 	background:#fefefe;
 	border:1px solid #f4f4f4;
 	width:998px;
-	*min-height:300px;
+ *min-height:300px;
 	margin:0 auto;
 	overflow:hidden;
 	margin-top:10px;
@@ -2152,7 +2152,7 @@
 	border-radius:4px;
 	width:600px;
 	height:117px;
-	*height:85px;
+ *height:85px;
 	margin:10px 0;
 	padding:10px 10px 30px;
 }
@@ -2446,7 +2446,7 @@
 	margin-bottom:12px;
 	background:#FFFFFF;
 	width:248px;
-	*width:198px;
+ *width:198px;
 	height:274px;
 	padding:40px 25px 0;
 	text-align:center;
@@ -3391,7 +3391,7 @@
 /*404 end*/
 
 /*常见问题 star*/
-.wt-problem-left {
+ .wt-problem-left {
 	float:left;
 	width:170px;
 	text-align:center;

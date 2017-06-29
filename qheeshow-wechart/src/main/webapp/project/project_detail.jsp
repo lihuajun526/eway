@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="<%=appPath%>/images/global_v2.0.0.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/wtweixin.css"/>
     <link rel="stylesheet" href="<%=appPath%>/images/dropload.css"/>
-    <script type='text/javascript' src='<%=appPath%>/images/jwplayer.js'></script>
 </head>
 <body id="top" class="wtxt-pb2 wtwx-warp">
 <%@include file="../pub/head.jsp" %>
@@ -68,26 +67,18 @@
         </a>
     </ul>
 </div>
-<%--<div class="wtwx-project-cnt2a">
+<%
+    if(!StringUtils.isEmpty(project.getVideoLy())){
+        %>
+<div class="wtwx-project-cnt2a">
     <div class="wtwx-activity-tit2">路演视频</div>
     <div class="wtwx-project-cnt1-conter1">
-        &lt;%&ndash;<img src="<%=appPath%>/images/wtwx-img2.png" width="100%" height="195"/>
-        <a href="#" class="play"></a>&ndash;%&gt;
-
-        <div id='mediaspace'></div>
-        <script type='text/javascript'>
-            jwplayer('mediaspace').setup({
-                'flashplayer': '<%=appPath%>/images/player.swf',
-                'file': '405_0573_01.flv',
-                'streamer': 'rtmp://media.qheeshow.com/oflaDemo',
-                'controlbar': 'bottom',
-                'width': '100%',
-                'height': '195'
-            });
-        </script>
-
+        <iframe src="http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?<%=project.getVideoLy()%>&accessToken=2.f22860a2479ad60d8da7697274de9346&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%" frameborder="0" allowfullscreen="true" width="100%" height="200"></iframe>
     </div>
-</div>--%>
+</div>
+        <%
+    }
+%>
 <div class="wtwx-project-cnt2">
     <div class="wtwx-activity-tit2">项目简介</div>
     <div class="wtwx-project-cnt1-conter">

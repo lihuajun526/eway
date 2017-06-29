@@ -76,7 +76,11 @@
         <div class="g-invest-l">
             <div class="g-invest-lone3">
                 <ul class="g-proj-titlst">
-                    <li><a href="#0F">路演视频</a></li>
+                    <%
+                        if(!StringUtils.isEmpty(project.getVideoLy())){
+                            %><li><a href="#0F">路演视频</a></li><%
+                        }
+                    %>
                     <li><a href="#1F">投资亮点</a></li>
                     <%
                         if (StringUtils.isEmpty(project.getOnepage())) {
@@ -99,22 +103,29 @@
                     %>
                 </ul>
             </div>
+            <%
+                if(!StringUtils.isEmpty(project.getVideoLy())){
+            %>
             <div id="0F" class="g-invest-lone">
                 <div class="g-proj-lonetit6">路演视频</div>
                 <div class="g-invest-lonect">
-                    <div id='mediaspace'></div>
+                    <iframe src="http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?<%=project.getVideoLy()%>&accessToken=2.f22860a2479ad60d8da7697274de9346&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%" frameborder="0" allowfullscreen="true" width="100%" height="360"></iframe>
+                    <%--<div id='mediaspace'></div>
                     <script type='text/javascript'>
                         jwplayer('mediaspace').setup({
                             'flashplayer': '<%=appPath%>/images/player.swf',
-                            'file': '405_0573_01.flv',
+                            'file': '<%=project.getVideoLy()%>',
                             'streamer': 'rtmp://media.qheeshow.com/oflaDemo',
                             'controlbar': 'bottom',
                             'width': '676',
                             'height': '315'
                         });
-                    </script>
+                    </script>--%>
                 </div>
             </div>
+            <%
+            }
+            %>
             <div id="1F" class="g-invest-lone">
                 <div class="g-proj-lonetit6">投资亮点</div>
                 <div class="g-invest-lonect"><%=project.getHighlights()%>

@@ -34,6 +34,8 @@ public class Project extends BaseModel{
 
     private String videoLink;
 
+    private String videoLy;
+
     private String proLink;
 
     private Integer userid;
@@ -390,5 +392,13 @@ public class Project extends BaseModel{
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public String getVideoLy() {
+        return videoLy;
+    }
+
+    public void setVideoLy(String videoLy) {
+        this.videoLy = videoLy;
     }
 }

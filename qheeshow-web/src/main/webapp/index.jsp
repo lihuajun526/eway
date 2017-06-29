@@ -19,7 +19,7 @@
     <script type="text/javascript" src="<%=appPath%>/js/util.js"></script>
 </head>
 <body>
-<%@include file="pub/head.jsp"%>
+<%@include file="pub/head.jsp" %>
 <div class="g-banner">
     <div class="g-sol1">
         <ul class="g-pag">
@@ -63,7 +63,7 @@
         <div class="g-more2"><a href="<%=appPath%>/investor/list">More</a></div>
     </div>
 </div>
-<%@include file="pub/foot.jsp"%>
+<%@include file="pub/foot.jsp" %>
 </body>
 <script>
     $.get("<%=appPath%>/index/activity/latest", function (result) {
@@ -104,14 +104,14 @@
                     if (!isEmpty(investor.industryName)) {
                         indus = investor.industryName.split("#");
                         for (var j = 0; j < indus.length; j++) {
-                            $("#indus").append("<li><a>" + indus[j] + "</a></li>");
+                            $("#indus").append("<li><span class='radius-left'></span><a>" + indus[j] + "</a><span class='radius-right'></span></li>");
                         }
                     }
                     var stages = "";
                     if (!isEmpty(investor.stageName)) {
                         stages = investor.stageName.split("#");
                         for (var m = 0; m < stages.length; m++) {
-                            $("#indus").append("<li><a>" + stages[m] + "</a></li>");
+                            $("#indus").append("<li><span class='radius-left'></span><a>" + stages[m] + "</a><span class='radius-right'></span></li>");
                             if (m == 0) {
                                 $("#stages").append("" + stages[m] + " ");
                             } else {
@@ -120,19 +120,7 @@
                         }
                     }
                 } else {
-                    $("#investors").append("<a href='<%=appPath%>/investor/" + investor.id + "'><li><span><img src='" + investor.photo + "' width='240' height='181'/></span><h1>" + investor.trueName + "</h1><h5>" + investor.companyName + " | " + investor.companyRank + "</h5><h6><span id='area_" + investor.id + "'></span> | <span id='indus_" + investor.id + "'></span></h6></li></a>");
-                    var areas = "";
-                    if (!isEmpty(investor.cityName)) {
-                        areas = investor.cityName.split("#");
-                        $("#area_" + investor.id).html(areas[0]);
-                    }
-                    var indus = "";
-                    if (!isEmpty(investor.industryName)) {
-                        indus = investor.industryName.split("#");
-                        for (var x = 0; x < indus.length; x++) {
-                            $("#indus_" + investor.id).append(" " + indus[x]);
-                        }
-                    }
+                    $("#investors").append("<a href='<%=appPath%>/investor/" + investor.id + "'><li><span><img src='" + investor.photo + "' width='240' height='181'/></span><h1>" + investor.trueName + "</h1><h5>" + investor.row1 + "</h5><h6>" + investor.row2 + "</h6></li></a>");
                 }
             }
         }, "json");

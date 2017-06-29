@@ -11,6 +11,7 @@ import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -98,8 +99,29 @@ public class IndexController extends BaseController {
         Result result = new Result();
 
         List<Investor> list = investorService.bestInvestor(9);
+        boolean isFirst = true;
         for (Investor investor : list) {
             investor.setFirstCity(investor.getCityName().split("#")[0]);
+            if (isFirst) {
+                isFirst = false;
+                continue;
+            }
+            String row1 = investor.getCompanyName() + " | " + investor.getCompanyRank();
+            String row2 = "";
+            if (!StringUtils.isEmpty(investor.getCityName())) {
+                String[] areas = investor.getCityName().split("#");
+                row2 = areas[0] + " | ";
+            }
+            if (!StringUtils.isEmpty(investor.getIndustryName())) {
+                String[] indus = investor.getIndustryName().split("#");
+                for (String indu : indus) {
+                    row2 += indu + " ";
+                }
+            }
+            row1 = row1.length()>19?row1.substring(0,18)+"...":row1;
+            row2 = row2.length()>24?row2.substring(0,23)+"...":row2;
+            investor.setRow1(row1);
+            investor.setRow2(row2);
         }
         result.setData(list);
 

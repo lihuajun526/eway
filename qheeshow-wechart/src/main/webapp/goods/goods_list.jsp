@@ -48,14 +48,13 @@
             }
         %>
     </ul>
-    <div class="wtwx-package-prompt">提示：<%=projects.size() == 0 ? "请先登录梧桐e路电脑版创建项目" : "购买过套餐三或套餐四的用户才能购买套餐一"%>
+    <div class="wtwx-package-prompt">提示：<%=projects.size() == 0 ? "请先登录梧桐e路电脑版创建项目" : ""%>
     </div>
     <div class="wtwx-package-left">
         <ul id="goodses" class="wtwx-package-left-lst">
             <li class="on" onclick="load(this,'<%=appPath%>/goods/do/get/1/<%=flag1?1:0%>')"><a>套餐一</a></li>
             <li onclick="load(this,'<%=appPath%>/goods/do/get/2/<%=flag2?1:0%>')"><a>套餐二</a></li>
-            <li onclick="load(this,'<%=appPath%>/goods/do/get/3/<%=flag3?1:0%>')"><a>套餐三</a></li>
-            <li onclick="load(this,'<%=appPath%>/goods/do/get/4/<%=flag4?1:0%>')"><a>套餐四</a></li>
+            <li onclick="load(this,'<%=appPath%>/goods/do/get/3/<%=flag3?1:0%>')"><a>话费充值</a></li>
         </ul>
     </div>
     <div id="items" class="wtwx-package-right"></div>
