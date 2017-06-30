@@ -2,6 +2,7 @@
 <%@ page import="com.qheeshow.eway.service.model.Comment" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.net.URLDecoder" %>
 <%
     List<Comment> comments = (List<Comment>) request.getAttribute("comments");
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -17,7 +18,7 @@
 <div class="g-invest-tre">
     <div class="g-invest-treimg"><img src="<%=comment.getPhoto()%>" width="60" height="60"/></div>
     <div class="g-invest-tre-r">
-        <div class="g-invest-tre-rt"><span class="on1"><%=comment.getName()%></span><span
+        <div class="g-invest-tre-rt"><span class="on1"><%=URLDecoder.decode(comment.getName(),"utf-8")%></span><span
                 class="on2"><%=sdf.format(comment.getCreateTime())%></span>
         </div>
         <div class="g-invest-tre-rcnt"><a><%=comment.getContent()%>

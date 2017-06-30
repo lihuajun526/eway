@@ -23,7 +23,7 @@
 <div class="wtwx-project-cnt3">
     <div class="wtwx-project-cnt3-l"><img src="<%=q.getPhoto()%>" width="36" height="36"/></div>
     <div class="wtwx-project-cnt3-r">
-        <h1><%=q.getName()%>
+        <h1><%=URLDecoder.decode(q.getName(), "utf-8")%>
         </h1>
 
         <div class="wtwx-project-cnt3-rcnt">

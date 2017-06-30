@@ -4,6 +4,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="java.net.URLDecoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     List<ProjectQa> projectQs = (List<ProjectQa>) request.getAttribute("projectQs");
@@ -43,8 +44,8 @@
     <div class="g-invest-tre">
         <div class="g-invest-treimg"><img src="<%=a.getPhoto()%>" width="60" height="60"/></div>
         <div class="g-invest-tre-r">
-            <div class="g-invest-tre-rt"><span class="on1"><%=a.getName()%></span><span class="on2"><%=sdf.format(a.getCreateTime())%></span></div>
-            <div class="g-proj-subtitle">@<%=q.getName()%>   <%=q.getContent()%></div>
+            <div class="g-invest-tre-rt"><span class="on1"><%=URLDecoder.decode(a.getName(),"utf-8")%></span><span class="on2"><%=sdf.format(a.getCreateTime())%></span></div>
+            <div class="g-proj-subtitle">@<%=URLDecoder.decode(q.getName(),"utf-8")%>   <%=q.getContent()%></div>
             <div class="g-invest-tre-rcnt"><a><%=a.getContent()%></a></div>
         </div>
     </div>
@@ -58,7 +59,7 @@
         <div class="g-invest-tre">
             <div class="g-invest-treimg"><img src="<%=q.getPhoto()%>" width="60" height="60"/></div>
             <div class="g-invest-tre-r">
-                <div class="g-invest-tre-rt"><span class="on1"><%=q.getName()%></span><span class="on2"><%=sdf.format(q.getCreateTime())%></span></div>
+                <div class="g-invest-tre-rt"><span class="on1"><%=URLDecoder.decode(q.getName(),"utf-8")%></span><span class="on2"><%=sdf.format(q.getCreateTime())%></span></div>
                 <div class="g-invest-tre-rcnt"><a><%=q.getContent()%></a></div>
                 <%
                     if (loginUser != null && loginUser.getId().intValue() == userid.intValue()) {
