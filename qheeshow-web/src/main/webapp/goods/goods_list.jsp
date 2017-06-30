@@ -305,7 +305,7 @@
     }
     function crPro() {
         <%
-            if(loginUser.getRoleid().intValue()>=20 && loginUser.getRoleid().intValue()<30){
+            if(loginUser!=null &&(loginUser.getRoleid().intValue()>=20 && loginUser.getRoleid().intValue()<30)){
             %>window.location.href = "<%=appPath%>/project/0/add/edit/1/auth";
         <%
                     }else{
