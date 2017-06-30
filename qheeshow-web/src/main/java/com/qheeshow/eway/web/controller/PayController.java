@@ -152,7 +152,7 @@ public class PayController extends BaseController {
                 }
             }
         } else if (order.getProjectid().intValue() == 0) {//充话费
-            User user = userService.get(order.getId());
+            User user = userService.get(order.getUserid());
             List<OrderDetail> list = orderDetailService.listByOrder(order.getId());
             if (list.size() == 1) {
                 OrderDetail orderDetail = list.get(0);
