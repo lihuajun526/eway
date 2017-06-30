@@ -35,7 +35,8 @@
             <div id="qr_txt" class="g-pw2-w2">微信支付</div>
             <div class="g-pw2-w3">
                 <img id="qr_code" src="" width="275" height="275"/>
-                <span><font id="qr_tip">微信扫码支付</font>&nbsp;<a id="cancle_" onclick="javascript:$('#qr_div').hide()">取消</a></span>
+                <span><font id="qr_tip">微信扫码支付</font>&nbsp;<a id="cancle_"
+                                                              onclick="javascript:$('#qr_div').hide()">取消</a></span>
             </div>
         </div>
         <div class="g-pw-radius-bottom"></div>
@@ -43,6 +44,22 @@
 </div>
 <div class="g-proj">
     <div class="g-pser">
+        <!--充值 star-->
+        <div class="g-pser-t">话费充值</div>
+        <div class="g-pser-t2a">为了保护投资人隐私，秉承对企业及投资人负责原则,投资互动申请要求秉承对企业及投资人负责原则是是有限经放</div>
+        <ul id="Ms" class="g-pser-lstb">
+            <li style="cursor: pointer" onclick="checkM(this,141);"><a>￥100</a><span
+                    class="g-pser-lstmin">（200分钟）</span></li>
+            <li style="cursor: pointer" onclick="checkM(this,142);"><a>￥200</a><span
+                    class="g-pser-lstmin">（400分钟）</span></li>
+            <li style="cursor: pointer" onclick="checkM(this,143);" class="on"><a>￥300</a><span class="g-pser-lstmin">（600分钟）</span>
+            </li>
+            <li style="cursor: pointer" onclick="checkM(this,144);"><a>￥400</a><span
+                    class="g-pser-lstmin">（800分钟）</span></li>
+            <li style="cursor: pointer" onclick="checkM(this,145);"><a>￥500</a><span
+                    class="g-pser-lstmin">（1000分钟）</span></li>
+        </ul>
+        <div class="g-pser-paywap"><a onclick="recharge();" class="g-pser-pay">立即充值</a></div>
         <%
             if (loginUser != null) {
         %>
@@ -80,24 +97,50 @@
             }
         %>
         <div class="g-pser-t">购买服务</div>
-        <div class="g-pser-t2"><span>温馨提示：</span>购买过套餐三或套餐四的用户才能购买套餐一</div>
+        <div class="g-pser-t2"></div>
         <div class="g-pser-cnt">
             <h2>套餐一</h2>
 
             <div class="g-pser-cnttit">
-                <div class="on1">2999</div>
-                <div class="on2">现价<span>￥1299</span></div>
+                <div class="on1">￥3万</div>
+                <div class="on2">现价<span>￥2万</span></div>
             </div>
-            <div class="g-pser-cntont">
-                <h1 onmouseover="showT(0)" onmouseout="hideT(0)">投资人互动</h1>
-
-                <h3>3个投资人／45分钟起</h3>
+            <div class="g-pser-cntont2">
+                <ul>
+                    <li onmouseover="showT(0)" onmouseout="hideT(0)">路演培育系统</li>
+                    <li onmouseover="showT(1)" onmouseout="hideT(1)">路演推荐服务</li>
+                    <li onmouseover="showT(2)" onmouseout="hideT(2)">投资人约见服务</li>
+                </ul>
             </div>
-            <div id="buy1" class="<%=buyBtncls1%>"><a onclick="addGoods(1,1299);">购买</a></div>
-            <div id="t_0" class="g-invest-bombbox">
+            <div class="g-purchase"><a onclick="addGoods(1,20000);">购买</a></div>
+            <div id="t_0" class="g-invest-bombbox0">
                 <div class="g-invest-bombbox-t"></div>
                 <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                    <strong>①项目路演策划及组织</strong><br/>
+                    组织专业路演团队，协助企业进行路演前材料准备，提前进行项目金融市场调研，根据企业具体阶段及需求进行路演活动组织策划<br/>
+                    <strong>②商业计划书（路演版）撰写逻辑与制作</strong><br/>
+                    协助企业进行自身项目尽职调查，协助企业撰写商业计划书<br/>
+                    <strong>③项目路演技巧培训</strong><br/>
+                    安排专人协助企业完成路演技巧辅导工作，协助企业高效沟通投资人<br/>
+                    <strong>④投资逻辑研究</strong><br/>
+                    对机构及机构思维逻辑进行介绍，协助企业理解投融资语言，有效提供符合投资方需求的信息
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_1" class="g-invest-bombbox1">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    ①专场路演展示，通过线下把项目推荐给平台上的投资人<br/>
+                    ②融资项目通过线上7*24小时全天候，推荐给平台上的投资人
+                </div>
+                <div class="g-invest-bombbox-b"></div>
+            </div>
+            <div id="t_2" class="g-invest-bombbox2">
+                <div class="g-invest-bombbox-t"></div>
+                <div class="g-invest-bombbox-c">
+                    ①线上向投资人推送融资项目，约见投资人<br/>
+                    ②服务期内，每季度向项目企业批量推送有意向的投资人<br/>
+                    ③项目企业动态实时跟踪并记录，提升企业融资成功效率
                 </div>
                 <div class="g-invest-bombbox-b"></div>
             </div>
@@ -106,186 +149,69 @@
             <h2>套餐二</h2>
 
             <div class="g-pser-cnttit">
-                <div class="on3">￥799</div>
-            </div>
-            <div class="g-pser-cntont">
-                <h1 onmouseover="showT(1)" onmouseout="hideT(1)">项目亮点精编</h1>
-                <span onmouseover="showT(2)" onmouseout="hideT(2)">投资人互动</span>
-
-                <h3>2个投资人／30分钟起</h3>
-            </div>
-            <div id="buy2" class="<%=buyBtncls2%>"><a onclick="addGoods(2,799);">购买</a></div>
-            <div id="t_1" class="g-invest-bombbox1">
-                <div class="g-invest-bombbox-t"></div>
-                <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
-                </div>
-                <div class="g-invest-bombbox-b"></div>
-            </div>
-            <div id="t_2" class="g-invest-bombbox2">
-                <div class="g-invest-bombbox-t"></div>
-                <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
-                </div>
-                <div class="g-invest-bombbox-b"></div>
-            </div>
-        </div>
-        <div class="g-pser-cnt">
-            <h2>套餐三</h2>
-
-            <div class="g-pser-cnttit">
-                <div class="on3">￥1.99W</div>
+                <div class="on1">￥8万</div>
+                <div class="on2">现价<span>￥6万</span></div>
             </div>
             <div class="g-pser-cntont2">
                 <ul>
-                    <li onmouseover="showT(3)" onmouseout="hideT(3)">场外市场挂牌</li>
-                    <li onmouseover="showT(4)" onmouseout="hideT(4)">线下路演</li>
-                    <li onmouseover="showT(5)" onmouseout="hideT(5)">资本孵化<span>商业计划书/培训</span></li>
-                    <li onmouseover="showT(6)" onmouseout="hideT(6)">双平台展示</li>
-                    <li onmouseover="showT(7)" onmouseout="hideT(7)">项目亮点精编</li>
-                    <li onmouseover="showT(8)" onmouseout="hideT(8)">投资人互动</li>
+                    <li onmouseover="showT(3)" onmouseout="hideT(3)">路演培育系统</li>
+                    <li onmouseover="showT(4)" onmouseout="hideT(4)">路演推荐服务</li>
+                    <li onmouseover="showT(5)" onmouseout="hideT(5)">投资人约见服务</li>
+                    <li onmouseover="showT(6)" onmouseout="hideT(6)">资本孵化服务</li>
                 </ul>
             </div>
-            <div id="buy3" class="<%=buyBtncls3%>"><a onclick="addGoods(3,19900);">购买服务</a></div>
+            <div id="buy1" class="g-purchase"><a onclick="addGoods(2,60000);">购买</a></div>
             <div id="t_3" class="g-invest-bombbox3">
                 <div class="g-invest-bombbox-t"></div>
                 <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                    <strong>①项目路演策划及组织</strong><br/>
+                    组织专业路演团队，协助企业进行路演前材料准备，提前进行项目金融市场调研，根据企业具体阶段及需求进行路演活动组织策划<br/>
+                    <strong>②商业计划书（路演版）撰写逻辑与制作</strong><br/>
+                    协助企业进行自身项目尽职调查，协助企业撰写商业计划书<br/>
+                    <strong>③项目路演技巧培训</strong><br/>
+                    安排专人协助企业完成路演技巧辅导工作，协助企业高效沟通投资人<br/>
+                    <strong>④投资逻辑研究</strong><br/>
+                    对机构及机构思维逻辑进行介绍，协助企业理解投融资语言，有效提供符合投资方需求的信息
                 </div>
                 <div class="g-invest-bombbox-b"></div>
             </div>
             <div id="t_4" class="g-invest-bombbox4">
                 <div class="g-invest-bombbox-t"></div>
                 <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                    ①专场路演展示，通过线下把项目推荐给平台上的投资人<br/>
+                    ②融资项目通过线上7*24小时全天候，推荐给平台上的投资人
                 </div>
                 <div class="g-invest-bombbox-b"></div>
             </div>
             <div id="t_5" class="g-invest-bombbox5">
                 <div class="g-invest-bombbox-t"></div>
                 <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                    ①线上向投资人推送融资项目，约见投资人<br/>
+                    ②服务期内，每季度向项目企业批量推送有意向的投资人<br/>
+                    ③项目企业动态实时跟踪并记录，提升企业融资成功效率
                 </div>
                 <div class="g-invest-bombbox-b"></div>
             </div>
             <div id="t_6" class="g-invest-bombbox6">
                 <div class="g-invest-bombbox-t"></div>
                 <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
-                </div>
-                <div class="g-invest-bombbox-b"></div>
-            </div>
-            <div id="t_7" class="g-invest-bombbox7">
-                <div class="g-invest-bombbox-t"></div>
-                <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
-                </div>
-                <div class="g-invest-bombbox-b"></div>
-            </div>
-            <div id="t_8" class="g-invest-bombbox8">
-                <div class="g-invest-bombbox-t"></div>
-                <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
+                    <strong>①股权融资顾问</strong><br/>
+                    帮助项目企业定位自己的融资路线，清晰自己所处发展阶段和可以利用的各类融资工具<br/>
+                    <strong>②融资路线服务</strong><br/>
+                    在项目企业引入投资者时，做好股权融资法务和谈判顾问<br/>
+                    <strong>③资本引荐服务</strong><br/>
+                    通过三个体系（自投/领投/推荐）去帮助项目企业借助各类资本工具，推动企业持续发展
                 </div>
                 <div class="g-invest-bombbox-b"></div>
             </div>
         </div>
-        <div class="g-pser-cnt">
-            <h2>套餐四</h2>
 
-            <div class="g-pser-cnttit">
-                <div class="on3">￥0.99W</div>
-            </div>
-            <div class="g-pser-cntont2">
-                <ul>
-                    <li onmouseover="showT(9)" onmouseout="hideT(9)">线下路演</li>
-                    <li onmouseover="showT(10)" onmouseout="hideT(10)">资本孵化<span>商业计划书/培训</span></li>
-                    <li onmouseover="showT(11)" onmouseout="hideT(11)">双平台展示</li>
-                    <li onmouseover="showT(12)" onmouseout="hideT(12)">项目亮点精编</li>
-                    <li onmouseover="showT(13)" onmouseout="hideT(13)">投资人互动</li>
-                </ul>
-            </div>
-            <div id="buy4" class="<%=buyBtncls4%>"><a onclick="addGoods(4,9900);">购买服务</a></div>
-            <div id="t_9" class="g-invest-bombbox9">
-                <div class="g-invest-bombbox-t"></div>
-                <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
-                </div>
-                <div class="g-invest-bombbox-b"></div>
-            </div>
-            <div id="t_10" class="g-invest-bombbox10">
-                <div class="g-invest-bombbox-t"></div>
-                <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
-                </div>
-                <div class="g-invest-bombbox-b"></div>
-            </div>
-            <div id="t_11" class="g-invest-bombbox11">
-                <div class="g-invest-bombbox-t"></div>
-                <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
-                </div>
-                <div class="g-invest-bombbox-b"></div>
-            </div>
-            <div id="t_12" class="g-invest-bombbox12">
-                <div class="g-invest-bombbox-t"></div>
-                <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
-                </div>
-                <div class="g-invest-bombbox-b"></div>
-            </div>
-            <div id="t_13" class="g-invest-bombbox13">
-                <div class="g-invest-bombbox-t"></div>
-                <div class="g-invest-bombbox-c">
-                    是指可以选择任意3个投资的联系方式来达到顺利途径，也能达到顺利途径，也能快速加快融快速加快融步。
-                </div>
-                <div class="g-invest-bombbox-b"></div>
-            </div>
-        </div>
         <div class="clear"></div>
-        <div id="cart" class="g-pser-n">
-            <ul class="g-pser-nlst">
-                <li id="goods1">
-                    <a class="on1">套餐一</a>
-                    <ul class="g-pser-nlst2">
-                        <li class="on4"><a onclick="delGoods(1,1299);">-</a></li>
-                        <li id="counter1" class="on5"></li>
-                        <li class="on6"><a onclick="addGoods(1,1299)">+</a></li>
-                    </ul>
-                </li>
-                <li id="linker1" class="on2">+</li>
-                <li id="goods2">
-                    <a class="on1">套餐二</a>
-                    <ul class="g-pser-nlst2">
-                        <li class="on4"><a onclick="delGoods(2,799);">-</a></li>
-                        <li id="counter2" class="on5"></li>
-                        <li class="on6"><a>+</a></li>
-                    </ul>
-                </li>
-                <li id="linker2" class="on2">+</li>
-                <li id="goods3">
-                    <a class="on1">套餐三</a>
-                    <ul class="g-pser-nlst2">
-                        <li class="on4"><a onclick="delGoods(3,19900);">-</a></li>
-                        <li id="counter3" class="on5"></li>
-                        <li class="on6"><a>+</a></li>
-                    </ul>
-                </li>
-                <li id="linker3" class="on2">+</li>
-                <li id="goods4">
-                    <a class="on1">套餐四</a>
-                    <ul class="g-pser-nlst2">
-                        <li class="on4"><a onclick="delGoods(4,9900);">-</a></li>
-                        <li id="counter4" class="on5"></li>
-                        <li class="on6"><a>+</a></li>
-                    </ul>
-                </li>
-            </ul>
+        <div class="g-pser-n">
             <div id="sumPrice" class="g-pser-n1"></div>
-            <%--<div class="g-pser-n2"><a onclick="place();">立即支付</a></div>--%>
             <div class="g-pser-n2">
                 <a href="#qr_div" onclick="place('WECHAT')" class="on1">微信支付</a>
-                <%--<a href="#qr_div" onclick="place('ALIPAY')" class="on2">支付宝支付</a>--%></div>
+            </div>
         </div>
     </div>
 </div>
@@ -293,9 +219,7 @@
 </body>
 <script>
     var projectid = <%=projects.size()>0?projects.get(0).getId():0%>;
-    var count1 = 0, count2 = 0, count3 = 0, count4 = 0;
-    var kindCount = 0;
-    var sumPrice = 0;
+    var goodsid = 0;
     var isLogin = <%=loginUser==null?"false":"true"%>;
     function checkProject(obj, id) {
         $(obj).parent().children('li').each(function () {
@@ -306,136 +230,17 @@
         window.location.href = "<%=appPath%>/goods/list/" + projectid;
     }
 
-    function addGoods(index, price) {
+    function addGoods(goodsid_, price) {
         if (!isLogin) {
             window.location.href = "<%=appPath%>/user/login.jsp";
             return;
         }
-        if ("g-purchase2" == $("#buy" + index).attr("class"))
-            return;
-        if (index == 1) {
-            count1++;
-            $("#counter1").html("X" + count1);
-            if (count1 == 1)
-                kindCount++;
-        } else if (index == 2) {
-            if (count2 == 1)
-                return;
-            count2++;
-            $("#counter2").html("X" + count2);
-            if (count2 == 1)
-                kindCount++;
-        } else if (index == 3) {
-            if (count3 == 1)
-                return;
-            count3++;
-            $("#counter3").html("X" + count3);
-            if (count3 == 1)
-                kindCount++;
-        } else if (index == 4) {
-            if (count4 == 1)
-                return;
-            count4++;
-            $("#counter4").html("X" + count4);
-            if (count4 == 1)
-                kindCount++;
-        }
-        sumPrice += price;
-        draw();
+        goodsid = goodsid_;
+        $("#sumPrice").html("合计：￥" + price + "元");
     }
-    function delGoods(index, price) {
-        if (index == 1) {
-            count1--;
-            $("#counter1").html("X" + count1);
-            if (count1 == 0)
-                kindCount--;
-        } else if (index == 2) {
-            count2--;
-            $("#counter2").html("X" + count2);
-            if (count2 == 0)
-                kindCount--;
-        } else if (index == 3) {
-            count3--;
-            $("#counter3").html("X" + count3);
-            if (count3 == 0)
-                kindCount--;
-            if (count3 == 0 && count4 == 0) {
-                count1 = 0;
-                count2 = 0;
-                kindCount = 0;
-            }
-        } else if (index == 4) {
-            count4--;
-            $("#counter4").html("X" + count4);
-            if (count4 == 0)
-                kindCount--;
-            if (count3 == 0 && count4 == 0) {
-                count1 = 0;
-                count2 = 0;
-                kindCount = 0;
-            }
-        }
-        sumPrice -= price;
-        draw();
-    }
-    function draw() {
-        if (count2 > 0)
-            $("#buy2").attr("class", "g-purchase2");
-        if (count3 > 0)
-            $("#buy3").attr("class", "g-purchase2");
-        if (count4 > 0)
-            $("#buy4").attr("class", "g-purchase2");
-        $("#sumPrice").html("合计：￥" + sumPrice + "元");
-        var sum = 0;
-        var linkerCount = kindCount - 1;
-        if (linkerCount >= 0)
-            $("#cart").show();
-        else {
-            $("#cart").hide();
-            return;
-        }
-        if (count1 > 0) {
-            $("#goods1").show();
-            if (sum < linkerCount) {
-                $("#linker1").show();
-                sum++;
-            } else
-                $("#linker1").hide();
-        } else {
-            $("#goods1").hide();
-            $("#linker1").hide();
-        }
-        if (count2 > 0) {
-            $("#goods2").show();
-            if (sum < linkerCount) {
-                $("#linker2").show();
-                sum++;
-            } else
-                $("#linker2").hide();
-        } else {
-            $("#goods2").hide();
-            $("#linker2").hide();
-        }
-        if (count3 > 0) {
-            $("#goods3").show();
-            if (sum < linkerCount) {
-                $("#linker3").show();
-                sum++;
-            } else
-                $("#linker3").hide();
-        } else {
-            $("#goods3").hide();
-            $("#linker3").hide();
-        }
-        if (count4 > 0) {
-            $("#goods4").show();
-        } else
-            $("#goods4").hide();
-    }
-    draw();
     var orderid = 0;
     function place(payType) {
-        $.get("<%=appPath%>/order/place/" + projectid + "/" + count1 + "/" + count2 + "/" + count3 + "/" + count4 + "/" + payType + "/authj", function (result) {
+        $.get("<%=appPath%>/order/place/" + projectid + "/" + goodsid + "/" + payType + "/authj", function (result) {
             window.location.href = "#";
             if (result.code < 0) {
                 xalert(result.message);
@@ -471,6 +276,28 @@
     }
     function hideT(id) {
         $("#t_" + id).hide();
+    }
+    var rechargeGoodsid = 143;
+    function recharge() {
+        $.get("<%=appPath%>/order/recharge/" + rechargeGoodsid + "/WECHAT/authj", function (result) {
+            window.location.href = "#";
+            if (result.code < 0) {
+                xalert(result.message);
+                return;
+            } else {
+                $("#qr_div").show();
+                orderid = result.data.orderid;
+                $("#qr_code").attr("src", result.data.qrcode);
+                timer1 = window.setInterval(getStatus, 3000);
+            }
+        }, "json");
+    }
+    function checkM(obj, id) {
+        $("#Ms").children('li').each(function () {
+            $(this).removeClass("on");
+        });
+        $(obj).attr("class", "on");
+        rechargeGoodsid = id;
     }
 </script>
 </html>

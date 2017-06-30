@@ -7,6 +7,7 @@ import com.qheeshow.eway.common.util.StrUtil;
 import com.qheeshow.eway.service.model.ActivitySign;
 import com.qheeshow.eway.service.model.Order;
 import com.qheeshow.eway.service.model.OrderDetail;
+import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.*;
 import com.qheeshow.eway.web.base.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,7 @@ import java.util.TreeMap;
 public class PayController extends BaseController {
 
     @Autowired
-    private PayService payService;
-    @Autowired
-    private GoodsService goodsService;
+    private UserService userService;
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -152,6 +151,26 @@ public class PayController extends BaseController {
                     activitySignService.save(activitySign);
                 }
             }
+        } else if (order.getProjectid().intValue() == 0) {//充话费
+            User user = userService.get(order.getId());
+            List<OrderDetail> list = orderDetailService.listByOrder(order.getId());
+            if (list.size() == 1) {
+                OrderDetail orderDetail = list.get(0);
+                int goodsid = orderDetail.getGoodsid();
+                if (goodsid == 141) {
+                    user.setCallTime(user.getCallTime() + 200);
+                } else if (goodsid == 142) {
+                    user.setCallTime(user.getCallTime() + 400);
+                } else if (goodsid == 143) {
+                    user.setCallTime(user.getCallTime() + 600);
+                } else if (goodsid == 144) {
+                    user.setCallTime(user.getCallTime() + 800);
+                } else if (goodsid == 145) {
+                    user.setCallTime(user.getCallTime() + 1000);
+                }
+                userService.update(user);
+            }
+
         }
         return StrUtil.map2Xml(result);
     }

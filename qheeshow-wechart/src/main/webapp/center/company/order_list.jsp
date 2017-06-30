@@ -42,7 +42,9 @@
                 <%
                     if (order.getProjectid() == null) {
                 %>报名费<%
-            } else {
+            } else if(order.getProjectid().intValue()==0){
+                %>话费充值<%
+            }else {
                 String title = order.getTitle();
             %><%=title.length() > 9 ? title.substring(0, 8) + "..." : title%><%
                 }

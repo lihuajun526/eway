@@ -51,7 +51,7 @@
     <h3 class="g-two-t2">最新活动——优惠的套餐更好的为您提供服务</h3>
     <ul id="bestCases" class="g-three1"></ul>
 </div>
-<div class="g-ban-ad1"></div>
+<%--<div class="g-ban-ad1"></div>--%>
 <div class="g-mbg3">
     <h1 class="g-two-t">优秀投资人</h1>
 

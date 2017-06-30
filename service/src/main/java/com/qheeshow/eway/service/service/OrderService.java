@@ -17,13 +17,22 @@ public interface OrderService {
      *
      * @param userid
      * @param projectid
-     * @param orderStr
+     * @param goodsid
      * @param payType
      * @return
      * @throws UnsupportedEncodingException
      */
-    Map<String, String> place(Integer userid, Integer projectid, String orderStr, String payType) throws OrderWechatException;
+    Map<String, String> place(Integer userid, Integer projectid, Integer goodsid, String payType) throws OrderWechatException;
 
+    /**
+     * 话费充值
+     * @param userid
+     * @param goodsid
+     * @param payType
+     * @return
+     * @throws OrderWechatException
+     */
+    public Map<String, String> recharge(Integer userid, Integer goodsid, String payType) throws OrderWechatException;
     /**
      * 活动报名
      *
