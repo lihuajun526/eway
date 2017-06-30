@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -69,13 +70,13 @@ public class UserServiceImpl implements UserService {
     public void saveFromWechat(User user) {
         user.setStatus(4);
         user.setCallTime(0);
-        if (!StringUtils.isEmpty(user.getNickname())) {
+        /*if (!StringUtils.isEmpty(user.getNickname())) {
             try {
                 user.setNickname(URLEncoder.encode(user.getNickname(), "utf-8"));
             } catch (UnsupportedEncodingException e) {
                 LOGGER.error("转nickname失败");
             }
-        }
+        }*/
         userMapper.insert(user);
     }
 
@@ -83,13 +84,13 @@ public class UserServiceImpl implements UserService {
     public void saveFromGzh(User user) {
         user.setStatus(5);
         user.setCallTime(0);
-        if (!StringUtils.isEmpty(user.getNickname())) {
+        /*if (!StringUtils.isEmpty(user.getNickname())) {
             try {
                 user.setNickname(URLEncoder.encode(user.getNickname(), "utf-8"));
             } catch (UnsupportedEncodingException e) {
                 LOGGER.error("转nickname失败");
             }
-        }
+        }*/
         userMapper.insert(user);
     }
 
