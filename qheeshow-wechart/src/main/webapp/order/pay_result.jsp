@@ -28,7 +28,7 @@
         <li>付款金额<span>￥<%=order.getPrice()%>元</span></li>
         <li>下单时间<span><%=sdf.format(order.getCreateTime())%></span></li>
         <%
-            if (project.getId() != null) {
+            if (project.getId() != null && project.getId().intValue()>0) {
         %>
         <li>服务项目<span><%=project.getTitle()%></span></li>
         <%

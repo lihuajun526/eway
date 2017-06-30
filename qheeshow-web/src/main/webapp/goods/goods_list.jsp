@@ -5,10 +5,6 @@
 <%
     String appPath = Config.get("app.path");
     List<Project> projects = (List<Project>) request.getAttribute("projects");
-    String buyBtncls1 = (String) request.getAttribute("buyBtncls1");
-    String buyBtncls2 = (String) request.getAttribute("buyBtncls2");
-    String buyBtncls3 = (String) request.getAttribute("buyBtncls3");
-    String buyBtncls4 = (String) request.getAttribute("buyBtncls4");
     Integer projectid = (Integer) request.getAttribute("projectid");
     String flag = "1";
 %>
@@ -50,12 +46,8 @@
         <ul id="Ms" class="g-pser-lstb">
             <li style="cursor: pointer" onclick="checkM(this,141);"><a>￥100</a><span
                     class="g-pser-lstmin">（200分钟）</span></li>
-            <li style="cursor: pointer" onclick="checkM(this,142);"><a>￥200</a><span
+            <li style="cursor: pointer" onclick="checkM(this,142);" class="on"><a>￥200</a><span
                     class="g-pser-lstmin">（400分钟）</span></li>
-            <li style="cursor: pointer" onclick="checkM(this,143);" class="on"><a>￥300</a><span class="g-pser-lstmin">（600分钟）</span>
-            </li>
-            <li style="cursor: pointer" onclick="checkM(this,144);"><a>￥400</a><span
-                    class="g-pser-lstmin">（800分钟）</span></li>
             <li style="cursor: pointer" onclick="checkM(this,145);"><a>￥500</a><span
                     class="g-pser-lstmin">（1000分钟）</span></li>
         </ul>
@@ -289,7 +281,7 @@
     function hideT(id) {
         $("#t_" + id).hide();
     }
-    var rechargeGoodsid = 143;
+    var rechargeGoodsid = 142;
     function recharge() {
         $.get("<%=appPath%>/order/recharge/" + rechargeGoodsid + "/WECHAT/authj", function (result) {
             window.location.href = "#";

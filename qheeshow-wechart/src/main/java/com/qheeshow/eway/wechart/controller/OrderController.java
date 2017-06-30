@@ -53,7 +53,7 @@ public class OrderController extends BaseController {
 
         Order order = orderService.getByOrder(orderno);
         Project project = null;
-        if (order.getProjectid() != null)
+        if (order.getProjectid() != null && order.getProjectid().intValue() > 0)
             project = projectService.get(order.getProjectid());
         else
             project = new Project();

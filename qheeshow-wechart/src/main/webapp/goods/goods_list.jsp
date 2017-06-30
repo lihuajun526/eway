@@ -44,7 +44,7 @@
             }
         %>
     </ul>
-    <div class="wtwx-package-prompt"><%=projects.size() == 0 ? "提示：请先登录梧桐e路电脑版创建项目" : ""%>
+    <div class="wtwx-package-prompt"><%=projects.size() == 0 ? "提示：请先在电脑端创建项目，网址http://www.qheeshow.cm" : ""%>
     </div>
     <div class="wtwx-package-left">
         <ul id="goodses" class="wtwx-package-left-lst">
