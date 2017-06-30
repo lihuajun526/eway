@@ -46,7 +46,7 @@
     <div class="g-pser">
         <!--充值 star-->
         <div class="g-pser-t">话费充值</div>
-        <div class="g-pser-t2a">为了保护投资人隐私，秉承对企业及投资人负责原则,投资互动申请要求秉承对企业及投资人负责原则是是有限经放</div>
+        <div class="g-pser-t2a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为保护投资人隐私，秉承对企业及投资人负责原则，投融互动申请要求真实有效，经主办方审核通过，签约企业享有平台互动权利，投融双方可在平台实现实时电话互动。梧桐e路为双方平等交流提供虚拟号，虚拟号电话费用￥0.5元/分钟。</div>
         <ul id="Ms" class="g-pser-lstb">
             <li style="cursor: pointer" onclick="checkM(this,141);"><a>￥100</a><span
                     class="g-pser-lstmin">（200分钟）</span></li>
@@ -64,12 +64,12 @@
             if (loginUser != null) {
         %>
         <div class="g-pser-t">选择想要服务的项目</div>
-        <div class="g-pser-t2"><span>温馨提示：</span>选择为您的一个项目购买服务</div>
+        <div class="g-pser-t2"><span>温馨提示：</span>选择为您的一个项目购买套餐</div>
         <ul class="g-pser-lst">
             <%
                 if (projects.size() == 0) {
             %>
-            <li class="on"><a href="<%=appPath%>/project/0/add/edit/1/auth">请先创建项目</a><span
+            <li class="on"><a onclick="crPro()">请先创建项目</a><span
                     class="g-pser-left-top"></span><span class="g-pser-right-top"></span><span
                     class="g-pser-right-bottom"></span><span class="g-pser-left-bottom"></span></li>
             <%
@@ -235,11 +235,23 @@
             window.location.href = "<%=appPath%>/user/login.jsp";
             return;
         }
+        if (projectid == 0) {
+            xalert("对不起，创建项目后您才能购买套餐");
+            return;
+        }
         goodsid = goodsid_;
         $("#sumPrice").html("合计：￥" + price + "元");
     }
     var orderid = 0;
     function place(payType) {
+        if (projectid == 0) {
+            xalert("对不起，创建项目后您才能购买套餐");
+            return;
+        }
+        if (goodsid == 0) {
+            xalert("对不起，请选择要购买的套餐");
+            return;
+        }
         $.get("<%=appPath%>/order/place/" + projectid + "/" + goodsid + "/" + payType + "/authj", function (result) {
             window.location.href = "#";
             if (result.code < 0) {
@@ -298,6 +310,18 @@
         });
         $(obj).attr("class", "on");
         rechargeGoodsid = id;
+    }
+    function crPro() {
+        <%
+            if(loginUser.getRoleid().intValue()>=20 && loginUser.getRoleid().intValue()<30){
+            %>window.location.href = "<%=appPath%>/project/0/add/edit/1/auth";
+        <%
+                    }else{
+                    %>xalert("对不起，您的身份不是企业/创业者不能创建项目");
+        <%
+                    }
+                %>
+
     }
 </script>
 </html>

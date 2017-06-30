@@ -79,46 +79,31 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public ResultOrder preOrder(String orderStr, String payType, Integer projectid, Integer userid, String openid) throws OrderWechatException {
+    public ResultOrder preOrder(Goods goods, String payType, Integer projectid, Integer userid, String openid) throws OrderWechatException {
         ResultOrder resultOrder = null;
-        //orderStr=goodsid1_count1#goodsid2_count2
-        String[] aOrderStr = orderStr.split("#");
-        StringBuffer orderTitle = new StringBuffer();
-        BigDecimal orderPrice = new BigDecimal(0);
-        for (String str : aOrderStr) {
-            String[] aTemp = str.split("_");
-            Goods goods = goodsMapper.selectByPrimaryKey(Integer.valueOf(aTemp[0]));
-            orderTitle.append(goods.getTitle()).append("(").append(aTemp[1]).append("份) ");
-            orderPrice = orderPrice.add(goods.getPrice().multiply(new BigDecimal(aTemp[1])));
-        }
         //创建订单
         Order order = new Order();
         order.setFlag(0);
-        order.setPrice(orderPrice);
-        order.setTitle(orderTitle.toString());
+        order.setPrice(goods.getPrice());
+        order.setTitle(goods.getTitle());
         order.setStatus(1);
         order.setProjectid(projectid);
         order.setUserid(userid);
         order.setOrderNo(StrUtil.getOrderno());
         orderMapper.insert(order);
         //保存订单明细
-        for (String str : aOrderStr) {
-            String[] aTemp = str.split("_");
-            Goods goods = goodsMapper.selectByPrimaryKey(Integer.valueOf(aTemp[0]));
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setCount(Integer.valueOf(aTemp[1]));
-            orderDetail.setPrice(goods.getPrice());
-            orderDetail.setOrderid(order.getId());
-            orderDetail.setGoodsid(goods.getId());
-            orderDetailMapper.insert(orderDetail);
-        }
-
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setCount(1);
+        orderDetail.setPrice(goods.getPrice());
+        orderDetail.setOrderid(order.getId());
+        orderDetail.setGoodsid(goods.getId());
+        orderDetailMapper.insert(orderDetail);
         //第三方支付下单
         if (payType.equalsIgnoreCase("WECHAT")) {
             OrderWechat orderWechat = new OrderWechat();
             orderWechat.setDescription(order.getTitle());
             orderWechat.setOrderno(order.getOrderNo());
-            orderWechat.setTotalFee(String.valueOf(orderPrice.multiply(new BigDecimal(100)).intValue()));
+            orderWechat.setTotalFee(String.valueOf(goods.getPrice().multiply(new BigDecimal(100)).intValue()));
             orderWechat.setTradeType("JSAPI");
             orderWechat.setOpenid(openid);
             try {

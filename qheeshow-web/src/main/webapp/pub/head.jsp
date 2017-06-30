@@ -32,6 +32,8 @@
             <li class="on1"><a href="<%=appPath%>/goods/list/0">购买服务</a></li>
             <li class="on2"><a href="<%=appPath%>/project/0/add/edit/1/auth">创建项目</a></li>
             <%
+                }else if(loginUser.getRoleid().intValue() >= 30 && loginUser.getRoleid().intValue() < 40){
+                    %><li class="on1"><a href="<%=appPath%>/goods/list/0">话费充值</a></li><%
                 }
             } else {
             %>

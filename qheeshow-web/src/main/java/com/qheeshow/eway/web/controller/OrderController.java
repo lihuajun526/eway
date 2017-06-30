@@ -5,6 +5,7 @@ import com.qheeshow.eway.service.model.User;
 import com.qheeshow.eway.service.service.OrderService;
 import com.qheeshow.eway.web.base.BaseController;
 import com.qheeshow.eway.web.base.Result;
+import javafx.scene.layout.TilePane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ public class OrderController extends BaseController {
 
     /**
      * 购买套餐
+     *
      * @param projectid
      * @param goodsid
      * @param payType
@@ -36,8 +38,19 @@ public class OrderController extends BaseController {
     @RequestMapping("/place/{projectid}/{goodsid}/{payType}/authj")
     @ResponseBody
     public String place(@PathVariable Integer projectid, @PathVariable Integer goodsid, @PathVariable String payType, HttpSession session) {
-        //goodsid_count#goodsid_count#goodsid_count
         User loginUser = (User) session.getAttribute("loginUser");
+        if (projectid == null || projectid.intValue() == 0) {
+            Result result = new Result<>();
+            result.setCode(-2);
+            result.setMessage("对不起，创建项目后您才能购买套餐");
+            return result.toString();
+        }
+        if (goodsid == null || goodsid.intValue() == 0) {
+            Result result = new Result<>();
+            result.setCode(-2);
+            result.setMessage("对不起，请选择要购买的套餐");
+            return result.toString();
+        }
         Result<Map<String, String>> result = new Result<>();
         try {
             Map<String, String> map = orderService.place(loginUser.getId(), projectid, goodsid, payType);

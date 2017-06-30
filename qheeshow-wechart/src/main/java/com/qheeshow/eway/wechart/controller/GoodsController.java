@@ -35,78 +35,45 @@ public class GoodsController extends BaseController {
     private GoodsService goodsService;
     @Autowired
     private ProjectService projectService;
-    @Autowired
-    private OrderDetailService orderDetailService;
 
     @RequestMapping("/list/{projectid}")
     public ModelAndView list(@PathVariable Integer projectid, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-        List<Project> projects = new ArrayList<>();
         Object o = session.getAttribute("loginUser");
         if (o == null) {
             modelAndView.setViewName("pub/404");
             return modelAndView;
         }
+
+
         User loginUser = (User) o;
+        List<Project> projects = new ArrayList<>();
         projects = projectService.listByUser(loginUser.getId());
-        List<Goods> goodses = goodsService.listByStatus(1);
-        Boolean flag1 = false;
-        Boolean flag2 = false;
-        Boolean flag3 = false;
-        Boolean flag4 = false;
 
         if (projects.size() == 0) {//未创建项目
-
+            projectid = 0;
         } else {
-            Project project = null;
-            if (projectid.intValue() == 0) {
-                project = projects.get(0);
-                projectid = project.getId();
-            } else
-                project = projectService.get(projectid);
-                /*if (project.getStatus().intValue() == 1) {//新项目
-                    buyBtncls1 = "g-purchase2";
-                }*/
-            boolean buyed2 = false;
-            boolean buyed34 = false;
-            List<OrderDetail> orderDetails = orderDetailService.listByProject(project.getId());
-            for (OrderDetail orderDetail : orderDetails) {
-                if (orderDetail.getGoodsid().intValue() == 1) {
-
-                } else if (orderDetail.getGoodsid().intValue() == 2) {
-                    buyed2 = true;
-                } else if (orderDetail.getGoodsid().intValue() == 3) {
-                    buyed34 = true;
-                } else if (orderDetail.getGoodsid().intValue() == 4) {
-                    buyed34 = true;
-                }
+            if (projectid.intValue() == 0 || projectService.get(projectid) == null) {
+                projectid = projects.get(0).getId();
             }
-            if (buyed34)
-                flag1 = true;
-            flag2 = !buyed2;
-            flag3 = flag4 = !buyed34;
-
         }
         modelAndView.setViewName("goods/goods_list");
         modelAndView.addObject("projectid", projectid);
         modelAndView.addObject("projects", projects);
-        modelAndView.addObject("goodses", goodses);
-        modelAndView.addObject("flag1", flag1);
-        modelAndView.addObject("flag2", flag2);
-        modelAndView.addObject("flag3", flag3);
-        modelAndView.addObject("flag4", flag4);
         return modelAndView;
     }
 
-    @RequestMapping("/get/{goodsid}/{flag}")
-    public ModelAndView get(@PathVariable Integer goodsid, @PathVariable Integer flag) {
+    @RequestMapping("/get/{goodsid}")
+    public ModelAndView get(@PathVariable Integer goodsid) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Goods goods = goodsService.selectByPrimaryKey(goodsid);
-
-        modelAndView.addObject("goods", goods);
-        modelAndView.addObject("flag", flag);
-        modelAndView.setViewName("goods/t_" + goodsid);
+        if (goodsid.intValue() == 3) {
+            modelAndView.setViewName("goods/t_recharge");
+        } else {
+            Goods goods = goodsService.selectByPrimaryKey(goodsid);
+            modelAndView.addObject("goods", goods);
+            modelAndView.setViewName("goods/t_" + goodsid);
+        }
         return modelAndView;
     }
 
@@ -114,32 +81,35 @@ public class GoodsController extends BaseController {
      * 购买套餐
      *
      * @param payType
-     * @param orderStr
+     * @param goodsid
+     * @param projectid
      * @param session
      * @return
      */
     @RequestMapping("/preorder/{payType}/v_authj")
     @ResponseBody
-    public String preOrder(@PathVariable String payType, String orderStr,Integer projectid, HttpSession session) {
+    public String preOrder(@PathVariable String payType, Integer goodsid, Integer projectid, HttpSession session) {
 
         Result<Tip<ResultOrder>> result = new Result<>();
         Tip<ResultOrder> tip = new Tip<>();
         result.setData(tip);
 
-        if (StringUtils.isEmpty(orderStr)) {
+        if (goodsid == null || goodsid.intValue() == 0) {
             result.setCode(-1);
             result.setMessage("对不起，请选择要购买的商品");
             return result.toString();
         }
-
-        if (orderStr.charAt(orderStr.length() - 1) == '#')
-            orderStr = orderStr.substring(0, orderStr.length() - 1);
+        Goods goods = goodsService.selectByPrimaryKey(goodsid);
+        if (goods == null) {
+            result.setCode(-1);
+            result.setMessage("对不起，您选择的商品已下架");
+            return result.toString();
+        }
 
         User loginUser = (User) session.getAttribute("loginUser");
         ResultOrder resultOrder = null;
-
         try {
-            resultOrder = goodsService.preOrder(orderStr, payType,projectid, loginUser.getId(), loginUser.getGzhOpenid());
+            resultOrder = goodsService.preOrder(goods, payType, projectid, loginUser.getId(), loginUser.getGzhOpenid());
             resultOrder.setTimeStamp(String.valueOf(System.currentTimeMillis()));
             //签名
             Map<String, String> params = new TreeMap<>();
@@ -155,9 +125,6 @@ public class GoodsController extends BaseController {
             result.setCode(-1);
             result.setMessage("对不起，下单失败，请联系梧桐小e，电话15002060446");
         }
-
         return result.toString();
     }
-
-
 }

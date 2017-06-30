@@ -2,7 +2,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Goods goods = (Goods) request.getAttribute("goods");
-    Integer flag = (Integer) request.getAttribute("flag");
 %>
 <div class="wtwx-package-right-h">
     <div class="wtwx-package-r-lst">
@@ -44,20 +43,6 @@
 </div>
 <script>
     curGoods = 2;
-    var flag = <%=flag%>;
-    price2 = <%=goods.getPrice()%>;
-    function init() {
-        if (flag == 1) {
-            $("#i1").attr("class", "on1");
-        } else {
-            $("#i1").attr("class", "on5");
-        }
-        if (goods2 == 0) {
-            $("#i3").attr("class", "on4");
-        } else {
-            $("#i3").attr("class", "on3");
-        }
-        $("#i2").html(goods2);
-    }
-    init();
+    projectid = curProject;
+    $("#sum").html(<%=goods.getPrice()%>);
 </script>

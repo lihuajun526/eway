@@ -42,9 +42,9 @@
                 <%
                     if (order.getProjectid() == null) {
                 %>报名费<%
-            } else if(order.getProjectid().intValue()==0){
-                %>话费充值<%
-            }else {
+            } else if (order.getProjectid().intValue() == 0) {
+            %>话费<%
+            } else {
                 String title = order.getTitle();
             %><%=title.length() > 9 ? title.substring(0, 8) + "..." : title%><%
                 }
@@ -57,6 +57,8 @@
                         title = title.substring(title.indexOf("[") + 1, title.lastIndexOf("]") - 1);
                         title = title.length() > 12 ? title.substring(0, 11) + "..." : title;
                 %>活动：<%=title%><%
+            } else if (order.getProjectid().intValue() == 0) {
+            %>话费充值<%
             } else {
                 Project project = map.get(order.getId());
                 String title = project.getTitle();
