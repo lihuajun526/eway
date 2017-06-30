@@ -45,6 +45,8 @@ public class PayServiceImpl implements PayService {
     private OrderService orderService;
     @Autowired
     private ActivitySignService activitySignService;
+    @Autowired
+    private UserService userService;
 
     @Override
     public String createWechatORCode(String url, String fileType) throws IOException, WriterException {
@@ -195,6 +197,25 @@ public class PayServiceImpl implements PayService {
                 activitySign = activitySignService.getByActivitySign(activitySign);
                 activitySign.setStatus(1);
                 activitySignService.save(activitySign);
+            }
+        } else if (order.getProjectid().intValue() == 0) {//更新用户的通话时长
+            User user = userService.get(order.getId());
+            List<OrderDetail> list = orderDetailService.listByOrder(order.getId());
+            if (list.size() == 1) {
+                OrderDetail orderDetail = list.get(0);
+                int goodsid = orderDetail.getGoodsid();
+                if (goodsid == 141) {
+                    user.setCallTime(user.getCallTime() == null ? 200 : user.getCallTime() + 200);
+                } else if (goodsid == 142) {
+                    user.setCallTime(user.getCallTime() == null ? 400 : user.getCallTime() + 400);
+                } else if (goodsid == 143) {
+                    user.setCallTime(user.getCallTime() == null ? 600 : user.getCallTime() + 600);
+                } else if (goodsid == 144) {
+                    user.setCallTime(user.getCallTime() == null ? 800 : user.getCallTime() + 800);
+                } else if (goodsid == 145) {
+                    user.setCallTime(user.getCallTime() == null ? 1000 : user.getCallTime() + 1000);
+                }
+                userService.update(user);
             }
         }
     }

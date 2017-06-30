@@ -170,7 +170,6 @@ public class PayController extends BaseController {
                 }
                 userService.update(user);
             }
-
         }
         return StrUtil.map2Xml(result);
     }
