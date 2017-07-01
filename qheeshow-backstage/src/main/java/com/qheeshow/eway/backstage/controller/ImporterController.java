@@ -52,7 +52,7 @@ public class ImporterController extends BaseController {
             return result.toString();
         }
 
-        ExcelReader excelReader = new ExcelReader("C:\\import\\16-21期路演上线项目第一批-13个\\路演项目导入13个-yoyo.xlsx", "项目录入模板");
+        ExcelReader excelReader = new ExcelReader("C:\\Users\\lihuajun\\Desktop\\非路演企业上线-24个-ZYY6.30\\普通项目导入-24家-ZYY6.30.xlsx", "项目录入模板");
         excelReader.getSheetData();
         importUserAndPro(excelReader.mapData);
         return result.toString();
@@ -126,10 +126,12 @@ public class ImporterController extends BaseController {
             this.copyFile(Config.get("import.file.path") + "/" + map.get("LOGO"), imageStrs[0] + "/" + logoFileName);
             project.setLogo(imageStrs[1] + "/" + logoFileName);
             //bp
-            String bpFileName = System.currentTimeMillis() + "." + map.get("BP").split("\\.")[1];
-            this.copyFile(Config.get("import.file.path") + "/" + map.get("BP"), fileStrs[0] + "/" + bpFileName);
-            project.setBp(fileStrs[1] + "/" + bpFileName);
-            project.setBpName(map.get("BP"));
+            if (!StringUtils.isEmpty(map.get("BP"))) {
+                String bpFileName = System.currentTimeMillis() + "." + map.get("BP").split("\\.")[1];
+                this.copyFile(Config.get("import.file.path") + "/" + map.get("BP"), fileStrs[0] + "/" + bpFileName);
+                project.setBp(fileStrs[1] + "/" + bpFileName);
+                project.setBpName(map.get("BP"));
+            }
             //一页通
             String onePageFileName = System.currentTimeMillis() + "." + map.get("一页通").split("\\.")[1];
             this.copyFile(Config.get("import.file.path") + "/" + map.get("一页通"), imageStrs[0] + "/" + onePageFileName);

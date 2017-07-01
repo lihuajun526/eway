@@ -7,6 +7,8 @@
     String appPath = Config.get("app.path");
     List<Investor> investors = (List<Investor>) request.getAttribute("investors");
     for (Investor investor : investors) {
+        String title = investor.getCompanyName()+" | "+investor.getCompanyRank();
+        title = title.length()>15?title.substring(0,14)+"...":title;
 %>
 <div class="g-people-lst">
     <span><img style="cursor: pointer" src="<%=investor.getPhoto()%>" width="240" height="181"
@@ -14,7 +16,7 @@
 
     <h1><%=investor.getTrueName()%>
     </h1>
-    <h5><%=investor.getCompanyName()%> | <%=investor.getCompanyRank()%>
+    <h5><%=title%>
     </h5>
 
     <div class="g-people-lst-heg">

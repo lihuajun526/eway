@@ -24,7 +24,7 @@
     </div>
 </div>
 <%
-    if (goodsItem.getId().intValue() == 1) {
+    if (goodsItem.getType().intValue() == 1) {
         if (investors == null || investors.size() == 0) {
 %>
 <div class="wx-call-t2"><span>请耐心等待，平台会在24小时之内为您推荐优质的投资人</span></div>
@@ -34,6 +34,8 @@
 <div class="wx-call-t2"><span>以下是平台为你的项目推荐的投资人</span></div>
 <%
     for (Investor investor : investors) {
+        String title = investor.getCompanyName() + "／" + investor.getCompanyRank();
+        title = title.length() > 21 ? title.substring(0, 21) + "..." : title;
 %>
 <div class="wtwx-investors-cnt1">
     <div class="wtwx-investors-cnt1-l"><img src="<%=investor.getPhoto()%>" width="48" height="48"/></div>
@@ -41,7 +43,7 @@
         <div class="wtwx-investors-cnt1-r">
             <h1><%=investor.getTrueName()%>
             </h1>
-            <h4><%=investor.getCompanyName()%>／<%=investor.getCompanyRank()%>
+            <h4><%=title%>
             </h4>
         </div>
     </a>
@@ -54,6 +56,3 @@
         }
     }
 %>
-
-
-
