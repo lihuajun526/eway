@@ -94,8 +94,8 @@
             <h2>套餐一</h2>
 
             <div class="g-pser-cnttit">
-                <div class="on1">￥3万</div>
-                <div class="on2">现价<span>￥2万</span></div>
+                <div class="on1">￥4万</div>
+                <div class="on2">现价<span>￥3万</span></div>
             </div>
             <div class="g-pser-cntont2">
                 <ul>
@@ -104,7 +104,7 @@
                     <li onmouseover="showT(2)" onmouseout="hideT(2)">投资人约见服务</li>
                 </ul>
             </div>
-            <div class="g-purchase"><a onclick="addGoods(1,20000);">购买</a></div>
+            <div class="g-purchase"><a onclick="addGoods(1,30000);">购买</a></div>
             <div id="t_0" class="g-invest-bombbox0">
                 <div class="g-invest-bombbox-t"></div>
                 <div class="g-invest-bombbox-c">
