@@ -47,10 +47,10 @@ public class ImporterController extends BaseController {
     public String importProject(HttpSession session) {
         Result result = new Result();
 
-        /*if (session.getAttribute("loginUser") == null) {
+        if (session.getAttribute("loginUser") == null) {
             result.setMessage("对不起，您没有权限");
             return result.toString();
-        }*/
+        }
 
         ExcelReader excelReader = new ExcelReader("C:\\Users\\lihuajun\\Desktop\\非路演企业上线-24个-ZYY6.30\\普通项目导入-24家-ZYY6.30.xlsx", "项目录入模板");
         excelReader.getSheetData();
