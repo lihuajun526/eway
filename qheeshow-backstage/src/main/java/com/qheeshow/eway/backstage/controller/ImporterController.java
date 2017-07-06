@@ -47,10 +47,10 @@ public class ImporterController extends BaseController {
     public String importProject(HttpSession session) {
         Result result = new Result();
 
-        if (session.getAttribute("loginUser") == null) {
+        /*if (session.getAttribute("loginUser") == null) {
             result.setMessage("对不起，您没有权限");
             return result.toString();
-        }
+        }*/
 
         ExcelReader excelReader = new ExcelReader("C:\\Users\\lihuajun\\Desktop\\非路演企业上线-24个-ZYY6.30\\普通项目导入-24家-ZYY6.30.xlsx", "项目录入模板");
         excelReader.getSheetData();
@@ -59,6 +59,7 @@ public class ImporterController extends BaseController {
     }
 
     private void importUserAndPro(List<Map<String, String>> mapData) {
+        long mo = 16600000000L;
         for (Map<String, String> map : mapData) {
             User user = new User();
             try {
@@ -66,8 +67,10 @@ public class ImporterController extends BaseController {
             } catch (CryptoException e) {
                 e.printStackTrace();
             }
-            user.setMobile(map.get("联系电话").trim());
-            user.setName(map.get("联系人").trim());
+            //user.setMobile(map.get("联系电话").trim());
+            //user.setName(map.get("联系人").trim());
+            user.setMobile(String.valueOf(++mo));
+            user.setName("梧桐小e");
             user.setRoleid(20);
             user.setStatus(2);
 

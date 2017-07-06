@@ -52,6 +52,13 @@ public class MixcomServiceImpl implements MixcomService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
     public String bound(String a, String b, int callTime) throws UnsupportedEncodingException, CommonException, RequestException {
+        //16600000000，手机号特殊处理
+        if(a.indexOf("1660000")!=-1){
+            a = Config.get("customer.tel");
+        }
+        if(b.indexOf("1660000")!=-1){
+            b = Config.get("customer.tel");
+        }
         a = StrUtil.handleAdd86(a);
         b = StrUtil.handleAdd86(b);
 
